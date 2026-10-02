@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "name": "File firmware iOS (.ipsw)",
+      "rules": ["ios.softwareUpdates"],
+      "files": [
+        { "path": "~/Library/iTunes/iPhone Software Updates/iPhone15,2_17.0_21A329_Restore.ipsw", "size": 8192 },
+        { "path": "~/Library/iTunes/iPad Software Updates/iPad_17.0_Restore.ipsw", "size": 4096 },
+        { "path": "~/Library/iTunes/iPhone Software Updates/partial.ipsw.download", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/iTunes/iPhone Software Updates/iPhone15,2_17.0_21A329_Restore.ipsw",
+        "~/Library/iTunes/iPad Software Updates/iPad_17.0_Restore.ipsw"
+      ]
+    },
+    {
+      "name": "Bản tải về cũ: dmg/pkg/iso cũ hơn 30 ngày (minAgeDays)",
+      "rules": ["downloads.oldInstallers"],
+      "files": [
+        { "path": "~/Downloads/Old.dmg", "size": 8192, "ageDays": 45 },
+        { "path": "~/Downloads/New.dmg", "size": 8192, "ageDays": 5 },
+        { "path": "~/Downloads/Installer.pkg", "size": 4096, "ageDays": 31 },
+        { "path": "~/Downloads/ubuntu.iso", "size": 4096, "ageDays": 90 },
+        { "path": "~/Downloads/Report.pdf", "size": 4096, "ageDays": 400 },
+        { "path": "~/Downloads/Folder/Nested.dmg", "size": 4096, "ageDays": 90 }
+      ],
+      "expect": ["~/Downloads/Old.dmg", "~/Downloads/Installer.pkg", "~/Downloads/ubuntu.iso"]
+    },
+    {
+      "name": "Tệp Mail đã tải",
+      "rules": ["mail.attachments"],
+      "files": [
+        { "path": "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/0A1B-UUID/Invoice.pdf", "size": 4096 },
+        { "path": "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/2C3D-UUID/photo.jpg", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/0A1B-UUID",
+        "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/2C3D-UUID"
+      ]
+    },
+    {
+      "name": "Mail đang chạy: không đề xuất",
+      "rules": ["mail.attachments"],
+      "running": ["com.apple.mail"],
+      "files": [{ "path": "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/0A1B-UUID/Invoice.pdf", "size": 4096 }],
+      "expect": []
+    },
+    {
+      "name": "Symlink trỏ ra ngoài (/System) trong Caches: liệt kê chính symlink, không theo vào đích",
+      "rules": ["user.caches.all"],
+      "files": [
+        { "path": "~/Library/Caches/evil", "symlink": "/System/Library" },
+        { "path": "~/Library/Caches/com.example.real/x", "size": 4096 }
+      ],
+      "expect": ["~/Library/Caches/evil", "~/Library/Caches/com.example.real"]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+# CI (mục 19 bước 6): build → test → rulepack lint/test → ký → notarize → appcast → upload.
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Chọn Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app || true
+      - name: Unit test package
+        working-directory: Packages
+        run: swift test
+      - name: rulepack lint + test
+        working-directory: Packages
+        run: |
+          swift run rulepack lint ../Rules
+          swift run rulepack test ../Rules --fixtures ../Tests/Fixtures/rules
+      - name: Build app
+        run: |
+          brew install xcodegen
+          echo "${{ secrets.RULES_SIGNING_KEY }}" > Secrets/rules_signing_key.b64 || true
+          Scripts/build-app.sh Debug
+
+  release:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build-test
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cài chứng chỉ Developer ID
+        env:
+          CERT_P12: ${{ secrets.DEVELOPER_ID_P12 }}
+          CERT_PASSWORD: ${{ secrets.DEVELOPER_ID_PASSWORD }}
+        run: |
+          echo "$CERT_P12" | base64 --decode > cert.p12
+          security create-keychain -p ci build.keychain
+          security import cert.p12 -k build.keychain -P "$CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p ci build.keychain
+      - name: Cấu hình ký
+        run: |
+          cat > Config/Signing.local.xcconfig <<CFG
+          DEVELOPMENT_TEAM = ${{ secrets.TEAM_ID }}
+          CODE_SIGN_IDENTITY = Developer ID Application
+          OTHER_CODE_SIGN_FLAGS = --timestamp
+          CFG
+          mkdir -p Secrets && echo "${{ secrets.RULES_SIGNING_KEY }}" > Secrets/rules_signing_key.b64
+      - name: Notary profile
+        run: xcrun notarytool store-credentials mashclean --apple-id "${{ secrets.APPLE_ID }}" --team-id "${{ secrets.TEAM_ID }}" --password "${{ secrets.APP_PASSWORD }}"
+      - name: Phát hành
+        run: |
+          brew install xcodegen
+          Scripts/release.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MashClean
+          path: dist/

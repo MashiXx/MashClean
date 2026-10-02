@@ -1,0 +1,1089 @@
+{
+  "cases": [
+    {
+      "name": "app.com.adobe.Photoshop.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.adobe.Photoshop.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.adobe.Photoshop"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.adobe.Photoshop.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.adobe.Photoshop.plist"
+      ]
+    },
+    {
+      "name": "app.com.adobe.illustrator.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.adobe.illustrator.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.adobe.illustrator"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.adobe.illustrator.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.adobe.illustrator.plist"
+      ]
+    },
+    {
+      "name": "app.com.adobe.PremierePro.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.adobe.PremierePro.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.adobe.PremierePro.24"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.adobe.PremierePro.24.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Adobe/Premiere Pro/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.adobe.PremierePro.24.plist",
+        "~/Library/Application Support/Adobe/Premiere Pro"
+      ]
+    },
+    {
+      "name": "app.com.adobe.Reader.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.adobe.Reader.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.adobe.Reader"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.adobe.Reader.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.adobe.Reader.plist"
+      ]
+    },
+    {
+      "name": "app.com.adobe.acc.AdobeCreativeCloud.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.adobe.acc.AdobeCreativeCloud.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.adobe.acc.AdobeCreativeCloud"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.adobe.acc.AdobeCreativeCloud.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Logs/CreativeCloud/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.adobe.acc.AdobeCreativeCloud.plist",
+        "~/Library/Logs/CreativeCloud"
+      ]
+    },
+    {
+      "name": "app.com.google.Chrome.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.google.Chrome.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.google.Chrome"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.google.Chrome.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Google/Chrome/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.google.Chrome.plist",
+        "~/Library/Application Support/Google/Chrome"
+      ]
+    },
+    {
+      "name": "app.org.mozilla.firefox.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.org.mozilla.firefox.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "org.mozilla.firefox"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/org.mozilla.firefox.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Firefox/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/org.mozilla.firefox.plist",
+        "~/Library/Application Support/Firefox"
+      ]
+    },
+    {
+      "name": "app.com.brave.Browser.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.brave.Browser.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.brave.Browser"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.brave.Browser.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/BraveSoftware/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.brave.Browser.plist",
+        "~/Library/Application Support/BraveSoftware"
+      ]
+    },
+    {
+      "name": "app.company.thebrowser.Browser.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.company.thebrowser.Browser.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "company.thebrowser.Browser"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/company.thebrowser.Browser.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Arc/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/company.thebrowser.Browser.plist",
+        "~/Library/Application Support/Arc"
+      ]
+    },
+    {
+      "name": "app.us.zoom.xos.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.us.zoom.xos.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "us.zoom.xos"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/us.zoom.xos.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/zoom.us/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/us.zoom.xos.plist",
+        "~/Library/Application Support/zoom.us"
+      ]
+    },
+    {
+      "name": "app.com.tinyspeck.slackmacgap.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.tinyspeck.slackmacgap.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.tinyspeck.slackmacgap"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.tinyspeck.slackmacgap.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Slack/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.tinyspeck.slackmacgap.plist",
+        "~/Library/Application Support/Slack"
+      ]
+    },
+    {
+      "name": "app.com.hnc.Discord.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.hnc.Discord.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.hnc.Discord"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.hnc.Discord.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/discord/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.hnc.Discord.plist",
+        "~/Library/Application Support/discord"
+      ]
+    },
+    {
+      "name": "app.ru.keepcoder.Telegram.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.ru.keepcoder.Telegram.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "ru.keepcoder.Telegram"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/ru.keepcoder.Telegram.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/ru.keepcoder.Telegram.plist"
+      ]
+    },
+    {
+      "name": "app.com.skype.skype.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.skype.skype.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.skype.skype"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.skype.skype.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Skype/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.skype.skype.plist",
+        "~/Library/Application Support/Skype"
+      ]
+    },
+    {
+      "name": "app.net.whatsapp.WhatsApp.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.net.whatsapp.WhatsApp.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "net.whatsapp.WhatsApp"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/net.whatsapp.WhatsApp.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Group Containers/group.net.whatsapp.WhatsApp.shared/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/net.whatsapp.WhatsApp.plist",
+        "~/Library/Group Containers/group.net.whatsapp.WhatsApp.shared"
+      ]
+    },
+    {
+      "name": "app.com.docker.docker.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.docker.docker.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.docker.docker"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.docker.docker.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Group Containers/group.com.docker/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.docker.docker.plist",
+        "~/Library/Group Containers/group.com.docker"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.VSCode.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.VSCode.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.VSCode"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.VSCode.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Code/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.VSCode.plist",
+        "~/Library/Application Support/Code"
+      ]
+    },
+    {
+      "name": "app.com.todesktop.230313mzl4w4u92.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.todesktop.230313mzl4w4u92.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.todesktop.230313mzl4w4u92"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.todesktop.230313mzl4w4u92.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Cursor/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.todesktop.230313mzl4w4u92.plist",
+        "~/Library/Application Support/Cursor"
+      ]
+    },
+    {
+      "name": "app.com.postmanlabs.mac.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.postmanlabs.mac.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.postmanlabs.mac"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.postmanlabs.mac.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Postman/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.postmanlabs.mac.plist",
+        "~/Library/Application Support/Postman"
+      ]
+    },
+    {
+      "name": "app.com.sublimetext.4.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.sublimetext.4.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.sublimetext.4"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.sublimetext.4.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Sublime Text/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.sublimetext.4.plist",
+        "~/Library/Application Support/Sublime Text"
+      ]
+    },
+    {
+      "name": "app.com.valvesoftware.steam.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.valvesoftware.steam.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.valvesoftware.steam"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.valvesoftware.steam.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Steam/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.valvesoftware.steam.plist",
+        "~/Library/Application Support/Steam"
+      ]
+    },
+    {
+      "name": "app.com.epicgames.EpicGamesLauncher.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.epicgames.EpicGamesLauncher.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.epicgames.EpicGamesLauncher"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.epicgames.EpicGamesLauncher.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Epic/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.epicgames.EpicGamesLauncher.plist",
+        "~/Library/Application Support/Epic"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.intellij.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.intellij.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.intellij"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.intellij.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.intellij.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.intellij.ce.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.intellij.ce.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.intellij.ce"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.intellij.ce.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.intellij.ce.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.pycharm.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.pycharm.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.pycharm"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.pycharm.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.pycharm.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.pycharm.ce.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.pycharm.ce.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.pycharm.ce"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.pycharm.ce.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.pycharm.ce.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.WebStorm.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.WebStorm.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.WebStorm"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.WebStorm.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.WebStorm.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.goland.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.goland.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.goland"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.goland.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.goland.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.CLion.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.CLion.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.CLion"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.CLion.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.CLion.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.rider.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.rider.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.rider"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.rider.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.rider.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.PhpStorm.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.PhpStorm.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.PhpStorm"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.PhpStorm.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.PhpStorm.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.rubymine.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.rubymine.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.rubymine"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.rubymine.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.rubymine.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.datagrip.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.datagrip.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.datagrip"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.datagrip.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.datagrip.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.rustrover.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.rustrover.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.rustrover"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.rustrover.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.rustrover.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.dataspell.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.dataspell.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.dataspell"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.dataspell.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.dataspell.plist"
+      ]
+    },
+    {
+      "name": "app.com.jetbrains.toolbox.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.jetbrains.toolbox.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.jetbrains.toolbox"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.jetbrains.toolbox.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/JetBrains/Toolbox/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.jetbrains.toolbox.plist",
+        "~/Library/Application Support/JetBrains/Toolbox"
+      ]
+    },
+    {
+      "name": "app.com.google.android.studio.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.google.android.studio.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.google.android.studio"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.google.android.studio.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.google.android.studio.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.Word.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.Word.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.Word"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.Word.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.Word.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.Excel.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.Excel.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.Excel"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.Excel.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.Excel.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.Powerpoint.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.Powerpoint.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.Powerpoint"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.Powerpoint.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.Powerpoint.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.Outlook.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.Outlook.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.Outlook"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.Outlook.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.Outlook.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.onenote.mac.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.onenote.mac.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.onenote.mac"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.onenote.mac.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.onenote.mac.plist"
+      ]
+    },
+    {
+      "name": "app.com.microsoft.edgemac.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.microsoft.edgemac.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.edgemac"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.microsoft.edgemac.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Microsoft Edge/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.microsoft.edgemac.plist",
+        "~/Library/Application Support/Microsoft Edge"
+      ]
+    },
+    {
+      "name": "app.com.spotify.client.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.spotify.client.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.spotify.client"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.spotify.client.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Spotify/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.spotify.client.plist",
+        "~/Library/Application Support/Spotify"
+      ]
+    },
+    {
+      "name": "app.notion.id.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.notion.id.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "notion.id"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/notion.id.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/Notion/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/notion.id.plist",
+        "~/Library/Application Support/Notion"
+      ]
+    },
+    {
+      "name": "app.org.videolan.vlc.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.org.videolan.vlc.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "org.videolan.vlc"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/org.videolan.vlc.plist",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Application Support/org.videolan.vlc/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/org.videolan.vlc.plist",
+        "~/Library/Application Support/org.videolan.vlc"
+      ]
+    },
+    {
+      "name": "app.com.getdropbox.dropbox.leftovers: plist và thư mục riêng của app",
+      "rules": [
+        "app.com.getdropbox.dropbox.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.getdropbox.dropbox"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Preferences/com.getdropbox.dropbox.plist",
+          "size": 512
+        },
+        {
+          "path": "~/.dropbox/x",
+          "size": 1024
+        }
+      ],
+      "expect": [
+        "~/Library/Preferences/com.getdropbox.dropbox.plist",
+        "~/.dropbox"
+      ]
+    },
+    {
+      "name": "Teams (bản mới và cũ dùng chung rule)",
+      "rules": [
+        "app.com.microsoft.teams2.leftovers"
+      ],
+      "apps": [
+        {
+          "bundleID": "com.microsoft.teams"
+        }
+      ],
+      "files": [
+        {
+          "path": "~/Library/Application Support/Microsoft/Teams/x",
+          "size": 512
+        },
+        {
+          "path": "~/Library/Preferences/com.microsoft.teams.plist",
+          "size": 512
+        }
+      ],
+      "expect": [
+        "~/Library/Application Support/Microsoft/Teams",
+        "~/Library/Preferences/com.microsoft.teams.plist"
+      ]
+    }
+  ]
+}

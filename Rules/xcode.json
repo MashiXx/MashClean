@@ -1,0 +1,200 @@
+[
+  {
+    "id": "xcode.derivedData",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Xcode DerivedData", "vi": "DerivedData của Xcode" },
+    "reason": {
+      "en": "Intermediate build products and indexes; Xcode rebuilds them on the next build.",
+      "vi": "Sản phẩm build trung gian và chỉ mục; Xcode tạo lại ở lần build sau."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Developer/Xcode/DerivedData/*"]
+    },
+    "conditions": { "appNotRunning": ["com.apple.dt.Xcode"] }
+  },
+  {
+    "id": "xcode.archives",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Xcode archives", "vi": "Bản archive của Xcode" },
+    "reason": {
+      "en": "Archived app builds with their debug symbols; keep the ones you may need to symbolicate crash reports.",
+      "vi": "Bản build đã archive kèm debug symbol; nên giữ các bản còn cần để đọc báo cáo crash."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Developer/Xcode/Archives/*/*.xcarchive"]
+    }
+  },
+  {
+    "id": "xcode.deviceSupport",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Device support files", "vi": "Tệp hỗ trợ thiết bị" },
+    "reason": {
+      "en": "Debug symbols copied from devices you connected; Xcode copies them again when the device is reconnected.",
+      "vi": "Debug symbol sao chép từ thiết bị đã kết nối; Xcode sẽ sao chép lại khi cắm lại thiết bị."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Developer/Xcode/iOS DeviceSupport/*",
+        "~/Library/Developer/Xcode/watchOS DeviceSupport/*",
+        "~/Library/Developer/Xcode/tvOS DeviceSupport/*",
+        "~/Library/Developer/Xcode/visionOS DeviceSupport/*",
+        "~/Library/Developer/Xcode/xrOS DeviceSupport/*",
+        "~/Library/Developer/Xcode/macOS DeviceSupport/*"
+      ]
+    },
+    "conditions": { "appNotRunning": ["com.apple.dt.Xcode"] }
+  },
+  {
+    "id": "xcode.products",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Xcode products", "vi": "Sản phẩm build của Xcode" },
+    "reason": {
+      "en": "Build products Xcode keeps for the Organizer; they can be rebuilt from source.",
+      "vi": "Sản phẩm build Xcode giữ cho Organizer; có thể build lại từ mã nguồn."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Developer/Xcode/Products/*"]
+    }
+  },
+  {
+    "id": "xcode.caches",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Xcode caches", "vi": "Cache của Xcode" },
+    "reason": {
+      "en": "Xcode's own caches and documentation cache; recreated automatically.",
+      "vi": "Cache riêng và cache tài liệu của Xcode; được tạo lại tự động."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/com.apple.dt.Xcode",
+        "~/Library/Developer/Xcode/DocumentationCache",
+        "~/Library/Developer/Xcode/DocumentationIndex"
+      ]
+    },
+    "conditions": { "appNotRunning": ["com.apple.dt.Xcode"] }
+  },
+  {
+    "id": "xcode.coreSimulator.caches",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Simulator caches", "vi": "Cache của Simulator" },
+    "reason": {
+      "en": "Shared dyld and runtime caches of the iOS Simulator; rebuilt when a simulator boots.",
+      "vi": "Cache dyld và runtime dùng chung của Simulator; tạo lại khi khởi động simulator."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Developer/CoreSimulator/Caches/*"]
+    },
+    "conditions": { "appNotRunning": ["com.apple.iphonesimulator", "com.apple.dt.Xcode"] }
+  },
+  {
+    "id": "xcode.coreSimulator.logs",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Simulator logs", "vi": "Log của Simulator" },
+    "reason": {
+      "en": "Logs written by simulator devices.",
+      "vi": "Log do các thiết bị simulator ghi."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Logs/CoreSimulator/*"]
+    }
+  },
+  {
+    "id": "xcode.deviceLogs",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Device logs", "vi": "Log thiết bị" },
+    "reason": {
+      "en": "Crash logs synced from iPhone, iPad and other devices.",
+      "vi": "Log crash đồng bộ từ iPhone, iPad và thiết bị khác."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Logs/CrashReporter/MobileDevice/*",
+        "~/Library/Developer/Xcode/iOS Device Logs/*",
+        "~/Library/Developer/Xcode/watchOS Device Logs/*"
+      ]
+    }
+  },
+  {
+    "id": "xcode.previews",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "SwiftUI preview simulators", "vi": "Simulator của SwiftUI Preview" },
+    "reason": {
+      "en": "Simulator devices created for SwiftUI previews; Xcode creates them again when previews run.",
+      "vi": "Thiết bị simulator tạo cho SwiftUI Preview; Xcode tạo lại khi chạy preview."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Developer/Xcode/UserData/Previews/Simulator Devices/*"]
+    },
+    "conditions": { "appNotRunning": ["com.apple.dt.Xcode"] }
+  },
+  {
+    "id": "xcode.simulators.unavailable",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Unavailable simulators", "vi": "Simulator không còn dùng được" },
+    "reason": {
+      "en": "Simulator devices whose runtime is no longer installed; removed with simctl.",
+      "vi": "Thiết bị simulator có runtime đã bị gỡ; xoá bằng simctl."
+    },
+    "safety": "safe",
+    "removal": "custom:simulator",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "simctl.unavailableDevices"
+    }
+  },
+  {
+    "id": "xcode.simulatorRuntimes.unused",
+    "version": 1,
+    "category": "xcodeJunk",
+    "title": { "en": "Unused simulator runtimes", "vi": "Runtime simulator không dùng" },
+    "reason": {
+      "en": "Downloaded simulator runtimes that no device uses; download again from Xcode settings if needed.",
+      "vi": "Runtime simulator đã tải mà không thiết bị nào dùng; tải lại trong cài đặt Xcode nếu cần."
+    },
+    "safety": "review",
+    "removal": "custom:simulatorRuntime",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "simctl.unusedRuntimes"
+    }
+  }
+]

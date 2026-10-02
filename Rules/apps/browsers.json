@@ -1,0 +1,132 @@
+[
+  {
+    "id": "app.com.google.Chrome.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Google Chrome leftovers",
+      "vi": "File sót của Google Chrome"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Google Chrome leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Google Chrome để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.google.Chrome"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Google/Chrome",
+        "~/Library/Caches/Google/Chrome"
+      ]
+    },
+    "notes": "Application Support/Google/Chrome chứa hồ sơ (dấu trang, mật khẩu chưa đồng bộ) nên để review. Không đụng ~/Library/Google (GoogleSoftwareUpdate dùng chung)."
+  },
+  {
+    "id": "app.org.mozilla.firefox.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Firefox leftovers",
+      "vi": "File sót của Firefox"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Firefox leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Firefox để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "org.mozilla.firefox"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Firefox",
+        "~/Library/Caches/Firefox"
+      ]
+    },
+    "notes": "Application Support/Firefox/Profiles chứa hồ sơ người dùng."
+  },
+  {
+    "id": "app.com.brave.Browser.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Brave leftovers",
+      "vi": "File sót của Brave"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Brave leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Brave để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.brave.Browser"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/BraveSoftware",
+        "~/Library/Caches/BraveSoftware"
+      ]
+    }
+  },
+  {
+    "id": "app.company.thebrowser.Browser.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Arc leftovers",
+      "vi": "File sót của Arc"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Arc leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Arc để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "company.thebrowser.Browser"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Arc",
+        "~/Library/Caches/Arc"
+      ]
+    }
+  }
+]

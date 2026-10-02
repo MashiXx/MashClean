@@ -1,0 +1,120 @@
+{
+  "cases": [
+    {
+      "name": "npm: _cacache, _logs, _npx; không đụng cấu hình",
+      "rules": ["devtools.npm.cache"],
+      "files": [
+        { "path": "~/.npm/_cacache/index-v5/aa/bb", "size": 4096 },
+        { "path": "~/.npm/_cacache/content-v2/sha512/cc", "size": 8192 },
+        { "path": "~/.npm/_logs/2026-10-01-debug.log", "size": 1024 },
+        { "path": "~/.npmrc", "size": 100 }
+      ],
+      "expect": ["~/.npm/_cacache", "~/.npm/_logs"]
+    },
+    {
+      "name": "Yarn, pnpm, Bun, Deno, node-gyp, Playwright",
+      "rules": ["devtools.yarn.cache", "devtools.pnpm.store", "devtools.bun.cache", "devtools.deno.cache", "devtools.nodeTools.cache", "devtools.playwright.browsers"],
+      "files": [
+        { "path": "~/Library/Caches/Yarn/v6/npm-left-pad/x", "size": 4096 },
+        { "path": "~/Library/pnpm/store/v3/files/00/x", "size": 4096 },
+        { "path": "~/.bun/install/cache/react@18/x", "size": 4096 },
+        { "path": "~/Library/Caches/deno/deps/https/x", "size": 4096 },
+        { "path": "~/Library/Caches/node-gyp/20.0.0/include/node.h", "size": 4096 },
+        { "path": "~/Library/Caches/ms-playwright/chromium-1100/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/Yarn",
+        "~/Library/pnpm/store",
+        "~/.bun/install/cache",
+        "~/Library/Caches/deno",
+        "~/Library/Caches/node-gyp",
+        "~/Library/Caches/ms-playwright"
+      ]
+    },
+    {
+      "name": "Python: pip, Poetry (giữ virtualenvs), uv",
+      "rules": ["devtools.pip.cache", "devtools.poetry.cache", "devtools.uv.cache"],
+      "files": [
+        { "path": "~/Library/Caches/pip/http-v2/a/b", "size": 4096 },
+        { "path": "~/Library/Caches/pypoetry/cache/repositories/PyPI/x", "size": 4096 },
+        { "path": "~/Library/Caches/pypoetry/artifacts/aa/x.whl", "size": 4096 },
+        { "path": "~/Library/Caches/pypoetry/virtualenvs/proj-abc-py3.12/bin/python", "size": 4096 },
+        { "path": "~/.cache/uv/wheels-v1/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/pip",
+        "~/Library/Caches/pypoetry/cache",
+        "~/Library/Caches/pypoetry/artifacts",
+        "~/.cache/uv"
+      ]
+    },
+    {
+      "name": "JVM: Gradle, Maven, Android",
+      "rules": ["devtools.gradle.caches", "devtools.maven.repository", "devtools.androidStudio.caches"],
+      "files": [
+        { "path": "~/.gradle/caches/modules-2/files-2.1/x.jar", "size": 8192 },
+        { "path": "~/.gradle/wrapper/dists/gradle-8.5-bin/x.zip", "size": 4096 },
+        { "path": "~/.gradle/gradle.properties", "size": 100 },
+        { "path": "~/.m2/repository/org/example/lib/1.0/lib-1.0.jar", "size": 4096 },
+        { "path": "~/.m2/settings.xml", "size": 100 },
+        { "path": "~/.android/build-cache/x", "size": 4096 },
+        { "path": "~/.android/avd/Pixel.avd/config.ini", "size": 100 }
+      ],
+      "expect": ["~/.gradle/caches", "~/.gradle/wrapper/dists", "~/.m2/repository", "~/.android/build-cache"]
+    },
+    {
+      "name": "Apple: Homebrew, CocoaPods, Carthage, SwiftPM",
+      "rules": ["devtools.homebrew.cache", "devtools.cocoapods.cache", "devtools.carthage.cache", "devtools.swiftpm.cache"],
+      "files": [
+        { "path": "~/Library/Caches/Homebrew/downloads/abc--wget.bottle.tar.gz", "size": 8192 },
+        { "path": "~/Library/Caches/Homebrew/wget--1.21.bottle.tar.gz", "symlink": "~/Library/Caches/Homebrew/downloads/abc--wget.bottle.tar.gz" },
+        { "path": "~/Library/Caches/CocoaPods/Pods/Release/x", "size": 4096 },
+        { "path": "~/Library/Caches/org.carthage.CarthageKit/dependencies/x", "size": 4096 },
+        { "path": "~/Library/Caches/org.swift.swiftpm/repositories/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/Homebrew",
+        "~/Library/Caches/CocoaPods",
+        "~/Library/Caches/org.carthage.CarthageKit",
+        "~/Library/Caches/org.swift.swiftpm"
+      ]
+    },
+    {
+      "name": "Go build cache và Cargo",
+      "rules": ["devtools.go.buildCache", "devtools.cargo.registryCache"],
+      "files": [
+        { "path": "~/Library/Caches/go-build/0a/x-d", "size": 4096 },
+        { "path": "~/.cargo/registry/cache/index.crates.io-6f17d22bba15001f/serde-1.0.0.crate", "size": 4096 },
+        { "path": "~/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.0/lib.rs", "size": 4096 },
+        { "path": "~/.cargo/bin/cargo", "size": 4096 }
+      ],
+      "expect": ["~/Library/Caches/go-build", "~/.cargo/registry/cache", "~/.cargo/registry/src"]
+    },
+    {
+      "name": "JetBrains, VS Code, Cursor",
+      "rules": ["devtools.jetbrains.caches", "devtools.vscode.caches", "devtools.cursor.caches"],
+      "files": [
+        { "path": "~/Library/Caches/JetBrains/IntelliJIdea2024.1/caches/x", "size": 4096 },
+        { "path": "~/Library/Caches/JetBrains/PyCharm2024.1/index/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Code/CachedData/abc/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Code/CachedExtensionVSIXs/ms-python.python-1.0", "size": 4096 },
+        { "path": "~/Library/Application Support/Code/User/settings.json", "size": 100 },
+        { "path": "~/Library/Application Support/Cursor/CachedData/abc/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/JetBrains/IntelliJIdea2024.1",
+        "~/Library/Caches/JetBrains/PyCharm2024.1",
+        "~/Library/Application Support/Code/CachedData",
+        "~/Library/Application Support/Code/CachedExtensionVSIXs",
+        "~/Library/Application Support/Cursor/CachedData"
+      ]
+    },
+    {
+      "name": "JetBrains đang chạy: bỏ qua cache IDE",
+      "rules": ["devtools.jetbrains.caches"],
+      "running": ["com.jetbrains.intellij"],
+      "files": [{ "path": "~/Library/Caches/JetBrains/IntelliJIdea2024.1/caches/x", "size": 4096 }],
+      "expect": []
+    }
+  ]
+}

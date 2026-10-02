@@ -1,0 +1,120 @@
+{
+  "cases": [
+    {
+      "name": "~/Library/Caches/*: lấy thư mục cache, loại com.apple.*, CloudKit, cache công cụ lập trình, thư mục rỗng",
+      "rules": ["user.caches.all"],
+      "files": [
+        { "path": "~/Library/Caches/com.spotify.client/Data/a.file", "size": 8192 },
+        { "path": "~/Library/Caches/Google/Chrome/Default/Cache/data_0", "size": 4096 },
+        { "path": "~/Library/Caches/com.apple.Safari/WebKitCache/x", "size": 4096 },
+        { "path": "~/Library/Caches/com.apple.akd/db", "size": 4096 },
+        { "path": "~/Library/Caches/CloudKit/com.apple.photos/x", "size": 4096 },
+        { "path": "~/Library/Caches/Metadata/Safari/History/x", "size": 4096 },
+        { "path": "~/Library/Caches/Homebrew/downloads/abc--wget.bottle.tar.gz", "size": 4096 },
+        { "path": "~/Library/Caches/pip/http/x", "size": 4096 },
+        { "path": "~/Library/Caches/JetBrains/IntelliJIdea2024.1/x", "size": 4096 },
+        { "path": "~/Library/Caches/com.example.empty", "dir": true },
+        { "path": "~/Library/Caches/loose.db", "size": 2048 }
+      ],
+      "expect": [
+        "~/Library/Caches/com.spotify.client",
+        "~/Library/Caches/Google",
+        "~/Library/Caches/loose.db"
+      ]
+    },
+    {
+      "name": "app.generic.caches: theo từng app (forEachInstalledApp), bỏ app đang chạy và app Apple",
+      "rules": ["app.generic.caches"],
+      "apps": [
+        { "bundleID": "com.example.editor", "appName": "Editor" },
+        { "bundleID": "com.example.chat", "appName": "Chat" },
+        { "bundleID": "com.apple.Notes", "appName": "Notes" },
+        { "bundleID": "com.example.nocache", "appName": "NoCache" }
+      ],
+      "running": ["com.example.chat"],
+      "files": [
+        { "path": "~/Library/Caches/com.example.editor/a", "size": 4096 },
+        { "path": "~/Library/Containers/com.example.editor/Data/Library/Caches/b", "size": 4096 },
+        { "path": "~/Library/Containers/com.example.editor/Data/Documents/keep.txt", "size": 4096 },
+        { "path": "~/Library/Caches/com.example.chat/c", "size": 4096 },
+        { "path": "~/Library/Containers/com.apple.Notes/Data/Library/Caches/n", "size": 4096 },
+        { "path": "~/Library/Caches/com.apple.Notes/x", "size": 4096 },
+        { "path": "~/Library/Caches/com.example.orphan/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/com.example.editor",
+        "~/Library/Containers/com.example.editor/Data/Library/Caches"
+      ]
+    },
+    {
+      "name": "user.httpStorages: theo app, review",
+      "rules": ["user.httpStorages"],
+      "apps": [{ "bundleID": "com.example.editor" }, { "bundleID": "com.apple.Safari" }],
+      "files": [
+        { "path": "~/Library/HTTPStorages/com.example.editor/httpstorages.sqlite", "size": 4096 },
+        { "path": "~/Library/HTTPStorages/com.apple.Safari/httpstorages.sqlite", "size": 4096 }
+      ],
+      "expect": ["~/Library/HTTPStorages/com.example.editor"]
+    },
+    {
+      "name": "Chrome: chỉ thư mục cache trong hồ sơ, không đụng Bookmarks",
+      "rules": ["browser.chrome.caches"],
+      "files": [
+        { "path": "~/Library/Caches/Google/Chrome/Default/Cache/Cache_Data/f_000001", "size": 4096 },
+        { "path": "~/Library/Caches/Google/Chrome/Profile 1/Code Cache/js/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Google/Chrome/Default/GPUCache/data_1", "size": 4096 },
+        { "path": "~/Library/Application Support/Google/Chrome/Profile 1/Service Worker/CacheStorage/abc/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Google/Chrome/Default/Bookmarks", "size": 4096 },
+        { "path": "~/Library/Application Support/Google/Chrome/Default/Login Data", "size": 4096 },
+        { "path": "~/Library/Application Support/Google/Chrome/ShaderCache/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/Google/Chrome/Default/Cache",
+        "~/Library/Caches/Google/Chrome/Profile 1/Code Cache",
+        "~/Library/Application Support/Google/Chrome/Default/GPUCache",
+        "~/Library/Application Support/Google/Chrome/Profile 1/Service Worker/CacheStorage",
+        "~/Library/Application Support/Google/Chrome/ShaderCache"
+      ]
+    },
+    {
+      "name": "Chrome đang chạy: không đề xuất",
+      "rules": ["browser.chrome.caches"],
+      "running": ["com.google.Chrome"],
+      "files": [{ "path": "~/Library/Application Support/Google/Chrome/Default/GPUCache/data_1", "size": 4096 }],
+      "expect": []
+    },
+    {
+      "name": "Firefox, Edge, Brave",
+      "rules": ["browser.firefox.caches", "browser.edge.caches", "browser.brave.caches"],
+      "files": [
+        { "path": "~/Library/Caches/Firefox/Profiles/abcd.default-release/cache2/entries/x", "size": 4096 },
+        { "path": "~/Library/Caches/Firefox/Profiles/abcd.default-release/startupCache/x", "size": 4096 },
+        { "path": "~/Library/Caches/Microsoft Edge/Default/Cache/x", "size": 4096 },
+        { "path": "~/Library/Caches/BraveSoftware/Brave-Browser/Default/Code Cache/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Caches/Firefox/Profiles/abcd.default-release/cache2",
+        "~/Library/Caches/Microsoft Edge/Default/Cache",
+        "~/Library/Caches/BraveSoftware/Brave-Browser/Default/Code Cache"
+      ]
+    },
+    {
+      "name": "Slack, Discord, Teams, Spotify: chỉ cache, không đụng dữ liệu tải ngoại tuyến",
+      "rules": ["electron.slack.caches", "electron.discord.caches", "electron.teams.caches", "media.spotify.caches"],
+      "files": [
+        { "path": "~/Library/Application Support/Slack/Cache/Cache_Data/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Slack/storage/root-state.json", "size": 4096 },
+        { "path": "~/Library/Application Support/discord/Cache/x", "size": 4096 },
+        { "path": "~/Library/Containers/com.microsoft.teams2/Data/Library/Caches/x", "size": 4096 },
+        { "path": "~/Library/Caches/com.spotify.client/Data/0a/x", "size": 4096 },
+        { "path": "~/Library/Application Support/Spotify/PersistentCache/Storage/0a/offline", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Application Support/Slack/Cache",
+        "~/Library/Application Support/discord/Cache",
+        "~/Library/Containers/com.microsoft.teams2/Data/Library/Caches",
+        "~/Library/Caches/com.spotify.client/Data"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "name": "DerivedData: mỗi dự án một mục",
+      "rules": ["xcode.derivedData"],
+      "files": [
+        { "path": "~/Library/Developer/Xcode/DerivedData/App-abcdef/Build/Products/x", "size": 8192 },
+        { "path": "~/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/y", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Developer/Xcode/DerivedData/App-abcdef",
+        "~/Library/Developer/Xcode/DerivedData/ModuleCache.noindex"
+      ]
+    },
+    {
+      "name": "DerivedData khi Xcode đang chạy: bỏ qua",
+      "rules": ["xcode.derivedData"],
+      "running": ["com.apple.dt.Xcode"],
+      "files": [{ "path": "~/Library/Developer/Xcode/DerivedData/App-abcdef/x", "size": 4096 }],
+      "expect": []
+    },
+    {
+      "name": "Archives: từng .xcarchive",
+      "rules": ["xcode.archives"],
+      "files": [
+        { "path": "~/Library/Developer/Xcode/Archives/2026-01-15/App 15-1-2026, 10.00.xcarchive/Info.plist", "size": 4096 },
+        { "path": "~/Library/Developer/Xcode/Archives/2026-01-15/notes.txt", "size": 100 }
+      ],
+      "expect": ["~/Library/Developer/Xcode/Archives/2026-01-15/App 15-1-2026, 10.00.xcarchive"]
+    },
+    {
+      "name": "DeviceSupport iOS/watchOS/tvOS",
+      "rules": ["xcode.deviceSupport"],
+      "files": [
+        { "path": "~/Library/Developer/Xcode/iOS DeviceSupport/17.0 (21A329)/Symbols/x", "size": 8192 },
+        { "path": "~/Library/Developer/Xcode/watchOS DeviceSupport/Watch6,1 10.0 (21R356)/Symbols/x", "size": 4096 },
+        { "path": "~/Library/Developer/Xcode/tvOS DeviceSupport/17.0 (21J354)/Symbols/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Developer/Xcode/iOS DeviceSupport/17.0 (21A329)",
+        "~/Library/Developer/Xcode/watchOS DeviceSupport/Watch6,1 10.0 (21R356)",
+        "~/Library/Developer/Xcode/tvOS DeviceSupport/17.0 (21J354)"
+      ]
+    },
+    {
+      "name": "Products, cache Xcode, cache và log Simulator, log thiết bị, preview",
+      "rules": ["xcode.products", "xcode.caches", "xcode.coreSimulator.caches", "xcode.coreSimulator.logs", "xcode.deviceLogs", "xcode.previews"],
+      "files": [
+        { "path": "~/Library/Developer/Xcode/Products/com.example.app/1.0/x", "size": 4096 },
+        { "path": "~/Library/Caches/com.apple.dt.Xcode/Cache.db", "size": 4096 },
+        { "path": "~/Library/Developer/Xcode/DocumentationCache", "dir": true },
+        { "path": "~/Library/Developer/CoreSimulator/Caches/dyld/23A/x", "size": 4096 },
+        { "path": "~/Library/Developer/CoreSimulator/Devices/UDID-1/data/keep", "size": 4096 },
+        { "path": "~/Library/Logs/CoreSimulator/UDID-1/system.log", "size": 4096 },
+        { "path": "~/Library/Logs/CrashReporter/MobileDevice/My iPhone/App.ips", "size": 4096 },
+        { "path": "~/Library/Developer/Xcode/UserData/Previews/Simulator Devices/UDID-P/data/x", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Developer/Xcode/Products/com.example.app",
+        "~/Library/Caches/com.apple.dt.Xcode",
+        "~/Library/Developer/CoreSimulator/Caches/dyld",
+        "~/Library/Logs/CoreSimulator/UDID-1",
+        "~/Library/Logs/CrashReporter/MobileDevice/My iPhone",
+        "~/Library/Developer/Xcode/UserData/Previews/Simulator Devices/UDID-P"
+      ]
+    }
+  ]
+}

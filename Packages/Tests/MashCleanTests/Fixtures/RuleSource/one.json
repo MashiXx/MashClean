@@ -1,0 +1,12 @@
+{
+  "id": "fixture.single",
+  "version": 2,
+  "category": "devToolCaches",
+  "title": { "en": "npm cache", "vi": "Cache của npm" },
+  "reason": "Downloaded packages",
+  "safety": "safe",
+  "removal": "deleteContents",
+  "match": { "paths": ["~/.npm/_cacache"], "minAgeDays": 0 },
+  "conditions": { "appNotRunning": [], "minOS": "13.0" },
+  "exclude": []
+}

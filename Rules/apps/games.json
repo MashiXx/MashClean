@@ -1,0 +1,99 @@
+[
+  {
+    "id": "app.net.battle.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Battle.net leftovers",
+      "vi": "File sót của Battle.net"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Battle.net leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Battle.net để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "net.battle.*",
+        "com.blizzard.*"
+      ],
+      "paths": [
+        "~/Library/Application Support/Battle.net",
+        "~/Library/Application Support/Blizzard",
+        "~/Library/Caches/Blizzard",
+        "~/Library/Caches/net.battle.app",
+        "~/Library/Preferences/net.battle.app.plist",
+        "~/Library/Preferences/net.battle.Agent.plist",
+        "/Users/Shared/Battle.net"
+      ]
+    },
+    "notes": "/Users/Shared/Battle.net chứa Agent và dữ liệu cài đặt; game nằm trong /Applications nên không thuộc rule này."
+  },
+  {
+    "id": "app.com.valvesoftware.steam.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Steam leftovers",
+      "vi": "File sót của Steam"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Steam leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Steam để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.valvesoftware.steam"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Steam",
+        "~/Library/Logs/Steam"
+      ]
+    },
+    "notes": "Application Support/Steam chứa cả game đã cài (steamapps) nên luôn để review."
+  },
+  {
+    "id": "app.com.epicgames.EpicGamesLauncher.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Epic Games Launcher leftovers",
+      "vi": "File sót của Epic Games Launcher"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Epic Games Launcher leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Epic Games Launcher để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.epicgames.EpicGamesLauncher"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Epic",
+        "~/Library/Logs/Unreal Engine/EpicGamesLauncher"
+      ]
+    }
+  }
+]

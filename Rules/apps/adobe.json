@@ -1,0 +1,165 @@
+[
+  {
+    "id": "app.com.adobe.Photoshop.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Adobe Photoshop leftovers",
+      "vi": "File sót của Adobe Photoshop"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Adobe Photoshop leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Photoshop để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.adobe.Photoshop"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Preferences/Adobe Photoshop * Settings",
+        "~/Library/Application Support/Adobe/Adobe Photoshop *",
+        "~/Library/Logs/Adobe/Photoshop*"
+      ]
+    }
+  },
+  {
+    "id": "app.com.adobe.illustrator.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Adobe Illustrator leftovers",
+      "vi": "File sót của Adobe Illustrator"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Adobe Illustrator leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Illustrator để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.adobe.illustrator"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Preferences/Adobe Illustrator * Settings",
+        "~/Library/Application Support/Adobe/Adobe Illustrator *"
+      ]
+    }
+  },
+  {
+    "id": "app.com.adobe.PremierePro.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Adobe Premiere Pro leftovers",
+      "vi": "File sót của Adobe Premiere Pro"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Adobe Premiere Pro leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Premiere Pro để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.adobe.PremierePro*"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Adobe/Premiere Pro",
+        "~/Library/Caches/Adobe/Premiere Pro"
+      ]
+    },
+    "notes": "Media cache của Premiere có thể lớn; ~/Documents/Adobe chứa project người dùng nên không đụng tới."
+  },
+  {
+    "id": "app.com.adobe.Reader.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Adobe Acrobat Reader leftovers",
+      "vi": "File sót của Adobe Acrobat Reader"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Adobe Acrobat Reader leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Acrobat Reader để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.adobe.Reader"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Adobe/Acrobat/DC/Reader*"
+      ]
+    }
+  },
+  {
+    "id": "app.com.adobe.acc.AdobeCreativeCloud.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Adobe Creative Cloud leftovers",
+      "vi": "File sót của Adobe Creative Cloud"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Adobe Creative Cloud leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Creative Cloud để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.adobe.acc.AdobeCreativeCloud"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Logs/CreativeCloud",
+        "~/Library/Logs/CoreSync",
+        "~/Library/Application Support/Adobe/OOBE"
+      ]
+    },
+    "notes": "Không đụng ~/Library/Application Support/Adobe/Creative Cloud Libraries và CoreSync: chứa thư viện và file đồng bộ của người dùng. Chỉ gỡ khi không còn app Adobe nào."
+  }
+]

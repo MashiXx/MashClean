@@ -1,0 +1,139 @@
+[
+  {
+    "id": "languages.unused",
+    "version": 1,
+    "category": "languageFiles",
+    "title": {
+      "en": "Unused language files",
+      "vi": "Gói ngôn ngữ không dùng"
+    },
+    "reason": {
+      "en": "Translations for languages you do not use. Removing them breaks the app's code signature and an update restores them.",
+      "vi": "Bản dịch cho ngôn ngữ bạn không dùng. Xoá sẽ làm hỏng chữ ký code của app và bản cập nhật sẽ đưa chúng trở lại."
+    },
+    "safety": "risky",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "languageFiles"
+    },
+    "notes": "Mặc định ẩn (risky) vì làm hỏng chữ ký code (mục 8.4)."
+  },
+  {
+    "id": "ios.backups",
+    "version": 1,
+    "category": "iosBackups",
+    "title": {
+      "en": "iOS device backups",
+      "vi": "Bản sao lưu thiết bị iOS"
+    },
+    "reason": {
+      "en": "Local backups of iPhone and iPad. Make sure you have a newer backup before removing an old one.",
+      "vi": "Bản sao lưu iPhone, iPad trên máy. Hãy chắc chắn còn bản mới hơn trước khi xoá bản cũ."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "iosBackups"
+    }
+  },
+  {
+    "id": "ios.softwareUpdates",
+    "version": 1,
+    "category": "iosSoftwareUpdates",
+    "title": {
+      "en": "Old iOS firmware files",
+      "vi": "File cài đặt iOS cũ"
+    },
+    "reason": {
+      "en": "Firmware files downloaded to update or restore devices; Finder downloads them again when needed.",
+      "vi": "File firmware tải về để cập nhật hoặc khôi phục thiết bị; Finder sẽ tải lại khi cần."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/iTunes/iPhone Software Updates/*.ipsw",
+        "~/Library/iTunes/iPad Software Updates/*.ipsw",
+        "~/Library/iTunes/iPod Software Updates/*.ipsw",
+        "~/Library/iTunes/Apple TV Software Updates/*.ipsw",
+        "~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Firmware/*.ipsw"
+      ]
+    }
+  },
+  {
+    "id": "trash.bins",
+    "version": 1,
+    "category": "trash",
+    "title": {
+      "en": "Trash bins",
+      "vi": "Thùng rác"
+    },
+    "reason": {
+      "en": "Items you already moved to the Trash, on this Mac and on external drives.",
+      "vi": "Những mục bạn đã chuyển vào Thùng rác, trên máy và trên ổ ngoài."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "trash"
+    }
+  },
+  {
+    "id": "downloads.oldInstallers",
+    "version": 1,
+    "category": "oldDownloads",
+    "title": {
+      "en": "Old installers in Downloads",
+      "vi": "Bộ cài cũ trong Tải về"
+    },
+    "reason": {
+      "en": "Disk images and installer packages not opened for over 30 days; the app is usually already installed.",
+      "vi": "Ảnh đĩa và gói cài đặt không mở hơn 30 ngày; thường ứng dụng đã được cài xong."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Downloads/*.dmg",
+        "~/Downloads/*.pkg",
+        "~/Downloads/*.mpkg",
+        "~/Downloads/*.iso"
+      ],
+      "minAgeDays": 30
+    }
+  },
+  {
+    "id": "mail.attachments",
+    "version": 1,
+    "category": "mailAttachments",
+    "title": {
+      "en": "Mail downloads",
+      "vi": "Tệp Mail đã tải"
+    },
+    "reason": {
+      "en": "Attachments Mail saved when you opened them; the originals stay in the messages.",
+      "vi": "Tệp đính kèm Mail lưu lại khi bạn mở; bản gốc vẫn nằm trong thư."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/*"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.apple.mail"
+      ]
+    }
+  }
+]

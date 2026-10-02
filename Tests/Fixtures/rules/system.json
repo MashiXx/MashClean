@@ -1,0 +1,100 @@
+{
+  "cases": [
+    {
+      "name": "/Library/Caches/*: loại cache của Apple",
+      "rules": ["system.caches.all"],
+      "files": [
+        { "path": "/Library/Caches/com.vendor.updater/x", "size": 4096 },
+        { "path": "/Library/Caches/com.apple.iconservices.store/x", "size": 4096 },
+        { "path": "/Library/Caches/ColorSync/Profiles/x", "size": 4096 }
+      ],
+      "expect": ["/Library/Caches/com.vendor.updater"]
+    },
+    {
+      "name": "/Library/Logs/*: trừ DiagnosticReports",
+      "rules": ["system.logs.library"],
+      "files": [
+        { "path": "/Library/Logs/Vendor/agent.log", "size": 4096 },
+        { "path": "/Library/Logs/DiagnosticReports/a.crash", "size": 4096 },
+        { "path": "/Library/Logs/install.old.log", "size": 1024 }
+      ],
+      "expect": ["/Library/Logs/Vendor", "/Library/Logs/install.old.log"]
+    },
+    {
+      "name": "/private/var/log: chỉ log đã nén",
+      "rules": ["system.logs.archived"],
+      "files": [
+        { "path": "/private/var/log/system.log", "size": 4096 },
+        { "path": "/private/var/log/system.log.0.gz", "size": 4096 },
+        { "path": "/private/var/log/wifi.log.1.bz2", "size": 4096 },
+        { "path": "/private/var/log/apache2/access_log.1.gz", "size": 4096 },
+        { "path": "/private/var/log/apache2/access_log", "size": 4096 }
+      ],
+      "expect": [
+        "/private/var/log/system.log.0.gz",
+        "/private/var/log/wifi.log.1.bz2",
+        "/private/var/log/apache2/access_log.1.gz"
+      ]
+    },
+    {
+      "name": "ASL: chỉ file cũ hơn 7 ngày (minAgeDays)",
+      "rules": ["system.logs.asl"],
+      "files": [
+        { "path": "/private/var/log/asl/2026.09.01.U501.asl", "size": 4096, "ageDays": 31 },
+        { "path": "/private/var/log/asl/2026.10.01.U501.asl", "size": 4096, "ageDays": 1 },
+        { "path": "/private/var/log/asl/StoreData", "size": 64, "ageDays": 40 },
+        { "path": "/private/var/log/DiagnosticMessages/2026.09.10.asl", "size": 4096, "ageDays": 22 }
+      ],
+      "expect": ["/private/var/log/asl/2026.09.01.U501.asl", "/private/var/log/DiagnosticMessages/2026.09.10.asl"]
+    },
+    {
+      "name": "install.log xoay vòng cũ hơn 30 ngày",
+      "rules": ["system.logs.installer"],
+      "files": [
+        { "path": "/private/var/log/install.log", "size": 4096, "ageDays": 60 },
+        { "path": "/private/var/log/install.log.1", "size": 4096, "ageDays": 45 },
+        { "path": "/private/var/log/install.log.2", "size": 4096, "ageDays": 3 }
+      ],
+      "expect": ["/private/var/log/install.log.1"]
+    },
+    {
+      "name": "~/Library/Logs/*: trừ DiagnosticReports, CoreSimulator, CrashReporter",
+      "rules": ["user.logs.all"],
+      "files": [
+        { "path": "~/Library/Logs/Vendor/x.log", "size": 4096 },
+        { "path": "~/Library/Logs/single.log", "size": 4096 },
+        { "path": "~/Library/Logs/DiagnosticReports/a.ips", "size": 4096 },
+        { "path": "~/Library/Logs/CoreSimulator/x/system.log", "size": 4096 },
+        { "path": "~/Library/Logs/CrashReporter/x.crash", "size": 4096 }
+      ],
+      "expect": ["~/Library/Logs/Vendor", "~/Library/Logs/single.log"]
+    },
+    {
+      "name": "Log trong container của app sandbox",
+      "rules": ["user.logs.containers"],
+      "apps": [{ "bundleID": "com.example.sandboxed" }, { "bundleID": "com.apple.mail" }],
+      "files": [
+        { "path": "~/Library/Containers/com.example.sandboxed/Data/Library/Logs/a.log", "size": 4096 },
+        { "path": "~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/x.log", "size": 4096 }
+      ],
+      "expect": ["~/Library/Containers/com.example.sandboxed/Data/Library/Logs"]
+    },
+    {
+      "name": "Báo cáo crash người dùng và hệ thống",
+      "rules": ["crash.user.reports", "crash.user.crashReporter", "crash.system.reports"],
+      "files": [
+        { "path": "~/Library/Logs/DiagnosticReports/App-2026-09-01.ips", "size": 4096 },
+        { "path": "~/Library/Logs/DiagnosticReports/Retired/old.ips", "size": 4096 },
+        { "path": "~/Library/Logs/CrashReporter/x.crash", "size": 4096 },
+        { "path": "~/Library/Logs/CrashReporter/MobileDevice/iPhone/y.ips", "size": 4096 },
+        { "path": "/Library/Logs/DiagnosticReports/kernel-2026.panic", "size": 4096 }
+      ],
+      "expect": [
+        "~/Library/Logs/DiagnosticReports/App-2026-09-01.ips",
+        "~/Library/Logs/DiagnosticReports/Retired",
+        "~/Library/Logs/CrashReporter/x.crash",
+        "/Library/Logs/DiagnosticReports/kernel-2026.panic"
+      ]
+    }
+  ]
+}

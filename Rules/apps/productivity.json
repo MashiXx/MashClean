@@ -1,0 +1,130 @@
+[
+  {
+    "id": "app.com.spotify.client.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Spotify leftovers",
+      "vi": "File sót của Spotify"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Spotify leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Spotify để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.spotify.client"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Spotify",
+        "~/Library/Caches/com.spotify.client.helper"
+      ]
+    }
+  },
+  {
+    "id": "app.notion.id.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Notion leftovers",
+      "vi": "File sót của Notion"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Notion leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Notion để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "notion.id"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Notion",
+        "~/Library/Logs/Notion"
+      ]
+    }
+  },
+  {
+    "id": "app.org.videolan.vlc.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "VLC leftovers",
+      "vi": "File sót của VLC"
+    },
+    "reason": {
+      "en": "Settings, caches and support files VLC leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ VLC để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "org.videolan.vlc"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/org.videolan.vlc"
+      ]
+    }
+  },
+  {
+    "id": "app.com.getdropbox.dropbox.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Dropbox leftovers",
+      "vi": "File sót của Dropbox"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Dropbox leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Dropbox để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.getdropbox.dropbox"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/.dropbox",
+        "~/Library/Application Support/Dropbox"
+      ]
+    },
+    "notes": "Không đụng thư mục ~/Dropbox hay ~/Library/CloudStorage (vùng cấm): chỉ dữ liệu cấu hình của app."
+  }
+]

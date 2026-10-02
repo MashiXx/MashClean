@@ -1,0 +1,344 @@
+[
+  {
+    "id": "user.caches.all",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Application caches",
+      "vi": "Cache của ứng dụng"
+    },
+    "reason": {
+      "en": "Temporary data apps keep to speed things up; they rebuild it automatically when needed.",
+      "vi": "Dữ liệu tạm ứng dụng giữ để chạy nhanh hơn; ứng dụng tự tạo lại khi cần."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/*"
+      ]
+    },
+    "exclude": [
+      "~/Library/Caches/com.apple.*",
+      "~/Library/Caches/CloudKit",
+      "~/Library/Caches/Metadata",
+      "~/Library/Caches/GeoServices",
+      "~/Library/Caches/FamilyCircle",
+      "~/Library/Caches/familycircled",
+      "~/Library/Caches/sharedfilelistd",
+      "~/Library/Caches/storeassetd",
+      "~/Library/Caches/TemporaryItems",
+      "~/Library/Caches/MashClean",
+      "~/Library/Caches/com.mashclean.*",
+      "~/Library/Caches/Homebrew",
+      "~/Library/Caches/Yarn",
+      "~/Library/Caches/pnpm",
+      "~/Library/Caches/pip",
+      "~/Library/Caches/pypoetry",
+      "~/Library/Caches/CocoaPods",
+      "~/Library/Caches/org.carthage.CarthageKit",
+      "~/Library/Caches/org.swift.swiftpm",
+      "~/Library/Caches/go-build",
+      "~/Library/Caches/JetBrains",
+      "~/Library/Caches/deno",
+      "~/Library/Caches/ms-playwright",
+      "~/Library/Caches/node-gyp",
+      "~/Library/Caches/typescript"
+    ],
+    "notes": "Mục lá là từng thư mục con của ~/Library/Caches; cache của Apple và cache công cụ lập trình đã có rule riêng nên loại trừ ở đây."
+  },
+  {
+    "id": "app.generic.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "App caches",
+      "vi": "Cache theo ứng dụng"
+    },
+    "reason": {
+      "en": "Cache folders that belong to an installed app; the app recreates them on next launch.",
+      "vi": "Thư mục cache của một ứng dụng đã cài; ứng dụng sẽ tạo lại ở lần mở sau."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "forEachInstalledApp": true,
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/Containers/${bundleID}/Data/Library/Caches"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "${bundleID}"
+      ]
+    },
+    "exclude": [
+      "~/Library/Caches/com.apple.*",
+      "~/Library/Containers/com.apple.*",
+      "~/Library/Caches/CloudKit",
+      "~/Library/Caches/com.mashclean.*",
+      "~/Library/Containers/com.mashclean.*"
+    ]
+  },
+  {
+    "id": "user.httpStorages",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "HTTP storage of apps",
+      "vi": "Bộ nhớ HTTP của ứng dụng"
+    },
+    "reason": {
+      "en": "Network cookies and HTTP caches of apps that are not running; you may need to sign in again in some apps.",
+      "vi": "Cookie và cache HTTP của ứng dụng không chạy; một số ứng dụng có thể yêu cầu đăng nhập lại."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "forEachInstalledApp": true,
+      "paths": [
+        "~/Library/HTTPStorages/${bundleID}"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "${bundleID}"
+      ]
+    },
+    "exclude": [
+      "~/Library/HTTPStorages/com.apple.*",
+      "~/Library/HTTPStorages/com.mashclean.*"
+    ]
+  },
+  {
+    "id": "browser.chrome.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Google Chrome cache",
+      "vi": "Cache Google Chrome"
+    },
+    "reason": {
+      "en": "Cached web pages and scripts; history, passwords and bookmarks are not touched.",
+      "vi": "Trang web và script đã lưu tạm; không đụng tới lịch sử, mật khẩu, dấu trang."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/Google/Chrome/*/Cache",
+        "~/Library/Caches/Google/Chrome/*/Code Cache",
+        "~/Library/Application Support/Google/Chrome/*/GPUCache",
+        "~/Library/Application Support/Google/Chrome/*/Service Worker/CacheStorage",
+        "~/Library/Application Support/Google/Chrome/ShaderCache",
+        "~/Library/Application Support/Google/Chrome/GrShaderCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.google.Chrome"
+      ]
+    }
+  },
+  {
+    "id": "browser.firefox.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Firefox cache",
+      "vi": "Cache Firefox"
+    },
+    "reason": {
+      "en": "Firefox's disk cache of web content; profiles and saved data are kept.",
+      "vi": "Cache nội dung web của Firefox; hồ sơ và dữ liệu đã lưu được giữ nguyên."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/Firefox/Profiles/*/cache2"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "org.mozilla.firefox"
+      ]
+    }
+  },
+  {
+    "id": "browser.edge.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Microsoft Edge cache",
+      "vi": "Cache Microsoft Edge"
+    },
+    "reason": {
+      "en": "Cached web pages and scripts of Edge; browsing data is kept.",
+      "vi": "Trang web và script Edge đã lưu tạm; dữ liệu duyệt web được giữ nguyên."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/Microsoft Edge/*/Cache",
+        "~/Library/Caches/Microsoft Edge/*/Code Cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.microsoft.edgemac"
+      ]
+    }
+  },
+  {
+    "id": "browser.brave.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Brave cache",
+      "vi": "Cache Brave"
+    },
+    "reason": {
+      "en": "Cached web pages and scripts of Brave; browsing data is kept.",
+      "vi": "Trang web và script Brave đã lưu tạm; dữ liệu duyệt web được giữ nguyên."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/BraveSoftware/Brave-Browser/*/Cache",
+        "~/Library/Caches/BraveSoftware/Brave-Browser/*/Code Cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.brave.Browser"
+      ]
+    }
+  },
+  {
+    "id": "electron.slack.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Slack cache",
+      "vi": "Cache Slack"
+    },
+    "reason": {
+      "en": "Slack's web cache; messages stay on Slack's servers.",
+      "vi": "Cache web của Slack; tin nhắn vẫn nằm trên máy chủ Slack."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Application Support/Slack/Cache",
+        "~/Library/Application Support/Slack/Code Cache",
+        "~/Library/Application Support/Slack/GPUCache",
+        "~/Library/Application Support/Slack/Service Worker/CacheStorage",
+        "~/Library/Containers/com.tinyspeck.slackmacgap/Data/Library/Application Support/Slack/Cache",
+        "~/Library/Containers/com.tinyspeck.slackmacgap/Data/Library/Application Support/Slack/Service Worker/CacheStorage"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.tinyspeck.slackmacgap"
+      ]
+    }
+  },
+  {
+    "id": "electron.discord.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Discord cache",
+      "vi": "Cache Discord"
+    },
+    "reason": {
+      "en": "Discord's downloaded images and web cache; they download again when needed.",
+      "vi": "Ảnh và cache web Discord đã tải; sẽ tải lại khi cần."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Application Support/discord/Cache",
+        "~/Library/Application Support/discord/Code Cache",
+        "~/Library/Application Support/discord/GPUCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.hnc.Discord"
+      ]
+    }
+  },
+  {
+    "id": "electron.teams.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Microsoft Teams cache",
+      "vi": "Cache Microsoft Teams"
+    },
+    "reason": {
+      "en": "Teams' web cache; chats and files stay in the cloud.",
+      "vi": "Cache web của Teams; tin nhắn và tệp vẫn nằm trên đám mây."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Containers/com.microsoft.teams2/Data/Library/Caches",
+        "~/Library/Application Support/Microsoft/Teams/Cache",
+        "~/Library/Application Support/Microsoft/Teams/Code Cache",
+        "~/Library/Application Support/Microsoft/Teams/GPUCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.microsoft.teams2",
+        "com.microsoft.teams"
+      ]
+    }
+  },
+  {
+    "id": "media.spotify.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "en": "Spotify streaming cache",
+      "vi": "Cache phát nhạc Spotify"
+    },
+    "reason": {
+      "en": "Temporarily stored songs for streaming; downloaded playlists for offline use are kept.",
+      "vi": "Bài hát lưu tạm khi nghe trực tuyến; danh sách đã tải để nghe ngoại tuyến được giữ."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~/Library/Caches/com.spotify.client/Data"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "com.spotify.client"
+      ]
+    },
+    "notes": "Không đụng ~/Library/Application Support/Spotify/PersistentCache: Spotify lưu bài hát tải để nghe ngoại tuyến ở đó."
+  }
+]

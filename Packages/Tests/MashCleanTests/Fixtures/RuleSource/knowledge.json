@@ -1,0 +1,1 @@
+{ "appleBundlePrefixes": ["com.apple."], "orphanWhitelist": ["com.apple.*", "CloudKit"], "protectedCacheNames": ["CloudKit"], "keepLanguages": ["Base", "en"] }

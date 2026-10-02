@@ -1,0 +1,8 @@
+// Sao chép thành Signing.local.xcconfig và điền thông tin thật.
+DEVELOPMENT_TEAM = ABCDE12345
+CODE_SIGN_IDENTITY = Developer ID Application
+OTHER_CODE_SIGN_FLAGS = --timestamp
+MASHCLEAN_RULES_MANIFEST_URL = https:/$()/rules.mashclean.app/{channel}/manifest.json
+SPARKLE_FEED_URL = https:/$()/updates.mashclean.app/appcast.xml
+SPARKLE_PUBLIC_ED_KEY = <khoá EdDSA của Sparkle>
+MASHCLEAN_ENTITLEMENTS_VARIANT =

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>vi</string>
+	<key>CFBundleDisplayName</key>
+	<string>MashClean</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>MashClean</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mashclean.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mashclean</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2026 MashClean</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>MashClean cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt.</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>MashClean quét Desktop để tìm file lớn, cũ và trùng lặp.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>MashClean quét Documents để tìm file lớn, cũ và trùng lặp.</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>MashClean quét Downloads để tìm bản cài đặt cũ.</string>
+	<key>NSRemovableVolumesUsageDescription</key>
+	<string>MashClean phân tích dung lượng và dọn Thùng rác trên ổ ngoài.</string>
+	<key>NSNetworkVolumesUsageDescription</key>
+	<string>MashClean phân tích dung lượng trên ổ mạng khi bạn yêu cầu.</string>
+	<key>MashCleanTeamID</key>
+	<string>$(DEVELOPMENT_TEAM)</string>
+	<key>MashCleanRulesManifestURL</key>
+	<string>$(MASHCLEAN_RULES_MANIFEST_URL)</string>
+	<key>MashCleanAnalyticsURL</key>
+	<string>$(MASHCLEAN_ANALYTICS_URL)</string>
+	<key>MashCleanSupportEmail</key>
+	<string>$(MASHCLEAN_SUPPORT_EMAIL)</string>
+	<key>SUFeedURL</key>
+	<string>$(SPARKLE_FEED_URL)</string>
+	<key>SUPublicEDKey</key>
+	<string>$(SPARKLE_PUBLIC_ED_KEY)</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+</dict>
+</plist>

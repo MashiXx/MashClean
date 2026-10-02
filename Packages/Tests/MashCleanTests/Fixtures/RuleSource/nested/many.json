@@ -1,0 +1,16 @@
+[
+  {
+    "id": "fixture.sim",
+    "category": "xcodeJunk",
+    "safety": "safe",
+    "removal": "custom:simulator",
+    "match": { "paths": [], "provider": "simctl.unavailableDevices" }
+  },
+  {
+    "id": "fixture.app",
+    "category": "userCaches",
+    "safety": "review",
+    "removal": "moveToTrash",
+    "match": { "forEachInstalledApp": true, "paths": ["~/Library/Caches/${bundleID}"] }
+  }
+]

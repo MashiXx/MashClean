@@ -1,0 +1,512 @@
+[
+  {
+    "id": "app.com.jetbrains.intellij.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "IntelliJ IDEA leftovers",
+      "vi": "File sót của IntelliJ IDEA"
+    },
+    "reason": {
+      "en": "Settings, caches and support files IntelliJ IDEA leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ IntelliJ IDEA để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.intellij"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/IntelliJIdea*",
+        "~/Library/Caches/JetBrains/IntelliJIdea*",
+        "~/Library/Logs/JetBrains/IntelliJIdea*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.intellij.ce.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "IntelliJ IDEA CE leftovers",
+      "vi": "File sót của IntelliJ IDEA CE"
+    },
+    "reason": {
+      "en": "Settings, caches and support files IntelliJ IDEA CE leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ IntelliJ IDEA CE để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.intellij.ce"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/IdeaIC*",
+        "~/Library/Caches/JetBrains/IdeaIC*",
+        "~/Library/Logs/JetBrains/IdeaIC*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.pycharm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "PyCharm leftovers",
+      "vi": "File sót của PyCharm"
+    },
+    "reason": {
+      "en": "Settings, caches and support files PyCharm leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ PyCharm để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.pycharm"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/PyCharm2*",
+        "~/Library/Caches/JetBrains/PyCharm2*",
+        "~/Library/Logs/JetBrains/PyCharm2*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.pycharm.ce.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "PyCharm CE leftovers",
+      "vi": "File sót của PyCharm CE"
+    },
+    "reason": {
+      "en": "Settings, caches and support files PyCharm CE leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ PyCharm CE để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.pycharm.ce"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/PyCharmCE*",
+        "~/Library/Caches/JetBrains/PyCharmCE*",
+        "~/Library/Logs/JetBrains/PyCharmCE*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.WebStorm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "WebStorm leftovers",
+      "vi": "File sót của WebStorm"
+    },
+    "reason": {
+      "en": "Settings, caches and support files WebStorm leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ WebStorm để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.WebStorm"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/WebStorm*",
+        "~/Library/Caches/JetBrains/WebStorm*",
+        "~/Library/Logs/JetBrains/WebStorm*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.goland.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "GoLand leftovers",
+      "vi": "File sót của GoLand"
+    },
+    "reason": {
+      "en": "Settings, caches and support files GoLand leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ GoLand để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.goland"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/GoLand*",
+        "~/Library/Caches/JetBrains/GoLand*",
+        "~/Library/Logs/JetBrains/GoLand*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.CLion.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "CLion leftovers",
+      "vi": "File sót của CLion"
+    },
+    "reason": {
+      "en": "Settings, caches and support files CLion leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ CLion để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.CLion"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/CLion*",
+        "~/Library/Caches/JetBrains/CLion*",
+        "~/Library/Logs/JetBrains/CLion*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.rider.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Rider leftovers",
+      "vi": "File sót của Rider"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Rider leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Rider để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.rider"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/Rider*",
+        "~/Library/Caches/JetBrains/Rider*",
+        "~/Library/Logs/JetBrains/Rider*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.PhpStorm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "PhpStorm leftovers",
+      "vi": "File sót của PhpStorm"
+    },
+    "reason": {
+      "en": "Settings, caches and support files PhpStorm leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ PhpStorm để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.PhpStorm"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/PhpStorm*",
+        "~/Library/Caches/JetBrains/PhpStorm*",
+        "~/Library/Logs/JetBrains/PhpStorm*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.rubymine.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "RubyMine leftovers",
+      "vi": "File sót của RubyMine"
+    },
+    "reason": {
+      "en": "Settings, caches and support files RubyMine leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ RubyMine để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.rubymine"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/RubyMine*",
+        "~/Library/Caches/JetBrains/RubyMine*",
+        "~/Library/Logs/JetBrains/RubyMine*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.datagrip.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "DataGrip leftovers",
+      "vi": "File sót của DataGrip"
+    },
+    "reason": {
+      "en": "Settings, caches and support files DataGrip leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ DataGrip để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.datagrip"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/DataGrip*",
+        "~/Library/Caches/JetBrains/DataGrip*",
+        "~/Library/Logs/JetBrains/DataGrip*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.rustrover.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "RustRover leftovers",
+      "vi": "File sót của RustRover"
+    },
+    "reason": {
+      "en": "Settings, caches and support files RustRover leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ RustRover để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.rustrover"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/RustRover*",
+        "~/Library/Caches/JetBrains/RustRover*",
+        "~/Library/Logs/JetBrains/RustRover*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.dataspell.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "DataSpell leftovers",
+      "vi": "File sót của DataSpell"
+    },
+    "reason": {
+      "en": "Settings, caches and support files DataSpell leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ DataSpell để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.dataspell"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/DataSpell*",
+        "~/Library/Caches/JetBrains/DataSpell*",
+        "~/Library/Logs/JetBrains/DataSpell*"
+      ]
+    },
+    "notes": "Thư mục cấu hình theo phiên bản (<Product><năm.bản>) nằm chung trong ~/Library/*/JetBrains."
+  },
+  {
+    "id": "app.com.jetbrains.toolbox.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "JetBrains Toolbox leftovers",
+      "vi": "File sót của JetBrains Toolbox"
+    },
+    "reason": {
+      "en": "Settings, caches and support files JetBrains Toolbox leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ JetBrains Toolbox để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.jetbrains.toolbox"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/JetBrains/Toolbox",
+        "~/Library/Caches/JetBrains/Toolbox",
+        "~/Library/Logs/JetBrains/Toolbox"
+      ]
+    },
+    "notes": "Toolbox cũ cài IDE trong Application Support/JetBrains/Toolbox/apps nên để review."
+  },
+  {
+    "id": "app.com.google.android.studio.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Android Studio leftovers",
+      "vi": "File sót của Android Studio"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Android Studio leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Android Studio để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.google.android.studio"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Google/AndroidStudio*",
+        "~/Library/Caches/Google/AndroidStudio*",
+        "~/Library/Logs/Google/AndroidStudio*"
+      ]
+    },
+    "notes": "SDK Android (~/Library/Android/sdk) không thuộc rule này vì có thể dùng chung với công cụ khác."
+  }
+]

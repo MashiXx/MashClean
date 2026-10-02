@@ -1,0 +1,168 @@
+[
+  {
+    "id": "app.com.docker.docker.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Docker Desktop leftovers",
+      "vi": "File sót của Docker Desktop"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Docker Desktop leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Docker Desktop để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.docker.docker"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Group Containers/group.com.docker",
+        "~/Library/Application Support/Docker Desktop",
+        "~/Library/Logs/Docker Desktop",
+        "~/Library/Saved Application State/com.electron.docker-frontend.savedState",
+        "~/Library/Preferences/com.electron.docker-frontend.plist",
+        "~/.docker"
+      ]
+    },
+    "notes": "~/Library/Containers/com.docker.docker chứa Docker.raw (image, volume): để review và chuyển vào Thùng rác."
+  },
+  {
+    "id": "app.com.microsoft.VSCode.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Visual Studio Code leftovers",
+      "vi": "File sót của Visual Studio Code"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Visual Studio Code leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Visual Studio Code để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.VSCode"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Code",
+        "~/Library/Caches/com.microsoft.VSCode.ShipIt",
+        "~/.vscode"
+      ]
+    },
+    "notes": "~/.vscode chứa extension của VS Code."
+  },
+  {
+    "id": "app.com.todesktop.230313mzl4w4u92.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Cursor leftovers",
+      "vi": "File sót của Cursor"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Cursor leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Cursor để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.todesktop.230313mzl4w4u92"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Cursor",
+        "~/Library/Caches/com.todesktop.230313mzl4w4u92.ShipIt",
+        "~/.cursor"
+      ]
+    }
+  },
+  {
+    "id": "app.com.postmanlabs.mac.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Postman leftovers",
+      "vi": "File sót của Postman"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Postman leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Postman để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.postmanlabs.mac"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Postman"
+      ]
+    }
+  },
+  {
+    "id": "app.com.sublimetext.4.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Sublime Text leftovers",
+      "vi": "File sót của Sublime Text"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Sublime Text leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Sublime Text để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.sublimetext.*"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Sublime Text"
+      ]
+    }
+  }
+]

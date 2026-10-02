@@ -1,0 +1,254 @@
+[
+  {
+    "id": "app.com.microsoft.Word.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Word leftovers",
+      "vi": "File sót của Microsoft Word"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft Word leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Word để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.Word"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.Excel.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Excel leftovers",
+      "vi": "File sót của Microsoft Excel"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft Excel leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Excel để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.Excel"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.Powerpoint.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft PowerPoint leftovers",
+      "vi": "File sót của Microsoft PowerPoint"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft PowerPoint leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft PowerPoint để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.Powerpoint"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.Outlook.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Outlook leftovers",
+      "vi": "File sót của Microsoft Outlook"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft Outlook leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Outlook để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.Outlook"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.onenote.mac.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft OneNote leftovers",
+      "vi": "File sót của Microsoft OneNote"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft OneNote leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft OneNote để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.onenote.mac"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.office.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Office (shared) leftovers",
+      "vi": "File sót của Microsoft Office (dùng chung)"
+    },
+    "reason": {
+      "en": "Data shared by all Microsoft Office apps, including Outlook's local mail cache. Only remove it when every Office app is uninstalled.",
+      "vi": "Dữ liệu dùng chung của mọi app Microsoft Office, kể cả bộ đệm thư của Outlook. Chỉ xoá khi đã gỡ hết các app Office."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.Word",
+        "com.microsoft.Excel",
+        "com.microsoft.Powerpoint",
+        "com.microsoft.Outlook",
+        "com.microsoft.onenote.mac"
+      ],
+      "paths": [
+        "~/Library/Group Containers/UBF8T346G9.Office",
+        "~/Library/Group Containers/UBF8T346G9.ms",
+        "~/Library/Group Containers/UBF8T346G9.OfficeOsfWebHost",
+        "~/Library/Group Containers/UBF8T346G9.com.microsoft.oneauth",
+        "~/Library/Application Support/Microsoft/Office"
+      ]
+    },
+    "exclude": [
+      "~/Library/Group Containers/UBF8T346G9.OneDrive*"
+    ],
+    "notes": "Group Containers UBF8T346G9.* dùng chung cho cả bộ Office: chỉ xoá khi gỡ hết Office (Uninstaller phải kiểm tra không còn app nào khớp bundleIDs). Không bao giờ đụng UBF8T346G9.OneDrive* (dữ liệu đồng bộ OneDrive)."
+  },
+  {
+    "id": "app.com.microsoft.teams2.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Teams leftovers",
+      "vi": "File sót của Microsoft Teams"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft Teams leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Teams để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.teams2",
+        "com.microsoft.teams"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Microsoft/Teams",
+        "~/Library/Group Containers/UBF8T346G9.com.microsoft.teams"
+      ]
+    }
+  },
+  {
+    "id": "app.com.microsoft.edgemac.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Microsoft Edge leftovers",
+      "vi": "File sót của Microsoft Edge"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Microsoft Edge leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Edge để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.microsoft.edgemac"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Microsoft Edge",
+        "~/Library/Caches/Microsoft Edge"
+      ]
+    },
+    "notes": "Application Support/Microsoft Edge chứa hồ sơ trình duyệt (dấu trang, mật khẩu) nên để review."
+  }
+]

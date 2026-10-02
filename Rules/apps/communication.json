@@ -1,0 +1,200 @@
+[
+  {
+    "id": "app.us.zoom.xos.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Zoom leftovers",
+      "vi": "File sót của Zoom"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Zoom leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Zoom để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "us.zoom.xos"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/zoom.us",
+        "~/Library/Logs/zoom.us",
+        "~/Library/Logs/zoominstall.log",
+        "~/Library/Preferences/ZoomChat.plist",
+        "~/Library/Preferences/us.zoom.ZoomAutoUpdater.plist",
+        "~/Library/Internet Plug-Ins/ZoomUsPlugIn.plugin"
+      ]
+    },
+    "notes": "Bản ghi cuộc họp nằm trong ~/Documents/Zoom: không thuộc rule này."
+  },
+  {
+    "id": "app.com.tinyspeck.slackmacgap.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Slack leftovers",
+      "vi": "File sót của Slack"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Slack leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Slack để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.tinyspeck.slackmacgap"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Slack",
+        "~/Library/Group Containers/${teamID}.com.tinyspeck.slackmacgap"
+      ]
+    }
+  },
+  {
+    "id": "app.com.hnc.Discord.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Discord leftovers",
+      "vi": "File sót của Discord"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Discord leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Discord để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.hnc.Discord"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/discord"
+      ]
+    }
+  },
+  {
+    "id": "app.ru.keepcoder.Telegram.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Telegram leftovers",
+      "vi": "File sót của Telegram"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Telegram leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Telegram để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "ru.keepcoder.Telegram"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Group Containers/${teamID}.ru.keepcoder.Telegram"
+      ]
+    },
+    "notes": "Group container chứa bộ đệm tin nhắn và tệp đã tải."
+  },
+  {
+    "id": "app.com.skype.skype.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "Skype leftovers",
+      "vi": "File sót của Skype"
+    },
+    "reason": {
+      "en": "Settings, caches and support files Skype leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ Skype để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "safe",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "com.skype.skype"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Application Support/Skype",
+        "~/Library/Application Support/Microsoft/Skype for Desktop"
+      ]
+    }
+  },
+  {
+    "id": "app.net.whatsapp.WhatsApp.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "en": "WhatsApp leftovers",
+      "vi": "File sót của WhatsApp"
+    },
+    "reason": {
+      "en": "Settings, caches and support files WhatsApp leaves behind after the app is removed.",
+      "vi": "Cài đặt, cache và tệp hỗ trợ WhatsApp để lại sau khi gỡ ứng dụng."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "bundleIDs": [
+        "net.whatsapp.WhatsApp"
+      ],
+      "paths": [
+        "~/Library/Caches/${bundleID}",
+        "~/Library/HTTPStorages/${bundleID}",
+        "~/Library/WebKit/${bundleID}",
+        "~/Library/Preferences/${bundleID}.plist",
+        "~/Library/Saved Application State/${bundleID}.savedState",
+        "~/Library/Application Scripts/${bundleID}",
+        "~/Library/Containers/${bundleID}",
+        "~/Library/Group Containers/group.net.whatsapp.WhatsApp.shared",
+        "~/Library/Group Containers/group.net.whatsapp.WhatsApp.private",
+        "~/Library/Group Containers/group.net.whatsapp.family"
+      ]
+    },
+    "notes": "Group container chứa lịch sử chat cục bộ."
+  }
+]

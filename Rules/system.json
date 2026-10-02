@@ -1,0 +1,191 @@
+[
+  {
+    "id": "system.caches.all",
+    "version": 1,
+    "category": "systemCaches",
+    "title": { "en": "System-wide caches", "vi": "Cache dùng chung của hệ thống" },
+    "reason": {
+      "en": "Caches shared by all users in /Library/Caches; they are recreated automatically.",
+      "vi": "Cache dùng chung cho mọi người dùng trong /Library/Caches; hệ thống tự tạo lại."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": ["/Library/Caches/*"]
+    },
+    "exclude": [
+      "/Library/Caches/com.apple.*",
+      "/Library/Caches/ColorSync",
+      "/Library/Caches/Desktop Pictures",
+      "/Library/Caches/Homebrew",
+      "/Library/Caches/com.mashclean.*"
+    ],
+    "notes": "Cache của Apple trong /Library/Caches (iconservices, amsengagementd, SoftwareUpdate...) bị loại trừ vì xoá khi đang dùng gây lỗi giao diện hoặc phải tải lại."
+  },
+  {
+    "id": "system.logs.library",
+    "version": 1,
+    "category": "systemLogs",
+    "title": { "en": "System log files", "vi": "File log hệ thống" },
+    "reason": {
+      "en": "Diagnostic logs written by installers and system services; only useful for troubleshooting.",
+      "vi": "Log chẩn đoán do trình cài đặt và dịch vụ hệ thống ghi; chỉ dùng khi tìm lỗi."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": ["/Library/Logs/*"]
+    },
+    "exclude": ["/Library/Logs/DiagnosticReports"]
+  },
+  {
+    "id": "system.logs.archived",
+    "version": 1,
+    "category": "systemLogs",
+    "title": { "en": "Archived system logs", "vi": "Log hệ thống đã nén" },
+    "reason": {
+      "en": "Rotated and compressed logs in /private/var/log; the current logs are kept.",
+      "vi": "Log cũ đã xoay vòng và nén trong /private/var/log; log hiện tại được giữ."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "/private/var/log/*.gz",
+        "/private/var/log/*.bz2",
+        "/private/var/log/*/*.gz",
+        "/private/var/log/*/*.bz2"
+      ]
+    }
+  },
+  {
+    "id": "system.logs.asl",
+    "version": 1,
+    "category": "systemLogs",
+    "title": { "en": "Old Apple System Log files", "vi": "File ASL cũ" },
+    "reason": {
+      "en": "Legacy Apple System Log stores older than a week; modern macOS logs live in the unified log.",
+      "vi": "Kho log ASL kiểu cũ quá một tuần; macOS hiện đại ghi log vào unified log."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "/private/var/log/asl/*.asl",
+        "/private/var/log/DiagnosticMessages/*.asl"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.installer",
+    "version": 1,
+    "category": "systemLogs",
+    "title": { "en": "Old installer logs", "vi": "Log trình cài đặt cũ" },
+    "reason": {
+      "en": "Rotated install.log files older than 30 days.",
+      "vi": "File install.log đã xoay vòng, cũ hơn 30 ngày."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": ["/private/var/log/install.log.*"],
+      "minAgeDays": 30
+    }
+  },
+  {
+    "id": "user.logs.all",
+    "version": 1,
+    "category": "userLogs",
+    "title": { "en": "User log files", "vi": "File log của người dùng" },
+    "reason": {
+      "en": "Activity logs written by apps; apps create new ones when needed.",
+      "vi": "Log hoạt động do ứng dụng ghi; ứng dụng tự tạo file mới khi cần."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Logs/*"]
+    },
+    "exclude": [
+      "~/Library/Logs/DiagnosticReports",
+      "~/Library/Logs/CoreSimulator",
+      "~/Library/Logs/CrashReporter",
+      "~/Library/Logs/MashClean"
+    ]
+  },
+  {
+    "id": "user.logs.containers",
+    "version": 1,
+    "category": "userLogs",
+    "title": { "en": "Sandboxed app logs", "vi": "Log của ứng dụng sandbox" },
+    "reason": {
+      "en": "Log folders inside the containers of installed apps.",
+      "vi": "Thư mục log bên trong container của ứng dụng đã cài."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "forEachInstalledApp": true,
+      "paths": ["~/Library/Containers/${bundleID}/Data/Library/Logs"]
+    },
+    "conditions": { "appNotRunning": ["${bundleID}"] },
+    "exclude": ["~/Library/Containers/com.apple.*", "~/Library/Containers/com.mashclean.*"]
+  },
+  {
+    "id": "crash.user.reports",
+    "version": 1,
+    "category": "crashReports",
+    "title": { "en": "Crash reports", "vi": "Báo cáo crash" },
+    "reason": {
+      "en": "Reports saved when apps crashed or hung; only developers need them.",
+      "vi": "Báo cáo lưu lại khi ứng dụng bị crash hoặc treo; chỉ nhà phát triển cần đến."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Logs/DiagnosticReports/*"]
+    }
+  },
+  {
+    "id": "crash.user.crashReporter",
+    "version": 1,
+    "category": "crashReports",
+    "title": { "en": "Old crash reporter logs", "vi": "Log CrashReporter cũ" },
+    "reason": {
+      "en": "Crash logs kept by the legacy CrashReporter folder.",
+      "vi": "Log crash trong thư mục CrashReporter kiểu cũ."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": ["~/Library/Logs/CrashReporter/*"]
+    },
+    "exclude": ["~/Library/Logs/CrashReporter/MobileDevice"]
+  },
+  {
+    "id": "crash.system.reports",
+    "version": 1,
+    "category": "crashReports",
+    "title": { "en": "System crash reports", "vi": "Báo cáo crash của hệ thống" },
+    "reason": {
+      "en": "Crash and hang reports of system processes and other users.",
+      "vi": "Báo cáo crash và treo của tiến trình hệ thống và người dùng khác."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": ["/Library/Logs/DiagnosticReports/*"]
+    }
+  }
+]

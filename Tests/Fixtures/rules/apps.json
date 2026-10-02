@@ -1,0 +1,123 @@
+{
+  "cases": [
+    {
+      "name": "IntelliJ IDEA: thư mục theo phiên bản trong JetBrains, không đụng IDE khác",
+      "rules": ["app.com.jetbrains.intellij.leftovers"],
+      "apps": [{ "bundleID": "com.jetbrains.intellij", "appName": "IntelliJ IDEA" }],
+      "files": [
+        { "path": "~/Library/Application Support/JetBrains/IntelliJIdea2024.1/options/ide.general.xml", "size": 1024 },
+        { "path": "~/Library/Caches/JetBrains/IntelliJIdea2024.1/index/x", "size": 4096 },
+        { "path": "~/Library/Logs/JetBrains/IntelliJIdea2024.1/idea.log", "size": 4096 },
+        { "path": "~/Library/Application Support/JetBrains/PyCharm2024.1/options/x", "size": 1024 },
+        { "path": "~/Library/Application Support/JetBrains/IdeaIC2024.1/options/x", "size": 1024 },
+        { "path": "~/Library/Preferences/com.jetbrains.intellij.plist", "size": 512 },
+        { "path": "~/Library/Saved Application State/com.jetbrains.intellij.savedState/data.data", "size": 512 }
+      ],
+      "expect": [
+        "~/Library/Application Support/JetBrains/IntelliJIdea2024.1",
+        "~/Library/Caches/JetBrains/IntelliJIdea2024.1",
+        "~/Library/Logs/JetBrains/IntelliJIdea2024.1",
+        "~/Library/Preferences/com.jetbrains.intellij.plist",
+        "~/Library/Saved Application State/com.jetbrains.intellij.savedState"
+      ]
+    },
+    {
+      "name": "PyCharm Professional không lấy thư mục của PyCharm CE",
+      "rules": ["app.com.jetbrains.pycharm.leftovers"],
+      "apps": [{ "bundleID": "com.jetbrains.pycharm" }],
+      "files": [
+        { "path": "~/Library/Application Support/JetBrains/PyCharm2024.1/x", "size": 1024 },
+        { "path": "~/Library/Application Support/JetBrains/PyCharmCE2024.1/x", "size": 1024 }
+      ],
+      "expect": ["~/Library/Application Support/JetBrains/PyCharm2024.1"]
+    },
+    {
+      "name": "Rule leftovers không áp cho app khác bundleIDs",
+      "rules": ["app.com.jetbrains.intellij.leftovers", "app.us.zoom.xos.leftovers"],
+      "apps": [{ "bundleID": "com.example.other" }],
+      "files": [
+        { "path": "~/Library/Application Support/JetBrains/IntelliJIdea2024.1/x", "size": 1024 },
+        { "path": "~/Library/Application Support/zoom.us/data/x", "size": 1024 }
+      ],
+      "expect": []
+    },
+    {
+      "name": "Office dùng chung: Group Containers UBF8T346G9.Office, không đụng OneDrive",
+      "rules": ["app.com.microsoft.office.leftovers", "app.com.microsoft.Word.leftovers"],
+      "apps": [{ "bundleID": "com.microsoft.Word", "appName": "Microsoft Word" }],
+      "files": [
+        { "path": "~/Library/Group Containers/UBF8T346G9.Office/User Content/Templates/x.dotx", "size": 1024 },
+        { "path": "~/Library/Group Containers/UBF8T346G9.ms/x", "size": 1024 },
+        { "path": "~/Library/Group Containers/UBF8T346G9.OneDriveSyncClientSuite/settings", "size": 1024 },
+        { "path": "~/Library/Containers/com.microsoft.Word/Data/Library/Preferences/x.plist", "size": 1024 }
+      ],
+      "expect": [
+        "~/Library/Group Containers/UBF8T346G9.Office",
+        "~/Library/Group Containers/UBF8T346G9.ms",
+        "~/Library/Containers/com.microsoft.Word"
+      ]
+    },
+    {
+      "name": "Slack: group container theo Team ID (${teamID})",
+      "rules": ["app.com.tinyspeck.slackmacgap.leftovers"],
+      "apps": [{ "bundleID": "com.tinyspeck.slackmacgap", "appName": "Slack", "teamID": "BQR82RBBHL" }],
+      "files": [
+        { "path": "~/Library/Application Support/Slack/storage/x", "size": 1024 },
+        { "path": "~/Library/Group Containers/BQR82RBBHL.com.tinyspeck.slackmacgap/x", "size": 1024 },
+        { "path": "~/Library/Group Containers/OTHERTEAM.com.tinyspeck.slackmacgap/x", "size": 1024 }
+      ],
+      "expect": [
+        "~/Library/Application Support/Slack",
+        "~/Library/Group Containers/BQR82RBBHL.com.tinyspeck.slackmacgap"
+      ]
+    },
+    {
+      "name": "Battle.net: bundleIDs dạng glob và /Users/Shared",
+      "rules": ["app.net.battle.leftovers"],
+      "apps": [{ "bundleID": "net.battle.app", "appName": "Battle.net" }],
+      "files": [
+        { "path": "~/Library/Application Support/Battle.net/x", "size": 1024 },
+        { "path": "~/Library/Preferences/net.battle.app.plist", "size": 512 },
+        { "path": "/Users/Shared/Battle.net/Agent/agent.db", "size": 1024 }
+      ],
+      "expect": [
+        "~/Library/Application Support/Battle.net",
+        "~/Library/Preferences/net.battle.app.plist",
+        "/Users/Shared/Battle.net"
+      ]
+    },
+    {
+      "name": "Docker Desktop, VS Code, Zoom, Spotify, Chrome",
+      "rules": ["app.com.docker.docker.leftovers", "app.com.microsoft.VSCode.leftovers", "app.us.zoom.xos.leftovers", "app.com.spotify.client.leftovers", "app.com.google.Chrome.leftovers"],
+      "apps": [
+        { "bundleID": "com.docker.docker" }, { "bundleID": "com.microsoft.VSCode" }, { "bundleID": "us.zoom.xos" },
+        { "bundleID": "com.spotify.client" }, { "bundleID": "com.google.Chrome" }
+      ],
+      "files": [
+        { "path": "~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw", "size": 8192 },
+        { "path": "~/Library/Group Containers/group.com.docker/settings.json", "size": 512 },
+        { "path": "~/.docker/config.json", "size": 512 },
+        { "path": "~/Library/Application Support/Code/User/settings.json", "size": 512 },
+        { "path": "~/.vscode/extensions/ms-python.python/x", "size": 1024 },
+        { "path": "~/Library/Application Support/zoom.us/data/x", "size": 1024 },
+        { "path": "~/Library/Logs/zoominstall.log", "size": 512 },
+        { "path": "~/Library/Caches/com.spotify.client/Data/x", "size": 1024 },
+        { "path": "~/Library/Application Support/Spotify/prefs", "size": 512 },
+        { "path": "~/Library/Application Support/Google/Chrome/Default/Bookmarks", "size": 512 },
+        { "path": "~/Library/Application Support/Google/Drive/x", "size": 512 }
+      ],
+      "expect": [
+        "~/Library/Containers/com.docker.docker",
+        "~/Library/Group Containers/group.com.docker",
+        "~/.docker",
+        "~/Library/Application Support/Code",
+        "~/.vscode",
+        "~/Library/Application Support/zoom.us",
+        "~/Library/Logs/zoominstall.log",
+        "~/Library/Caches/com.spotify.client",
+        "~/Library/Application Support/Spotify",
+        "~/Library/Application Support/Google/Chrome"
+      ]
+    }
+  ]
+}

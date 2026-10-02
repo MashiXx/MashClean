@@ -1,0 +1,4 @@
+module CXXHash {
+    header "CXXHash.h"
+    export *
+}

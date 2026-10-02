@@ -5,7 +5,9 @@
 DEVELOPMENT_TEAM =
 CODE_SIGN_IDENTITY = -
 CODE_SIGN_STYLE = Manual
-ENABLE_HARDENED_RUNTIME = YES
+// Hardened runtime chỉ bật khi ký bằng Team ID thật (bắt buộc để notarize). Với chữ ký ad-hoc, hardened runtime
+// bật kiểm tra thư viện: Sparkle.framework ký riêng sẽ bị dyld từ chối ("different Team IDs") và app chết khi mở.
+ENABLE_HARDENED_RUNTIME = NO
 OTHER_CODE_SIGN_FLAGS = --timestamp=none
 // Ký ad-hoc không dùng được App Group `group.*` (cần provisioning profile): dùng entitlements không có app group.
 // Bản ký Team ID đặt biến này rỗng trong Signing.local.xcconfig.

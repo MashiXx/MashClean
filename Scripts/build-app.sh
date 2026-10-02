@@ -24,4 +24,6 @@ else
 fi
 
 APP="$DERIVED/Build/Products/$CONFIG/MashClean.app"
+codesign --verify --deep --strict "$APP"
+Scripts/smoke-launch.sh "$APP"
 echo "==> Xong: $APP"

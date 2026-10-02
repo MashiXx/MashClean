@@ -109,6 +109,8 @@ final class AppEnvironmentHolder: ObservableObject {
     /// Việc cần mạng hoặc XPC chạy sau khi UI hiện, song song, không chặn UI (mục 23.1).
     func startBackgroundWork(updater: UpdaterController) async {
         guard !started, let env = environment else { return }
+        // Chạy thử trong script build: không đụng login item, helper hay mạng.
+        guard ProcessInfo.processInfo.environment["MASHCLEAN_SMOKE_TEST"] == nil else { return }
         started = true
         Log.info(.ui, "app", "Khởi động MashClean \(AppVersion.current), rule \(rulesVersion)")
 
@@ -117,7 +119,7 @@ final class AppEnvironmentHolder: ObservableObject {
             Task.detached(priority: .utility) { try? storage.pruneOldData() }
         }
         hasFullDiskAccess = Permissions.hasFullDiskAccess()
-        if AppSettings.shared.menuBarEnabled, AppSettings.shared.onboardingCompleted { MenuBarLoginItem.setEnabled(true) }
+        if AppSettings.shared.menuBarEnabled, AppSettings.shared.onboardingCompleted { await MenuBarLoginItem.ensureRunning() }
 
         async let helperCheck: HelperStatus = env.helper.ensureCompatible()
         async let ruleCheck: Void = checkRuleUpdates(force: false)

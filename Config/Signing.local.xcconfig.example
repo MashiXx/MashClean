@@ -6,3 +6,4 @@ MASHCLEAN_RULES_MANIFEST_URL = https:/$()/rules.mashclean.app/{channel}/manifest
 SPARKLE_FEED_URL = https:/$()/updates.mashclean.app/appcast.xml
 SPARKLE_PUBLIC_ED_KEY = <khoá EdDSA của Sparkle>
 MASHCLEAN_ENTITLEMENTS_VARIANT =
+ENABLE_HARDENED_RUNTIME = YES

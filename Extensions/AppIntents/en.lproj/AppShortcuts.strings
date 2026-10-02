@@ -1,0 +1,7 @@
+/* Câu lệnh Siri/Spotlight cho App Shortcuts (bảng AppShortcuts). Khoá là câu tiếng Việt trong MashCleanIntents.swift. */
+"Dung lượng trống trong ${applicationName}" = "Free space in ${applicationName}";
+"${applicationName} còn trống bao nhiêu" = "How much free space with ${applicationName}";
+"Dọn rác bằng ${applicationName}" = "Clean junk with ${applicationName}";
+"${applicationName} dọn rác" = "${applicationName} clean junk";
+"Smart Scan trong ${applicationName}" = "Smart Scan in ${applicationName}";
+"Quét máy bằng ${applicationName}" = "Scan my Mac with ${applicationName}";

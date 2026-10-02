@@ -14,13 +14,13 @@ final class FinderSyncExtension: FIFinderSync {
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
         guard menuKind == .contextualMenuForItems || menuKind == .contextualMenuForContainer else { return nil }
         let menu = NSMenu(title: "MashClean")
-        let analyze = NSMenuItem(title: "Phân tích bằng MashClean", action: #selector(analyze(_:)), keyEquivalent: "")
+        let analyze = NSMenuItem(title: String(localized: "Phân tích bằng MashClean"), action: #selector(analyze(_:)), keyEquivalent: "")
         analyze.image = NSImage(systemSymbolName: "chart.pie", accessibilityDescription: nil)
         menu.addItem(analyze)
 
         if menuKind == .contextualMenuForItems, let items = FIFinderSyncController.default().selectedItemURLs(),
            items.count == 1, items[0].pathExtension.lowercased() == "app" {
-            let uninstall = NSMenuItem(title: "Gỡ bằng MashClean", action: #selector(uninstall(_:)), keyEquivalent: "")
+            let uninstall = NSMenuItem(title: String(localized: "Gỡ bằng MashClean"), action: #selector(uninstall(_:)), keyEquivalent: "")
             uninstall.image = NSImage(systemSymbolName: "trash", accessibilityDescription: nil)
             menu.addItem(uninstall)
         }

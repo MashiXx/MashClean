@@ -92,7 +92,7 @@
 "Cache hệ thống" = "System caches";
 "Cache người dùng" = "User caches";
 "Cao" = "High";
-"Cho biết ổ khởi động còn trống bao nhiêu." = "Shows how much free space is left on the startup disk.";
+"Cho biết ổ khởi động còn trống bao nhiêu." = "Tells you how much free space is left on the startup disk.";
 "Cho phép thông báo" = "Allow Notifications";
 "Chung" = "General";
 "Chuyển vào Thùng rác" = "Move to Trash";
@@ -185,7 +185,7 @@
 "Dry run: chạy toàn bộ luồng nhưng không xoá gì" = "Dry run: runs the full flow but deletes nothing";
 "Dung lượng" = "Size";
 "Dung lượng Thùng rác" = "Trash size";
-"Dung lượng trống" = "Free space";
+"Dung lượng trống" = "Free Space";
 "Dùng " = "Used ";
 "Dưới 100 MB" = "Under 100 MB";
 "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn." = "Clean caches, logs, Xcode and developer tool junk, and old backups. Every item is explained: which app it belongs to and why it's safe.";
@@ -212,6 +212,7 @@
 "Gỡ %@ khỏi launchd và %@. App sở hữu có thể tạo lại mục này khi mở." = "Remove %@ from launchd and %@. The owning app may recreate this item when opened.";
 "Gỡ %lld ứng dụng · %@" = "Uninstall %lld apps · %@";
 "Gỡ app cùng toàn bộ file sót: dữ liệu, cache, LaunchAgent, gói cài đặt. Mỗi mục kèm mức tin cậy." = "Uninstall apps along with all leftovers: data, caches, LaunchAgents, installer packages. Each item shows a confidence level.";
+"Gỡ bằng MashClean" = "Uninstall with MashClean";
 "Gỡ cài đặt" = "Uninstaller";
 "Gỡ helper" = "Uninstall Helper";
 "Gỡ khỏi launchd và chuyển plist vào Thùng rác" = "Remove from launchd and move plist to Trash";
@@ -359,8 +360,8 @@
 "Mở" = "Open";
 "Mở Login Items" = "Open Login Items";
 "Mở MashClean" = "Open MashClean";
-"Mở MashClean và chạy Smart Scan." = "Open MashClean and run Smart Scan.";
-"Mở MashClean và quét rác hệ thống." = "Open MashClean and scan for system junk.";
+"Mở MashClean và chạy Smart Scan." = "Opens MashClean and runs Smart Scan.";
+"Mở MashClean và quét rác hệ thống." = "Opens MashClean and scans for system junk.";
 "Mở System Settings" = "Open System Settings";
 "Mở cài đặt" = "Open Settings";
 "Mở thư mục dữ liệu" = "Open Data Folder";
@@ -393,6 +394,7 @@
 "Phiên bản %@" = "Version %@";
 "Phiên bản rule" = "Rule version";
 "Phiên bản định dạng rule không hỗ trợ: %u" = "Unsupported rule format version: %u";
+"Phân tích bằng MashClean" = "Analyze with MashClean";
 "Phản hồi không phải HTTP" = "Response is not HTTP";
 "Quay lại đây, MashClean tự nhận ra sau vài giây." = "Come back here; MashClean will detect it within a few seconds.";
 "Quyền" = "Permissions";
@@ -582,7 +584,7 @@
 "đã chọn" = "selected";
 "Ước tính đã dọn" = "Estimated cleaned";
 "Ảnh" = "Photos";
-"Ổ khởi động còn trống %@." = "Startup disk has %@ free.";
+"Ổ khởi động còn trống %@." = "The startup disk has %@ free.";
 "Ổ đĩa" = "Disk";
 "Ổ đĩa ngoài" = "External drive";
 "Ổ đĩa sắp đầy" = "Disk almost full";

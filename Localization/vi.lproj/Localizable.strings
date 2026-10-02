@@ -212,6 +212,7 @@
 "Gỡ %@ khỏi launchd và %@. App sở hữu có thể tạo lại mục này khi mở." = "Gỡ %@ khỏi launchd và %@. App sở hữu có thể tạo lại mục này khi mở.";
 "Gỡ %lld ứng dụng · %@" = "Gỡ %lld ứng dụng · %@";
 "Gỡ app cùng toàn bộ file sót: dữ liệu, cache, LaunchAgent, gói cài đặt. Mỗi mục kèm mức tin cậy." = "Gỡ app cùng toàn bộ file sót: dữ liệu, cache, LaunchAgent, gói cài đặt. Mỗi mục kèm mức tin cậy.";
+"Gỡ bằng MashClean" = "Gỡ bằng MashClean";
 "Gỡ cài đặt" = "Gỡ cài đặt";
 "Gỡ helper" = "Gỡ helper";
 "Gỡ khỏi launchd và chuyển plist vào Thùng rác" = "Gỡ khỏi launchd và chuyển plist vào Thùng rác";
@@ -393,6 +394,7 @@
 "Phiên bản %@" = "Phiên bản %@";
 "Phiên bản rule" = "Phiên bản rule";
 "Phiên bản định dạng rule không hỗ trợ: %u" = "Phiên bản định dạng rule không hỗ trợ: %u";
+"Phân tích bằng MashClean" = "Phân tích bằng MashClean";
 "Phản hồi không phải HTTP" = "Phản hồi không phải HTTP";
 "Quay lại đây, MashClean tự nhận ra sau vài giây." = "Quay lại đây, MashClean tự nhận ra sau vài giây.";
 "Quyền" = "Quyền";

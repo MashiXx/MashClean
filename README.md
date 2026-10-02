@@ -11,7 +11,9 @@ Biết rõ từng byte sắp xoá là gì, thuộc app nào, và vì sao an toà
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-black?logo=apple)
 ![Apple Silicon & Intel](https://img.shields.io/badge/Universal-Apple%20Silicon%20%2B%20Intel-6A3093)
 ![Swift 6](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)
-![Tiếng Việt](https://img.shields.io/badge/giao%20di%E1%BB%87n-Ti%E1%BA%BFng%20Vi%E1%BB%87t-2BB39B)
+![Tiếng Việt · English](https://img.shields.io/badge/giao%20di%E1%BB%87n-Ti%E1%BA%BFng%20Vi%E1%BB%87t%20%C2%B7%20English-2BB39B)
+
+[English](README.en.md) · **Tiếng Việt**
 
 </div>
 
@@ -26,6 +28,7 @@ Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "D�
 - 🛡️ **Có vùng cấm không thể vượt qua.** `/System`, Keychain, iCloud Drive, Ảnh, Tin nhắn và chính các thư mục Documents/Desktop luôn bị chặn, ngay cả khi một rule chỉ tới. Mọi đường dẫn được kiểm tra lại ngay trước khi xoá, chống cả tấn công bằng symlink.
 - ⚡ **Nhanh.** Quét rác cả máy khoảng 290 nghìn file trong ~6 giây trên SSD, nhờ đọc thư mục hàng loạt bằng `getattrlistbulk` và đo song song.
 - 👩‍💻 **Hiểu dân lập trình.** Rác Xcode (DerivedData, simulator hỏng, runtime không dùng), cache npm/yarn/pnpm, Homebrew, pip, Gradle, Maven, CocoaPods, JetBrains, VS Code, Docker…
+- 🌐 **Tiếng Việt và tiếng Anh.** Đổi ngôn ngữ ngay ở sidebar, trong Cài đặt hoặc từ thanh menu.
 
 ## Tính năng
 
@@ -39,7 +42,7 @@ Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "D�
 | ⏻ | **Login Items** | Xem, tắt, xoá LaunchAgent/Daemon; đánh dấu mục **hỏng** khi chương trình của nó không còn tồn tại. |
 | 🐘 | **File lớn & cũ** | Tìm qua Spotlight, lọc theo loại file, dung lượng, lần dùng cuối. |
 | 👯 | **File trùng lặp** | So 3 bước (dung lượng → xxHash3 đầu/cuối file → SHA-256 toàn bộ), bỏ qua bản clone APFS vì xoá chúng không giải phóng gì, gợi ý bản nên giữ. |
-| 📊 | **Thanh menu** | CPU, RAM, tốc độ mạng, dung lượng trống, pin, có biểu đồ nhỏ. Cảnh báo khi ổ sắp đầy hoặc Thùng rác quá lớn. |
+| 📊 | **Thanh menu** | CPU, RAM, tốc độ mạng, dung lượng trống, pin, có biểu đồ nhỏ. Tự chọn chỉ số nào hiện trên thanh menu. Cảnh báo khi ổ sắp đầy hoặc Thùng rác quá lớn. |
 | 🖱️ | **Finder & Shortcuts** | Chuột phải trong Finder: *Phân tích bằng MashClean*, *Gỡ bằng MashClean*. Shortcuts: *Dọn rác*, *Dung lượng trống*. |
 
 ## An toàn là trên hết
@@ -70,6 +73,7 @@ Phần "biết đường dẫn nào xoá được" nằm trong bộ **111 rule J
 
 1. Mở `MashClean-<phiên bản>.dmg`, kéo **MashClean** vào **Applications**.
 2. Mở app và làm theo hướng dẫn lần đầu:
+   - **Ngôn ngữ**: chọn tiếng Việt, tiếng Anh hoặc theo hệ thống.
    - **Full Disk Access**: để quét được cache và dữ liệu của app khác. Có thể bỏ qua; khi đó app chạy ở chế độ hạn chế và ghi rõ nhóm nào cần quyền.
    - **Helper quản trị**: để dọn cache hệ thống và chạy tác vụ bảo trì cần root.
 3. Bấm **Quét**.
@@ -113,8 +117,13 @@ MashClean.app
 | `Packages/Features` | 8 tính năng, mỗi cái chia `Scanning` / `Domain` / `UI` |
 | `Packages/UI` | Design system và màn hình dùng chung |
 | `Rules/` | Nguồn rule JSON; `Tests/Fixtures/rules` là fixture cho `rulepack test` |
+| `Localization/` | `en.json` (bản dịch tiếng Anh, khoá là chuỗi tiếng Việt gốc) và các file `.lproj` sinh tự động |
 | `App/`, `MenuBar/`, `Helper/`, `Extensions/` | Các target Xcode (chỉ entry point và cấu hình) |
-| `Scripts/` | Build, DMG, notarize, phát hành |
+| `Scripts/` | Build, DMG, notarize, phát hành, công cụ bản địa hoá |
+
+### Bản địa hoá
+
+Chuỗi giao diện viết bằng tiếng Việt trong code và bọc bằng `String(localized:)`. Thêm chuỗi mới thì chạy `Scripts/l10n/update.sh`: trình biên dịch trích khoá vào `Localization/en.json`. Điền bản dịch tiếng Anh còn trống rồi chạy `python3 Scripts/l10n/gen_strings.py` để sinh lại các file `.lproj`.
 
 ### Ký và phát hành
 

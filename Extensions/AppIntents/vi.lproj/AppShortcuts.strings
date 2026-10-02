@@ -1,0 +1,7 @@
+/* Câu lệnh Siri/Spotlight cho App Shortcuts (bảng AppShortcuts). */
+"Dung lượng trống trong ${applicationName}" = "Dung lượng trống trong ${applicationName}";
+"${applicationName} còn trống bao nhiêu" = "${applicationName} còn trống bao nhiêu";
+"Dọn rác bằng ${applicationName}" = "Dọn rác bằng ${applicationName}";
+"${applicationName} dọn rác" = "${applicationName} dọn rác";
+"Smart Scan trong ${applicationName}" = "Smart Scan trong ${applicationName}";
+"Quét máy bằng ${applicationName}" = "Quét máy bằng ${applicationName}";

@@ -32,11 +32,14 @@ public final class MenuBarController: NSObject, NSPopoverDelegate {
         popover.behavior = .transient
         popover.animates = true
         popover.delegate = self
-        popover.contentViewController = NSHostingController(rootView: MenuBarPopoverView(
+        let hosting = NSHostingController(rootView: MenuBarPopoverView(
             model: model,
             onAction: { [weak self] in self?.closePopover() },
             onQuit: { NSApp.terminate(nil) }
         ))
+        // Popover cao theo nội dung (danh sách ổ ngoài, pin... thay đổi lúc chạy), không cắt phần đầu.
+        hosting.sizingOptions = [.preferredContentSize]
+        popover.contentViewController = hosting
 
         // Chỉ cập nhật tiêu đề khi chuỗi thực sự đổi, tránh vẽ lại thanh menu vô ích.
         model.$snapshot.combineLatest(model.$statusStyle)
@@ -51,13 +54,28 @@ public final class MenuBarController: NSObject, NSPopoverDelegate {
         let text = model.statusText
         guard text != lastTitle, let button = statusItem.button else { return }
         lastTitle = text
-        if let text {
-            button.attributedTitle = NSAttributedString(string: " " + text, attributes: [
-                .font: NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium),
-            ])
-        } else {
-            button.attributedTitle = NSAttributedString(string: "")
+        button.attributedTitle = Self.statusTitle(model.statusParts)
+        button.toolTip = text.map { "MashClean — \($0)" } ?? "MashClean"
+    }
+
+    /// Mỗi chỉ số có icon riêng đứng trước (CPU: `cpu`, RAM: `memorychip`) để biết số nào là gì.
+    static func statusTitle(_ parts: [MenuBarModel.StatusPart]) -> NSAttributedString {
+        let font = NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium)
+        let result = NSMutableAttributedString()
+        for part in parts {
+            result.append(NSAttributedString(string: result.length == 0 ? " " : "  ", attributes: [.font: font]))
+            let config = NSImage.SymbolConfiguration(pointSize: 11, weight: .medium)
+            if let image = NSImage(systemSymbolName: part.symbol, accessibilityDescription: part.label)?.withSymbolConfiguration(config) {
+                image.isTemplate = true
+                let attachment = NSTextAttachment()
+                attachment.image = image
+                // Căn giữa icon theo chiều cao chữ số.
+                attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height) / 2, width: image.size.width, height: image.size.height)
+                result.append(NSAttributedString(attachment: attachment))
+            }
+            result.append(NSAttributedString(string: " " + part.value, attributes: [.font: font]))
         }
+        return result
     }
 
     @objc private func togglePopover(_ sender: Any?) {

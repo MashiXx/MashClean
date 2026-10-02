@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import SweepCore
 import SwiftUI
@@ -101,6 +102,14 @@ final class AppRouter: ObservableObject {
         func value(_ name: String) -> String? { items.first { $0.name == name }?.value }
 
         switch url.host {
+        #if DEBUG
+        case "debug":
+            // Chỉ bản Debug: vẽ cửa sổ chính ra PNG để kiểm tra giao diện khi không chụp được màn hình.
+            if let target = value("target").flatMap(SidebarItem.init(rawValue:)) { open(target) }
+            let path = value("path") ?? NSTemporaryDirectory() + "mashclean-snapshot.png"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { DebugSnapshot.write(to: path) }
+            return
+        #endif
         case "scan":
             let feature = value("feature").map { FeatureID(rawValue: $0) } ?? .smartScan
             open(SidebarItem(feature: feature) ?? .smartScan, autoStart: true)
@@ -125,3 +134,16 @@ final class AppRouter: ObservableObject {
         }
     }
 }
+
+#if DEBUG
+@MainActor
+enum DebugSnapshot {
+    static func write(to path: String) {
+        guard let window = NSApp.windows.first(where: { $0.isVisible && $0.contentView != nil && !($0 is NSPanel) }),
+              let view = window.contentView?.superview ?? window.contentView,
+              let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { return }
+        view.cacheDisplay(in: view.bounds, to: rep)
+        try? rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: path))
+    }
+}
+#endif

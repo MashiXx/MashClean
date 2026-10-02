@@ -171,9 +171,10 @@ public struct LoginItemsView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Login item hiện đại").font(Theme.Font.headline).foregroundStyle(.white)
                     Text("App mở cùng hệ thống và mục \"Cho phép chạy nền\" đăng ký qua SMAppService chỉ quản lý được trong System Settings > General > Login Items.")
-                        .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).fixedSize(horizontal: false, vertical: true)
+                        .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).lineLimit(2)
                 }
-                Spacer()
+                // Không dùng fixedSize: khi đo kích thước tối thiểu, chữ bị ép rộng ~0 nên cao vọt và đẩy lệch cả cửa sổ.
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Button("Mở Login Items") { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
             }
         }

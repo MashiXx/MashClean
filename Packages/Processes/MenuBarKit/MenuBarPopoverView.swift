@@ -37,6 +37,7 @@ public struct MenuBarPopoverView: View {
         }
         .padding(16)
         .frame(width: 360)
+        .fixedSize(horizontal: false, vertical: true)
         .background(Theme.background(for: .smartScan))
         .foregroundStyle(Theme.primaryText)
     }
@@ -196,6 +197,15 @@ public struct MenuBarPopoverView: View {
         .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Theme.cardBackground))
     }
 
+    private func styleBinding(_ option: StatusItemStyle) -> Binding<Bool> {
+        Binding(
+            get: { model.statusStyle.contains(option) },
+            set: { on in
+                if on { model.statusStyle.insert(option) } else { model.statusStyle.remove(option) }
+            }
+        )
+    }
+
     private var footer: some View {
         HStack {
             Button {
@@ -207,10 +217,11 @@ public struct MenuBarPopoverView: View {
             .buttonStyle(GlassButtonStyle())
             Spacer()
             Menu {
-                Picker("Thanh menu", selection: $model.statusStyle) {
-                    ForEach(StatusItemStyle.allCases) { Text($0.title).tag($0) }
+                Section("Hiện trên thanh menu") {
+                    Toggle("CPU (%)", isOn: styleBinding(.cpu))
+                    Toggle("RAM (%)", isOn: styleBinding(.memory))
+                    Toggle("Mạng (tải về / tải lên)", isOn: styleBinding(.network))
                 }
-                .pickerStyle(.inline)
             } label: {
                 Image(systemName: "gearshape.fill")
             }

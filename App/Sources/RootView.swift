@@ -28,12 +28,16 @@ struct RootView: View {
                 ZStack {
                     ForEach(visited) { item in
                         screen(item, env: env, smartScan: smartScan)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .opacity(router.selection == item ? 1 : 0)
                             .allowsHitTesting(router.selection == item)
                             .accessibilityHidden(router.selection != item)
                     }
                 }
-                .ignoresSafeArea()
+                // Gradient của từng màn liền mạch lên tới mép trên, không bị nền thanh tiêu đề che.
+                .toolbarBackground(.hidden, for: .windowToolbar)
+                // Mọi màn đều có nền gradient tối: control và chữ hệ thống (List, Table, Toggle) dùng giao diện tối cho dễ đọc.
+                .environment(\.colorScheme, .dark)
             }
             .onChange(of: router.selection) { item in
                 if !visited.contains(item) { visited.append(item) }
@@ -91,54 +95,56 @@ struct Sidebar: View {
     @State private var volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
 
     var body: some View {
-        VStack(spacing: 0) {
+        // List là vùng cuộn duy nhất của sidebar để macOS tự chừa chỗ cho thanh tiêu đề và nút cửa sổ.
+        List(selection: $selection) {
             HStack(spacing: 8) {
-                Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 20)).foregroundStyle(.purple)
-                Text("MashClean").font(.system(size: 17, weight: .bold, design: .rounded))
-                Spacer()
+                Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 18)).foregroundStyle(.purple)
+                Text("MashClean").font(.system(size: 16, weight: .bold, design: .rounded))
             }
-            .padding(.horizontal, 16).padding(.top, 34).padding(.bottom, 8)
+            .padding(.vertical, 4)
 
-            List(selection: $selection) {
-                ForEach(SidebarItem.sections, id: \.0) { section in
-                    Section(section.0) {
-                        ForEach(section.1) { item in
-                            Label(item.title, systemImage: item.symbol).tag(item)
-                        }
+            ForEach(SidebarItem.sections, id: \.0) { section in
+                Section(section.0) {
+                    ForEach(section.1) { item in
+                        Label(item.title, systemImage: item.symbol).tag(item)
                     }
                 }
             }
-            .listStyle(.sidebar)
-
-            VStack(alignment: .leading, spacing: 8) {
-                if !holder.hasFullDiskAccess {
-                    Button {
-                        holder.showOnboarding = true
-                    } label: {
-                        Label("Cấp Full Disk Access", systemImage: "lock.open").font(.caption)
-                    }
-                    .buttonStyle(.link)
-                }
-                if holder.dryRun {
-                    Label("Đang ở chế độ thử", systemImage: "testtube.2").font(.caption).foregroundStyle(.orange)
-                }
-                if let v = volume {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(v.name).font(.caption.weight(.semibold))
-                        ProgressView(value: v.usedFraction).tint(v.usedFraction > 0.9 ? .red : .accentColor)
-                        Text("Còn trống \(ByteCount(v.availableForImportantUsage).formatted) / \(ByteCount(v.totalCapacity).formatted)")
-                            .font(.caption2).foregroundStyle(.secondary)
-                    }
-                }
-            }
-            .padding(14)
         }
+        .listStyle(.sidebar)
+        .safeAreaInset(edge: .bottom, spacing: 0) { footer }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
         }
         .onReceive(DistributedNotificationCenter.default().publisher(for: MashCleanIdentifiers.didCleanNotification)) { _ in
             volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
         }
+    }
+
+    private var footer: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if !holder.hasFullDiskAccess {
+                Button {
+                    holder.showOnboarding = true
+                } label: {
+                    Label("Cấp Full Disk Access", systemImage: "lock.open").font(.caption)
+                }
+                .buttonStyle(.link)
+            }
+            if holder.dryRun {
+                Label("Đang ở chế độ thử", systemImage: "testtube.2").font(.caption).foregroundStyle(.orange)
+            }
+            if let v = volume {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(v.name).font(.caption.weight(.semibold))
+                    ProgressView(value: v.usedFraction).tint(v.usedFraction > 0.9 ? .red : .accentColor)
+                    Text("Còn trống \(ByteCount(v.availableForImportantUsage).formatted) / \(ByteCount(v.totalCapacity).formatted)")
+                        .font(.caption2).foregroundStyle(.secondary)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
     }
 }
 

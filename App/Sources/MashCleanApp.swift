@@ -21,7 +21,7 @@ struct MashCleanApp: App {
                 .onOpenURL { router.handle($0) }
                 .task { await holder.startBackgroundWork(updater: updater) }
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowToolbarStyle(.unifiedCompact(showsTitle: false))
         .handlesExternalEvents(matching: ["*"])
         .commands {
             CommandGroup(after: .appInfo) {

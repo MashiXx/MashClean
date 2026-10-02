@@ -40,7 +40,16 @@ public final class FileLog: Sendable {
 
     private var currentFile: URL { directory.appendingPathComponent("\(processName).log") }
 
+    /// Khi chạy test (swift test / xctest) không ghi vào thư mục log thật của người dùng.
+    private static let isRunningTests: Bool = {
+        let env = ProcessInfo.processInfo.environment
+        let name = ProcessInfo.processInfo.processName
+        return env["XCTestConfigurationFilePath"] != nil || env["XCTestBundlePath"] != nil
+            || name.contains("xctest") || name.contains("testing-helper")
+    }()
+
     public func write(_ level: String, category: String, _ message: String) {
+        if Self.isRunningTests { return }
         let line = "\(ISO8601DateFormatter.logFormatter.string(from: Date())) [\(level)] [\(category)] \(message)\n"
         let dir = directory
         let file = currentFile
@@ -75,7 +84,8 @@ public final class FileLog: Sendable {
         let fm = FileManager.default
         guard let items = try? fm.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey]) else { return [] }
         let cutoff = Date().addingTimeInterval(-interval)
-        return items.filter {
+        // Chỉ log của các tiến trình MashClean (app, menu bar, helper).
+        return items.filter { $0.lastPathComponent.hasPrefix("MashClean") || $0.lastPathComponent.hasPrefix("com.mashclean") }.filter {
             ((try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast) >= cutoff
         }.sorted { $0.lastPathComponent < $1.lastPathComponent }
     }

@@ -19,15 +19,10 @@ struct DiagnosticsView: View {
                 Text("Xem trước nội dung bên dưới. Đường dẫn chi tiết không có trong log ở mức thông thường. Không có gì được gửi đi nếu bạn không bấm.")
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
                 if let report {
-                    ScrollView {
-                        Text(report.rendered)
-                            .font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(.white)
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(12)
-                    }
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.3)))
+                    ReportTextView(text: report.rendered)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.3)))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     HStack {
                         if let savedURL { Text("Đã lưu: \(savedURL.lastPathComponent)").font(Theme.Font.caption).foregroundStyle(Theme.secondaryText) }
                         Spacer()
@@ -64,5 +59,33 @@ struct DiagnosticsView: View {
         service?.recipients = [Bundle.main.object(forInfoDictionaryKey: "MashCleanSupportEmail") as? String ?? ""].filter { !$0.isEmpty }
         service?.subject = "MashClean — báo cáo lỗi"
         service?.perform(withItems: ["Báo cáo chẩn đoán đính kèm.", file])
+    }
+}
+
+/// Văn bản dài (log hàng trăm KB) hiển thị bằng NSTextView: chỉ đọc, chọn được, tự cuộn.
+/// Một `Text` SwiftUI khổng lồ đo kích thước sai và tràn ra khỏi màn hình.
+struct ReportTextView: NSViewRepresentable {
+    let text: String
+
+    func makeNSView(context: Context) -> NSScrollView {
+        let scroll = NSTextView.scrollableTextView()
+        scroll.drawsBackground = false
+        scroll.hasVerticalScroller = true
+        if let tv = scroll.documentView as? NSTextView {
+            tv.isEditable = false
+            tv.isSelectable = true
+            tv.drawsBackground = false
+            tv.textContainerInset = NSSize(width: 10, height: 10)
+            tv.font = .monospacedSystemFont(ofSize: 11, weight: .regular)
+            tv.textColor = .white
+        }
+        return scroll
+    }
+
+    func updateNSView(_ scroll: NSScrollView, context: Context) {
+        guard let tv = scroll.documentView as? NSTextView, tv.string != text else { return }
+        tv.string = text
+        tv.font = .monospacedSystemFont(ofSize: 11, weight: .regular)
+        tv.textColor = .white
     }
 }

@@ -32,28 +32,42 @@ public enum MenuBarLinks {
     }
 }
 
-/// Cách hiển thị trên thanh menu. Lưu trong App Group để app chính có thể đổi từ Cài đặt.
-public enum StatusItemStyle: String, CaseIterable, Sendable, Identifiable {
-    case iconOnly
-    case cpu
-    case memory
-    case cpuAndMemory
+/// Chỉ số hiện trên thanh menu, bật/tắt độc lập. Lưu trong App Group để app chính có thể đổi từ Cài đặt.
+public struct StatusItemStyle: OptionSet, Hashable, Sendable {
+    public let rawValue: Int
+    public init(rawValue: Int) { self.rawValue = rawValue }
+
+    public static let cpu = StatusItemStyle(rawValue: 1 << 0)
+    public static let memory = StatusItemStyle(rawValue: 1 << 1)
+    public static let network = StatusItemStyle(rawValue: 1 << 2)
 
     public static let defaultsKey = "menuBar.statusStyle"
 
-    public var id: String { rawValue }
-
-    public var title: String {
-        switch self {
-        case .iconOnly: "Chỉ biểu tượng"
-        case .cpu: "Hiện % CPU"
-        case .memory: "Hiện % RAM"
-        case .cpuAndMemory: "Hiện % CPU và RAM"
+    /// Lưu dạng `cpu,memory,network`; vẫn đọc được giá trị cũ (`iconOnly`, `cpu`, `memory`, `cpuAndMemory`).
+    public init(storedValue: String) {
+        var style: StatusItemStyle = []
+        for part in storedValue.split(separator: ",") {
+            switch part {
+            case "cpu": style.insert(.cpu)
+            case "memory": style.insert(.memory)
+            case "network": style.insert(.network)
+            case "cpuAndMemory": style.formUnion([.cpu, .memory])
+            default: break
+            }
         }
+        self = style
+    }
+
+    public var storedValue: String {
+        var parts: [String] = []
+        if contains(.cpu) { parts.append("cpu") }
+        if contains(.memory) { parts.append("memory") }
+        if contains(.network) { parts.append("network") }
+        return parts.isEmpty ? "iconOnly" : parts.joined(separator: ",")
     }
 
     public static var current: StatusItemStyle {
-        get { AppSettings.shared.defaults.string(forKey: defaultsKey).flatMap(StatusItemStyle.init(rawValue:)) ?? .iconOnly }
-        set { AppSettings.shared.defaults.set(newValue.rawValue, forKey: defaultsKey) }
+        get { AppSettings.shared.defaults.string(forKey: defaultsKey).map(StatusItemStyle.init(storedValue:)) ?? [] }
+        set { AppSettings.shared.defaults.set(newValue.storedValue, forKey: defaultsKey) }
     }
 }

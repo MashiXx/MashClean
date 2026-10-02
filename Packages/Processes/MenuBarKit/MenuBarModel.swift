@@ -56,12 +56,18 @@ public final class MenuBarModel: ObservableObject {
     @Published public var ejectError: String?
     @Published public private(set) var ejecting: Set<String> = []
     @Published public var statusStyle: StatusItemStyle = .current {
-        didSet { StatusItemStyle.current = statusStyle }
+        didSet {
+            StatusItemStyle.current = statusStyle
+            if statusStyle != oldValue, timer != nil { schedule() }
+        }
     }
 
-    /// Chu kỳ lấy mẫu: 2 giây khi popover mở, 30 giây khi đóng (mục 13).
+    /// Chu kỳ lấy mẫu: 2 giây khi popover mở, 30 giây khi đóng (mục 13). Khi thanh menu có hiện số thì
+    /// cập nhật nhanh hơn để số không bị cũ: mạng 3 giây, CPU/RAM 5 giây.
     public static let openInterval: TimeInterval = 2
     public static let closedInterval: TimeInterval = 30
+    public static let liveNetworkInterval: TimeInterval = 3
+    public static let liveMetricsInterval: TimeInterval = 5
     private static let trashInterval: TimeInterval = 10 * 60
     private static let criticalPressureDuration: TimeInterval = 5 * 60
 
@@ -120,7 +126,9 @@ public final class MenuBarModel: ObservableObject {
 
     private func schedule() {
         timer?.invalidate()
-        let interval = isPopoverOpen ? Self.openInterval : Self.closedInterval
+        let interval = isPopoverOpen ? Self.openInterval
+            : statusStyle.contains(.network) ? Self.liveNetworkInterval
+            : statusStyle.isEmpty ? Self.closedInterval : Self.liveMetricsInterval
         let t = Timer(timeInterval: interval, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
         }
@@ -296,15 +304,40 @@ public final class MenuBarModel: ObservableObject {
 
     // MARK: Chuỗi cho thanh menu
 
-    public var statusText: String? {
-        let cpu = snapshot.cpu.map { "\(Int(($0.usage * 100).rounded()))%" } ?? "–"
-        let ram = snapshot.memory.map { "\(Int(($0.usedFraction * 100).rounded()))%" } ?? "–"
-        switch statusStyle {
-        case .iconOnly: return nil
-        case .cpu: return cpu
-        case .memory: return ram
-        case .cpuAndMemory: return "\(cpu) · \(ram)"
+    /// Một chỉ số trên thanh menu: icon SF Symbol + giá trị, kèm tên đầy đủ cho tooltip.
+    public struct StatusPart: Equatable, Sendable {
+        public let symbol: String
+        public let label: String
+        public let value: String
+    }
+
+    public var statusParts: [StatusPart] {
+        var parts: [StatusPart] = []
+        if statusStyle.contains(.cpu) {
+            parts.append(StatusPart(symbol: "cpu", label: "CPU", value: snapshot.cpu.map { "\(Int(($0.usage * 100).rounded()))%" } ?? "–"))
         }
+        if statusStyle.contains(.memory) {
+            parts.append(StatusPart(symbol: "memorychip", label: "RAM", value: snapshot.memory.map { "\(Int(($0.usedFraction * 100).rounded()))%" } ?? "–"))
+        }
+        if statusStyle.contains(.network) {
+            let net = snapshot.network
+            parts.append(StatusPart(symbol: "arrow.down", label: "Tải về", value: net.map { Self.compactRate($0.inPerSecond) } ?? "–"))
+            parts.append(StatusPart(symbol: "arrow.up", label: "Tải lên", value: net.map { Self.compactRate($0.outPerSecond) } ?? "–"))
+        }
+        return parts
+    }
+
+    /// Tốc độ gọn cho thanh menu: "0 KB/s", "850 KB/s", "1,2 MB/s".
+    static func compactRate(_ bytesPerSecond: Double) -> String {
+        let kb = bytesPerSecond / 1000
+        if kb < 1000 { return "\(Int(kb.rounded())) KB/s" }
+        let mb = kb / 1000
+        return mb < 100 ? String(format: "%.1f MB/s", mb).replacingOccurrences(of: ".", with: ",") : "\(Int(mb.rounded())) MB/s"
+    }
+
+    public var statusText: String? {
+        let parts = statusParts
+        return parts.isEmpty ? nil : parts.map { "\($0.label) \($0.value)" }.joined(separator: " · ")
     }
 }
 

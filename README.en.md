@@ -15,9 +15,17 @@ Know exactly what every byte is before it goes: which app it belongs to, and why
 
 **English** · [Tiếng Việt](README.md)
 
+[**⬇️ Download**](https://github.com/MashiXx/MashClean/releases/latest)
+
 </div>
 
 ---
+
+## Download
+
+**[⬇️ Download MashClean for macOS](https://github.com/MashiXx/MashClean/releases/latest)** · universal DMG for Apple Silicon and Intel, requires macOS 13 or later.
+
+> This build is not yet signed with a Developer ID or notarized, so macOS blocks it the first time. To open it: drag the app to Applications, try opening it once, then go to **System Settings → Privacy & Security** and click **Open Anyway** (on macOS 14 and earlier you can also right-click the app → **Open**). The admin helper and the Finder right-click menu may not work in this build.
 
 ## Why MashClean?
 
@@ -71,7 +79,7 @@ Knowing which paths are safe to delete lives in a set of **111 JSON rules**: 61 
 
 ## Installation
 
-1. Open `MashClean-<version>.dmg` and drag **MashClean** to **Applications**.
+1. Download `MashClean-<version>.dmg` from the [Releases](https://github.com/MashiXx/MashClean/releases/latest) page, open it, and drag **MashClean** to **Applications**.
 2. Open the app and follow the first-run guide:
    - **Language**: pick English, Vietnamese, or follow the system.
    - **Full Disk Access**: lets MashClean scan caches and other apps' data. You can skip it; the app then runs in limited mode and labels the categories that need it.

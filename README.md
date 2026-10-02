@@ -15,9 +15,17 @@ Biết rõ từng byte sắp xoá là gì, thuộc app nào, và vì sao an toà
 
 [English](README.en.md) · **Tiếng Việt**
 
+[**⬇️ Tải về**](https://github.com/MashiXx/MashClean/releases/latest)
+
 </div>
 
 ---
+
+## Tải về
+
+**[⬇️ Tải MashClean cho macOS](https://github.com/MashiXx/MashClean/releases/latest)** · bản DMG universal, chạy trên Apple Silicon và Intel, yêu cầu macOS 13 trở lên.
+
+> Bản hiện tại chưa được ký bằng Developer ID và chưa notarize, nên lần đầu mở macOS sẽ chặn. Cách mở: kéo app vào Applications, mở thử một lần, rồi vào **System Settings → Privacy & Security** và bấm **Open Anyway** (trên macOS 14 trở về trước có thể chuột phải vào app → **Open**). Helper quyền quản trị và menu chuột phải trong Finder có thể chưa hoạt động ở bản này.
 
 ## Vì sao là MashClean?
 
@@ -71,7 +79,7 @@ Phần "biết đường dẫn nào xoá được" nằm trong bộ **111 rule J
 
 ## Cài đặt
 
-1. Mở `MashClean-<phiên bản>.dmg`, kéo **MashClean** vào **Applications**.
+1. Tải `MashClean-<phiên bản>.dmg` ở trang [Releases](https://github.com/MashiXx/MashClean/releases/latest), mở ra, kéo **MashClean** vào **Applications**.
 2. Mở app và làm theo hướng dẫn lần đầu:
    - **Ngôn ngữ**: chọn tiếng Việt, tiếng Anh hoặc theo hệ thống.
    - **Full Disk Access**: để quét được cache và dữ liệu của app khác. Có thể bỏ qua; khi đó app chạy ở chế độ hạn chế và ghi rõ nhóm nào cần quyền.

@@ -12,6 +12,8 @@ struct StubTask: ScanTask {
         case succeed(size: Int64)
         case fail
         case sleep(seconds: Double)
+        /// Chặn luồng đồng bộ, không nhìn `Task.isCancelled` (giống lời gọi hệ thống bị kẹt).
+        case block(seconds: Double)
         case readUpstream(ArtifactKey)
     }
 
@@ -32,6 +34,9 @@ struct StubTask: ScanTask {
             throw Failure()
         case let .sleep(seconds):
             try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+            return .empty
+        case let .block(seconds):
+            usleep(useconds_t(seconds * 1_000_000))
             return .empty
         case let .readUpstream(key):
             let v = context.upstreamArtifact(key, as: Int64.self) ?? -1
@@ -139,6 +144,36 @@ struct StubTask: ScanTask {
         #expect(result.states["after"] == .skipped)
         #expect(result.states["fast"] == .succeeded)
         #expect(result.warnings.contains { $0.kind == .timeout && $0.taskID == "slow" })
+    }
+
+    @Test func timeoutDoesNotWaitForBlockedTask() async throws {
+        let graph = try ScanGraph(tasks: [StubTask(id: "stuck", behavior: .block(seconds: 5)), StubTask(id: "fast")])
+        let start = Date()
+        let result = try await ScanEngine(maxConcurrentIO: 2, taskTimeout: 0.3).runToCompletion(graph, rules: .empty)
+        #expect(Date().timeIntervalSince(start) < 3)
+        #expect(result.states["stuck"] == .failed("timeout"))
+        #expect(result.states["fast"] == .succeeded)
+    }
+
+    @Test func cancellationDoesNotWaitForBlockedTask() async throws {
+        let graph = try ScanGraph(tasks: [StubTask(id: "stuck", behavior: .block(seconds: 5))])
+        let engine = ScanEngine(maxConcurrentIO: 1, taskTimeout: 60)
+        let task = Task { try await engine.runToCompletion(graph, rules: .empty) }
+        try await Task.sleep(nanoseconds: 200_000_000)
+        let start = Date()
+        task.cancel()
+        await #expect(throws: CancellationError.self) { _ = try await task.value }
+        #expect(Date().timeIntervalSince(start) < 3)
+    }
+
+    @Test func cancellationFlagStopsMeasuringOnWorkerThreads() throws {
+        let f = try TemporaryDirectory()
+        for i in 0..<20 { try f.file("big/sub\(i)/x.bin", size: 10) }
+        let flag = CancellationFlag()
+        flag.cancel()
+        #expect(throws: CancellationError.self) {
+            _ = try FileSystemService().measureConcurrently(f.url("big"), cancellation: flag)
+        }
     }
 
     @Test func cancellationStopsTheScan() async throws {

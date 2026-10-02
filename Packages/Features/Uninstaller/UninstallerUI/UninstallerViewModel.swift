@@ -204,6 +204,20 @@ final class UninstallerViewModel: ObservableObject {
 
     func clearChecked() { checked.removeAll() }
 
+    /// App đang hiện mà gỡ được (đích của "Chọn tất cả").
+    var checkableVisibleApps: [InstalledApp] { visibleApps.filter(UninstallPolicy.canUninstall) }
+
+    func setCheckedVisible(_ on: Bool) {
+        for app in checkableVisibleApps {
+            if on {
+                guard checked.insert(app.id).inserted else { continue }
+                loadLeftovers(for: app.id)
+            } else {
+                checked.remove(app.id)
+            }
+        }
+    }
+
     // MARK: File sót
 
     func loadLeftovers(for appID: String, force: Bool = false) {

@@ -199,6 +199,14 @@ final class SpaceLensViewModel: ObservableObject {
         if selection.contains(p) { selection.remove(p) } else { selection.insert(p) }
     }
 
+    /// Chọn hoặc bỏ mọi mục con của thư mục đang xem.
+    func setCurrentChildrenSelected(_ on: Bool) {
+        for i in currentChildren where i != tree.root {
+            let p = tree.path(of: i)
+            if on { selection.insert(p) } else { selection.remove(p) }
+        }
+    }
+
     var selectedBytes: UInt64 {
         let indices = selection.compactMap { tree.index(forPath: $0) }
         let set = Set(indices)

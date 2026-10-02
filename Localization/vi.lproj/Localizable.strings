@@ -80,6 +80,7 @@
 "Bị chặn vì lý do an toàn (%lld)" = "Bị chặn vì lý do an toàn (%lld)";
 "Bỏ chọn" = "Bỏ chọn";
 "Bỏ chọn (%lld)" = "Bỏ chọn (%lld)";
+"Bỏ chọn tất cả" = "Bỏ chọn tất cả";
 "Bỏ qua" = "Bỏ qua";
 "Bỏ qua app này" = "Bỏ qua app này";
 "Bỏ qua thì app chạy ở chế độ hạn chế: chỉ quét những gì đọc được, các nhóm khác hiện nhãn \"Cần Full Disk Access\"." = "Bỏ qua thì app chạy ở chế độ hạn chế: chỉ quét những gì đọc được, các nhóm khác hiện nhãn \"Cần Full Disk Access\".";
@@ -147,6 +148,7 @@
 "Chọn thư mục Home (%@) để Clean Boost quét cache, log và file lớn của bạn." = "Chọn thư mục Home (%@) để Clean Boost quét cache, log và file lớn của bạn.";
 "Chọn thư mục để xem bản đồ dung lượng" = "Chọn thư mục để xem bản đồ dung lượng";
 "Chọn thư mục…" = "Chọn thư mục…";
+"Chọn tất cả" = "Chọn tất cả";
 "Chọn tất cả đang hiện" = "Chọn tất cả đang hiện";
 "Chọn từ bản đồ dung lượng" = "Chọn từ bản đồ dung lượng";
 "Chọn tự động" = "Chọn tự động";

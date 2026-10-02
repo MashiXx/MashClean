@@ -80,6 +80,7 @@
 "Bị chặn vì lý do an toàn (%lld)" = "Blocked for safety reasons (%lld)";
 "Bỏ chọn" = "Deselect";
 "Bỏ chọn (%lld)" = "Deselect (%lld)";
+"Bỏ chọn tất cả" = "Deselect All";
 "Bỏ qua" = "Skip";
 "Bỏ qua app này" = "Skip This App";
 "Bỏ qua thì app chạy ở chế độ hạn chế: chỉ quét những gì đọc được, các nhóm khác hiện nhãn \"Cần Full Disk Access\"." = "If you skip, the app runs in limited mode: it scans only what it can read, and other categories show \"Full Disk Access required\".";
@@ -147,6 +148,7 @@
 "Chọn thư mục Home (%@) để Clean Boost quét cache, log và file lớn của bạn." = "Select your Home folder (%@) so Clean Boost can scan your caches, logs and large files.";
 "Chọn thư mục để xem bản đồ dung lượng" = "Choose a folder to see its space map";
 "Chọn thư mục…" = "Choose Folder…";
+"Chọn tất cả" = "Select All";
 "Chọn tất cả đang hiện" = "Select All Visible";
 "Chọn từ bản đồ dung lượng" = "Choose from space map";
 "Chọn tự động" = "Auto Select";

@@ -51,11 +51,16 @@ public struct SmartScanView: View {
         if case .results = model.phase, !model.showDetails {
             summary
         } else {
+            // Inset (không phải overlay) để nút có chỗ riêng, không đè lên tiêu đề của màn kết quả.
             FeatureFlowView(model: model, appearance: Self.appearance)
-                .overlay(alignment: .topLeading) {
+                .safeAreaInset(edge: .top, spacing: 0) {
                     if case .results = model.phase {
-                        Button { model.showDetails = false } label: { Label(String(localized: "Tổng hợp"), systemImage: "chevron.left") }
-                            .buttonStyle(GlassButtonStyle()).padding(16)
+                        HStack {
+                            Button { model.showDetails = false } label: { Label(String(localized: "Tổng hợp"), systemImage: "chevron.left") }
+                                .buttonStyle(GlassButtonStyle())
+                            Spacer()
+                        }
+                        .padding(.horizontal, 24).padding(.top, 16)
                     }
                 }
         }

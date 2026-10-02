@@ -185,7 +185,11 @@ public struct MaintenanceView: View {
     }
 
     private var footer: some View {
-        HStack {
+        HStack(spacing: 14) {
+            SelectAllToggle(selected: model.selected.count, total: MaintenanceTaskName.allCases.count) { on in
+                model.selected = on ? Set(MaintenanceTaskName.allCases) : []
+            }
+            .disabled(model.isRunning)
             Text(String(localized: "\(model.selected.count) tác vụ được chọn")).font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             Spacer()
             if model.services.settings.dryRun { Pill("DRY RUN", color: Theme.review) }

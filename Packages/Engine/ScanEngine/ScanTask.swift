@@ -114,13 +114,17 @@ public struct ScanContext: Sendable {
     /// Kết quả của các task phụ thuộc, tra theo id.
     public let upstream: [ScanTaskID: ScanOutput]
     public let environment: ScanEnvironment
+    /// Engine bật khi huỷ quét hoặc task quá timeout; dùng cho code đồng bộ chạy trên luồng GCD.
+    public let cancellation: CancellationFlag
 
-    public init(fileSystem: FileSystemService, rules: RuleSnapshot, progress: ProgressReporter, upstream: [ScanTaskID: ScanOutput], environment: ScanEnvironment) {
+    public init(fileSystem: FileSystemService, rules: RuleSnapshot, progress: ProgressReporter, upstream: [ScanTaskID: ScanOutput], environment: ScanEnvironment,
+                cancellation: CancellationFlag = CancellationFlag()) {
         self.fileSystem = fileSystem
         self.rules = rules
         self.progress = progress
         self.upstream = upstream
         self.environment = environment
+        self.cancellation = cancellation
     }
 
     /// Tìm một artifact trong kết quả các task phụ thuộc.
@@ -134,6 +138,6 @@ public struct ScanContext: Sendable {
     /// Ngữ cảnh đánh giá rule, dùng chung bộ đếm file và tracker hard link của phiên.
     public func ruleContext(apps: [RuleAppInfo] = []) -> RuleEvaluationContext {
         RuleEvaluationContext(fileSystem: fileSystem, policy: environment.policy, apps: apps, runningBundleIDs: environment.runningBundleIDs,
-                              ignore: environment.ignore, now: environment.now, tracker: environment.tracker, counter: progress.fileCounter)
+                              ignore: environment.ignore, now: environment.now, tracker: environment.tracker, counter: progress.fileCounter, cancellation: cancellation)
     }
 }

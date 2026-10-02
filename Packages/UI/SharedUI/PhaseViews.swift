@@ -210,6 +210,24 @@ public struct ResultsView: View {
     }
 
     private var groupList: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            SelectAllToggle(state: visibleRootsState) { on in
+                for group in visibleRoots { model.set(group.id, on) }
+            }
+            .padding(.horizontal, 14).padding(.top, 10).padding(.bottom, 2)
+            groupScroll
+        }
+        .background(RoundedRectangle(cornerRadius: 14).fill(Color.black.opacity(0.18)))
+    }
+
+    /// Trạng thái gộp của các nhóm đang hiện (bỏ qua nhóm không có mục nào chọn được).
+    private var visibleRootsState: CheckState {
+        let states = visibleRoots.filter { !tree.leaves(under: $0.id).isEmpty }.map { model.selection.state(of: $0.id, in: tree) }
+        if states.isEmpty || states.allSatisfy({ $0 == .off }) { return .off }
+        return states.allSatisfy { $0 == .on } ? .on : .mixed
+    }
+
+    private var groupScroll: some View {
         ScrollView {
             VStack(spacing: 4) {
                 ForEach(visibleRoots) { group in
@@ -221,7 +239,6 @@ public struct ResultsView: View {
             }
             .padding(6)
         }
-        .background(RoundedRectangle(cornerRadius: 14).fill(Color.black.opacity(0.18)))
     }
 
     private func selectedBytes(under node: Node) -> ByteCount {
@@ -311,6 +328,34 @@ public struct TriStateCheckbox: View {
         }
         .buttonStyle(.plain)
         .accessibilityValue(state == .on ? String(localized: "đã chọn") : state == .mixed ? String(localized: "chọn một phần") : String(localized: "chưa chọn"))
+    }
+}
+
+/// Dòng "Chọn tất cả / Bỏ chọn tất cả" cho danh sách có checkbox mà không có node cha bao ngoài.
+public struct SelectAllToggle: View {
+    let state: CheckState
+    let action: (Bool) -> Void
+
+    /// `action(true)` = chọn hết, `action(false)` = bỏ hết.
+    public init(state: CheckState, action: @escaping (Bool) -> Void) {
+        self.state = state
+        self.action = action
+    }
+
+    /// Tính trạng thái từ số mục đang chọn trên tổng số mục chọn được.
+    public init(selected: Int, total: Int, action: @escaping (Bool) -> Void) {
+        self.init(state: selected == 0 || total == 0 ? .off : selected >= total ? .on : .mixed, action: action)
+    }
+
+    public var body: some View {
+        let selectAll = state != .on
+        HStack(spacing: 8) {
+            TriStateCheckbox(state: state) { action(selectAll) }
+            Text(selectAll ? String(localized: "Chọn tất cả") : String(localized: "Bỏ chọn tất cả"))
+                .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture { action(selectAll) }
     }
 }
 

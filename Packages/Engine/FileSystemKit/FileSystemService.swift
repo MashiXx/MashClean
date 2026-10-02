@@ -42,6 +42,16 @@ public final class VisitCounter: @unchecked Sendable {
     public var count: Int { value.current }
 }
 
+/// Cờ huỷ đọc được từ mọi luồng. `Task.isCancelled` chỉ đúng trong Swift Task hiện tại, còn luồng GCD của
+/// `concurrentPerform` không có Task nên luôn thấy `false`; scan engine bật cờ này khi huỷ hoặc quá timeout.
+public final class CancellationFlag: Sendable {
+    private let value = Locked(false)
+    public init() {}
+    public func cancel() { value.withLock { $0 = true } }
+    public var isCancelled: Bool { value.current }
+    public func check() throws { if isCancelled { throw CancellationError() } }
+}
+
 /// Dịch vụ hệ thống tệp dùng chung cho scan task và clean engine.
 public final class FileSystemService: Sendable {
     public let home: URL
@@ -104,7 +114,9 @@ public final class FileSystemService: Sendable {
     /// - Parameters:
     ///   - tracker: dùng chung trong một phiên quét để không đếm hard link hai lần.
     ///   - counter: cộng dồn số mục đã duyệt cho thanh tiến độ.
-    public func measure(_ url: URL, tracker: HardLinkTracker? = nil, counter: VisitCounter? = nil, skip: (@Sendable (String) -> Bool)? = nil) throws -> PathMeasurement {
+    public func measure(_ url: URL, tracker: HardLinkTracker? = nil, counter: VisitCounter? = nil, skip: (@Sendable (String) -> Bool)? = nil,
+                        cancellation: CancellationFlag? = nil) throws -> PathMeasurement {
+        try cancellation?.check()
         guard let root = entry(at: url) else { return .missing }
         guard root.isDirectory else {
             if root.linkCount > 1, let tracker, !tracker.firstSighting(device: root.deviceID, fileID: root.fileID) {
@@ -123,7 +135,11 @@ public final class FileSystemService: Sendable {
             if e.isDirectory, let skip, skip(e.path.string) { return .skipDescendants }
             count += 1
             pending += 1
-            if pending >= 500 { counter?.add(pending); pending = 0 }
+            if pending >= 500 {
+                counter?.add(pending)
+                pending = 0
+                try cancellation?.check()
+            }
             if e.modificationDate > newestMod { newestMod = e.modificationDate }
             if let a = e.accessDate, !e.isDirectory, a > (newestAccess ?? .distantPast) { newestAccess = a }
             if !e.isDirectory {
@@ -139,10 +155,12 @@ public final class FileSystemService: Sendable {
     /// Phiên bản đồng bộ của `measureParallel`, chia việc theo thư mục con cấp 1 trên `concurrentPerform`.
     /// Dùng trong code đồng bộ (RuleEvaluator) để một thư mục rất lớn (vd DerivedData) không chạy một luồng.
     public func measureConcurrently(_ url: URL, tracker: HardLinkTracker? = nil, counter: VisitCounter? = nil,
-                                    skip: (@Sendable (String) -> Bool)? = nil) throws -> PathMeasurement {
-        guard let root = entry(at: url), root.isDirectory else { return try measure(url, tracker: tracker, counter: counter, skip: skip) }
+                                    skip: (@Sendable (String) -> Bool)? = nil, cancellation: CancellationFlag? = nil) throws -> PathMeasurement {
+        guard let root = entry(at: url), root.isDirectory else {
+            return try measure(url, tracker: tracker, counter: counter, skip: skip, cancellation: cancellation)
+        }
         let kids = children(of: url).filter { !(skip?($0.path.string) ?? false) }
-        guard kids.count > 1 else { return try measure(url, tracker: tracker, counter: counter, skip: skip) }
+        guard kids.count > 1 else { return try measure(url, tracker: tracker, counter: counter, skip: skip, cancellation: cancellation) }
         let limit = recommendedConcurrency(for: url)
         let next = Locked(0)
         let parts = Locked<[PathMeasurement]>([])
@@ -152,7 +170,7 @@ public final class FileSystemService: Sendable {
                 let i = next.withLock { v -> Int in defer { v += 1 }; return v }
                 guard i < kids.count else { return }
                 do {
-                    let m = try measure(kids[i].url, tracker: tracker, counter: counter, skip: skip)
+                    let m = try measure(kids[i].url, tracker: tracker, counter: counter, skip: skip, cancellation: cancellation)
                     parts.withLock { $0.append(m) }
                 } catch is CancellationError {
                     failure.withLock { $0 = CancellationError() }

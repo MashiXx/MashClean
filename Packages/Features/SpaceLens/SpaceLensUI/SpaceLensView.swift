@@ -346,7 +346,14 @@ struct SpaceLensList: View {
         let children = model.currentChildren
         let total = max(model.tree.size(of: model.currentIndex), 1)
         VStack(alignment: .leading, spacing: 6) {
-            Text(String(localized: "\(children.count.formatted()) mục")).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).padding(.horizontal, 8)
+            HStack {
+                SelectAllToggle(selected: children.filter(model.isSelected).count, total: children.count,
+                                action: model.setCurrentChildrenSelected)
+                    .disabled(children.isEmpty)
+                Spacer()
+                Text(String(localized: "\(children.count.formatted()) mục")).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
+            }
+            .padding(.horizontal, 8)
             ScrollView {
                 LazyVStack(spacing: 2) {
                     ForEach(children.prefix(limit), id: \.self) { i in

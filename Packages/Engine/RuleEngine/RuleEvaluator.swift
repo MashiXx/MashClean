@@ -39,10 +39,13 @@ public struct RuleEvaluationContext: Sendable {
     public var osVersion: OSVersion
     public var tracker: HardLinkTracker
     public var counter: VisitCounter
+    /// Huỷ được cả các luồng đo song song (không có Swift Task nên không thấy `Task.isCancelled`).
+    public var cancellation: CancellationFlag
 
     public init(fileSystem: FileSystemService, policy: PathPolicy = .user(), apps: [RuleAppInfo] = [], runningBundleIDs: Set<String> = [],
                 ignore: IgnoreList = .empty, now: Date = Date(), osVersion: OSVersion = .current,
-                tracker: HardLinkTracker = HardLinkTracker(), counter: VisitCounter = VisitCounter()) {
+                tracker: HardLinkTracker = HardLinkTracker(), counter: VisitCounter = VisitCounter(),
+                cancellation: CancellationFlag = CancellationFlag()) {
         self.fileSystem = fileSystem
         self.policy = policy
         self.apps = apps
@@ -52,6 +55,7 @@ public struct RuleEvaluationContext: Sendable {
         self.osVersion = osVersion
         self.tracker = tracker
         self.counter = counter
+        self.cancellation = cancellation
     }
 }
 
@@ -104,6 +108,7 @@ public enum RuleEvaluator {
             pending.append((URL(fileURLWithPath: c.path), c.app, c.root, c.excludes))
         }
         try Task.checkCancellation()
+        try context.cancellation.check()
 
         // Đo song song, giới hạn đồng thời theo loại ổ (mục 16.3). Mục không đọc được (TCC, quyền) thì bỏ qua,
         // không làm hỏng cả nhóm.
@@ -111,9 +116,9 @@ public enum RuleEvaluator {
         let cancelled = Locked(false)
         let limit = pending.count > 1 ? context.fileSystem.recommendedConcurrency(for: context.fileSystem.home) : 1
         let next = Locked(0)
-        let isCancelled = Task.isCancelled
+        let flag = context.cancellation
         DispatchQueue.concurrentPerform(iterations: min(limit, max(pending.count, 1))) { _ in
-            while !isCancelled && !cancelled.current {
+            while !flag.isCancelled && !cancelled.current {
                 let i = next.withLock { v -> Int in defer { v += 1 }; return v }
                 guard i < pending.count else { return }
                 let item = pending[i]
@@ -122,7 +127,8 @@ public enum RuleEvaluator {
                 }
                 let m: PathMeasurement
                 do {
-                    m = try context.fileSystem.measureConcurrently(item.url, tracker: context.tracker, counter: context.counter, skip: skipExcluded)
+                    m = try context.fileSystem.measureConcurrently(item.url, tracker: context.tracker, counter: context.counter, skip: skipExcluded,
+                                                                  cancellation: flag)
                 } catch is CancellationError {
                     cancelled.withLock { $0 = true }
                     return
@@ -142,6 +148,7 @@ public enum RuleEvaluator {
             }
         }
         if cancelled.current { throw CancellationError() }
+        try flag.check()
         try Task.checkCancellation()
         let collected = results.current
         return collected.keys.sorted().compactMap { collected[$0] }

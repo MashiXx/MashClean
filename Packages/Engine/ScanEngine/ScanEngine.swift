@@ -236,30 +236,72 @@ public final class ScanEngine: Sendable {
     }
 
     /// Mỗi task có timeout mềm; quá timeout thì huỷ và báo cảnh báo (mục 5.3 bước 6).
+    /// Task chạy trong Task riêng và đua với timeout/huỷ: kết quả trả về ngay khi một bên xong, không chờ task đang kẹt
+    /// (vd lời gọi hệ thống bị chặn bởi hộp thoại quyền), vì task group luôn chờ mọi task con trước khi thoát.
     static func runWithTimeout(_ task: any ScanTask, context: ScanContext, timeout: TimeInterval) async -> (TaskState, ScanOutput?) {
-        await withTaskGroup(of: (TaskState, ScanOutput?)?.self) { group in
-            group.addTask {
-                do {
-                    let output = try await task.run(context: context)
-                    return (.succeeded, output)
-                } catch is CancellationError {
-                    return Task.isCancelled ? (.cancelled, nil) : (.failed("timeout"), nil)
-                } catch {
-                    return (.failed(String(describing: error)), nil)
-                }
+        let race = Race<(TaskState, ScanOutput?)>()
+        let cancellation = context.cancellation
+        let worker = Task(priority: .utility) {
+            do {
+                let output = try await task.run(context: context)
+                race.finish((.succeeded, output))
+            } catch is CancellationError {
+                race.finish((.cancelled, nil))
+            } catch {
+                race.finish((.failed(String(describing: error)), nil))
             }
-            group.addTask {
-                try? await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
-                return Task.isCancelled ? nil : (.failed("timeout"), nil)
+        }
+        let timer = Task {
+            try? await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
+            if !Task.isCancelled, race.finish((.failed("timeout"), nil)) {
+                cancellation.cancel()
+                worker.cancel()
             }
-            var result: (TaskState, ScanOutput?) = (.cancelled, nil)
-            while let next = await group.next() {
-                guard let next else { continue }
-                result = next
-                group.cancelAll()
-                break
+        }
+        let result = await withTaskCancellationHandler {
+            await race.value()
+        } onCancel: {
+            if race.finish((.cancelled, nil)) {
+                cancellation.cancel()
+                worker.cancel()
             }
-            return result
+        }
+        timer.cancel()
+        return result
+    }
+}
+
+/// Kết quả đầu tiên thắng; các lần `finish` sau bị bỏ qua.
+private final class Race<Value: Sendable>: Sendable {
+    private struct State {
+        var value: Value?
+        var waiter: CheckedContinuation<Value, Never>?
+    }
+
+    private let state = Locked(State())
+
+    /// Trả về `true` nếu đây là kết quả đầu tiên.
+    @discardableResult
+    func finish(_ value: Value) -> Bool {
+        let waiter = state.withLock { s -> CheckedContinuation<Value, Never>?? in
+            guard s.value == nil else { return .none }
+            s.value = value
+            defer { s.waiter = nil }
+            return .some(s.waiter)
+        }
+        guard let waiter else { return false }
+        waiter?.resume(returning: value)
+        return true
+    }
+
+    func value() async -> Value {
+        await withCheckedContinuation { continuation in
+            let ready = state.withLock { s -> Value? in
+                if let v = s.value { return v }
+                s.waiter = continuation
+                return nil
+            }
+            if let ready { continuation.resume(returning: ready) }
         }
     }
 }

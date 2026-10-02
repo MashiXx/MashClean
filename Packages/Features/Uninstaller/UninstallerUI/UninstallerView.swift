@@ -159,7 +159,12 @@ struct AppListColumn: View {
                 .help(String(localized: "Sắp xếp và lọc"))
             }
             HStack {
+                let checkable = model.checkableVisibleApps
+                SelectAllToggle(selected: checkable.filter { model.checked.contains($0.id) }.count, total: checkable.count,
+                                action: model.setCheckedVisible)
+                    .disabled(checkable.isEmpty)
                 Text(String(localized: "\(model.filter.title) · sắp theo \(model.sort.title.lowercased())")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
+                    .lineLimit(1)
                 Spacer()
                 if !model.checked.isEmpty {
                     Button(String(localized: "Bỏ chọn (\(model.checked.count))"), action: model.clearChecked).buttonStyle(.plain).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
@@ -297,6 +302,9 @@ struct AppDetailColumn: View {
             }
             Text(String(localized: "Mục Chắc chắn và Cao được chọn sẵn. Mục Trung bình và Thấp cần bạn xem lại."))
                 .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
+            SelectAllToggle(state: model.selection.state(of: root.id, in: model.tree)) { on in
+                model.selection.set(root.id, on, in: model.tree)
+            }
             NodeOutlineView(roots: root.children, tree: model.tree, selection: $model.selection)
         } else {
             Spacer()

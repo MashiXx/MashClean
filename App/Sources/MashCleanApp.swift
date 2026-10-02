@@ -25,20 +25,20 @@ struct MashCleanApp: App {
         .handlesExternalEvents(matching: ["*"])
         .commands {
             CommandGroup(after: .appInfo) {
-                Button("Kiểm tra cập nhật…") { updater.checkForUpdates() }
+                Button(String(localized: "Kiểm tra cập nhật…")) { updater.checkForUpdates() }
                     .disabled(!updater.canCheckForUpdates)
             }
             CommandGroup(replacing: .newItem) {}
-            CommandMenu("Quét") {
+            CommandMenu(String(localized: "Quét")) {
                 Button("Smart Scan") { router.open(.smartScan, autoStart: true) }.keyboardShortcut("1", modifiers: [.command])
-                Button("Rác hệ thống") { router.open(.systemJunk, autoStart: true) }.keyboardShortcut("2", modifiers: [.command])
+                Button(String(localized: "Rác hệ thống")) { router.open(.systemJunk, autoStart: true) }.keyboardShortcut("2", modifiers: [.command])
                 Button("Space Lens") { router.open(.spaceLens) }.keyboardShortcut("3", modifiers: [.command])
-                Button("Gỡ cài đặt") { router.open(.uninstaller) }.keyboardShortcut("4", modifiers: [.command])
+                Button(String(localized: "Gỡ cài đặt")) { router.open(.uninstaller) }.keyboardShortcut("4", modifiers: [.command])
             }
             DebugCommands(holder: holder)
             CommandGroup(replacing: .help) {
-                Button("Gửi báo cáo lỗi…") { router.open(.diagnostics) }
-                Button("Mở thư mục log") { NSWorkspace.shared.open(FileLog.shared.directory) }
+                Button(String(localized: "Gửi báo cáo lỗi…")) { router.open(.diagnostics) }
+                Button(String(localized: "Mở thư mục log")) { NSWorkspace.shared.open(FileLog.shared.directory) }
             }
         }
 
@@ -57,14 +57,14 @@ struct DebugCommands: Commands {
 
     var body: some Commands {
         CommandMenu("Debug") {
-            Toggle("Chế độ thử (dry run)", isOn: Binding(
+            Toggle(String(localized: "Chế độ thử (dry run)"), isOn: Binding(
                 get: { holder.dryRun },
                 set: { holder.setDryRun($0) }
             ))
-            Button("Nạp lại rule") { holder.reloadRules() }
-            Button("Kiểm tra rule mới ngay") { Task { await holder.checkRuleUpdates(force: true) } }
+            Button(String(localized: "Nạp lại rule")) { holder.reloadRules() }
+            Button(String(localized: "Kiểm tra rule mới ngay")) { Task { await holder.checkRuleUpdates(force: true) } }
             Divider()
-            Button("Mở thư mục dữ liệu") {
+            Button(String(localized: "Mở thư mục dữ liệu")) {
                 if let url = holder.environment?.storage?.url.deletingLastPathComponent() { NSWorkspace.shared.open(url) }
             }
         }
@@ -72,6 +72,14 @@ struct DebugCommands: Commands {
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        // Cấu hình ngôn ngữ của tiến trình lệch với lựa chọn trong App Group: ghi lại và mở lại để có hiệu lực.
+        if AppLanguage.syncAtLaunch() {
+            AppRelauncher.relaunch()
+            exit(0)
+        }
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         MetricKitCollector.shared.start()
         Analytics.shared.isEnabled = { AppSettings.shared.analyticsEnabled }

@@ -27,8 +27,8 @@ public struct LargeOldFilesFeature: FeatureScanProvider {
 
     public func summarize(_ nodes: [Node]) -> FeatureSummary {
         let leaves = nodes.flatMap(\.removableLeaves)
-        return FeatureSummary(featureID: featureID, card: .cleanup, title: "File lớn và cũ",
-                              subtitle: leaves.isEmpty ? "Không có file lớn hoặc cũ" : "\(leaves.count) file cần xem lại",
+        return FeatureSummary(featureID: featureID, card: .cleanup, title: String(localized: "File lớn và cũ"),
+                              subtitle: leaves.isEmpty ? String(localized: "Không có file lớn hoặc cũ") : String(localized: "\(leaves.count) file cần xem lại"),
                               bytes: leaves.sum(\.size), itemCount: leaves.count)
     }
 }
@@ -75,11 +75,11 @@ public struct LargeOldFilter: Sendable, Equatable {
         public var id: String { rawValue }
         public var title: String {
             switch self {
-            case .any: "Mọi dung lượng"
-            case .under100MB: "Dưới 100 MB"
+            case .any: String(localized: "Mọi dung lượng")
+            case .under100MB: String(localized: "Dưới 100 MB")
             case .from100MBTo1GB: "100 MB – 1 GB"
             case .from1GBTo5GB: "1 – 5 GB"
-            case .over5GB: "Trên 5 GB"
+            case .over5GB: String(localized: "Trên 5 GB")
             }
         }
 
@@ -100,12 +100,12 @@ public struct LargeOldFilter: Sendable, Equatable {
         public var id: String { rawValue }
         public var title: String {
             switch self {
-            case .any: "Mọi thời điểm"
-            case .month: "Không dùng > 1 tháng"
-            case .threeMonths: "Không dùng > 3 tháng"
-            case .sixMonths: "Không dùng > 6 tháng"
-            case .year: "Không dùng > 1 năm"
-            case .twoYears: "Không dùng > 2 năm"
+            case .any: String(localized: "Mọi thời điểm")
+            case .month: String(localized: "Không dùng > 1 tháng")
+            case .threeMonths: String(localized: "Không dùng > 3 tháng")
+            case .sixMonths: String(localized: "Không dùng > 6 tháng")
+            case .year: String(localized: "Không dùng > 1 năm")
+            case .twoYears: String(localized: "Không dùng > 2 năm")
             }
         }
 

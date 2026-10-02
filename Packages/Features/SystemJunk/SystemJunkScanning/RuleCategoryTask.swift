@@ -71,14 +71,14 @@ public struct RuleCategoryTask: ScanTask {
         }
 
         for prefix in blockedPrefixes.sorted() {
-            warnings.append(ScanWarning(taskID: id, kind: .needsFullDiskAccess, message: "Cần Full Disk Access để đọc \(prefix.abbreviatingHome)"))
+            warnings.append(ScanWarning(taskID: id, kind: .needsFullDiskAccess, message: String(localized: "Cần Full Disk Access để đọc \(prefix.abbreviatingHome)")))
         }
         // Nhóm rỗng (kể cả vì bị chặn): chỉ trả cảnh báo; UI hiện nhãn "Cần Full Disk Access" từ cảnh báo.
         guard !leaves.isEmpty else { return ScanOutput(warnings: warnings) }
 
         let children = groupByApp ? group(leaves, by: apps) : groupByRule(leaves, rules: rules.map(\.rule))
         var root = Node.group(RuleCategory.title(category), icon: RuleCategory.icon(category), category: category, children: children)
-        if !blockedPrefixes.isEmpty { root.badges.append("Cần Full Disk Access") }
+        if !blockedPrefixes.isEmpty { root.badges.append(String(localized: "Cần Full Disk Access")) }
         return ScanOutput(nodes: [root], warnings: warnings)
     }
 

@@ -178,7 +178,7 @@ public struct DiskTree: Sendable {
     /// Thêm khối con cho một node chưa có con (dùng khi dựng tay, ví dụ trong test).
     @discardableResult
     public mutating func appendChildren(of parent: Int, _ items: [(name: String, size: UInt64, flags: DiskNodeFlags)]) -> Range<Int> {
-        precondition(nodes[parent].childCount == 0, "Node đã có con")
+        precondition(nodes[parent].childCount == 0, String(localized: "Node đã có con"))
         let start = nodes.count
         for item in items {
             appendNode(DiskNode(nameIndex: appendName(item.name), size: item.size, flags: item.flags), parent: parent)

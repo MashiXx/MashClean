@@ -16,9 +16,9 @@ public struct SmartScanCardSummary: Sendable, Identifiable {
 
     public var title: String {
         switch card {
-        case .cleanup: "Dọn dẹp"
-        case .maintenance: "Bảo trì"
-        case .applications: "Ứng dụng"
+        case .cleanup: String(localized: "Dọn dẹp")
+        case .maintenance: String(localized: "Bảo trì")
+        case .applications: String(localized: "Ứng dụng")
         }
     }
 
@@ -33,9 +33,9 @@ public struct SmartScanCardSummary: Sendable, Identifiable {
     /// Dòng chính của thẻ (mục 11.1): dung lượng an toàn / số tác vụ nên chạy / số app có file sót.
     public var headline: String {
         switch card {
-        case .cleanup: bytes > .zero ? bytes.formatted : "Sạch sẽ"
-        case .maintenance: itemCount > 0 ? "\(itemCount) tác vụ nên chạy" : "Ổn định"
-        case .applications: itemCount > 0 ? "\(itemCount) mục cần xem" : "Gọn gàng"
+        case .cleanup: bytes > .zero ? bytes.formatted : String(localized: "Sạch sẽ")
+        case .maintenance: itemCount > 0 ? String(localized: "\(itemCount) tác vụ nên chạy") : String(localized: "Ổn định")
+        case .applications: itemCount > 0 ? String(localized: "\(itemCount) mục cần xem") : String(localized: "Gọn gàng")
         }
     }
 }

@@ -216,7 +216,7 @@ public final class CleanEngine: Sendable {
     static func pair(_ items: [CleanPlan.Item], _ results: [RemoveResult]) -> [CleanReport.Entry] {
         var entries: [CleanReport.Entry] = []
         for (i, item) in items.enumerated() {
-            let r = i < results.count ? results[i] : .failed(item.url?.path ?? item.title, errno: EIO, "Remover không trả kết quả")
+            let r = i < results.count ? results[i] : .failed(item.url?.path ?? item.title, errno: EIO, String(localized: "Remover không trả kết quả"))
             entries.append(.init(item: item, result: r))
         }
         return entries
@@ -241,9 +241,9 @@ public final class CleanEngine: Sendable {
 
         public var description: String {
             switch self {
-            case .notRestorable: "Mục này đã bị xoá vĩnh viễn, không khôi phục được"
-            case .trashedItemMissing: "Không còn tìm thấy mục trong Thùng rác"
-            case .destinationExists: "Vị trí cũ đã có file cùng tên"
+            case .notRestorable: String(localized: "Mục này đã bị xoá vĩnh viễn, không khôi phục được")
+            case .trashedItemMissing: String(localized: "Không còn tìm thấy mục trong Thùng rác")
+            case .destinationExists: String(localized: "Vị trí cũ đã có file cùng tên")
             case let .underlying(m): m
             }
         }

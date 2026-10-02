@@ -65,9 +65,9 @@ final class MaintenanceViewModel: ObservableObject {
         Task {
             let report = await services.cleanEngine.run(plan, dryRun: services.settings.dryRun)
             if let e = report.entries.first, case let .failed(_, message) = e.result.outcome {
-                snapshotMessage = "Không xoá được snapshot: \(message)"
+                snapshotMessage = String(localized: "Không xoá được snapshot: \(message)")
             } else {
-                snapshotMessage = "Đã xoá snapshot \(snapshot.displayDate)"
+                snapshotMessage = String(localized: "Đã xoá snapshot \(snapshot.displayDate)")
             }
             refresh()
         }
@@ -89,8 +89,8 @@ public struct MaintenanceView: View {
                 header
                 if let status = model.status {
                     if !status.helperAvailable && MaintenanceTaskName.allCases.contains(where: { model.selected.contains($0) && $0.requiresRoot }) {
-                        NoticeBanner(symbol: "lock.shield", text: "Tác vụ cần quyền quản trị sẽ yêu cầu cài helper của MashClean.",
-                                     actionTitle: "Cài helper") { _ = try? HelperInstaller.ensureRegistered() }
+                        NoticeBanner(symbol: "lock.shield", text: String(localized: "Tác vụ cần quyền quản trị sẽ yêu cầu cài helper của MashClean."),
+                                     actionTitle: String(localized: "Cài helper")) { _ = try? HelperInstaller.ensureRegistered() }
                     }
                     statusRow(status)
                     ScrollView {
@@ -116,12 +116,12 @@ public struct MaintenanceView: View {
     private var header: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Bảo trì").font(Theme.Font.title).foregroundStyle(.white)
-                Text("Chạy các tác vụ giúp máy ổn định hơn. Chỉ chạy khi cần; MashClean gợi ý dựa trên trạng thái hệ thống.")
+                Text(String(localized: "Bảo trì")).font(Theme.Font.title).foregroundStyle(.white)
+                Text(String(localized: "Chạy các tác vụ giúp máy ổn định hơn. Chỉ chạy khi cần; MashClean gợi ý dựa trên trạng thái hệ thống."))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Button { model.refresh() } label: { Label("Làm mới", systemImage: "arrow.clockwise") }
+            Button { model.refresh() } label: { Label(String(localized: "Làm mới"), systemImage: "arrow.clockwise") }
                 .buttonStyle(GlassButtonStyle()).disabled(model.loading)
         }
     }
@@ -130,8 +130,8 @@ public struct MaintenanceView: View {
         HStack(spacing: 28) {
             StatTile(value: s.memoryPressure.title, label: "Memory pressure", symbol: "memorychip")
             StatTile(value: s.purgeableBytes.formatted, label: "Purgeable", symbol: "internaldrive")
-            StatTile(value: "\(s.localSnapshots.count)", label: "Snapshot cục bộ", symbol: "clock.arrow.circlepath")
-            if let mail = s.mailEnvelopeIndexBytes { StatTile(value: mail.formatted, label: "Chỉ mục Mail", symbol: "envelope") }
+            StatTile(value: "\(s.localSnapshots.count)", label: String(localized: "Snapshot cục bộ"), symbol: "clock.arrow.circlepath")
+            if let mail = s.mailEnvelopeIndexBytes { StatTile(value: mail.formatted, label: String(localized: "Chỉ mục Mail"), symbol: "envelope") }
         }
         .padding(14)
         .background(RoundedRectangle(cornerRadius: 14).fill(Color.black.opacity(0.18)))
@@ -147,11 +147,11 @@ public struct MaintenanceView: View {
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 6) {
                     Text(task.title).font(Theme.Font.headline).foregroundStyle(.white)
-                    if rec.recommended { Pill("Nên chạy", color: Theme.safe) }
+                    if rec.recommended { Pill(String(localized: "Nên chạy"), color: Theme.safe) }
                     if task.requiresRoot { Image(systemName: "lock.fill").font(.system(size: 10)).foregroundStyle(Theme.tertiaryText) }
                 }
                 Text(task.whenToRun + " " + rec.why).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
-                Text(last.map { "Lần chạy gần nhất: \($0.formatted(date: .abbreviated, time: .shortened))" } ?? "Chưa chạy lần nào")
+                Text(last.map { String(localized: "Lần chạy gần nhất: \($0.formatted(date: .abbreviated, time: .shortened))") } ?? String(localized: "Chưa chạy lần nào"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             Spacer()
@@ -170,14 +170,14 @@ public struct MaintenanceView: View {
     private func snapshotsSection(_ snapshots: [LocalSnapshot]) -> some View {
         Card(padding: 12) {
             VStack(alignment: .leading, spacing: 8) {
-                Label("Snapshot Time Machine cục bộ", systemImage: "clock.arrow.circlepath").font(Theme.Font.headline).foregroundStyle(.white)
+                Label(String(localized: "Snapshot Time Machine cục bộ"), systemImage: "clock.arrow.circlepath").font(Theme.Font.headline).foregroundStyle(.white)
                 if let msg = model.snapshotMessage { Text(msg).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText) }
                 ForEach(snapshots) { snap in
                     HStack {
                         Text(snap.displayDate).font(Theme.Font.body).foregroundStyle(.white)
                         Text(snap.volume).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
                         Spacer()
-                        Button("Xoá") { model.delete(snap) }.buttonStyle(GlassButtonStyle())
+                        Button(String(localized: "Xoá")) { model.delete(snap) }.buttonStyle(GlassButtonStyle())
                     }
                 }
             }
@@ -186,10 +186,10 @@ public struct MaintenanceView: View {
 
     private var footer: some View {
         HStack {
-            Text("\(model.selected.count) tác vụ được chọn").font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
+            Text(String(localized: "\(model.selected.count) tác vụ được chọn")).font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             Spacer()
             if model.services.settings.dryRun { Pill("DRY RUN", color: Theme.review) }
-            Button(model.isRunning ? "Đang chạy…" : "Chạy") { model.runSelected() }
+            Button(model.isRunning ? String(localized: "Đang chạy…") : String(localized: "Chạy")) { model.runSelected() }
                 .buttonStyle(PrimaryButtonStyle(accent: .maintenance))
                 .disabled(model.selected.isEmpty || model.isRunning)
                 .keyboardShortcut(.defaultAction)

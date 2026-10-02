@@ -13,9 +13,9 @@ public enum MenuBarAlert: String, Sendable, CaseIterable {
 
     var title: String {
         switch self {
-        case .lowDisk: "Ổ đĩa sắp đầy"
-        case .largeTrash: "Thùng rác đang chiếm nhiều dung lượng"
-        case .memoryPressure: "Máy đang thiếu bộ nhớ"
+        case .lowDisk: String(localized: "Ổ đĩa sắp đầy")
+        case .largeTrash: String(localized: "Thùng rác đang chiếm nhiều dung lượng")
+        case .memoryPressure: String(localized: "Máy đang thiếu bộ nhớ")
         }
     }
 }

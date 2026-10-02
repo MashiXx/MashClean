@@ -15,7 +15,7 @@ public struct FeatureAppearance: Sendable {
     public var scanTitle: String
     public var cleanTitle: String
 
-    public init(accent: Theme.Accent, symbol: String, title: String, subtitle: String, scanTitle: String = "Quét", cleanTitle: String = "Dọn dẹp") {
+    public init(accent: Theme.Accent, symbol: String, title: String, subtitle: String, scanTitle: String = String(localized: "Quét"), cleanTitle: String = String(localized: "Dọn dẹp")) {
         self.accent = accent
         self.symbol = symbol
         self.title = title
@@ -120,20 +120,20 @@ public struct ScanningView: View {
     public var body: some View {
         VStack(spacing: 24) {
             Spacer()
-            ProgressRing(progress: progress.fraction, lineWidth: 12, label: "đang quét")
+            ProgressRing(progress: progress.fraction, lineWidth: 12, label: String(localized: "đang quét"))
                 .frame(width: 170, height: 170)
             VStack(spacing: 6) {
-                Text(progress.currentTask.isEmpty ? "Đang chuẩn bị…" : progress.currentTask)
+                Text(progress.currentTask.isEmpty ? String(localized: "Đang chuẩn bị…") : progress.currentTask)
                     .font(Theme.Font.headline).foregroundStyle(.white)
                 HStack(spacing: 18) {
-                    Label("\(progress.filesVisited.formatted()) mục đã duyệt", systemImage: "doc.on.doc")
-                    if progress.bytesFound > .zero { Label("Tìm thấy \(progress.bytesFound.formatted)", systemImage: "externaldrive") }
-                    Label("\(progress.completedTasks)/\(progress.totalTasks) bước", systemImage: "checklist")
+                    Label(String(localized: "\(progress.filesVisited.formatted()) mục đã duyệt"), systemImage: "doc.on.doc")
+                    if progress.bytesFound > .zero { Label(String(localized: "Tìm thấy \(progress.bytesFound.formatted)"), systemImage: "externaldrive") }
+                    Label(String(localized: "\(progress.completedTasks)/\(progress.totalTasks) bước"), systemImage: "checklist")
                 }
                 .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Button("Dừng", action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
+            Button(String(localized: "Dừng"), action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -165,8 +165,8 @@ public struct ResultsView: View {
                 Spacer()
                 VStack(spacing: 10) {
                     Image(systemName: "checkmark.seal.fill").font(.system(size: 56)).foregroundStyle(.white)
-                    Text("Không tìm thấy gì cần dọn").font(Theme.Font.title).foregroundStyle(.white)
-                    Button("Quét lại", action: model.startScan).buttonStyle(GlassButtonStyle())
+                    Text(String(localized: "Không tìm thấy gì cần dọn")).font(Theme.Font.title).foregroundStyle(.white)
+                    Button(String(localized: "Quét lại"), action: model.startScan).buttonStyle(GlassButtonStyle())
                 }
                 Spacer()
             } else {
@@ -187,21 +187,21 @@ public struct ResultsView: View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(appearance.title).font(Theme.Font.title).foregroundStyle(.white)
-                Text("Tìm thấy \(tree.totalSize.formatted) trong \(tree.allLeaves.count.formatted()) mục")
+                Text(String(localized: "Tìm thấy \(tree.totalSize.formatted) trong \(tree.allLeaves.count.formatted()) mục"))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
             if tree.roots.contains(where: { $0.safety == .risky }) {
-                Toggle("Hiện mục nâng cao (rủi ro)", isOn: $showRisky).toggleStyle(.switch).foregroundStyle(.white).font(Theme.Font.caption)
+                Toggle(String(localized: "Hiện mục nâng cao (rủi ro)"), isOn: $showRisky).toggleStyle(.switch).foregroundStyle(.white).font(Theme.Font.caption)
             }
-            Button("Quét lại", action: model.startScan).buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Quét lại"), action: model.startScan).buttonStyle(GlassButtonStyle())
         }
     }
 
     private var warningsBanner: some View {
         let needsFDA = model.warnings.contains { $0.kind == .needsFullDiskAccess }
-        let text = needsFDA ? "Một số nhóm cần Full Disk Access để quét đầy đủ." : "\(model.warnings.count) cảnh báo khi quét: " + model.warnings.prefix(2).map(\.message).joined(separator: "; ")
-        return NoticeBanner(text: text, actionTitle: needsFDA ? "Mở cài đặt" : nil) {
+        let text = needsFDA ? String(localized: "Một số nhóm cần Full Disk Access để quét đầy đủ.") : String(localized: "\(model.warnings.count) cảnh báo khi quét: ") + model.warnings.prefix(2).map(\.message).joined(separator: "; ")
+        return NoticeBanner(text: text, actionTitle: needsFDA ? String(localized: "Mở cài đặt") : nil) {
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")!)
         }
     }
@@ -249,8 +249,8 @@ public struct ResultsView: View {
     private var footer: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Đã chọn \(model.selection.selectedBytes.formatted)").font(Theme.Font.headline).foregroundStyle(.white)
-                Text("\(model.selection.selectedCount.formatted()) mục · dung lượng là ước tính (APFS clone có thể làm lệch)")
+                Text(String(localized: "Đã chọn \(model.selection.selectedBytes.formatted)")).font(Theme.Font.headline).foregroundStyle(.white)
+                Text(String(localized: "\(model.selection.selectedCount.formatted()) mục · dung lượng là ước tính (APFS clone có thể làm lệch)"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             Spacer()
@@ -307,7 +307,7 @@ public struct TriStateCheckbox: View {
                 .foregroundStyle(state == .off ? Color.white.opacity(0.6) : Color.white)
         }
         .buttonStyle(.plain)
-        .accessibilityValue(state == .on ? "đã chọn" : state == .mixed ? "chọn một phần" : "chưa chọn")
+        .accessibilityValue(state == .on ? String(localized: "đã chọn") : state == .mixed ? String(localized: "chọn một phần") : String(localized: "chưa chọn"))
     }
 }
 
@@ -328,23 +328,23 @@ public struct ConfirmView: View {
     public var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.shield").font(.system(size: 46)).foregroundStyle(.white)
-            Text("Xác nhận dọn dẹp").font(Theme.Font.title).foregroundStyle(.white)
-            Text("Sẽ xử lý \(plan.items.count) mục, khoảng \(plan.totalSize.formatted).")
+            Text(String(localized: "Xác nhận dọn dẹp")).font(Theme.Font.title).foregroundStyle(.white)
+            Text(String(localized: "Sẽ xử lý \(plan.items.count) mục, khoảng \(plan.totalSize.formatted)."))
                 .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     if !plan.rootItems.isEmpty {
-                        section("Cần quyền quản trị (\(plan.rootItems.count))", symbol: "lock.fill", items: plan.rootItems.map { ($0.title, $0.url?.path ?? "", $0.expectedSize) })
+                        section(String(localized: "Cần quyền quản trị (\(plan.rootItems.count))"), symbol: "lock.fill", items: plan.rootItems.map { ($0.title, $0.url?.path ?? "", $0.expectedSize) })
                     }
                     if !plan.reviewItems.isEmpty {
-                        section("Cần xem lại (\(plan.reviewItems.count))", symbol: "eye", items: plan.reviewItems.map { ($0.title, $0.url?.path ?? "", $0.expectedSize) })
+                        section(String(localized: "Cần xem lại (\(plan.reviewItems.count))"), symbol: "eye", items: plan.reviewItems.map { ($0.title, $0.url?.path ?? "", $0.expectedSize) })
                     }
                     let permanent = plan.permanentItems.filter { $0.safety != .safe }
                     if !permanent.isEmpty {
-                        Text("\(permanent.count) mục sẽ bị xoá vĩnh viễn (không qua Thùng rác).").font(Theme.Font.caption).foregroundStyle(Theme.review)
+                        Text(String(localized: "\(permanent.count) mục sẽ bị xoá vĩnh viễn (không qua Thùng rác).")).font(Theme.Font.caption).foregroundStyle(Theme.review)
                     }
                     if !plan.blocked.isEmpty {
-                        section("Bị chặn vì lý do an toàn (\(plan.blocked.count))", symbol: "hand.raised.fill",
+                        section(String(localized: "Bị chặn vì lý do an toàn (\(plan.blocked.count))"), symbol: "hand.raised.fill",
                                 items: plan.blocked.map { ($0.title, $0.violation.description, ByteCount.zero) })
                     }
                 }
@@ -352,7 +352,7 @@ public struct ConfirmView: View {
             }
             .frame(maxWidth: 640)
             HStack(spacing: 12) {
-                Button("Huỷ", action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
+                Button(String(localized: "Huỷ"), action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
                 Button(appearance.cleanTitle, action: onConfirm)
                     .buttonStyle(PrimaryButtonStyle(accent: appearance.accent))
                     .disabled(plan.items.isEmpty)
@@ -376,7 +376,7 @@ public struct ConfirmView: View {
                         if item.2 > .zero { Text(item.2.formatted).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText) }
                     }
                 }
-                if items.count > 50 { Text("… và \(items.count - 50) mục khác").font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText) }
+                if items.count > 50 { Text(String(localized: "… và \(items.count - 50) mục khác")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText) }
             }
         }
     }
@@ -398,8 +398,8 @@ public struct CleaningView: View {
     public var body: some View {
         VStack(spacing: 22) {
             Spacer()
-            ProgressRing(progress: progress, lineWidth: 12, label: "đang dọn").frame(width: 170, height: 170)
-            Text("Đã giải phóng \(freed.formatted)").font(Theme.Font.headline).foregroundStyle(.white)
+            ProgressRing(progress: progress, lineWidth: 12, label: String(localized: "đang dọn")).frame(width: 170, height: 170)
+            Text(String(localized: "Đã giải phóng \(freed.formatted)")).font(Theme.Font.headline).foregroundStyle(.white)
             Text(currentItem.abbreviatingHome).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).lineLimit(1).truncationMode(.middle).frame(maxWidth: 520)
             Spacer()
         }
@@ -425,21 +425,21 @@ public struct DoneView: View {
             Spacer()
             Image(systemName: report.failed.isEmpty ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
                 .font(.system(size: 64)).foregroundStyle(.white)
-            Text(report.dryRun ? "Chạy thử xong (không xoá gì)" : "Hoàn tất").font(Theme.Font.title).foregroundStyle(.white)
+            Text(report.dryRun ? String(localized: "Chạy thử xong (không xoá gì)") : String(localized: "Hoàn tất")).font(Theme.Font.title).foregroundStyle(.white)
             HStack(spacing: 32) {
-                StatTile(value: report.estimatedFreed.formatted, label: "Ước tính đã dọn", symbol: "sparkles")
+                StatTile(value: report.estimatedFreed.formatted, label: String(localized: "Ước tính đã dọn"), symbol: "sparkles")
                 if let measured = report.measuredFreed {
-                    StatTile(value: measured.formatted, label: "Đo thực tế trên ổ", symbol: "internaldrive")
+                    StatTile(value: measured.formatted, label: String(localized: "Đo thực tế trên ổ"), symbol: "internaldrive")
                 }
-                StatTile(value: "\(report.succeeded.count)", label: "Mục thành công", symbol: "checkmark")
-                if !report.failed.isEmpty { StatTile(value: "\(report.failed.count)", label: "Mục lỗi", symbol: "xmark") }
+                StatTile(value: "\(report.succeeded.count)", label: String(localized: "Mục thành công"), symbol: "checkmark")
+                if !report.failed.isEmpty { StatTile(value: "\(report.failed.count)", label: String(localized: "Mục lỗi"), symbol: "xmark") }
             }
             if let measured = report.measuredFreed, measured < report.estimatedFreed {
-                Text("Con số thực tế có thể thấp hơn do snapshot APFS giữ lại block hoặc file clone.")
+                Text(String(localized: "Con số thực tế có thể thấp hơn do snapshot APFS giữ lại block hoặc file clone."))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             if !report.inUse.isEmpty {
-                NoticeBanner(symbol: "lock.open", text: "\(report.inUse.count) mục đang được sử dụng nên đã bỏ qua. Hãy tắt app liên quan rồi thử lại.")
+                NoticeBanner(symbol: "lock.open", text: String(localized: "\(report.inUse.count) mục đang được sử dụng nên đã bỏ qua. Hãy tắt app liên quan rồi thử lại."))
                     .frame(maxWidth: 560)
             }
             if !report.failed.isEmpty {
@@ -465,7 +465,7 @@ public struct DoneView: View {
             Spacer()
             HStack(spacing: 12) {
                 Button("Xong", action: onClose).buttonStyle(GlassButtonStyle())
-                Button("Quét lại", action: onRescan).buttonStyle(PrimaryButtonStyle(accent: appearance.accent))
+                Button(String(localized: "Quét lại"), action: onRescan).buttonStyle(PrimaryButtonStyle(accent: appearance.accent))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -484,9 +484,9 @@ public struct ErrorView: View {
     public var body: some View {
         VStack(spacing: 14) {
             Image(systemName: "xmark.octagon.fill").font(.system(size: 54)).foregroundStyle(.white)
-            Text("Đã có lỗi").font(Theme.Font.title).foregroundStyle(.white)
+            Text(String(localized: "Đã có lỗi")).font(Theme.Font.title).foregroundStyle(.white)
             Text(message).font(Theme.Font.body).foregroundStyle(Theme.secondaryText).multilineTextAlignment(.center).frame(maxWidth: 480)
-            Button("Thử lại", action: onRetry).buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Thử lại"), action: onRetry).buttonStyle(GlassButtonStyle())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -497,13 +497,13 @@ struct PermanentDeleteSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Không thể chuyển vào Thùng rác").font(.headline)
-            Text("\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác (ổ ngoài hoặc ổ mạng). Bạn có muốn xoá vĩnh viễn không? Thao tác này không khôi phục được.")
+            Text(String(localized: "Không thể chuyển vào Thùng rác")).font(.headline)
+            Text(String(localized: "\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác (ổ ngoài hoặc ổ mạng). Bạn có muốn xoá vĩnh viễn không? Thao tác này không khôi phục được."))
                 .font(.body)
             HStack {
                 Spacer()
-                Button("Bỏ qua") { prompt.answer(false) }.keyboardShortcut(.cancelAction)
-                Button("Xoá vĩnh viễn") { prompt.answer(true) }.keyboardShortcut(.defaultAction)
+                Button(String(localized: "Bỏ qua")) { prompt.answer(false) }.keyboardShortcut(.cancelAction)
+                Button(String(localized: "Xoá vĩnh viễn")) { prompt.answer(true) }.keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)

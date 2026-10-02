@@ -212,7 +212,7 @@ public final class ScanEngine: Sendable {
                 let skipped = await scheduler.complete(id, state: state, output: output)
                 for s in skipped {
                     onEvent(.taskStateChanged(s, .skipped))
-                    warnings.withLock { $0.append(ScanWarning(taskID: s, kind: .skipped, message: "Bỏ qua vì task phụ thuộc lỗi")) }
+                    warnings.withLock { $0.append(ScanWarning(taskID: s, kind: .skipped, message: String(localized: "Bỏ qua vì task phụ thuộc lỗi"))) }
                 }
                 if Task.isCancelled {
                     group.cancelAll()

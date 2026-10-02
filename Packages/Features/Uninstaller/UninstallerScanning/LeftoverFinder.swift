@@ -221,8 +221,8 @@ public struct LeftoverFinder: Sendable {
         let reason = LocalizedText("\(c.confidence.explanation) (\(app.name))")
         switch c.kind {
         case let .receipt(id):
-            let node = Node(kind: .virtual(.packageReceipt(id: id)), title: "Biên nhận cài đặt \(id)", itemCount: 1, safety: c.confidence.safety,
-                            reason: "Xoá biên nhận pkg khỏi hệ thống (pkgutil --forget)", category: UninstallerCategory.appLeftovers,
+            let node = Node(kind: .virtual(.packageReceipt(id: id)), title: String(localized: "Biên nhận cài đặt \(id)"), itemCount: 1, safety: c.confidence.safety,
+                            reason: LocalizedText(String(localized: "Xoá biên nhận pkg khỏi hệ thống (pkgutil --forget)")), category: UninstallerCategory.appLeftovers,
                             removal: .custom(.pkgForget), requiresRoot: true, badges: [c.confidence.title], icon: "shippingbox")
             return Leftover(node: node, confidence: c.confidence)
         case let .launch(label, domain):
@@ -244,7 +244,7 @@ public struct LeftoverFinder: Sendable {
                             safety: c.confidence.safety, reason: reason, category: UninstallerCategory.appLeftovers,
                             removal: requiresRoot ? .delete : .moveToTrash, requiresRoot: requiresRoot,
                             allowedRoots: [url.deletingLastPathComponent().path], lastAccess: m.lastUse,
-                            badges: [c.confidence.title] + (requiresRoot ? ["Cần quyền quản trị"] : []))
+                            badges: [c.confidence.title] + (requiresRoot ? [String(localized: "Cần quyền quản trị")] : []))
             return Leftover(node: node, confidence: c.confidence)
         }
     }

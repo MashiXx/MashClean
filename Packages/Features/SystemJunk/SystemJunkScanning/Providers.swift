@@ -98,7 +98,7 @@ public struct DockerProvider: JunkProvider {
         guard let out = try? await ProcessRunner().run(docker, ["system", "df", "--format", "{{.Reclaimable}}"], timeout: 15), out.succeeded else { return ([], []) }
         let reclaimable = out.stdoutString.split(separator: "\n").reduce(Int64(0)) { $0 + Self.parseSize(String($1)) }
         guard reclaimable > 0 else { return ([], []) }
-        return ([rule.makeVirtualNode(.dockerPrune, title: "Docker: image, container, cache không dùng", size: ByteCount(reclaimable))], [])
+        return ([rule.makeVirtualNode(.dockerPrune, title: String(localized: "Docker: image, container, cache không dùng"), size: ByteCount(reclaimable))], [])
     }
 
     /// "1.2GB (40%)" → byte.
@@ -144,11 +144,11 @@ public struct LanguageFilesProvider: JunkProvider {
                 if keep.contains(lang) || keep.contains(short) || keep.contains(lang.replacingOccurrences(of: "_", with: "-")) { continue }
                 guard let m = try? context.fileSystem.measure(entry.url), m.allocatedSize > 0 else { continue }
                 leaves.append(rule.makeFileNode(entry.url, measurement: m, title: Locale.current.localizedString(forIdentifier: lang) ?? entry.name,
-                                                allowedRoot: resources.path, badges: ["Làm hỏng chữ ký app"]))
+                                                allowedRoot: resources.path, badges: [String(localized: "Làm hỏng chữ ký app")]))
             }
             guard !leaves.isEmpty else { continue }
             var n = Node(kind: .application(bundleID: app.bundleID, url: app.url), title: app.name, safety: .risky, category: rule.category, children: leaves)
-            n.badges = ["Làm hỏng chữ ký app"]
+            n.badges = [String(localized: "Làm hỏng chữ ký app")]
             n.recomputeAggregates()
             appNodes.append(n)
         }
@@ -166,7 +166,7 @@ public struct IOSBackupsProvider: JunkProvider {
     public func nodes(for rule: Rule, context: ScanContext) async throws -> (nodes: [Node], warnings: [ScanWarning]) {
         let root = URL(fileURLWithPath: context.rules.resolver.resolve("~/Library/Application Support/MobileSync/Backup"))
         if AccessProbe.isBlockedByTCC(root.path) {
-            return ([], [ScanWarning(taskID: "iosBackups", kind: .needsFullDiskAccess, message: "Cần Full Disk Access để đọc bản sao lưu iOS")])
+            return ([], [ScanWarning(taskID: "iosBackups", kind: .needsFullDiskAccess, message: String(localized: "Cần Full Disk Access để đọc bản sao lưu iOS"))])
         }
         var nodes: [Node] = []
         let formatter = DateFormatter()
@@ -197,16 +197,16 @@ public struct TrashProvider: JunkProvider {
     public init() {}
 
     public func nodes(for rule: Rule, context: ScanContext) async throws -> (nodes: [Node], warnings: [ScanWarning]) {
-        var bins: [(URL, String)] = [(URL(fileURLWithPath: context.rules.resolver.resolve("~/.Trash")), "Thùng rác")]
+        var bins: [(URL, String)] = [(URL(fileURLWithPath: context.rules.resolver.resolve("~/.Trash")), String(localized: "Thùng rác"))]
         let uid = getuid()
         for vol in VolumeInfo.mounted() where !vol.isRoot && !vol.isReadOnly {
-            bins.append((URL(fileURLWithPath: vol.mountPoint).appendingPathComponent(".Trashes/\(uid)"), "Thùng rác trên \(vol.name)"))
+            bins.append((URL(fileURLWithPath: vol.mountPoint).appendingPathComponent(".Trashes/\(uid)"), String(localized: "Thùng rác trên \(vol.name)")))
         }
         var nodes: [Node] = []
         var warnings: [ScanWarning] = []
         for (url, title) in bins {
             if AccessProbe.isBlockedByTCC(url.path) {
-                warnings.append(ScanWarning(taskID: "trash", kind: .needsFullDiskAccess, message: "Cần Full Disk Access để đọc \(title)"))
+                warnings.append(ScanWarning(taskID: "trash", kind: .needsFullDiskAccess, message: String(localized: "Cần Full Disk Access để đọc \(title)")))
                 continue
             }
             guard context.fileSystem.isDirectory(url),

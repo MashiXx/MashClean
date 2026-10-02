@@ -43,7 +43,7 @@ final class DuplicatesViewModel: ScanCleanViewModel {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.allowsMultipleSelection = true
-        panel.prompt = "Thêm"
+        panel.prompt = String(localized: "Thêm")
         guard panel.runModal() == .OK else { return }
         for url in panel.urls where !roots.contains(url) { roots.append(url) }
         rootsBox.withLock { $0 = roots }
@@ -81,9 +81,9 @@ public struct DuplicatesView: View {
 
     public static let appearance = FeatureAppearance(
         accent: .files, symbol: "doc.on.doc",
-        title: "File trùng lặp",
-        subtitle: "Tìm file có nội dung giống hệt nhau (so dung lượng, băm nhanh rồi SHA-256). Bỏ qua hard link và clone APFS vì xoá chúng không giải phóng dung lượng.",
-        scanTitle: "Tìm", cleanTitle: "Chuyển vào Thùng rác"
+        title: String(localized: "File trùng lặp"),
+        subtitle: String(localized: "Tìm file có nội dung giống hệt nhau (so dung lượng, băm nhanh rồi SHA-256). Bỏ qua hard link và clone APFS vì xoá chúng không giải phóng dung lượng."),
+        scanTitle: String(localized: "Tìm"), cleanTitle: String(localized: "Chuyển vào Thùng rác")
     )
 
     public init(services: ScanServices, feature: DuplicatesFeature) {
@@ -114,20 +114,20 @@ public struct DuplicatesView: View {
             }
             .padding(24)
         }
-        .alert("Chọn hết mọi bản trong nhóm?", isPresented: $model.confirmAllSelected) {
-            Button("Huỷ", role: .cancel) {}
-            Button("Vẫn tiếp tục", role: .destructive) { model.prepareClean() }
+        .alert(String(localized: "Chọn hết mọi bản trong nhóm?"), isPresented: $model.confirmAllSelected) {
+            Button(String(localized: "Huỷ"), role: .cancel) {}
+            Button(String(localized: "Vẫn tiếp tục"), role: .destructive) { model.prepareClean() }
         } message: {
-            Text("Có nhóm mà mọi bản đều được chọn: sau khi dọn sẽ không còn bản nào ngoài Thùng rác.")
+            Text(String(localized: "Có nhóm mà mọi bản đều được chọn: sau khi dọn sẽ không còn bản nào ngoài Thùng rác."))
         }
         .sheet(item: $model.permanentDeletePrompt) { prompt in
             VStack(alignment: .leading, spacing: 12) {
-                Text("Không thể chuyển vào Thùng rác").font(.headline)
-                Text("\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác. Xoá vĩnh viễn? Thao tác này không khôi phục được.")
+                Text(String(localized: "Không thể chuyển vào Thùng rác")).font(.headline)
+                Text(String(localized: "\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác. Xoá vĩnh viễn? Thao tác này không khôi phục được."))
                 HStack {
                     Spacer()
-                    Button("Bỏ qua") { prompt.answer(false) }.keyboardShortcut(.cancelAction)
-                    Button("Xoá vĩnh viễn") { prompt.answer(true) }
+                    Button(String(localized: "Bỏ qua")) { prompt.answer(false) }.keyboardShortcut(.cancelAction)
+                    Button(String(localized: "Xoá vĩnh viễn")) { prompt.answer(true) }
                 }
             }
             .padding(20)
@@ -143,7 +143,7 @@ struct RootsEditor: View {
     var body: some View {
         Card(padding: 12) {
             VStack(alignment: .leading, spacing: 6) {
-                Text("Thư mục quét").font(Theme.Font.headline).foregroundStyle(.white)
+                Text(String(localized: "Thư mục quét")).font(Theme.Font.headline).foregroundStyle(.white)
                 ForEach(model.roots, id: \.self) { url in
                     HStack {
                         Image(systemName: "folder").foregroundStyle(.white)
@@ -153,11 +153,11 @@ struct RootsEditor: View {
                             .buttonStyle(.plain).foregroundStyle(Theme.secondaryText)
                     }
                 }
-                Text("Bỏ qua ~/Library, thư mục ẩn, nội dung package và file nhỏ hơn 1 MB.")
+                Text(String(localized: "Bỏ qua ~/Library, thư mục ẩn, nội dung package và file nhỏ hơn 1 MB."))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
                 HStack {
-                    Button("Thêm thư mục…", action: model.addRoot).buttonStyle(GlassButtonStyle())
-                    Button("Mặc định", action: model.resetRoots).buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Thêm thư mục…"), action: model.addRoot).buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Mặc định"), action: model.resetRoots).buttonStyle(GlassButtonStyle())
                 }
             }
         }
@@ -175,15 +175,15 @@ struct DuplicatesScanningView: View {
             let step = model.progressBox.current
             VStack(spacing: 22) {
                 Spacer()
-                ProgressRing(progress: step.fraction, lineWidth: 12, label: "đang tìm").frame(width: 170, height: 170)
-                Text("Bước \(min(step.stage.step, 5))/5: \(step.stage.title)").font(Theme.Font.headline).foregroundStyle(.white)
+                ProgressRing(progress: step.fraction, lineWidth: 12, label: String(localized: "đang tìm")).frame(width: 170, height: 170)
+                Text(String(localized: "Bước \(min(step.stage.step, 5))/5: \(step.stage.title)")).font(Theme.Font.headline).foregroundStyle(.white)
                 HStack(spacing: 18) {
-                    Label("\(step.filesSeen.formatted()) mục đã duyệt", systemImage: "doc.on.doc")
+                    Label(String(localized: "\(step.filesSeen.formatted()) mục đã duyệt"), systemImage: "doc.on.doc")
                     if step.total > 0 { Label("\(step.processed.formatted())/\(step.total.formatted()) file", systemImage: "number") }
                 }
                 .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).monospacedDigit()
                 Spacer()
-                Button("Dừng", action: model.cancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
+                Button(String(localized: "Dừng"), action: model.cancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -201,7 +201,7 @@ struct DuplicatesResultsView: View {
                 Spacer()
                 VStack(spacing: 10) {
                     Image(systemName: "checkmark.seal.fill").font(.system(size: 56)).foregroundStyle(.white)
-                    Text("Không tìm thấy file trùng lặp").font(Theme.Font.title).foregroundStyle(.white)
+                    Text(String(localized: "Không tìm thấy file trùng lặp")).font(Theme.Font.title).foregroundStyle(.white)
                 }
                 Spacer()
             } else if let tree = model.currentTree {
@@ -221,10 +221,10 @@ struct DuplicatesResultsView: View {
         return HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(DuplicatesView.appearance.title).font(Theme.Font.title).foregroundStyle(.white)
-                Text("\(groups.count.formatted()) nhóm · lãng phí khoảng \(wasted.formatted)").font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
+                Text(String(localized: "\(groups.count.formatted()) nhóm · lãng phí khoảng \(wasted.formatted)")).font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Button("Quét lại", action: model.startScan).buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Quét lại"), action: model.startScan).buttonStyle(GlassButtonStyle())
         }
     }
 
@@ -237,7 +237,7 @@ struct DuplicatesResultsView: View {
                         FileIcon(url: g.children.first?.url, fallback: "doc.on.doc", size: 20)
                         VStack(alignment: .leading, spacing: 1) {
                             Text(g.children.first?.title ?? g.title).font(.system(size: 12, weight: .medium)).foregroundStyle(.white).lineLimit(1)
-                            Text("\(g.children.count) bản · \(g.reason.resolved)").font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
+                            Text(String(localized: "\(g.children.count) bản · \(g.reason.resolved)")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
                         }
                         Spacer()
                         Text(DuplicateSelection.wasted(g).formatted).font(.system(size: 11, weight: .semibold)).monospacedDigit()
@@ -257,14 +257,14 @@ struct DuplicatesResultsView: View {
     private var footer: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Đã chọn \(model.selection.selectedBytes.formatted)").font(Theme.Font.headline).foregroundStyle(.white)
-                Text("\(model.selection.selectedCount.formatted()) file · có thể khôi phục từ Thùng rác")
+                Text(String(localized: "Đã chọn \(model.selection.selectedBytes.formatted)")).font(Theme.Font.headline).foregroundStyle(.white)
+                Text(String(localized: "\(model.selection.selectedCount.formatted()) file · có thể khôi phục từ Thùng rác"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             Spacer()
-            Button("Chọn tự động", action: model.autoSelect).buttonStyle(GlassButtonStyle())
-                .help("Chọn mọi bản trừ bản nên giữ trong mỗi nhóm")
-            Button("Bỏ chọn") { model.selection = SelectionState() }.buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Chọn tự động"), action: model.autoSelect).buttonStyle(GlassButtonStyle())
+                .help(String(localized: "Chọn mọi bản trừ bản nên giữ trong mỗi nhóm"))
+            Button(String(localized: "Bỏ chọn")) { model.selection = SelectionState() }.buttonStyle(GlassButtonStyle())
                 .disabled(model.selection.selectedCount == 0)
             if model.services.settings.dryRun { Pill("DRY RUN", color: Theme.review) }
             Button(DuplicatesView.appearance.cleanTitle, action: model.requestClean)
@@ -295,8 +295,8 @@ struct GroupDetail: View {
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Text(group.children.first?.title ?? group.title).font(Theme.Font.headline).foregroundStyle(.white).lineLimit(2)
-                    Text("\(group.children.count) bản giống hệt nhau · \(group.reason.resolved)").font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
-                    Text("Có thể giải phóng \(DuplicateSelection.wasted(group).formatted) nếu chỉ giữ một bản")
+                    Text(String(localized: "\(group.children.count) bản giống hệt nhau · \(group.reason.resolved)")).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
+                    Text(String(localized: "Có thể giải phóng \(DuplicateSelection.wasted(group).formatted) nếu chỉ giữ một bản"))
                         .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
                 }
                 Spacer()
@@ -336,8 +336,8 @@ struct GroupDetail: View {
         .contentShape(Rectangle())
         .contextMenu {
             if let url = file.url {
-                Button("Hiện trong Finder") { NSWorkspace.shared.activateFileViewerSelecting([url]) }
-                Button("Mở") { NSWorkspace.shared.open(url) }
+                Button(String(localized: "Hiện trong Finder")) { NSWorkspace.shared.activateFileViewerSelecting([url]) }
+                Button(String(localized: "Mở")) { NSWorkspace.shared.open(url) }
             }
         }
     }

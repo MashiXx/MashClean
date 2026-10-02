@@ -43,25 +43,25 @@ public enum MaintenanceTaskName: String, Sendable, Codable, CaseIterable, Identi
 
     public var title: String {
         switch self {
-        case .flushDNS: "Xoá cache DNS"
-        case .reindexSpotlight: "Đánh lại chỉ mục Spotlight"
-        case .freeRAM: "Giải phóng RAM"
-        case .runPeriodic: "Chạy script bảo trì định kỳ"
-        case .thinSnapshots: "Xoá bớt snapshot Time Machine cục bộ"
-        case .rebuildLaunchServices: "Dựng lại Launch Services"
-        case .speedUpMail: "Tối ưu Mail"
+        case .flushDNS: String(localized: "Xoá cache DNS")
+        case .reindexSpotlight: String(localized: "Đánh lại chỉ mục Spotlight")
+        case .freeRAM: String(localized: "Giải phóng RAM")
+        case .runPeriodic: String(localized: "Chạy script bảo trì định kỳ")
+        case .thinSnapshots: String(localized: "Xoá bớt snapshot Time Machine cục bộ")
+        case .rebuildLaunchServices: String(localized: "Dựng lại Launch Services")
+        case .speedUpMail: String(localized: "Tối ưu Mail")
         }
     }
 
     public var whenToRun: String {
         switch self {
-        case .flushDNS: "Khi gặp lỗi mạng hoặc vừa đổi DNS."
-        case .reindexSpotlight: "Khi Spotlight tìm sai hoặc chậm."
-        case .freeRAM: "Khi memory pressure cao."
-        case .runPeriodic: "Khi máy hay tắt vào ban đêm nên script định kỳ không chạy."
-        case .thinSnapshots: "Khi dung lượng purgeable lớn."
-        case .rebuildLaunchServices: "Khi menu \"Open With\" bị trùng lặp."
-        case .speedUpMail: "Khi Mail chậm. Mail sẽ tự dựng lại chỉ mục."
+        case .flushDNS: String(localized: "Khi gặp lỗi mạng hoặc vừa đổi DNS.")
+        case .reindexSpotlight: String(localized: "Khi Spotlight tìm sai hoặc chậm.")
+        case .freeRAM: String(localized: "Khi memory pressure cao.")
+        case .runPeriodic: String(localized: "Khi máy hay tắt vào ban đêm nên script định kỳ không chạy.")
+        case .thinSnapshots: String(localized: "Khi dung lượng purgeable lớn.")
+        case .rebuildLaunchServices: String(localized: "Khi menu \"Open With\" bị trùng lặp.")
+        case .speedUpMail: String(localized: "Khi Mail chậm. Mail sẽ tự dựng lại chỉ mục.")
         }
     }
 

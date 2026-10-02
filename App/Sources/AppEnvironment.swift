@@ -131,12 +131,12 @@ final class AppEnvironmentHolder: ObservableObject {
         let outcome = await env.ruleUpdater.checkIfNeeded(force: force)
         rulesVersion = env.ruleStore.snapshot.version
         switch outcome {
-        case let .installed(v): lastRuleUpdate = "Đã cập nhật rule lên \(v)"
-        case .upToDate: lastRuleUpdate = "Rule đang là bản mới nhất"
-        case .notConfigured: lastRuleUpdate = "Chưa cấu hình máy chủ rule"
+        case let .installed(v): lastRuleUpdate = String(localized: "Đã cập nhật rule lên \(v)")
+        case .upToDate: lastRuleUpdate = String(localized: "Rule đang là bản mới nhất")
+        case .notConfigured: lastRuleUpdate = String(localized: "Chưa cấu hình máy chủ rule")
         case .skippedRecentlyChecked: break
-        case let .appTooOld(v): lastRuleUpdate = "Bộ rule mới cần app \(v)"
-        case let .failed(m): lastRuleUpdate = "Lỗi cập nhật rule: \(m)"
+        case let .appTooOld(v): lastRuleUpdate = String(localized: "Bộ rule mới cần app \(v)")
+        case let .failed(m): lastRuleUpdate = String(localized: "Lỗi cập nhật rule: \(m)")
         }
     }
 

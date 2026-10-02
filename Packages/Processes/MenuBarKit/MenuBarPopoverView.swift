@@ -1,5 +1,6 @@
 import Charts
 import DesignSystem
+import SweepStorage
 import SwiftUI
 import SweepCore
 import SystemMetrics
@@ -52,7 +53,7 @@ public struct MenuBarPopoverView: View {
                 .background(Circle().fill(Color.white.opacity(0.18)))
             VStack(alignment: .leading, spacing: 1) {
                 Text("MashClean").font(Theme.Font.headline)
-                Text("Đã bật máy \(Self.duration(model.snapshot.uptime))")
+                Text(String(localized: "Đã bật máy \(Self.duration(model.snapshot.uptime))"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
@@ -68,7 +69,7 @@ public struct MenuBarPopoverView: View {
         let cpu = model.snapshot.cpu
         return MetricTile(symbol: "cpu", title: "CPU",
                           value: cpu.map { Self.percent($0.usage) } ?? "–",
-                          detail: cpu.map { "Người dùng \(Self.percent($0.user)) · Hệ thống \(Self.percent($0.system))" } ?? "Đang đo…",
+                          detail: cpu.map { String(localized: "Người dùng \(Self.percent($0.user)) · Hệ thống \(Self.percent($0.system))") } ?? String(localized: "Đang đo…"),
                           history: model.cpuHistory, upperBound: 1, tint: Color(hex: 0x7CE7FF))
     }
 
@@ -84,18 +85,18 @@ public struct MenuBarPopoverView: View {
     private var diskTile: some View {
         let disk = model.snapshot.disk
         let low = disk.map { $0.freeFraction < 0.10 || $0.available < 10_000_000_000 } ?? false
-        return MetricTile(symbol: "internaldrive", title: "Ổ đĩa",
+        return MetricTile(symbol: "internaldrive", title: String(localized: "Ổ đĩa"),
                           value: disk.map { ByteCount($0.available).formatted } ?? "–",
-                          detail: disk.map { "trống / \(ByteCount($0.total).formatted)" } ?? "",
+                          detail: disk.map { String(localized: "trống / \(ByteCount($0.total).formatted)") } ?? "",
                           history: model.diskHistory, upperBound: 1, tint: low ? Theme.risky : Theme.safe)
     }
 
     private var batteryTile: some View {
         let b = model.snapshot.battery
         let detail: String = {
-            if b.isCharging { return b.minutesRemaining.map { "Đang sạc · đầy sau \(Self.minutes($0))" } ?? "Đang sạc" }
-            if b.isOnACPower { return "Đang cắm sạc" }
-            return b.minutesRemaining.map { "Còn \(Self.minutes($0))" } ?? "Đang tính…"
+            if b.isCharging { return b.minutesRemaining.map { String(localized: "Đang sạc · đầy sau \(Self.minutes($0))") } ?? String(localized: "Đang sạc") }
+            if b.isOnACPower { return String(localized: "Đang cắm sạc") }
+            return b.minutesRemaining.map { String(localized: "Còn \(Self.minutes($0))") } ?? String(localized: "Đang tính…")
         }()
         return MetricTile(symbol: b.isCharging ? "battery.100.bolt" : Self.batterySymbol(b.level), title: "Pin",
                           value: Self.percent(b.level), detail: detail,
@@ -103,9 +104,9 @@ public struct MenuBarPopoverView: View {
     }
 
     private var trashTile: some View {
-        MetricTile(symbol: "trash", title: "Thùng rác",
+        MetricTile(symbol: "trash", title: String(localized: "Thùng rác"),
                    value: model.snapshot.trashBytes.map { ByteCount($0).formatted } ?? "–",
-                   detail: model.trashUnreadable ? "Cần Full Disk Access" : "Dung lượng Thùng rác",
+                   detail: model.trashUnreadable ? String(localized: "Cần Full Disk Access") : String(localized: "Dung lượng Thùng rác"),
                    history: nil, upperBound: nil, tint: Theme.review)
     }
 
@@ -113,7 +114,7 @@ public struct MenuBarPopoverView: View {
         let net = model.snapshot.network
         return VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Label("Mạng", systemImage: "network").font(Theme.Font.caption.weight(.semibold)).foregroundStyle(Theme.secondaryText)
+                Label(String(localized: "Mạng"), systemImage: "network").font(Theme.Font.caption.weight(.semibold)).foregroundStyle(Theme.secondaryText)
                 Spacer()
                 Label(net.map { Self.rate($0.inPerSecond) } ?? "–", systemImage: "arrow.down")
                     .font(.system(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Color(hex: 0x7CE7FF))
@@ -133,7 +134,7 @@ public struct MenuBarPopoverView: View {
     private var freedRow: some View {
         HStack {
             Image(systemName: "checkmark.seal.fill").foregroundStyle(Theme.safe)
-            Text("Đã dọn tháng này").font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
+            Text(String(localized: "Đã dọn tháng này")).font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             Spacer()
             Text(ByteCount(model.freedThisMonth).formatted).font(.system(size: 15, weight: .bold, design: .rounded).monospacedDigit())
         }
@@ -155,13 +156,13 @@ public struct MenuBarPopoverView: View {
                     MenuBarLinks.open(MenuBarLinks.systemJunk)
                     onAction()
                 } label: {
-                    Label("Dọn rác", systemImage: "trash.circle").frame(maxWidth: .infinity)
+                    Label(String(localized: "Dọn rác"), systemImage: "trash.circle").frame(maxWidth: .infinity)
                 }
                 Button {
                     MenuBarLinks.open(MenuBarLinks.freeRAM)
                     onAction()
                 } label: {
-                    Label("Giải phóng RAM", systemImage: "memorychip").frame(maxWidth: .infinity)
+                    Label(String(localized: "Giải phóng RAM"), systemImage: "memorychip").frame(maxWidth: .infinity)
                 }
             }
             .buttonStyle(GlassButtonStyle())
@@ -170,13 +171,13 @@ public struct MenuBarPopoverView: View {
 
     private var volumes: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Ổ đĩa ngoài").font(Theme.Font.caption.weight(.semibold)).foregroundStyle(Theme.secondaryText)
+            Text(String(localized: "Ổ đĩa ngoài")).font(Theme.Font.caption.weight(.semibold)).foregroundStyle(Theme.secondaryText)
             ForEach(model.externalVolumes) { volume in
                 HStack(spacing: 8) {
                     Image(systemName: "externaldrive.fill").foregroundStyle(Theme.secondaryText)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(volume.name).font(Theme.Font.body).lineLimit(1)
-                        Text("\(ByteCount(volume.available).formatted) trống / \(ByteCount(volume.total).formatted)")
+                        Text(String(localized: "\(ByteCount(volume.available).formatted) trống / \(ByteCount(volume.total).formatted)"))
                             .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
                     }
                     Spacer()
@@ -185,7 +186,7 @@ public struct MenuBarPopoverView: View {
                     } else {
                         Button { model.eject(volume) } label: { Image(systemName: "eject.fill") }
                             .buttonStyle(.plain)
-                            .help("Tháo \(volume.name)")
+                            .help(String(localized: "Tháo \(volume.name)"))
                     }
                 }
             }
@@ -212,15 +213,30 @@ public struct MenuBarPopoverView: View {
                 MenuBarLinks.openMainApp()
                 onAction()
             } label: {
-                Label("Mở MashClean", systemImage: "macwindow")
+                Label(String(localized: "Mở MashClean"), systemImage: "macwindow")
             }
             .buttonStyle(GlassButtonStyle())
             Spacer()
             Menu {
-                Section("Hiện trên thanh menu") {
+                // Đổi ngôn ngữ ngay từ menu bar: khởi động lại cả menu bar và app chính (nếu đang mở).
+                Section("Ngôn ngữ · Language") {
+                    Picker("Ngôn ngữ · Language", selection: Binding(
+                        get: { AppLanguage.current },
+                        set: { newValue in
+                            guard newValue != AppLanguage.current else { return }
+                            AppLanguage.select(newValue)
+                            AppRelauncher.restartForLanguageChange()
+                        }
+                    )) {
+                        ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
+                    }
+                    .pickerStyle(.inline)
+                    .labelsHidden()
+                }
+                Section(String(localized: "Hiện trên thanh menu")) {
                     Toggle("CPU (%)", isOn: styleBinding(.cpu))
                     Toggle("RAM (%)", isOn: styleBinding(.memory))
-                    Toggle("Mạng (tải về / tải lên)", isOn: styleBinding(.network))
+                    Toggle(String(localized: "Mạng (tải về / tải lên)"), isOn: styleBinding(.network))
                 }
             } label: {
                 Image(systemName: "gearshape.fill")
@@ -228,8 +244,8 @@ public struct MenuBarPopoverView: View {
             .menuStyle(.borderlessButton)
             .menuIndicator(.hidden)
             .fixedSize()
-            .help("Tuỳ chọn hiển thị")
-            Button("Thoát", action: onQuit)
+            .help(String(localized: "Tuỳ chọn hiển thị"))
+            Button(String(localized: "Thoát"), action: onQuit)
                 .buttonStyle(GlassButtonStyle())
         }
     }
@@ -242,16 +258,16 @@ public struct MenuBarPopoverView: View {
         ByteCountFormatter.string(fromByteCount: Int64(bytesPerSecond), countStyle: .file) + "/s"
     }
 
-    static func minutes(_ m: Int) -> String { m >= 60 ? "\(m / 60) giờ \(m % 60) phút" : "\(m) phút" }
+    static func minutes(_ m: Int) -> String { m >= 60 ? String(localized: "\(m / 60) giờ \(m % 60) phút") : String(localized: "\(m) phút") }
 
     static func duration(_ seconds: TimeInterval) -> String {
         let total = Int(seconds)
         let days = total / 86_400
         let hours = total % 86_400 / 3_600
         let mins = total % 3_600 / 60
-        if days > 0 { return "\(days) ngày \(hours) giờ" }
-        if hours > 0 { return "\(hours) giờ \(mins) phút" }
-        return "\(mins) phút"
+        if days > 0 { return String(localized: "\(days) ngày \(hours) giờ") }
+        if hours > 0 { return String(localized: "\(hours) giờ \(mins) phút") }
+        return String(localized: "\(mins) phút")
     }
 
     static func batterySymbol(_ level: Double) -> String {

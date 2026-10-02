@@ -49,7 +49,7 @@ public struct DiagnosticReport: Sendable {
 
         """
         for (k, v) in permissions.sorted(by: { $0.key < $1.key }) { s += "  - \(k): \(v)\n" }
-        s += "\nLog 24 giờ gần nhất:\n\(logExcerpt)"
+        s += String(localized: "\nLog 24 giờ gần nhất:\n\(logExcerpt)")
         return s
     }
 

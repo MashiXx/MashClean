@@ -27,8 +27,8 @@ public struct LoginItemsFeature: FeatureScanProvider {
 
     public func summarize(_ nodes: [Node]) -> FeatureSummary {
         let leaves = nodes.filter { $0.category == LoginItemsCategory.brokenLoginItems }.flatMap(\.removableLeaves)
-        return FeatureSummary(featureID: featureID, card: .maintenance, title: "Login item hỏng",
-                              subtitle: leaves.isEmpty ? "Không có LaunchAgent/Daemon hỏng" : "\(leaves.count) mục trỏ tới chương trình không còn tồn tại",
+        return FeatureSummary(featureID: featureID, card: .maintenance, title: String(localized: "Login item hỏng"),
+                              subtitle: leaves.isEmpty ? String(localized: "Không có LaunchAgent/Daemon hỏng") : String(localized: "\(leaves.count) mục trỏ tới chương trình không còn tồn tại"),
                               bytes: leaves.sum(\.size), itemCount: leaves.count)
     }
 }
@@ -53,21 +53,21 @@ public struct LoginItemsController: Sendable {
     }
 
     public static func toggleUnavailableReason(_ item: LaunchItem) -> String? {
-        if item.isBroken { return "Chương trình không còn tồn tại, chỉ có thể xoá" }
-        if item.domain == .globalDaemon { return "Daemon chạy với quyền root: chỉ có thể xoá hẳn" }
+        if item.isBroken { return String(localized: "Chương trình không còn tồn tại, chỉ có thể xoá") }
+        if item.domain == .globalDaemon { return String(localized: "Daemon chạy với quyền root: chỉ có thể xoá hẳn") }
         return nil
     }
 
     /// Tắt tạm: `launchctl bootout gui/<uid>/<label>` (nạp lại ở lần đăng nhập sau nếu `RunAtLoad`).
     public func disable(_ item: LaunchItem) async throws {
-        guard Self.canToggle(item) else { throw LaunchctlError(Self.toggleUnavailableReason(item) ?? "Không tắt được") }
+        guard Self.canToggle(item) else { throw LaunchctlError(Self.toggleUnavailableReason(item) ?? String(localized: "Không tắt được")) }
         try await launchctl(["bootout", "gui/\(getuid())/\(item.label)"], ignoring: [3, 113])
         Log.info(.ui, "loginItems", "Đã tắt \(item.label)")
     }
 
     /// Bật lại: gỡ cờ vô hiệu (nếu có) rồi `launchctl bootstrap gui/<uid> <plist>`.
     public func enable(_ item: LaunchItem) async throws {
-        guard Self.canToggle(item) else { throw LaunchctlError(Self.toggleUnavailableReason(item) ?? "Không bật được") }
+        guard Self.canToggle(item) else { throw LaunchctlError(Self.toggleUnavailableReason(item) ?? String(localized: "Không bật được")) }
         let domain = "gui/\(getuid())"
         if item.isDisabled { try? await launchctl(["enable", "\(domain)/\(item.label)"]) }
         // 37 / 17: đã nạp sẵn.
@@ -77,8 +77,8 @@ public struct LoginItemsController: Sendable {
 
     /// Node để xoá hẳn qua CleanEngine (`LaunchItemRemover`: bootout rồi xoá plist; daemon qua helper).
     public static func node(for item: LaunchItem) -> Node {
-        BrokenLoginItemsTask.node(for: item, safety: item.isBroken ? .safe : .review, badge: item.isBroken ? "Hỏng" : nil,
-                                  reason: "Gỡ khỏi launchd và chuyển plist vào Thùng rác")
+        BrokenLoginItemsTask.node(for: item, safety: item.isBroken ? .safe : .review, badge: item.isBroken ? String(localized: "Hỏng") : nil,
+                                  reason: String(localized: "Gỡ khỏi launchd và chuyển plist vào Thùng rác"))
     }
 
     public func plan(removing items: [LaunchItem]) -> CleanPlan {
@@ -98,6 +98,6 @@ public struct LoginItemsController: Sendable {
         }
         guard !out.succeeded, !codes.contains(out.status) else { return }
         let message = (out.stderrString + out.stdoutString).trimmingCharacters(in: .whitespacesAndNewlines)
-        throw LaunchctlError(message.isEmpty ? "launchctl lỗi \(out.status)" : message)
+        throw LaunchctlError(message.isEmpty ? String(localized: "launchctl lỗi \(out.status)") : message)
     }
 }

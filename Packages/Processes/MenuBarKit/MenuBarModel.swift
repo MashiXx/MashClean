@@ -224,17 +224,17 @@ public final class MenuBarModel: ObservableObject {
     private func evaluateAlerts(_ snap: SystemSnapshot) {
         if settings.lowDiskAlerts, let disk = snap.disk, disk.total > 0,
            disk.freeFraction < 0.10 || disk.available < 10_000_000_000 {
-            raise(.lowDisk, body: "Chỉ còn \(ByteCount(disk.available).formatted) trống trên \(disk.name). Bấm để quét và dọn dẹp.")
+            raise(.lowDisk, body: String(localized: "Chỉ còn \(ByteCount(disk.available).formatted) trống trên \(disk.name). Bấm để quét và dọn dẹp."))
         }
         if let since = criticalSince, Date().timeIntervalSince(since) >= Self.criticalPressureDuration {
-            raise(.memoryPressure, body: "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với MashClean.")
+            raise(.memoryPressure, body: String(localized: "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với MashClean."))
         }
     }
 
     private func evaluateTrash(_ bytes: Int64) {
         let limitGB = settings.trashAlertGB
         guard limitGB > 0, bytes > Int64(limitGB) * 1_000_000_000 else { return }
-        raise(.largeTrash, body: "Thùng rác đang chiếm \(ByteCount(bytes).formatted). Bấm để dọn dẹp.")
+        raise(.largeTrash, body: String(localized: "Thùng rác đang chiếm \(ByteCount(bytes).formatted). Bấm để dọn dẹp."))
     }
 
     private func raise(_ alert: MenuBarAlert, body: String) {
@@ -291,7 +291,7 @@ public final class MenuBarModel: ObservableObject {
             do {
                 try NSWorkspace.shared.unmountAndEjectDevice(at: url)
             } catch {
-                failure = "Không tháo được \(name): \(error.localizedDescription)"
+                failure = String(localized: "Không tháo được \(name): \(error.localizedDescription)")
             }
             Task { @MainActor [weak self] in
                 guard let self else { return }
@@ -321,8 +321,8 @@ public final class MenuBarModel: ObservableObject {
         }
         if statusStyle.contains(.network) {
             let net = snapshot.network
-            parts.append(StatusPart(symbol: "arrow.down", label: "Tải về", value: net.map { Self.compactRate($0.inPerSecond) } ?? "–"))
-            parts.append(StatusPart(symbol: "arrow.up", label: "Tải lên", value: net.map { Self.compactRate($0.outPerSecond) } ?? "–"))
+            parts.append(StatusPart(symbol: "arrow.down", label: String(localized: "Tải về"), value: net.map { Self.compactRate($0.inPerSecond) } ?? "–"))
+            parts.append(StatusPart(symbol: "arrow.up", label: String(localized: "Tải lên"), value: net.map { Self.compactRate($0.outPerSecond) } ?? "–"))
         }
         return parts
     }

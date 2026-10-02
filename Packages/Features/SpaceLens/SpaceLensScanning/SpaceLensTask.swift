@@ -8,7 +8,7 @@ import SweepCore
 /// Màn Space Lens dùng `DiskScanner` trực tiếp để giữ cây `DiskTree` đầy đủ.
 public struct SpaceLensTask: ScanTask {
     public let id: ScanTaskID = "spaceLens"
-    public let title = "Bản đồ dung lượng"
+    public let title = String(localized: "Bản đồ dung lượng")
     public let estimatedWeight: Double = 4
     public let root: URL
 
@@ -35,7 +35,7 @@ public enum SpaceLensNodes {
         let kind: NodeKind = isDir ? .directory(url, recursive: true) : .file(url)
         return Node(kind: kind, title: tree.name(of: index), size: ByteCount(tree.size(of: index)),
                     itemCount: isDir ? max(1, tree.descendantCount(of: index)) : 1,
-                    safety: .review, reason: "Chọn từ bản đồ dung lượng", category: "spaceLens",
+                    safety: .review, reason: LocalizedText(String(localized: "Chọn từ bản đồ dung lượng")), category: "spaceLens",
                     removal: .moveToTrash, allowedRoots: [tree.rootPath])
     }
 

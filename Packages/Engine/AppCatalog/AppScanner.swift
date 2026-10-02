@@ -153,7 +153,7 @@ public struct InstalledAppsTask: ScanTask {
     public let id: ScanTaskID = .installedApps
     public let priority: ScanPriority = .high
     public let estimatedWeight: Double = 2
-    public let title = "Tìm ứng dụng đã cài"
+    public let title = String(localized: "Tìm ứng dụng đã cài")
     let scanner: AppScanner
 
     public init(scanner: AppScanner) { self.scanner = scanner }

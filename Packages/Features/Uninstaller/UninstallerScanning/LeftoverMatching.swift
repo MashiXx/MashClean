@@ -27,19 +27,19 @@ public enum LeftoverConfidence: Int, Sendable, Comparable, CaseIterable, Hashabl
 
     public var title: String {
         switch self {
-        case .certain: "Chắc chắn"
-        case .high: "Cao"
-        case .medium: "Trung bình"
-        case .low: "Thấp"
+        case .certain: String(localized: "Chắc chắn")
+        case .high: String(localized: "Cao")
+        case .medium: String(localized: "Trung bình")
+        case .low: String(localized: "Thấp")
         }
     }
 
     public var explanation: String {
         switch self {
-        case .certain: "Khớp chính xác bundle ID hoặc Team ID của app"
-        case .high: "Khớp tên app trong thư mục chuẩn, hoặc LaunchAgent/Daemon chạy file của app"
-        case .medium: "Do gói cài đặt (pkg) của app tạo ra"
-        case .low: "Tên gần giống app, hãy xem lại trước khi xoá"
+        case .certain: String(localized: "Khớp chính xác bundle ID hoặc Team ID của app")
+        case .high: String(localized: "Khớp tên app trong thư mục chuẩn, hoặc LaunchAgent/Daemon chạy file của app")
+        case .medium: String(localized: "Do gói cài đặt (pkg) của app tạo ra")
+        case .low: String(localized: "Tên gần giống app, hãy xem lại trước khi xoá")
         }
     }
 

@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import SweepStorage
 import SwiftUI
 import SweepCore
 import SweepLogging
@@ -114,6 +115,12 @@ public final class MenuBarAppDelegate: NSObject, NSApplicationDelegate {
     }
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
+        // Ngôn ngữ đổi từ app chính lúc menu bar chưa chạy: ghi lại cấu hình rồi mở lại cho có hiệu lực.
+        if AppLanguage.syncAtLaunch() {
+            AppRelauncher.relaunch()
+            NSApp.terminate(nil)
+            return
+        }
         AlertNotifier.shared.activate()
         let model = MenuBarModel()
         controller = MenuBarController(model: model)

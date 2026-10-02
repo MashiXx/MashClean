@@ -151,7 +151,7 @@ public struct NodeTree: Sendable {
         let cacheCategories: Set<String> = ["userCaches", "systemCaches", "devToolCaches"]
         if !node.isContainer, let cat = node.category, cacheCategories.contains(cat), node.size > .gigabytes(50), node.safety == .safe {
             node.safety = .review
-            node.badges.append("Lớn bất thường")
+            node.badges.append(String(localized: "Lớn bất thường"))
         }
         for i in node.children.indices { applyLargeItemGuard(&node.children[i]) }
     }

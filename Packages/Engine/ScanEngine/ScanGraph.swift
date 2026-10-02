@@ -6,8 +6,8 @@ public enum ScanGraphError: Error, Sendable, Equatable, CustomStringConvertible 
 
     public var description: String {
         switch self {
-        case let .cycle(ids): "Graph quét có chu trình: \(ids.map(\.rawValue).joined(separator: ", "))"
-        case let .missingDependency(t, d): "Task \(t) phụ thuộc task không tồn tại \(d)"
+        case let .cycle(ids): String(localized: "Graph quét có chu trình: \(ids.map(\.rawValue).joined(separator: ", "))")
+        case let .missingDependency(t, d): String(localized: "Task \(t) phụ thuộc task không tồn tại \(d)")
         }
     }
 }

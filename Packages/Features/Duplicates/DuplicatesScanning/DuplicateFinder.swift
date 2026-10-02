@@ -90,11 +90,11 @@ public struct DuplicateFinder: Sendable {
 
         public var title: String {
             switch self {
-            case .collecting: "Liệt kê file"
-            case .groupingBySize: "Nhóm theo dung lượng"
-            case .quickHash: "Băm nhanh đầu và cuối file"
-            case .fullHash: "Băm toàn bộ (SHA-256)"
-            case .checkingClones: "Kiểm tra clone APFS"
+            case .collecting: String(localized: "Liệt kê file")
+            case .groupingBySize: String(localized: "Nhóm theo dung lượng")
+            case .quickHash: String(localized: "Băm nhanh đầu và cuối file")
+            case .fullHash: String(localized: "Băm toàn bộ (SHA-256)")
+            case .checkingClones: String(localized: "Kiểm tra clone APFS")
             case .done: "Xong"
             }
         }

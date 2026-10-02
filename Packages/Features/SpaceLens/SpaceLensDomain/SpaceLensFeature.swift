@@ -19,8 +19,8 @@ public struct SpaceLensFeature: FeatureScanProvider {
     public func summarize(_ nodes: [Node]) -> FeatureSummary {
         let total = nodes.sum(\.size)
         let top = nodes.sorted { $0.size > $1.size }.prefix(3).map { "\($0.title) (\($0.size.formatted))" }
-        return FeatureSummary(featureID: featureID, card: .cleanup, title: "Bản đồ dung lượng",
-                              subtitle: top.isEmpty ? "Không có dữ liệu" : top.joined(separator: ", "),
+        return FeatureSummary(featureID: featureID, card: .cleanup, title: String(localized: "Bản đồ dung lượng"),
+                              subtitle: top.isEmpty ? String(localized: "Không có dữ liệu") : top.joined(separator: ", "),
                               bytes: total, itemCount: nodes.count)
     }
 }

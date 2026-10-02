@@ -25,8 +25,8 @@ public struct SystemJunkFeature: FeatureScanProvider {
         let safe = leaves.filter { $0.safety == .safe }
         let bytes = safe.sum(\.size)
         let groups = nodes.filter { !$0.removableLeaves.filter { $0.safety == .safe }.isEmpty }.map(\.title)
-        return FeatureSummary(featureID: featureID, card: .cleanup, title: "Rác hệ thống",
-                              subtitle: groups.isEmpty ? "Không có rác an toàn để dọn" : groups.prefix(3).joined(separator: ", "),
+        return FeatureSummary(featureID: featureID, card: .cleanup, title: String(localized: "Rác hệ thống"),
+                              subtitle: groups.isEmpty ? String(localized: "Không có rác an toàn để dọn") : groups.prefix(3).joined(separator: ", "),
                               bytes: bytes, itemCount: safe.count)
     }
 }

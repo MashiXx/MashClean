@@ -26,8 +26,8 @@ public struct UninstallerFeature: FeatureScanProvider {
         let groups = nodes.filter { $0.category == UninstallerCategory.orphanedLeftovers }.flatMap { $0.isContainer ? $0.children : [$0] }
         let bytes = groups.sum(\.size)
         let names = groups.prefix(3).map { $0.title.components(separatedBy: " (").first ?? $0.title }
-        return FeatureSummary(featureID: featureID, card: .applications, title: "File sót của app đã gỡ",
-                              subtitle: groups.isEmpty ? "Không có app nào để lại file sót" : "\(groups.count) app: " + names.joined(separator: ", "),
+        return FeatureSummary(featureID: featureID, card: .applications, title: String(localized: "File sót của app đã gỡ"),
+                              subtitle: groups.isEmpty ? String(localized: "Không có app nào để lại file sót") : "\(groups.count) app: " + names.joined(separator: ", "),
                               bytes: bytes, itemCount: groups.count)
     }
 
@@ -55,7 +55,7 @@ public struct PackageForgetRemover: Remover {
                 continue
             }
             guard let helper = context.helper else {
-                results.append(.failed(label, errno: EPERM, "Cần helper để quên package receipt"))
+                results.append(.failed(label, errno: EPERM, String(localized: "Cần helper để quên package receipt")))
                 continue
             }
             do {

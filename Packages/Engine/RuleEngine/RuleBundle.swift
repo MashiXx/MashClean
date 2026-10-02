@@ -16,16 +16,16 @@ public enum RuleError: Error, Sendable, CustomStringConvertible, Equatable {
 
     public var description: String {
         switch self {
-        case .badFormat: "Rule bundle sai định dạng"
+        case .badFormat: String(localized: "Rule bundle sai định dạng")
         case .badMagic: "Rule bundle sai magic"
-        case let .unsupportedFormatVersion(v): "Phiên bản định dạng rule không hỗ trợ: \(v)"
-        case .badSignature: "Chữ ký rule bundle không hợp lệ"
-        case .payloadLengthMismatch: "Độ dài payload không khớp"
-        case .decompressionFailed: "Không giải nén được payload"
-        case let .invalidJSON(m): "JSON rule không hợp lệ: \(m)"
-        case let .appTooOld(v): "Bộ rule cần app phiên bản \(v) trở lên"
-        case let .downgrade(c, o): "Từ chối hạ cấp rule: đang dùng \(c), nhận \(o)"
-        case .checksumMismatch: "SHA-256 không khớp manifest"
+        case let .unsupportedFormatVersion(v): String(localized: "Phiên bản định dạng rule không hỗ trợ: \(v)")
+        case .badSignature: String(localized: "Chữ ký rule bundle không hợp lệ")
+        case .payloadLengthMismatch: String(localized: "Độ dài payload không khớp")
+        case .decompressionFailed: String(localized: "Không giải nén được payload")
+        case let .invalidJSON(m): String(localized: "JSON rule không hợp lệ: \(m)")
+        case let .appTooOld(v): String(localized: "Bộ rule cần app phiên bản \(v) trở lên")
+        case let .downgrade(c, o): String(localized: "Từ chối hạ cấp rule: đang dùng \(c), nhận \(o)")
+        case .checksumMismatch: String(localized: "SHA-256 không khớp manifest")
         }
     }
 }

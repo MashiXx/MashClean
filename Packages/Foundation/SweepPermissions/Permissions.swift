@@ -72,10 +72,10 @@ public enum Permissions {
     /// Kết quả kiểm tra quyền cho báo cáo chẩn đoán.
     public static func summary() async -> [String: String] {
         [
-            "Full Disk Access": hasFullDiskAccess() ? "có" : "chưa",
+            "Full Disk Access": hasFullDiskAccess() ? String(localized: "có") : String(localized: "chưa"),
             "Helper": helperStatusDescription,
             "Menu bar login item": SMAppService.loginItem(identifier: MashCleanIdentifiers.menuBundleID).status.description,
-            "Thông báo": await notificationsAuthorized() ? "có" : "chưa",
+            String(localized: "Thông báo"): await notificationsAuthorized() ? String(localized: "có") : String(localized: "chưa"),
         ]
     }
 
@@ -92,11 +92,11 @@ public enum Permissions {
 extension SMAppService.Status: @retroactive CustomStringConvertible {
     public var description: String {
         switch self {
-        case .enabled: "đã bật"
-        case .requiresApproval: "cần duyệt"
-        case .notRegistered: "chưa đăng ký"
-        case .notFound: "không tìm thấy"
-        @unknown default: "không rõ"
+        case .enabled: String(localized: "đã bật")
+        case .requiresApproval: String(localized: "cần duyệt")
+        case .notRegistered: String(localized: "chưa đăng ký")
+        case .notFound: String(localized: "không tìm thấy")
+        @unknown default: String(localized: "không rõ")
         }
     }
 }

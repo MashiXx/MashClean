@@ -8,3 +8,4 @@ dist/
 Secrets/
 Config/Signing.local.xcconfig
 App/Resources/Rules/rules.unsigned
+.DS_Store

@@ -41,9 +41,9 @@ public struct LargeOldFilesView: View {
 
     public static let appearance = FeatureAppearance(
         accent: .files, symbol: "doc.badge.clock",
-        title: "File lớn và cũ",
-        subtitle: "Tìm file lớn hoặc lâu không mở trong thư mục người dùng. Không có gì được chọn sẵn: bạn tự quyết định file nào chuyển vào Thùng rác.",
-        cleanTitle: "Chuyển vào Thùng rác"
+        title: String(localized: "File lớn và cũ"),
+        subtitle: String(localized: "Tìm file lớn hoặc lâu không mở trong thư mục người dùng. Không có gì được chọn sẵn: bạn tự quyết định file nào chuyển vào Thùng rác."),
+        cleanTitle: String(localized: "Chuyển vào Thùng rác")
     )
 
     public init(services: ScanServices, feature: LargeOldFilesFeature) {
@@ -93,12 +93,12 @@ struct PermanentDeleteConfirm: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Không thể chuyển vào Thùng rác").font(.headline)
-            Text("\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác. Xoá vĩnh viễn? Thao tác này không khôi phục được.")
+            Text(String(localized: "Không thể chuyển vào Thùng rác")).font(.headline)
+            Text(String(localized: "\"\(prompt.url.lastPathComponent)\" nằm trên ổ không có Thùng rác. Xoá vĩnh viễn? Thao tác này không khôi phục được."))
             HStack {
                 Spacer()
-                Button("Bỏ qua") { prompt.answer(false) }.keyboardShortcut(.cancelAction)
-                Button("Xoá vĩnh viễn") { prompt.answer(true) }
+                Button(String(localized: "Bỏ qua")) { prompt.answer(false) }.keyboardShortcut(.cancelAction)
+                Button(String(localized: "Xoá vĩnh viễn")) { prompt.answer(true) }
             }
         }
         .padding(20)
@@ -129,7 +129,7 @@ struct LargeOldResultsView: View {
                 Spacer()
                 VStack(spacing: 10) {
                     Image(systemName: "checkmark.seal.fill").font(.system(size: 56)).foregroundStyle(.white)
-                    Text("Không tìm thấy file lớn hoặc cũ").font(Theme.Font.title).foregroundStyle(.white)
+                    Text(String(localized: "Không tìm thấy file lớn hoặc cũ")).font(Theme.Font.title).foregroundStyle(.white)
                 }
                 Spacer()
             } else {
@@ -143,18 +143,18 @@ struct LargeOldResultsView: View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(LargeOldFilesView.appearance.title).font(Theme.Font.title).foregroundStyle(.white)
-                Text("\(model.items.count.formatted()) file, \(model.items.reduce(ByteCount.zero) { $0 + $1.size }.formatted) · đang hiện \(rows.count.formatted())")
+                Text(String(localized: "\(model.items.count.formatted()) file, \(model.items.reduce(ByteCount.zero) { $0 + $1.size }.formatted) · đang hiện \(rows.count.formatted())"))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Button("Quét lại", action: model.startScan).buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Quét lại"), action: model.startScan).buttonStyle(GlassButtonStyle())
         }
     }
 
     private var filterBar: some View {
         HStack(spacing: 10) {
             Menu {
-                Button("Mọi loại") { model.filter.kinds = [] }
+                Button(String(localized: "Mọi loại")) { model.filter.kinds = [] }
                 Divider()
                 ForEach(FileKind.allCases) { kind in
                     Button {
@@ -164,7 +164,7 @@ struct LargeOldResultsView: View {
                     }
                 }
             } label: {
-                Text(model.filter.kinds.isEmpty ? "Mọi loại" : model.filter.kinds.map(\.title).sorted().joined(separator: ", "))
+                Text(model.filter.kinds.isEmpty ? String(localized: "Mọi loại") : model.filter.kinds.map(\.title).sorted().joined(separator: ", "))
             }
             .frame(maxWidth: 200)
             Picker("", selection: $model.filter.size) {
@@ -176,13 +176,13 @@ struct LargeOldResultsView: View {
             }
             .labelsHidden().frame(width: 180)
             Picker("", selection: $model.filter.folder) {
-                Text("Mọi thư mục").tag(String?.none)
+                Text(String(localized: "Mọi thư mục")).tag(String?.none)
                 ForEach(LargeOldFilter.folderOptions(model.items, home: model.services.fileSystem.home.path), id: \.self) {
                     Text($0.abbreviatingHome).tag(String?.some($0))
                 }
             }
             .labelsHidden().frame(width: 170)
-            TextField("Tìm theo tên", text: $model.filter.search)
+            TextField(String(localized: "Tìm theo tên"), text: $model.filter.search)
                 .textFieldStyle(.roundedBorder)
                 .frame(maxWidth: 200)
             Spacer()
@@ -196,31 +196,31 @@ struct LargeOldResultsView: View {
                     .labelsHidden().toggleStyle(.checkbox)
             }
             .width(24)
-            TableColumn("Tên", value: \LargeOldItem.name) { (item: LargeOldItem) in
+            TableColumn(String(localized: "Tên"), value: \LargeOldItem.name) { (item: LargeOldItem) in
                 HStack(spacing: 6) {
                     FileIcon(url: item.url, fallback: item.kind.symbol, size: 16)
                     Text(item.name).lineLimit(1).truncationMode(.middle)
                     if item.isHidden { Pill(LargeOldBadges.hidden) }
                 }
                 .contextMenu {
-                    Button("Hiện trong Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
-                    Button("Mở") { NSWorkspace.shared.open(item.url) }
+                    Button(String(localized: "Hiện trong Finder")) { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
+                    Button(String(localized: "Mở")) { NSWorkspace.shared.open(item.url) }
                 }
             }
             .width(min: 180, ideal: 260)
-            TableColumn("Thư mục", value: \LargeOldItem.folder) { (item: LargeOldItem) in
+            TableColumn(String(localized: "Thư mục"), value: \LargeOldItem.folder) { (item: LargeOldItem) in
                 Text(item.folder.abbreviatingHome).lineLimit(1).truncationMode(.middle).foregroundStyle(.secondary)
             }
             .width(min: 120, ideal: 200)
-            TableColumn("Dung lượng", value: \LargeOldItem.size) { (item: LargeOldItem) in
+            TableColumn(String(localized: "Dung lượng"), value: \LargeOldItem.size) { (item: LargeOldItem) in
                 Text(item.size.formatted).monospacedDigit()
             }
             .width(90)
-            TableColumn("Lần dùng cuối", value: \LargeOldItem.lastUsedSortKey) { (item: LargeOldItem) in
+            TableColumn(String(localized: "Lần dùng cuối"), value: \LargeOldItem.lastUsedSortKey) { (item: LargeOldItem) in
                 Text(item.lastUsed.map { Self.dateFormatter.string(from: $0) } ?? "—").foregroundStyle(item.isOld ? Color.orange : .primary)
             }
             .width(110)
-            TableColumn("Loại", value: \LargeOldItem.kindTitle) { (item: LargeOldItem) in
+            TableColumn(String(localized: "Loại"), value: \LargeOldItem.kindTitle) { (item: LargeOldItem) in
                 Text(item.kind.title)
             }
             .width(110)
@@ -233,13 +233,13 @@ struct LargeOldResultsView: View {
     private var footer: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Đã chọn \(model.selection.selectedBytes.formatted)").font(Theme.Font.headline).foregroundStyle(.white)
-                Text("\(model.selection.selectedCount.formatted()) file · có thể khôi phục từ Thùng rác")
+                Text(String(localized: "Đã chọn \(model.selection.selectedBytes.formatted)")).font(Theme.Font.headline).foregroundStyle(.white)
+                Text(String(localized: "\(model.selection.selectedCount.formatted()) file · có thể khôi phục từ Thùng rác"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             Spacer()
-            Button("Chọn tất cả đang hiện") { model.selectAllVisible(true) }.buttonStyle(GlassButtonStyle())
-            Button("Bỏ chọn") { model.selection = SelectionState() }.buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Chọn tất cả đang hiện")) { model.selectAllVisible(true) }.buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Bỏ chọn")) { model.selection = SelectionState() }.buttonStyle(GlassButtonStyle())
                 .disabled(model.selection.selectedCount == 0)
             if model.services.settings.dryRun { Pill("DRY RUN", color: Theme.review) }
             Button(LargeOldFilesView.appearance.cleanTitle) { model.prepareClean() }

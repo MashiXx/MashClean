@@ -2,16 +2,17 @@ import SweepCore
 import SweepIPC
 import SweepPermissions
 import SweepStorage
+import AppKit
 import SwiftUI
 
 /// Cài đặt: chung, quyền & helper, rule, danh sách bỏ qua, nâng cao.
 struct SettingsView: View {
     var body: some View {
         TabView {
-            GeneralSettings().tabItem { Label("Chung", systemImage: "gearshape") }
-            PermissionSettings().tabItem { Label("Quyền", systemImage: "lock.shield") }
-            IgnoreListSettings().tabItem { Label("Bỏ qua", systemImage: "eye.slash") }
-            AdvancedSettings().tabItem { Label("Nâng cao", systemImage: "slider.horizontal.3") }
+            GeneralSettings().tabItem { Label(String(localized: "Chung"), systemImage: "gearshape") }
+            PermissionSettings().tabItem { Label(String(localized: "Quyền"), systemImage: "lock.shield") }
+            IgnoreListSettings().tabItem { Label(String(localized: "Bỏ qua"), systemImage: "eye.slash") }
+            AdvancedSettings().tabItem { Label(String(localized: "Nâng cao"), systemImage: "slider.horizontal.3") }
         }
         .padding(20)
     }
@@ -26,28 +27,57 @@ struct GeneralSettings: View {
     @AppStorage(AppSettings.Keys.oldFileDays, store: AppSettings.shared.defaults) private var oldDays = 365
     @AppStorage(AppSettings.Keys.showRiskyItems, store: AppSettings.shared.defaults) private var showRisky = false
 
+    @State private var language = AppLanguage.current
+    @State private var needsRestart = false
+
     var body: some View {
         Form {
+            // Tên ngôn ngữ luôn hiện song ngữ để nhận ra ở bất kỳ ngôn ngữ nào.
+            Section("Ngôn ngữ · Language") {
+                Picker("Ngôn ngữ · Language", selection: $language) {
+                    ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
+                }
+                .onChange(of: language) { newValue in
+                    AppLanguage.select(newValue)
+                    needsRestart = true
+                }
+                if needsRestart {
+                    HStack {
+                        Text(String(localized: "Khởi động lại MashClean để áp dụng ngôn ngữ mới."))
+                            .font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        Button(String(localized: "Khởi động lại")) { Self.restartForLanguage() }
+                    }
+                }
+            }
             Section("Thanh menu") {
-                Toggle("Hiện MashClean trên thanh menu", isOn: $menuBar)
+                Toggle(String(localized: "Hiện MashClean trên thanh menu"), isOn: $menuBar)
                     .onChange(of: menuBar) { MenuBarLoginItem.setEnabled($0) }
-                Toggle("Cảnh báo khi ổ đĩa sắp đầy (dưới 10% hoặc 10 GB)", isOn: $lowDisk)
-                Stepper("Cảnh báo khi Thùng rác lớn hơn \(trashGB) GB", value: $trashGB, in: 1...200)
+                Toggle(String(localized: "Cảnh báo khi ổ đĩa sắp đầy (dưới 10% hoặc 10 GB)"), isOn: $lowDisk)
+                Stepper(String(localized: "Cảnh báo khi Thùng rác lớn hơn \(trashGB) GB"), value: $trashGB, in: 1...200)
             }
-            Section("Quét") {
-                Stepper("File lớn: từ \(largeMB) MB", value: $largeMB, in: 10...10_000, step: 50)
-                Stepper("File cũ: không dùng \(oldDays) ngày", value: $oldDays, in: 30...3650, step: 30)
-                Toggle("Hiện mục rủi ro (ví dụ gói ngôn ngữ)", isOn: $showRisky)
+            Section(String(localized: "Quét")) {
+                Stepper(String(localized: "File lớn: từ \(largeMB) MB"), value: $largeMB, in: 10...10_000, step: 50)
+                Stepper(String(localized: "File cũ: không dùng \(oldDays) ngày"), value: $oldDays, in: 30...3650, step: 30)
+                Toggle(String(localized: "Hiện mục rủi ro (ví dụ gói ngôn ngữ)"), isOn: $showRisky)
             }
-            Section("Cập nhật") {
-                Picker("Kênh cập nhật", selection: $channel) {
-                    Text("Ổn định").tag("stable")
+            Section(String(localized: "Cập nhật")) {
+                Picker(String(localized: "Kênh cập nhật"), selection: $channel) {
+                    Text(String(localized: "Ổn định")).tag("stable")
                     Text("Beta").tag("beta")
                 }
                 .pickerStyle(.segmented)
             }
         }
         .formStyle(.grouped)
+    }
+}
+
+extension GeneralSettings {
+    /// Mở lại app chính và menu bar để ngôn ngữ mới có hiệu lực.
+    @MainActor
+    static func restartForLanguage() {
+        AppRelauncher.restartForLanguageChange()
     }
 }
 
@@ -60,30 +90,30 @@ struct PermissionSettings: View {
             Section("Full Disk Access") {
                 HStack {
                     statusDot(holder.hasFullDiskAccess)
-                    Text(holder.hasFullDiskAccess ? "Đã cấp" : "Chưa cấp — chế độ hạn chế")
+                    Text(holder.hasFullDiskAccess ? String(localized: "Đã cấp") : String(localized: "Chưa cấp — chế độ hạn chế"))
                     Spacer()
-                    Button("Mở System Settings") { Permissions.openFullDiskAccessSettings() }
+                    Button(String(localized: "Mở System Settings")) { Permissions.openFullDiskAccessSettings() }
                 }
             }
-            Section("Helper quản trị") {
+            Section(String(localized: "Helper quản trị")) {
                 HStack {
                     statusDot(holder.helperStatus == .enabled)
                     Text(helperText)
                     Spacer()
-                    Button("Cài / bật") {
+                    Button(String(localized: "Cài / bật")) {
                         do { holder.helperStatus = try HelperInstaller.ensureRegistered() } catch { message = error.localizedDescription }
                     }
-                    Button("Gỡ helper") {
+                    Button(String(localized: "Gỡ helper")) {
                         Task {
-                            do { try await HelperInstaller.unregister(); holder.refreshPermissions(); message = "Đã gỡ helper" } catch { message = error.localizedDescription }
+                            do { try await HelperInstaller.unregister(); holder.refreshPermissions(); message = String(localized: "Đã gỡ helper") } catch { message = error.localizedDescription }
                         }
                     }
                 }
-                Text("Helper chỉ nhận lệnh có tên từ MashClean đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá.")
+                Text(String(localized: "Helper chỉ nhận lệnh có tên từ MashClean đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá."))
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Section("Thông báo") {
-                Button("Cho phép thông báo") { Task { await Permissions.requestNotifications() } }
+            Section(String(localized: "Thông báo")) {
+                Button(String(localized: "Cho phép thông báo")) { Task { await Permissions.requestNotifications() } }
             }
             if let message { Text(message).font(.caption).foregroundStyle(.orange) }
         }
@@ -93,11 +123,11 @@ struct PermissionSettings: View {
 
     private var helperText: String {
         switch holder.helperStatus {
-        case .enabled: "Đang hoạt động"
-        case .requiresApproval: "Cần duyệt trong Login Items"
-        case .notRegistered: "Chưa cài"
-        case .notFound: "Không tìm thấy trong bundle"
-        case .unreachable: "Không kết nối được"
+        case .enabled: String(localized: "Đang hoạt động")
+        case .requiresApproval: String(localized: "Cần duyệt trong Login Items")
+        case .notRegistered: String(localized: "Chưa cài")
+        case .notFound: String(localized: "Không tìm thấy trong bundle")
+        case .unreachable: String(localized: "Không kết nối được")
         }
     }
 
@@ -112,13 +142,13 @@ struct IgnoreListSettings: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Các mục bạn đã chọn \"Không bao giờ đề xuất\". Xoá khỏi danh sách để MashClean đề xuất lại.")
+            Text(String(localized: "Các mục bạn đã chọn \"Không bao giờ đề xuất\". Xoá khỏi danh sách để MashClean đề xuất lại."))
                 .font(.callout).foregroundStyle(.secondary)
             Table(entries) {
-                TableColumn("Loại") { e in Text(kindTitle(e.kind)) }.width(90)
-                TableColumn("Giá trị") { e in Text(e.value.abbreviatingHome).lineLimit(1).truncationMode(.middle) }
+                TableColumn(String(localized: "Loại")) { e in Text(kindTitle(e.kind)) }.width(90)
+                TableColumn(String(localized: "Giá trị")) { e in Text(e.value.abbreviatingHome).lineLimit(1).truncationMode(.middle) }
                 TableColumn("") { e in
-                    Button("Xoá") {
+                    Button(String(localized: "Xoá")) {
                         if let id = e.id { try? holder.environment?.storage?.removeIgnore(id: id) }
                         reload()
                     }
@@ -131,9 +161,9 @@ struct IgnoreListSettings: View {
 
     private func kindTitle(_ k: IgnoreEntry.Kind) -> String {
         switch k {
-        case .path: "Đường dẫn"
+        case .path: String(localized: "Đường dẫn")
         case .rule: "Rule"
-        case .bundleID: "Ứng dụng"
+        case .bundleID: String(localized: "Ứng dụng")
         }
     }
 
@@ -146,22 +176,22 @@ struct AdvancedSettings: View {
 
     var body: some View {
         Form {
-            Section("Bộ rule") {
-                LabeledContent("Phiên bản rule", value: "\(holder.rulesVersion)")
-                LabeledContent("Nguồn", value: sourceTitle)
+            Section(String(localized: "Bộ rule")) {
+                LabeledContent(String(localized: "Phiên bản rule"), value: "\(holder.rulesVersion)")
+                LabeledContent(String(localized: "Nguồn"), value: sourceTitle)
                 HStack {
-                    Button("Kiểm tra rule mới") { Task { await holder.checkRuleUpdates(force: true) } }
+                    Button(String(localized: "Kiểm tra rule mới")) { Task { await holder.checkRuleUpdates(force: true) } }
                     if let last = holder.lastRuleUpdate { Text(last).font(.caption).foregroundStyle(.secondary) }
                 }
             }
-            Section("Quyền riêng tư") {
-                Toggle("Gửi thống kê ẩn danh", isOn: $analytics)
-                Text("Chỉ số liệu tổng hợp (dung lượng dọn theo nhóm, thời gian quét, rule hay lỗi). Không bao giờ gửi đường dẫn hay tên file. Tắt mặc định.")
+            Section(String(localized: "Quyền riêng tư")) {
+                Toggle(String(localized: "Gửi thống kê ẩn danh"), isOn: $analytics)
+                Text(String(localized: "Chỉ số liệu tổng hợp (dung lượng dọn theo nhóm, thời gian quét, rule hay lỗi). Không bao giờ gửi đường dẫn hay tên file. Tắt mặc định."))
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Section("Chế độ thử") {
-                Toggle("Dry run: chạy toàn bộ luồng nhưng không xoá gì", isOn: Binding(get: { holder.dryRun }, set: { holder.setDryRun($0) }))
-                Text("Cũng bật được bằng biến môi trường MASHCLEAN_DRY_RUN=1 hoặc tham số --dry-run.").font(.caption).foregroundStyle(.secondary)
+            Section(String(localized: "Chế độ thử")) {
+                Toggle(String(localized: "Dry run: chạy toàn bộ luồng nhưng không xoá gì"), isOn: Binding(get: { holder.dryRun }, set: { holder.setDryRun($0) }))
+                Text(String(localized: "Cũng bật được bằng biến môi trường MASHCLEAN_DRY_RUN=1 hoặc tham số --dry-run.")).font(.caption).foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
@@ -169,10 +199,10 @@ struct AdvancedSettings: View {
 
     private var sourceTitle: String {
         switch holder.environment?.ruleStore.snapshot.source {
-        case .bundled: "Đi kèm ứng dụng"
-        case .downloaded: "Đã tải về"
-        case .development: "Thư mục phát triển (chưa ký)"
-        case .empty, .none: "Không có"
+        case .bundled: String(localized: "Đi kèm ứng dụng")
+        case .downloaded: String(localized: "Đã tải về")
+        case .development: String(localized: "Thư mục phát triển (chưa ký)")
+        case .empty, .none: String(localized: "Không có")
         }
     }
 }

@@ -6,7 +6,7 @@ options:
   deploymentTarget:
     macOS: "13.0"
   createIntermediateGroups: true
-  developmentLanguage: vi
+  developmentLanguage: en
   groupSortPosition: top
 
 configFiles:
@@ -46,6 +46,8 @@ targets:
     platform: macOS
     sources:
       - path: App/Sources
+      - path: Localization
+        excludes: ["*.json"]
       - path: App/Resources/Assets.xcassets
         optional: true
       - path: App/Resources/Rules
@@ -101,6 +103,8 @@ targets:
     platform: macOS
     sources:
       - path: MenuBar
+      - path: Localization
+        excludes: ["*.json"]
     settings:
       base:
         PRODUCT_NAME: MashCleanMenu

@@ -21,19 +21,19 @@ struct HistoryView: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Lịch sử dọn dẹp").font(Theme.Font.title).foregroundStyle(.white)
-                        Text("Tổng đã giải phóng: \(ByteCount(totalFreed).formatted). Mục chuyển vào Thùng rác có thể khôi phục trong 90 ngày.")
+                        Text(String(localized: "Lịch sử dọn dẹp")).font(Theme.Font.title).foregroundStyle(.white)
+                        Text(String(localized: "Tổng đã giải phóng: \(ByteCount(totalFreed).formatted). Mục chuyển vào Thùng rác có thể khôi phục trong 90 ngày."))
                             .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
                     }
                     Spacer()
-                    Button { reload() } label: { Label("Làm mới", systemImage: "arrow.clockwise") }.buttonStyle(GlassButtonStyle())
+                    Button { reload() } label: { Label(String(localized: "Làm mới"), systemImage: "arrow.clockwise") }.buttonStyle(GlassButtonStyle())
                 }
                 if operations.count > 1 { chart }
                 HStack(spacing: 12) {
                     List(operations, selection: Binding(get: { selected?.id }, set: { id in select(operations.first { $0.id == id }) })) { op in
                         VStack(alignment: .leading, spacing: 2) {
                             Text(op.startedAt.formatted(date: .abbreviated, time: .shortened)).font(.system(size: 13, weight: .semibold))
-                            Text("\(ByteCount(op.freedBytes ?? 0).formatted) · \(op.itemsOk) thành công\(op.itemsFailed > 0 ? " · \(op.itemsFailed) lỗi" : "")")
+                            Text(String(localized: "\(ByteCount(op.freedBytes ?? 0).formatted) · \(op.itemsOk) thành công\(op.itemsFailed > 0 ? String(localized: " · \(op.itemsFailed) lỗi") : "")"))
                                 .font(.caption).foregroundStyle(.secondary)
                         }
                         .tag(op.id)
@@ -54,7 +54,7 @@ struct HistoryView: View {
 
     private var chart: some View {
         Chart(operations.prefix(30).reversed(), id: \.id) { op in
-            BarMark(x: .value("Ngày", op.startedAt, unit: .day), y: .value("Đã dọn (MB)", Double(op.freedBytes ?? 0) / 1_000_000))
+            BarMark(x: .value(String(localized: "Ngày"), op.startedAt, unit: .day), y: .value(String(localized: "Đã dọn (MB)"), Double(op.freedBytes ?? 0) / 1_000_000))
                 .foregroundStyle(.white.opacity(0.8))
         }
         .chartYAxisLabel("MB")
@@ -66,18 +66,18 @@ struct HistoryView: View {
     @ViewBuilder private var detail: some View {
         VStack(alignment: .leading, spacing: 8) {
             if selected == nil {
-                Text("Chọn một lần dọn để xem chi tiết").foregroundStyle(Theme.secondaryText).frame(maxWidth: .infinity, maxHeight: .infinity)
+                Text(String(localized: "Chọn một lần dọn để xem chi tiết")).foregroundStyle(Theme.secondaryText).frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 Table(items) {
-                    TableColumn("Mục") { item in
+                    TableColumn(String(localized: "Mục")) { item in
                         Text(item.path.abbreviatingHome).lineLimit(1).truncationMode(.middle).help(item.path)
                     }
-                    TableColumn("Cách xoá") { item in Text(strategyTitle(item.strategy)) }.width(110)
-                    TableColumn("Dung lượng") { item in Text(ByteCount(item.size).formatted) }.width(90)
-                    TableColumn("Kết quả") { item in Text(resultTitle(item.result)) }.width(120)
+                    TableColumn(String(localized: "Cách xoá")) { item in Text(strategyTitle(item.strategy)) }.width(110)
+                    TableColumn(String(localized: "Dung lượng")) { item in Text(ByteCount(item.size).formatted) }.width(90)
+                    TableColumn(String(localized: "Kết quả")) { item in Text(resultTitle(item.result)) }.width(120)
                     TableColumn("") { item in
                         if item.isRestorable {
-                            Button("Khôi phục") { restore(item) }
+                            Button(String(localized: "Khôi phục")) { restore(item) }
                         }
                     }
                     .width(90)
@@ -89,19 +89,19 @@ struct HistoryView: View {
 
     private func strategyTitle(_ s: String) -> String {
         switch s {
-        case "trash": "Thùng rác"
-        case "delete": "Xoá vĩnh viễn"
-        case "deleteContents": "Xoá nội dung"
+        case "trash": String(localized: "Thùng rác")
+        case "delete": String(localized: "Xoá vĩnh viễn")
+        case "deleteContents": String(localized: "Xoá nội dung")
         default: s.replacingOccurrences(of: "custom:", with: "")
         }
     }
 
     private func resultTitle(_ r: String) -> String {
-        if r == "ok" { return "Thành công" }
-        if r == "restored" { return "Đã khôi phục" }
-        if r.hasPrefix("skipped:dryRun") { return "Chạy thử" }
-        if r.hasPrefix("skipped") { return "Bỏ qua" }
-        return "Lỗi (\(r.replacingOccurrences(of: "failed:", with: "")))"
+        if r == "ok" { return String(localized: "Thành công") }
+        if r == "restored" { return String(localized: "Đã khôi phục") }
+        if r.hasPrefix("skipped:dryRun") { return String(localized: "Chạy thử") }
+        if r.hasPrefix("skipped") { return String(localized: "Bỏ qua") }
+        return String(localized: "Lỗi (\(r.replacingOccurrences(of: "failed:", with: "")))")
     }
 
     private func reload() {
@@ -118,7 +118,7 @@ struct HistoryView: View {
     private func restore(_ item: CleanItemLog) {
         do {
             try services.cleanEngine.restore(item)
-            message = "Đã khôi phục \(item.path.abbreviatingHome)"
+            message = String(localized: "Đã khôi phục \(item.path.abbreviatingHome)")
         } catch {
             message = String(describing: error)
         }

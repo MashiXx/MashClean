@@ -40,13 +40,13 @@ public struct LocalizedText: Sendable, Hashable, Codable, ExpressibleByStringLit
         try c.encode(values)
     }
 
-    /// Ngôn ngữ ưu tiên của người dùng → tiếng Việt → tiếng Anh → bất kỳ.
+    /// Ngôn ngữ ưu tiên của người dùng → tiếng Anh → tiếng Việt → bất kỳ.
     public var resolved: String {
         for lang in Locale.preferredLanguages {
             let code = String(lang.prefix(2))
             if let v = values[lang] ?? values[code] { return v }
         }
-        return values["vi"] ?? values["en"] ?? values.values.first ?? ""
+        return values["en"] ?? values["vi"] ?? values.values.first ?? ""
     }
 
     public var description: String { resolved }

@@ -10,9 +10,9 @@ public enum MemoryPressureLevel: Int, Sendable, Comparable, Codable {
 
     public var title: String {
         switch self {
-        case .normal: "Bình thường"
-        case .warning: "Cao"
-        case .critical: "Nguy cấp"
+        case .normal: String(localized: "Bình thường")
+        case .warning: String(localized: "Cao")
+        case .critical: String(localized: "Nguy cấp")
         }
     }
 }

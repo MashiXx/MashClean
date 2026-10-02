@@ -199,18 +199,18 @@ public struct NodeOutlineView: NSViewRepresentable {
             menu.removeAllItems()
             guard let outline, outline.clickedRow >= 0, let n = node(outline.item(atRow: outline.clickedRow)) else { return }
             if let url = n.url {
-                let reveal = NSMenuItem(title: "Hiện trong Finder", action: #selector(reveal(_:)), keyEquivalent: "")
+                let reveal = NSMenuItem(title: String(localized: "Hiện trong Finder"), action: #selector(reveal(_:)), keyEquivalent: "")
                 reveal.target = self
                 reveal.representedObject = url
                 menu.addItem(reveal)
-                let copy = NSMenuItem(title: "Sao chép đường dẫn", action: #selector(copyPath(_:)), keyEquivalent: "")
+                let copy = NSMenuItem(title: String(localized: "Sao chép đường dẫn"), action: #selector(copyPath(_:)), keyEquivalent: "")
                 copy.target = self
                 copy.representedObject = url
                 menu.addItem(copy)
             }
             if onIgnore != nil, n.url != nil {
                 menu.addItem(.separator())
-                let ignore = NSMenuItem(title: "Không bao giờ đề xuất mục này", action: #selector(ignore(_:)), keyEquivalent: "")
+                let ignore = NSMenuItem(title: String(localized: "Không bao giờ đề xuất mục này"), action: #selector(ignore(_:)), keyEquivalent: "")
                 ignore.target = self
                 ignore.representedObject = box(n.id)
                 menu.addItem(ignore)

@@ -17,8 +17,8 @@ public enum MaintenanceError: Error, CustomStringConvertible {
 
     public var description: String {
         switch self {
-        case .helperUnavailable: "Cần cài helper (quyền quản trị) để chạy tác vụ này"
-        case .mailRunning: "Hãy tắt Mail trước khi tối ưu"
+        case .helperUnavailable: String(localized: "Cần cài helper (quyền quản trị) để chạy tác vụ này")
+        case .mailRunning: String(localized: "Hãy tắt Mail trước khi tối ưu")
         case let .failed(m): m
         }
     }
@@ -44,7 +44,7 @@ public struct MaintenanceRunner: Sendable {
         let start = Date()
         let result: MaintenanceResult
         if dryRun() {
-            result = MaintenanceResult(task: task.rawValue, success: true, message: "Chạy thử: không thực hiện", durationSeconds: 0)
+            result = MaintenanceResult(task: task.rawValue, success: true, message: String(localized: "Chạy thử: không thực hiện"), durationSeconds: 0)
         } else {
             do {
                 result = try await perform(task, start: start)
@@ -63,7 +63,7 @@ public struct MaintenanceRunner: Sendable {
             let (tool, args) = task.commands[0]
             let out = try await ProcessRunner().run(tool, args, timeout: 600)
             return MaintenanceResult(task: task.rawValue, success: out.succeeded,
-                                     message: out.succeeded ? "Đã dựng lại cơ sở dữ liệu Launch Services" : out.stderrString,
+                                     message: out.succeeded ? String(localized: "Đã dựng lại cơ sở dữ liệu Launch Services") : out.stderrString,
                                      durationSeconds: Date().timeIntervalSince(start))
         case .speedUpMail:
             return try speedUpMail(start: start)
@@ -79,7 +79,7 @@ public struct MaintenanceRunner: Sendable {
         let files = MaintenanceStatusReader.envelopeIndexFiles(home: home)
         guard !files.isEmpty else {
             return MaintenanceResult(task: MaintenanceTaskName.speedUpMail.rawValue, success: false,
-                                     message: "Không tìm thấy chỉ mục Mail (có thể cần Full Disk Access)", durationSeconds: 0)
+                                     message: String(localized: "Không tìm thấy chỉ mục Mail (có thể cần Full Disk Access)"), durationSeconds: 0)
         }
         var freed: Int64 = 0
         let policy = PathPolicy.user(home: home)
@@ -89,7 +89,7 @@ public struct MaintenanceRunner: Sendable {
             freed += r.freedBytes
         }
         return MaintenanceResult(task: MaintenanceTaskName.speedUpMail.rawValue, success: true,
-                                 message: "Đã xoá chỉ mục Mail (\(ByteCount(freed).formatted)); Mail sẽ dựng lại khi mở", durationSeconds: Date().timeIntervalSince(start))
+                                 message: String(localized: "Đã xoá chỉ mục Mail (\(ByteCount(freed).formatted)); Mail sẽ dựng lại khi mở"), durationSeconds: Date().timeIntervalSince(start))
     }
 }
 
@@ -104,7 +104,7 @@ extension ArtifactKey {
 /// Task `maintenanceStatus` trong graph Smart Scan (mục 5.5): tạo node ảo cho tác vụ nên chạy.
 public struct MaintenanceStatusTask: ScanTask {
     public let id: ScanTaskID = .maintenanceStatus
-    public let title = "Kiểm tra tình trạng hệ thống"
+    public let title = String(localized: "Kiểm tra tình trạng hệ thống")
     public let estimatedWeight: Double = 0.5
     let reader: MaintenanceStatusReader
 

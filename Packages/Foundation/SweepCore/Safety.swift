@@ -27,9 +27,9 @@ public enum SafetyLevel: Int, Sendable, Comparable, Codable, CaseIterable {
 
     public var localizedTitle: String {
         switch self {
-        case .safe: "An toàn"
-        case .review: "Cần xem lại"
-        case .risky: "Rủi ro"
+        case .safe: String(localized: "An toàn")
+        case .review: String(localized: "Cần xem lại")
+        case .risky: String(localized: "Rủi ro")
         }
     }
 

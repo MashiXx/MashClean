@@ -11,8 +11,8 @@ public struct SystemJunkView: View {
 
     public static let appearance = FeatureAppearance(
         accent: .cleanup, symbol: "trash.circle",
-        title: "Rác hệ thống",
-        subtitle: "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn."
+        title: String(localized: "Rác hệ thống"),
+        subtitle: String(localized: "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn.")
     )
 
     public init(services: ScanServices, feature: SystemJunkFeature, autoStart: Bool = false) {

@@ -9,13 +9,13 @@ public enum FileKind: String, Sendable, CaseIterable, Hashable, Identifiable {
 
     public var title: String {
         switch self {
-        case .documents: "Tài liệu"
-        case .images: "Ảnh"
+        case .documents: String(localized: "Tài liệu")
+        case .images: String(localized: "Ảnh")
         case .videos: "Video"
-        case .audio: "Âm thanh"
-        case .archives: "Lưu trữ & ổ đĩa ảo"
-        case .apps: "Ứng dụng & bộ cài"
-        case .other: "Khác"
+        case .audio: String(localized: "Âm thanh")
+        case .archives: String(localized: "Lưu trữ & ổ đĩa ảo")
+        case .apps: String(localized: "Ứng dụng & bộ cài")
+        case .other: String(localized: "Khác")
         }
     }
 

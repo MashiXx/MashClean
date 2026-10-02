@@ -83,8 +83,8 @@ public struct LaunchItem: Sendable, Hashable, Identifiable {
 extension VirtualItem.LaunchDomain {
     public var title: String {
         switch self {
-        case .userAgent: "Agent người dùng"
-        case .globalAgent: "Agent hệ thống"
+        case .userAgent: String(localized: "Agent người dùng")
+        case .globalAgent: String(localized: "Agent hệ thống")
         case .globalDaemon: "Daemon"
         }
     }

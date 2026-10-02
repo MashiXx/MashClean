@@ -15,8 +15,8 @@ struct DiagnosticsView: View {
         ZStack {
             Theme.background(for: .neutral).ignoresSafeArea()
             VStack(alignment: .leading, spacing: 14) {
-                Text("Gửi báo cáo lỗi").font(Theme.Font.title).foregroundStyle(.white)
-                Text("Xem trước nội dung bên dưới. Đường dẫn chi tiết không có trong log ở mức thông thường. Không có gì được gửi đi nếu bạn không bấm.")
+                Text(String(localized: "Gửi báo cáo lỗi")).font(Theme.Font.title).foregroundStyle(.white)
+                Text(String(localized: "Xem trước nội dung bên dưới. Đường dẫn chi tiết không có trong log ở mức thông thường. Không có gì được gửi đi nếu bạn không bấm."))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
                 if let report {
                     ReportTextView(text: report.rendered)
@@ -24,14 +24,14 @@ struct DiagnosticsView: View {
                         .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.3)))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     HStack {
-                        if let savedURL { Text("Đã lưu: \(savedURL.lastPathComponent)").font(Theme.Font.caption).foregroundStyle(Theme.secondaryText) }
+                        if let savedURL { Text(String(localized: "Đã lưu: \(savedURL.lastPathComponent)")).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText) }
                         Spacer()
-                        Button("Lưu ra file…") { save(report) }.buttonStyle(GlassButtonStyle())
-                        Button("Gửi qua email…") { share(report) }.buttonStyle(PrimaryButtonStyle(accent: .neutral))
+                        Button(String(localized: "Lưu ra file…")) { save(report) }.buttonStyle(GlassButtonStyle())
+                        Button(String(localized: "Gửi qua email…")) { share(report) }.buttonStyle(PrimaryButtonStyle(accent: .neutral))
                     }
                 } else {
                     Spacer()
-                    ProgressView("Đang gom thông tin…").frame(maxWidth: .infinity)
+                    ProgressView(String(localized: "Đang gom thông tin…")).frame(maxWidth: .infinity)
                     Spacer()
                 }
             }
@@ -57,8 +57,8 @@ struct DiagnosticsView: View {
         guard let file = try? report.write() else { return }
         let service = NSSharingService(named: .composeEmail)
         service?.recipients = [Bundle.main.object(forInfoDictionaryKey: "MashCleanSupportEmail") as? String ?? ""].filter { !$0.isEmpty }
-        service?.subject = "MashClean — báo cáo lỗi"
-        service?.perform(withItems: ["Báo cáo chẩn đoán đính kèm.", file])
+        service?.subject = String(localized: "MashClean — báo cáo lỗi")
+        service?.perform(withItems: [String(localized: "Báo cáo chẩn đoán đính kèm."), file])
     }
 }
 

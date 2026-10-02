@@ -25,7 +25,7 @@ public enum LoginItemsCategory {
 /// Đọc mọi LaunchAgent/Daemon và trạng thái (mục 11.6).
 public struct LoginItemsTask: ScanTask {
     public let id: ScanTaskID = .loginItems
-    public let title = "Đọc Login Items"
+    public let title = String(localized: "Đọc Login Items")
     public let estimatedWeight: Double = 0.5
     let scanner: LaunchItemScanner
 
@@ -42,7 +42,7 @@ public struct LoginItemsTask: ScanTask {
 public struct BrokenLoginItemsTask: ScanTask {
     public let id: ScanTaskID = .brokenLoginItems
     public let dependencies: [ScanTaskID] = [.loginItems, .installedApps]
-    public let title = "Login item hỏng"
+    public let title = String(localized: "Login item hỏng")
     public let estimatedWeight: Double = 0.5
 
     public init() {}
@@ -54,7 +54,7 @@ public struct BrokenLoginItemsTask: ScanTask {
         guard !leaves.isEmpty else { return .empty }
         var root = Node.group(LocalizedText(["vi": "Login item hỏng", "en": "Broken Login Items"]), icon: "exclamationmark.triangle",
                               category: LoginItemsCategory.brokenLoginItems, children: leaves)
-        root.reason = "LaunchAgent/Daemon trỏ tới chương trình không còn tồn tại hoặc thuộc app đã gỡ"
+        root.reason = LocalizedText(String(localized: "LaunchAgent/Daemon trỏ tới chương trình không còn tồn tại hoặc thuộc app đã gỡ"))
         return ScanOutput(nodes: [root])
     }
 
@@ -66,9 +66,9 @@ public struct BrokenLoginItemsTask: ScanTask {
             // Danh sách app đầy đủ chỉ có ở đây: tra lại app sở hữu.
             if !installedApps.isEmpty, let owner = LaunchItemScanner.resolveOwner(job: item.job, installedApps: installedApps) { item.owner = owner }
             if item.isBroken {
-                result.append(node(for: item, safety: .safe, badge: "Hỏng", reason: "Chương trình \(item.job.executablePath ?? "") không còn tồn tại"))
+                result.append(node(for: item, safety: .safe, badge: String(localized: "Hỏng"), reason: String(localized: "Chương trình \(item.job.executablePath ?? "") không còn tồn tại")))
             } else if !installedApps.isEmpty, item.belongsToRemovedApp(installedBundleIDs: installedIDs) {
-                result.append(node(for: item, safety: .review, badge: "Thuộc app đã gỡ", reason: "App sở hữu không còn trên máy"))
+                result.append(node(for: item, safety: .review, badge: String(localized: "Thuộc app đã gỡ"), reason: String(localized: "App sở hữu không còn trên máy")))
             }
         }
         return result

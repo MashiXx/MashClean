@@ -38,8 +38,8 @@ public struct SmartScanView: View {
     public static let appearance = FeatureAppearance(
         accent: .smartScan, symbol: "sparkles",
         title: "Smart Scan",
-        subtitle: "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng.",
-        scanTitle: "Quét", cleanTitle: "Chạy"
+        subtitle: String(localized: "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng."),
+        scanTitle: String(localized: "Quét"), cleanTitle: String(localized: "Chạy")
     )
 
     public init(model: SmartScanViewModel, onOpenFeature: @escaping (FeatureID) -> Void = { _ in }) {
@@ -54,7 +54,7 @@ public struct SmartScanView: View {
             FeatureFlowView(model: model, appearance: Self.appearance)
                 .overlay(alignment: .topLeading) {
                     if case .results = model.phase {
-                        Button { model.showDetails = false } label: { Label("Tổng hợp", systemImage: "chevron.left") }
+                        Button { model.showDetails = false } label: { Label(String(localized: "Tổng hợp"), systemImage: "chevron.left") }
                             .buttonStyle(GlassButtonStyle()).padding(16)
                     }
                 }
@@ -67,8 +67,8 @@ public struct SmartScanView: View {
             VStack(spacing: 26) {
                 Spacer()
                 VStack(spacing: 6) {
-                    Text("Quét xong").font(Theme.Font.hero).foregroundStyle(.white)
-                    Text("Bấm \"Chạy\" để thực hiện mọi mục an toàn. Mục cần xem lại không được chọn sẵn.")
+                    Text(String(localized: "Quét xong")).font(Theme.Font.hero).foregroundStyle(.white)
+                    Text(String(localized: "Bấm \"Chạy\" để thực hiện mọi mục an toàn. Mục cần xem lại không được chọn sẵn."))
                         .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
                 }
                 HStack(spacing: 18) {
@@ -80,12 +80,12 @@ public struct SmartScanView: View {
                 }
                 .frame(maxWidth: 860)
                 HStack(spacing: 10) {
-                    Text("Đã chọn \(model.selection.selectedBytes.formatted) · \(model.selection.selectedCount) mục")
+                    Text(String(localized: "Đã chọn \(model.selection.selectedBytes.formatted) · \(model.selection.selectedCount) mục"))
                         .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
-                    Button("Xem lại chi tiết") { model.showDetails = true }.buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Xem lại chi tiết")) { model.showDetails = true }.buttonStyle(GlassButtonStyle())
                 }
                 Spacer()
-                BigActionButton("Chạy", subtitle: model.selection.selectedBytes > .zero ? model.selection.selectedBytes.formatted : nil, accent: .smartScan) {
+                BigActionButton(String(localized: "Chạy"), subtitle: model.selection.selectedBytes > .zero ? model.selection.selectedBytes.formatted : nil, accent: .smartScan) {
                     model.run()
                 }
                 .disabled(model.selection.selectedCount == 0)
@@ -106,7 +106,7 @@ struct CardView: View {
                 HStack {
                     Image(systemName: card.symbol).font(.system(size: 26)).foregroundStyle(.white)
                     Spacer()
-                    Button("Xem", action: onOpen).buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Xem"), action: onOpen).buttonStyle(GlassButtonStyle())
                 }
                 Text(card.title).font(Theme.Font.headline).foregroundStyle(Theme.secondaryText)
                 Text(card.headline).font(.system(size: 26, weight: .bold, design: .rounded)).foregroundStyle(.white).lineLimit(1).minimumScaleFactor(0.6)

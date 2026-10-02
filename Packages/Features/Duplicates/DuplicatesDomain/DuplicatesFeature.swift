@@ -23,8 +23,8 @@ public struct DuplicatesFeature: FeatureScanProvider {
 
     public func summarize(_ nodes: [Node]) -> FeatureSummary {
         let wasted = nodes.reduce(ByteCount.zero) { $0 + DuplicatesTask.wasted($1) }
-        return FeatureSummary(featureID: featureID, card: .cleanup, title: "File trùng lặp",
-                              subtitle: nodes.isEmpty ? "Không có file trùng lặp" : "\(nodes.count) nhóm trùng lặp",
+        return FeatureSummary(featureID: featureID, card: .cleanup, title: String(localized: "File trùng lặp"),
+                              subtitle: nodes.isEmpty ? String(localized: "Không có file trùng lặp") : String(localized: "\(nodes.count) nhóm trùng lặp"),
                               bytes: wasted, itemCount: nodes.count)
     }
 }

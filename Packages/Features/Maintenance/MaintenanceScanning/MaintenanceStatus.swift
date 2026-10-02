@@ -27,9 +27,9 @@ public enum MemoryPressure: Int, Sendable, Comparable {
 
     public var title: String {
         switch self {
-        case .normal: "Bình thường"
-        case .warning: "Cao"
-        case .critical: "Nghiêm trọng"
+        case .normal: String(localized: "Bình thường")
+        case .warning: String(localized: "Cao")
+        case .critical: String(localized: "Nghiêm trọng")
         }
     }
 }
@@ -74,26 +74,26 @@ public struct MaintenanceStatus: Sendable {
         switch task {
         case .freeRAM:
             return .init(task: task, recommended: memoryPressure >= .warning, safety: .safe,
-                         why: memoryPressure >= .warning ? "Memory pressure đang ở mức \(memoryPressure.title.lowercased())." : "Memory pressure bình thường.")
+                         why: memoryPressure >= .warning ? String(localized: "Memory pressure đang ở mức \(memoryPressure.title.lowercased()).") : String(localized: "Memory pressure bình thường."))
         case .runPeriodic:
             return .init(task: task, recommended: olderThan(7), safety: .safe,
-                         why: olderThan(7) ? "Chưa chạy trong 7 ngày qua." : "Đã chạy gần đây.")
+                         why: olderThan(7) ? String(localized: "Chưa chạy trong 7 ngày qua.") : String(localized: "Đã chạy gần đây."))
         case .flushDNS:
             return .init(task: task, recommended: olderThan(30), safety: .safe,
-                         why: olderThan(30) ? "Chưa xoá cache DNS trong 30 ngày." : "Đã chạy gần đây.")
+                         why: olderThan(30) ? String(localized: "Chưa xoá cache DNS trong 30 ngày.") : String(localized: "Đã chạy gần đây."))
         case .thinSnapshots:
             let rec = !localSnapshots.isEmpty && purgeableBytes > .gigabytes(5)
             return .init(task: task, recommended: rec, safety: .review,
-                         why: localSnapshots.isEmpty ? "Không có snapshot cục bộ." : "\(localSnapshots.count) snapshot, khoảng \(purgeableBytes.formatted) purgeable.")
+                         why: localSnapshots.isEmpty ? String(localized: "Không có snapshot cục bộ.") : String(localized: "\(localSnapshots.count) snapshot, khoảng \(purgeableBytes.formatted) purgeable."))
         case .reindexSpotlight:
             return .init(task: task, recommended: spotlightEnabled == false, safety: .review,
-                         why: spotlightEnabled == false ? "Chỉ mục Spotlight đang tắt hoặc lỗi." : "Chỉ chạy khi Spotlight tìm sai hoặc chậm.")
+                         why: spotlightEnabled == false ? String(localized: "Chỉ mục Spotlight đang tắt hoặc lỗi.") : String(localized: "Chỉ chạy khi Spotlight tìm sai hoặc chậm."))
         case .rebuildLaunchServices:
-            return .init(task: task, recommended: false, safety: .review, why: "Chỉ chạy khi menu \"Open With\" bị trùng lặp.")
+            return .init(task: task, recommended: false, safety: .review, why: String(localized: "Chỉ chạy khi menu \"Open With\" bị trùng lặp."))
         case .speedUpMail:
             let big = (mailEnvelopeIndexBytes ?? .zero) > .megabytes(500)
             return .init(task: task, recommended: big && !mailRunning, safety: .review,
-                         why: mailRunning ? "Hãy tắt Mail trước." : big ? "Chỉ mục Mail lớn (\(mailEnvelopeIndexBytes?.formatted ?? "")).": "Chỉ mục Mail bình thường.")
+                         why: mailRunning ? String(localized: "Hãy tắt Mail trước.") : big ? String(localized: "Chỉ mục Mail lớn (\(mailEnvelopeIndexBytes?.formatted ?? ""))."): String(localized: "Chỉ mục Mail bình thường."))
         }
     }
 

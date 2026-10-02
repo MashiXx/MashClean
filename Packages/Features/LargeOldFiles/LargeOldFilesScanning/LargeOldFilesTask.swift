@@ -6,9 +6,9 @@ import SweepCore
 
 /// Nhãn gắn trên node để màn hình lọc "lớn"/"cũ".
 public enum LargeOldBadges {
-    public static let large = "Lớn"
-    public static let old = "Lâu không dùng"
-    public static let hidden = "Thư mục ẩn"
+    public static let large = String(localized: "Lớn")
+    public static let old = String(localized: "Lâu không dùng")
+    public static let hidden = String(localized: "Thư mục ẩn")
     public static let category = "largeOldFiles"
 }
 
@@ -70,7 +70,7 @@ public struct LargeOldFilesCriteria: Sendable, Hashable {
 /// Mọi mục là `.file`, chuyển vào Thùng rác, mức `review`, mặc định không chọn (mục 15.2).
 public struct LargeOldFilesTask: ScanTask {
     public let id: ScanTaskID = "largeOldFiles"
-    public let title = "File lớn và cũ"
+    public let title = String(localized: "File lớn và cũ")
     public let estimatedWeight: Double = 3
     public let criteria: LargeOldFilesCriteria
 
@@ -107,11 +107,11 @@ public struct LargeOldFilesTask: ScanTask {
         for (i, root) in roots.enumerated() {
             try Task.checkCancellation()
             guard budget > 0 else {
-                warnings.append(ScanWarning(taskID: id, kind: .skipped, message: "Dừng quét thư mục ẩn sau \(criteria.unindexedEntryLimit.formatted()) mục"))
+                warnings.append(ScanWarning(taskID: id, kind: .skipped, message: String(localized: "Dừng quét thư mục ẩn sau \(criteria.unindexedEntryLimit.formatted()) mục")))
                 break
             }
             if AccessProbe.isBlockedByTCC(root.path) {
-                warnings.append(ScanWarning(taskID: id, kind: .needsFullDiskAccess, message: "Cần Full Disk Access để đọc \(root.path.abbreviatingHome)"))
+                warnings.append(ScanWarning(taskID: id, kind: .needsFullDiskAccess, message: String(localized: "Cần Full Disk Access để đọc \(root.path.abbreviatingHome)")))
                 continue
             }
             leaves += try scanUnindexed(root, budget: &budget, seen: &seen, context: context, now: now)
@@ -174,8 +174,8 @@ public struct LargeOldFilesTask: ScanTask {
         if match.contains(.old) { badges.append(LargeOldBadges.old) }
         if hidden { badges.append(LargeOldBadges.hidden) }
         let reason: LocalizedText = match.contains(.large)
-            ? LocalizedText("Lớn hơn \(ByteCount(criteria.largeThreshold).formatted)")
-            : LocalizedText("Không dùng hơn \(criteria.oldDays) ngày")
+            ? LocalizedText(String(localized: "Lớn hơn \(ByteCount(criteria.largeThreshold).formatted)"))
+            : LocalizedText(String(localized: "Không dùng hơn \(criteria.oldDays) ngày"))
         return Node(kind: .file(url), title: url.lastPathComponent, size: ByteCount(entry.allocatedSize), itemCount: 1,
                     safety: .review, reason: reason, category: LargeOldBadges.category, removal: .moveToTrash,
                     allowedRoots: [criteria.home.path], lastAccess: lastUsed ?? entry.modificationDate, badges: badges)

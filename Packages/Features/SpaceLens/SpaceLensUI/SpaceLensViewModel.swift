@@ -232,9 +232,9 @@ final class SpaceLensViewModel: ObservableObject {
             guard let self else { return }
             self.isCleaning = false
             let moved = report.succeeded.count
-            var text = report.dryRun ? "Chạy thử: \(moved) mục sẽ được chuyển vào Thùng rác." : "Đã chuyển \(moved) mục (\(report.estimatedFreed.formatted)) vào Thùng rác."
-            if !report.failed.isEmpty { text += " \(report.failed.count) mục lỗi." }
-            if !report.skipped.isEmpty { text += " \(report.skipped.count) mục bị bỏ qua." }
+            var text = report.dryRun ? String(localized: "Chạy thử: \(moved) mục sẽ được chuyển vào Thùng rác.") : String(localized: "Đã chuyển \(moved) mục (\(report.estimatedFreed.formatted)) vào Thùng rác.")
+            if !report.failed.isEmpty { text += String(localized: " \(report.failed.count) mục lỗi.") }
+            if !report.skipped.isEmpty { text += String(localized: " \(report.skipped.count) mục bị bỏ qua.") }
             self.notice = text
             self.selection = []
             if !report.dryRun { self.enqueueRefresh(SpaceLensCleaner.affectedDirectories(of: report)) }

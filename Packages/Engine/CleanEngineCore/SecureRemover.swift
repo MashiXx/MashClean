@@ -72,7 +72,7 @@ public enum SecureRemover {
         if let code = outcome.firstError {
             if outcome.removedCount > 0 && code != EPERM && code != EACCES {
                 // Xoá được một phần: vẫn tính dung lượng đã giải phóng nhưng báo lỗi
-                return RemoveResult(path: path, outcome: .failed(code: code, message: "Xoá một phần: \(String(cString: strerror(code))) tại \(outcome.firstErrorPath ?? "")"), freedBytes: outcome.freedBytes)
+                return RemoveResult(path: path, outcome: .failed(code: code, message: String(localized: "Xoá một phần: \(String(cString: strerror(code))) tại \(outcome.firstErrorPath ?? "")")), freedBytes: outcome.freedBytes)
             }
             var r = result(for: code, path: path, flags: st.st_flags)
             r.freedBytes = outcome.freedBytes

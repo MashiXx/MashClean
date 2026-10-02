@@ -17,15 +17,15 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
     var title: String {
         switch self {
         case .smartScan: "Smart Scan"
-        case .systemJunk: "Rác hệ thống"
-        case .largeOldFiles: "File lớn & cũ"
-        case .duplicates: "File trùng lặp"
-        case .uninstaller: "Gỡ cài đặt"
+        case .systemJunk: String(localized: "Rác hệ thống")
+        case .largeOldFiles: String(localized: "File lớn & cũ")
+        case .duplicates: String(localized: "File trùng lặp")
+        case .uninstaller: String(localized: "Gỡ cài đặt")
         case .loginItems: "Login Items"
-        case .maintenance: "Bảo trì"
+        case .maintenance: String(localized: "Bảo trì")
         case .spaceLens: "Space Lens"
-        case .history: "Lịch sử"
-        case .diagnostics: "Báo cáo lỗi"
+        case .history: String(localized: "Lịch sử")
+        case .diagnostics: String(localized: "Báo cáo lỗi")
         }
     }
 
@@ -46,11 +46,11 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
 
     static let sections: [(String, [SidebarItem])] = [
         ("", [.smartScan]),
-        ("Dọn dẹp", [.systemJunk, .largeOldFiles, .duplicates]),
-        ("Ứng dụng", [.uninstaller, .loginItems]),
-        ("Tốc độ", [.maintenance]),
-        ("Dung lượng", [.spaceLens]),
-        ("Khác", [.history, .diagnostics]),
+        (String(localized: "Dọn dẹp"), [.systemJunk, .largeOldFiles, .duplicates]),
+        (String(localized: "Ứng dụng"), [.uninstaller, .loginItems]),
+        (String(localized: "Tốc độ"), [.maintenance]),
+        (String(localized: "Dung lượng"), [.spaceLens]),
+        (String(localized: "Khác"), [.history, .diagnostics]),
     ]
 
     init?(feature: FeatureID) {

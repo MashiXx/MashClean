@@ -6,8 +6,8 @@ import SweepCore
 
 /// Nhãn trên node file trùng lặp.
 public enum DuplicateBadges {
-    public static let keep = "Nên giữ"
-    public static let clone = "Clone APFS: xoá không giải phóng dung lượng"
+    public static let keep = String(localized: "Nên giữ")
+    public static let clone = String(localized: "Clone APFS: xoá không giải phóng dung lượng")
     public static let category = "duplicates"
 }
 
@@ -23,7 +23,7 @@ public final class DuplicateProgressBox: Sendable {
 /// mức `review`, mặc định không chọn (mục 15.2).
 public struct DuplicatesTask: ScanTask {
     public let id: ScanTaskID = "duplicates"
-    public let title = "Tìm file trùng lặp"
+    public let title = String(localized: "Tìm file trùng lặp")
     public let estimatedWeight: Double = 5
     public let roots: [URL]
     public let home: URL
@@ -77,7 +77,7 @@ public struct DuplicatesTask: ScanTask {
             let root = roots.indices.contains(f.candidate.rootIndex) ? roots[f.candidate.rootIndex].path : home.path
             children.append(Node(kind: .file(url), title: url.lastPathComponent,
                                  size: f.isClone ? .zero : ByteCount(f.candidate.allocatedSize), itemCount: 1,
-                                 safety: .review, reason: LocalizedText("Trùng nội dung (SHA-256) với \(group.files.count - 1) file khác"),
+                                 safety: .review, reason: LocalizedText(String(localized: "Trùng nội dung (SHA-256) với \(group.files.count - 1) file khác")),
                                  category: DuplicateBadges.category, removal: .moveToTrash, allowedRoots: [root],
                                  lastAccess: f.candidate.modified, badges: badges))
         }
@@ -87,9 +87,9 @@ public struct DuplicatesTask: ScanTask {
             return ka != kb ? ka : a.title < b.title
         }
         let name = children.first?.title ?? "?"
-        var node = Node.group(LocalizedText("\(name) — \(group.files.count) bản"), icon: "doc.on.doc",
+        var node = Node.group(LocalizedText(String(localized: "\(name) — \(group.files.count) bản")), icon: "doc.on.doc",
                               category: DuplicateBadges.category, children: children, safety: .review)
-        node.reason = LocalizedText("Mỗi bản \(ByteCount(group.size).formatted)")
+        node.reason = LocalizedText(String(localized: "Mỗi bản \(ByteCount(group.size).formatted)"))
         return node
     }
 

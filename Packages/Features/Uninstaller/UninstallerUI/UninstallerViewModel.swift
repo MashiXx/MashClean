@@ -18,9 +18,9 @@ final class UninstallerViewModel: ObservableObject {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .name: "Tên"
-            case .size: "Dung lượng"
-            case .lastUsed: "Lần dùng cuối"
+            case .name: String(localized: "Tên")
+            case .size: String(localized: "Dung lượng")
+            case .lastUsed: String(localized: "Lần dùng cuối")
             }
         }
     }
@@ -31,11 +31,11 @@ final class UninstallerViewModel: ObservableObject {
 
         var title: String {
             switch self {
-            case .all: "Tất cả"
-            case .unused: "Không dùng > 6 tháng"
+            case .all: String(localized: "Tất cả")
+            case .unused: String(localized: "Không dùng > 6 tháng")
             case .appStore: "App Store"
-            case .otherSources: "Nguồn khác"
-            case .checkedOnly: "Đã chọn"
+            case .otherSources: String(localized: "Nguồn khác")
+            case .checkedOnly: String(localized: "Đã chọn")
             case let .vendor(v): UninstallerViewModel.vendorTitle(v)
             }
         }
@@ -279,7 +279,7 @@ final class UninstallerViewModel: ObservableObject {
         // Bước 1 (mục 11.3): tắt app đang chạy, chờ 10 giây, chưa tắt thì hỏi buộc tắt.
         var skipped: [InstalledApp] = []
         for app in apps where AppTerminator.isRunning(app) {
-            phase = .working(title: "Đang tắt \(app.name)…", progress: 0, item: app.name, freed: .zero)
+            phase = .working(title: String(localized: "Đang tắt \(app.name)…"), progress: 0, item: app.name, freed: .zero)
             if await AppTerminator.terminate(app, timeout: 10) { continue }
             let force = await askForceQuit(app)
             if force, await AppTerminator.forceTerminate(app) { continue }
@@ -296,7 +296,7 @@ final class UninstallerViewModel: ObservableObject {
             return
         }
 
-        let title = confirmation.resetOnly ? "Đang đặt lại \(apps.first?.name ?? "")…" : "Đang gỡ cài đặt…"
+        let title = confirmation.resetOnly ? String(localized: "Đang đặt lại \(apps.first?.name ?? "")…") : String(localized: "Đang gỡ cài đặt…")
         phase = .working(title: title, progress: 0, item: "", freed: .zero)
         let confirm: @Sendable (URL) async -> Bool = { [weak self] url in await self?.askPermanentDelete(url) ?? false }
         for await event in services.cleanEngine.execute(plan, dryRun: services.settings.dryRun, confirmPermanentDelete: confirm) {

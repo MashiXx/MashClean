@@ -54,7 +54,7 @@ public struct OrphanedLeftoversTask: ScanTask {
     public let id: ScanTaskID = .orphanedLeftovers
     public let dependencies: [ScanTaskID] = [.installedApps]
     public let estimatedWeight: Double = 2
-    public let title = "File sót của app đã gỡ"
+    public let title = String(localized: "File sót của app đã gỡ")
 
     /// Thư mục con của `~/Library` được xét.
     public static let locations = ["Containers", "Preferences", "Caches", "Application Support", "Saved Application State", "HTTPStorages"]
@@ -64,7 +64,7 @@ public struct OrphanedLeftoversTask: ScanTask {
     public func run(context: ScanContext) async throws -> ScanOutput {
         let installed = context.installedApps
         // Không có danh sách app (quét lỗi) thì mọi thứ trông như file sót: dừng lại cho an toàn.
-        guard !installed.isEmpty else { return ScanOutput(warnings: [ScanWarning(taskID: id, kind: .skipped, message: "Không đọc được danh sách app, bỏ qua tìm file sót")]) }
+        guard !installed.isEmpty else { return ScanOutput(warnings: [ScanWarning(taskID: id, kind: .skipped, message: String(localized: "Không đọc được danh sách app, bỏ qua tìm file sót"))]) }
         let filter = OrphanFilter(installedBundleIDs: installed.map(\.bundleID), knowledge: context.rules.knowledge,
                                   excluded: context.environment.runningBundleIDs)
         let library = URL(fileURLWithPath: context.rules.resolver.resolve("~/Library"))
@@ -84,7 +84,7 @@ public struct OrphanedLeftoversTask: ScanTask {
                       m.exists else { continue }
                 let node = Node(kind: m.isDirectory ? .directory(entry.url, recursive: true) : .file(entry.url), title: "\(sub)/\(entry.name)",
                                 size: ByteCount(m.allocatedSize), itemCount: m.itemCount, safety: .review,
-                                reason: LocalizedText("Không còn app nào có bundle ID \(bundleID) trên máy"),
+                                reason: LocalizedText(String(localized: "Không còn app nào có bundle ID \(bundleID) trên máy")),
                                 category: UninstallerCategory.orphanedLeftovers, removal: .moveToTrash,
                                 allowedRoots: [dir.path], lastAccess: m.lastUse)
                 let key = bundleID.lowercased()
@@ -102,13 +102,13 @@ public struct OrphanedLeftoversTask: ScanTask {
             let bundleID = Self.originalCase(nodes) ?? key
             var g = Node.group(LocalizedText(OrphanFilter.displayName(for: bundleID)), icon: "app.dashed",
                                category: UninstallerCategory.orphanedLeftovers, children: nodes.sorted { $0.size > $1.size }, safety: .review)
-            g.reason = "File sót của app đã gỡ"
+            g.reason = LocalizedText(String(localized: "File sót của app đã gỡ"))
             children.append(g)
         }
         children.sort { $0.size > $1.size }
         var root = Node.group(LocalizedText(["vi": "File sót của app đã gỡ", "en": "Leftovers of Removed Apps"]), icon: "puzzlepiece.extension",
                               category: UninstallerCategory.orphanedLeftovers, children: children, safety: .review)
-        root.reason = "App đã bị xoá nhưng còn để lại dữ liệu. Hãy xem lại trước khi xoá."
+        root.reason = LocalizedText(String(localized: "App đã bị xoá nhưng còn để lại dữ liệu. Hãy xem lại trước khi xoá."))
         return ScanOutput(nodes: [root])
     }
 

@@ -9,6 +9,7 @@ import SmartScanUI
 import SpaceLensUI
 import SweepCore
 import SweepIPC
+import SweepStorage
 import SwiftUI
 import SystemJunkUI
 import UninstallerUI
@@ -52,7 +53,7 @@ struct RootView: View {
                 OnboardingView().environmentObject(holder)
             }
         } else {
-            StartupErrorView(message: holder.startupError ?? "Không rõ lỗi")
+            StartupErrorView(message: holder.startupError ?? String(localized: "Không rõ lỗi"))
         }
     }
 
@@ -93,31 +94,69 @@ struct Sidebar: View {
     @Binding var selection: SidebarItem
     @EnvironmentObject private var holder: AppEnvironmentHolder
     @State private var volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
+    @State private var pendingLanguage: AppLanguage?
 
     var body: some View {
-        // List là vùng cuộn duy nhất của sidebar để macOS tự chừa chỗ cho thanh tiêu đề và nút cửa sổ.
-        List(selection: $selection) {
-            HStack(spacing: 8) {
-                Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 18)).foregroundStyle(.purple)
-                Text("MashClean").font(.system(size: 16, weight: .bold, design: .rounded))
-            }
-            .padding(.vertical, 4)
+        // List đứng đầu để macOS tự chừa chỗ cho thanh tiêu đề và nút cửa sổ; phần dưới nằm ngoài vùng cuộn
+        // (không dùng safeAreaInset vì nội dung cuộn sẽ chui bên dưới và chữ chồng lên nhau).
+        VStack(spacing: 0) {
+            List(selection: $selection) {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 18)).foregroundStyle(.purple)
+                    Text("MashClean").font(.system(size: 16, weight: .bold, design: .rounded))
+                }
+                .padding(.vertical, 4)
 
-            ForEach(SidebarItem.sections, id: \.0) { section in
-                Section(section.0) {
-                    ForEach(section.1) { item in
-                        Label(item.title, systemImage: item.symbol).tag(item)
+                ForEach(SidebarItem.sections, id: \.0) { section in
+                    Section(section.0) {
+                        ForEach(section.1) { item in
+                            Label(item.title, systemImage: item.symbol).tag(item)
+                        }
                     }
                 }
             }
+            .listStyle(.sidebar)
+            Divider()
+            footer
         }
-        .listStyle(.sidebar)
-        .safeAreaInset(edge: .bottom, spacing: 0) { footer }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
         }
         .onReceive(DistributedNotificationCenter.default().publisher(for: MashCleanIdentifiers.didCleanNotification)) { _ in
             volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
+        }
+    }
+
+    /// Đổi ngôn ngữ ngay ở sidebar (cũng có trong Cài đặt và menu bánh răng của thanh menu).
+    private var languageMenu: some View {
+        Menu {
+            ForEach(AppLanguage.allCases) { language in
+                Button {
+                    if language != AppLanguage.current { pendingLanguage = language }
+                } label: {
+                    if language == AppLanguage.current {
+                        Label(language.displayName, systemImage: "checkmark")
+                    } else {
+                        Text(verbatim: language.displayName)
+                    }
+                }
+            }
+        } label: {
+            Label(AppLanguage.current.displayName, systemImage: "globe").font(.caption)
+        }
+        .menuStyle(.borderlessButton)
+        .fixedSize()
+        .help("Ngôn ngữ · Language")
+        .confirmationDialog(
+            "Khởi động lại MashClean để đổi ngôn ngữ? · Restart MashClean to change the language?",
+            isPresented: Binding(get: { pendingLanguage != nil }, set: { if !$0 { pendingLanguage = nil } })
+        ) {
+            Button("Khởi động lại · Restart") {
+                guard let language = pendingLanguage else { return }
+                AppLanguage.select(language)
+                AppRelauncher.restartForLanguageChange()
+            }
+            Button("Huỷ · Cancel", role: .cancel) { pendingLanguage = nil }
         }
     }
 
@@ -127,18 +166,19 @@ struct Sidebar: View {
                 Button {
                     holder.showOnboarding = true
                 } label: {
-                    Label("Cấp Full Disk Access", systemImage: "lock.open").font(.caption)
+                    Label(String(localized: "Cấp Full Disk Access"), systemImage: "lock.open").font(.caption)
                 }
                 .buttonStyle(.link)
             }
             if holder.dryRun {
-                Label("Đang ở chế độ thử", systemImage: "testtube.2").font(.caption).foregroundStyle(.orange)
+                Label(String(localized: "Đang ở chế độ thử"), systemImage: "testtube.2").font(.caption).foregroundStyle(.orange)
             }
+            languageMenu
             if let v = volume {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(v.name).font(.caption.weight(.semibold))
                     ProgressView(value: v.usedFraction).tint(v.usedFraction > 0.9 ? .red : .accentColor)
-                    Text("Còn trống \(ByteCount(v.availableForImportantUsage).formatted) / \(ByteCount(v.totalCapacity).formatted)")
+                    Text(String(localized: "Còn trống \(ByteCount(v.availableForImportantUsage).formatted) / \(ByteCount(v.totalCapacity).formatted)"))
                         .font(.caption2).foregroundStyle(.secondary)
                 }
             }
@@ -153,9 +193,9 @@ struct StartupErrorView: View {
     var body: some View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle.fill").font(.system(size: 48)).foregroundStyle(.orange)
-            Text("MashClean không khởi động được").font(.title2.bold())
+            Text(String(localized: "MashClean không khởi động được")).font(.title2.bold())
             Text(message).foregroundStyle(.secondary).multilineTextAlignment(.center).frame(maxWidth: 480)
-            Text("Thường do bộ rule đi kèm bị hỏng. Hãy cài lại ứng dụng.").font(.caption).foregroundStyle(.secondary)
+            Text(String(localized: "Thường do bộ rule đi kèm bị hỏng. Hãy cài lại ứng dụng.")).font(.caption).foregroundStyle(.secondary)
         }
         .padding(40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

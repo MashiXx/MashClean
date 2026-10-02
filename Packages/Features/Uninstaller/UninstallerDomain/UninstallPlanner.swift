@@ -14,10 +14,10 @@ import UninstallerScanning
 /// App nào được phép gỡ (mục 11.3, 15): không gỡ app hệ thống (/System), app Apple mặc định, hay chính MashClean.
 public enum UninstallPolicy {
     public static func reasonCannotUninstall(_ app: InstalledApp) -> String? {
-        if app.isSystemApp { return "App hệ thống của macOS" }
-        if app.isApple && !app.isAppStore { return "App Apple cài sẵn cùng macOS" }
-        if app.bundleID.hasPrefix("com.mashclean.") { return "Chính MashClean" }
-        if app.url.path.hasPrefix("/Library/Apple/") { return "Thành phần hệ thống" }
+        if app.isSystemApp { return String(localized: "App hệ thống của macOS") }
+        if app.isApple && !app.isAppStore { return String(localized: "App Apple cài sẵn cùng macOS") }
+        if app.bundleID.hasPrefix("com.mashclean.") { return String(localized: "Chính MashClean") }
+        if app.url.path.hasPrefix("/Library/Apple/") { return String(localized: "Thành phần hệ thống") }
         return nil
     }
 
@@ -43,7 +43,7 @@ public struct UninstallPlanner: Sendable {
     /// Node của bundle app: `.custom(.app)` → AppRemover (tắt app, chuyển vào Thùng rác, mục 7.3).
     public static func appBundleNode(_ app: InstalledApp) -> Node {
         Node(kind: .directory(app.url, recursive: true), title: app.url.lastPathComponent, size: app.size, itemCount: 1, safety: .safe,
-             reason: "Chuyển ứng dụng vào Thùng rác", category: "applications", removal: .custom(.app),
+             reason: LocalizedText(String(localized: "Chuyển ứng dụng vào Thùng rác")), category: "applications", removal: .custom(.app),
              allowedRoots: [app.url.deletingLastPathComponent().path], lastAccess: app.lastUsed, icon: "app")
     }
 
@@ -55,7 +55,7 @@ public struct UninstallPlanner: Sendable {
         for confidence in LeftoverConfidence.allCases {
             let items = report.items(confidence)
             guard !items.isEmpty else { continue }
-            var g = Node.group(LocalizedText("Độ tin cậy: \(confidence.title)"), icon: confidence.symbol, category: UninstallerCategory.appLeftovers,
+            var g = Node.group(LocalizedText(String(localized: "Độ tin cậy: \(confidence.title)")), icon: confidence.symbol, category: UninstallerCategory.appLeftovers,
                                children: items.map(\.node), safety: confidence.safety)
             g.reason = LocalizedText(confidence.explanation)
             children.append(g)
@@ -91,11 +91,11 @@ public struct UninstallPlanner: Sendable {
     /// "Đã gỡ Foo, giải phóng 1,2 GB".
     public static func summary(uninstalled: [InstalledApp], report: CleanReport, resetOnly: Bool = false) -> String {
         let freed = report.measuredFreed.map { max($0, report.estimatedFreed) } ?? report.estimatedFreed
-        if report.dryRun { return "Chạy thử: sẽ giải phóng \(report.estimatedFreed.formatted)" }
-        if resetOnly { return "Đã đặt lại app, giải phóng \(freed.formatted)" }
-        guard !uninstalled.isEmpty else { return "Đã xoá file sót, giải phóng \(freed.formatted)" }
-        let names = uninstalled.count <= 3 ? uninstalled.map(\.name).joined(separator: ", ") : "\(uninstalled.count) ứng dụng"
-        return "Đã gỡ \(names), giải phóng \(freed.formatted)"
+        if report.dryRun { return String(localized: "Chạy thử: sẽ giải phóng \(report.estimatedFreed.formatted)") }
+        if resetOnly { return String(localized: "Đã đặt lại app, giải phóng \(freed.formatted)") }
+        guard !uninstalled.isEmpty else { return String(localized: "Đã xoá file sót, giải phóng \(freed.formatted)") }
+        let names = uninstalled.count <= 3 ? uninstalled.map(\.name).joined(separator: ", ") : String(localized: "\(uninstalled.count) ứng dụng")
+        return String(localized: "Đã gỡ \(names), giải phóng \(freed.formatted)")
     }
 }
 

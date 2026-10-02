@@ -72,7 +72,7 @@ public final class RuleUpdater: Sendable {
         do {
             let (data, response) = try await session.data(for: request)
             defaults.set(Date(), forKey: Keys.lastCheck)
-            guard let http = response as? HTTPURLResponse else { return .failed("Phản hồi không phải HTTP") }
+            guard let http = response as? HTTPURLResponse else { return .failed(String(localized: "Phản hồi không phải HTTP")) }
             if http.statusCode == 304 { return .upToDate }
             guard http.statusCode == 200 else { return .failed("HTTP \(http.statusCode)") }
             if let etag = http.value(forHTTPHeaderField: "ETag") { defaults.set(etag, forKey: Keys.etag) }
@@ -83,7 +83,7 @@ public final class RuleUpdater: Sendable {
             if let required = OSVersion(manifest.minApp), required > AppVersion.current { return .appTooOld(required: manifest.minApp) }
             guard let bundleURL = URL(string: manifest.url, relativeTo: manifestURL) else { return .failed("URL bundle sai") }
             let (bundleData, bundleResponse) = try await session.data(from: bundleURL)
-            guard (bundleResponse as? HTTPURLResponse)?.statusCode == 200 else { return .failed("Không tải được bundle") }
+            guard (bundleResponse as? HTTPURLResponse)?.statusCode == 200 else { return .failed(String(localized: "Không tải được bundle")) }
             let snap = try store.install(bundleData, expectedSHA256: manifest.sha256, disabledRules: manifest.disabledRules ?? [])
             return .installed(version: snap.version)
         } catch {

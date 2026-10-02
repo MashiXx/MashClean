@@ -21,9 +21,9 @@ public struct ProcessRunner: Sendable {
 
         public var description: String {
             switch self {
-            case let .notAbsolute(p): "Tool không phải đường dẫn tuyệt đối: \(p)"
-            case let .toolMissing(p): "Không tìm thấy tool: \(p)"
-            case let .launchFailed(m): "Không chạy được tool: \(m)"
+            case let .notAbsolute(p): String(localized: "Tool không phải đường dẫn tuyệt đối: \(p)")
+            case let .toolMissing(p): String(localized: "Không tìm thấy tool: \(p)")
+            case let .launchFailed(m): String(localized: "Không chạy được tool: \(m)")
             }
         }
     }

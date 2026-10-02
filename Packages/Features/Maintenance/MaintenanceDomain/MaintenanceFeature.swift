@@ -28,8 +28,8 @@ public struct MaintenanceFeature: FeatureScanProvider {
     public func summarize(_ nodes: [Node]) -> FeatureSummary {
         let tasks = nodes.flatMap(\.removableLeaves)
         let titles = tasks.map(\.title)
-        return FeatureSummary(featureID: featureID, card: .maintenance, title: "Bảo trì",
-                              subtitle: titles.isEmpty ? "Máy đang ổn, chưa cần bảo trì" : titles.prefix(3).joined(separator: ", "),
+        return FeatureSummary(featureID: featureID, card: .maintenance, title: String(localized: "Bảo trì"),
+                              subtitle: titles.isEmpty ? String(localized: "Máy đang ổn, chưa cần bảo trì") : titles.prefix(3).joined(separator: ", "),
                               bytes: .zero, itemCount: tasks.count)
     }
 
@@ -41,7 +41,7 @@ public struct MaintenanceFeature: FeatureScanProvider {
     /// Xoá một snapshot cục bộ qua Clean Engine (LocalSnapshotRemover → helper `tmutil deletelocalsnapshots`).
     public func snapshotNode(_ snapshot: LocalSnapshot) -> Node {
         Node(kind: .virtual(.localSnapshot(volume: snapshot.volume, date: snapshot.date)), title: "Snapshot \(snapshot.displayDate)",
-             safety: .review, reason: "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu.",
+             safety: .review, reason: LocalizedText(String(localized: "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu.")),
              category: "maintenance", removal: .custom(.localSnapshot), requiresRoot: true)
     }
 }

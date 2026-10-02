@@ -14,6 +14,8 @@ struct OnboardingView: View {
     @State private var helperError: String?
     @State private var menuBar = AppSettings.shared.menuBarEnabled
     @State private var notifications = true
+    @State private var language = AppLanguage.current
+    private let initialLanguage = AppLanguage.current
     private let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
 
     enum Step: Int, CaseIterable {
@@ -47,47 +49,58 @@ struct OnboardingView: View {
         switch step {
         case .welcome:
             VStack(spacing: 18) {
-                FeatureHeader(symbol: "sparkles", title: "Chào mừng đến với MashClean",
-                              subtitle: "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác.")
-                Button("Bắt đầu") { step = holder.hasFullDiskAccess ? .helper : .fullDiskAccess }
-                    .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                FeatureHeader(symbol: "sparkles", title: String(localized: "Chào mừng đến với MashClean"),
+                              subtitle: String(localized: "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác."))
+                Picker("Ngôn ngữ · Language", selection: $language) {
+                    ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
+                }
+                .frame(width: 320)
+                .onChange(of: language) { AppLanguage.select($0) }
+                if language != initialLanguage {
+                    // Đổi ngôn ngữ ngay ở bước đầu: mở lại app, onboarding tiếp tục bằng ngôn ngữ mới.
+                    Button("Khởi động lại · Restart") { GeneralSettings.restartForLanguage() }
+                        .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                } else {
+                    Button(String(localized: "Bắt đầu")) { step = holder.hasFullDiskAccess ? .helper : .fullDiskAccess }
+                        .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                }
             }
         case .fullDiskAccess:
             VStack(spacing: 16) {
-                FeatureHeader(symbol: "lock.shield", title: "Cấp Full Disk Access",
-                              subtitle: "MashClean cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container).")
+                FeatureHeader(symbol: "lock.shield", title: String(localized: "Cấp Full Disk Access"),
+                              subtitle: String(localized: "MashClean cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container)."))
                 VStack(alignment: .leading, spacing: 8) {
-                    guideLine(1, "Bấm \"Mở System Settings\" bên dưới.")
-                    guideLine(2, "Tìm MashClean trong danh sách Full Disk Access và bật công tắc.")
-                    guideLine(3, "Nếu chưa có, bấm dấu + rồi chọn MashClean trong thư mục Applications (hoặc kéo app vào danh sách).")
-                    guideLine(4, "Quay lại đây, MashClean tự nhận ra sau vài giây.")
+                    guideLine(1, String(localized: "Bấm \"Mở System Settings\" bên dưới."))
+                    guideLine(2, String(localized: "Tìm MashClean trong danh sách Full Disk Access và bật công tắc."))
+                    guideLine(3, String(localized: "Nếu chưa có, bấm dấu + rồi chọn MashClean trong thư mục Applications (hoặc kéo app vào danh sách)."))
+                    guideLine(4, String(localized: "Quay lại đây, MashClean tự nhận ra sau vài giây."))
                 }
                 .padding(14)
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.2)))
                 HStack(spacing: 12) {
-                    Button("Bỏ qua") {
+                    Button(String(localized: "Bỏ qua")) {
                         AppSettings.shared.fdaSkipped = true
                         step = .helper
                     }
                     .buttonStyle(GlassButtonStyle())
-                    Button("Mở System Settings") { Permissions.openFullDiskAccessSettings() }
+                    Button(String(localized: "Mở System Settings")) { Permissions.openFullDiskAccessSettings() }
                         .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                 }
-                Text("Bỏ qua thì app chạy ở chế độ hạn chế: chỉ quét những gì đọc được, các nhóm khác hiện nhãn \"Cần Full Disk Access\".")
+                Text(String(localized: "Bỏ qua thì app chạy ở chế độ hạn chế: chỉ quét những gì đọc được, các nhóm khác hiện nhãn \"Cần Full Disk Access\"."))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText).multilineTextAlignment(.center)
             }
         case .helper:
             VStack(spacing: 16) {
-                FeatureHeader(symbol: "gearshape.2", title: "Cài thành phần quản trị",
-                              subtitle: "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ MashClean đã ký, không bao giờ chạy lệnh tuỳ ý.")
+                FeatureHeader(symbol: "gearshape.2", title: String(localized: "Cài thành phần quản trị"),
+                              subtitle: String(localized: "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ MashClean đã ký, không bao giờ chạy lệnh tuỳ ý."))
                 switch holder.helperStatus {
                 case .enabled:
-                    Label("Helper đã sẵn sàng", systemImage: "checkmark.seal.fill").foregroundStyle(.white)
+                    Label(String(localized: "Helper đã sẵn sàng"), systemImage: "checkmark.seal.fill").foregroundStyle(.white)
                 case .requiresApproval:
                     VStack(spacing: 8) {
-                        Text("Hãy bật MashClean trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\").")
+                        Text(String(localized: "Hãy bật MashClean trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")."))
                             .font(Theme.Font.body).foregroundStyle(.white).multilineTextAlignment(.center)
-                        Button("Mở Login Items") { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
+                        Button(String(localized: "Mở Login Items")) { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
                     }
                 default:
                     EmptyView()
@@ -96,24 +109,24 @@ struct OnboardingView: View {
                     Text(helperError).font(Theme.Font.caption).foregroundStyle(Theme.review).multilineTextAlignment(.center)
                 }
                 HStack(spacing: 12) {
-                    Button("Để sau") { step = .done }.buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Để sau")) { step = .done }.buttonStyle(GlassButtonStyle())
                     if holder.helperStatus == .enabled {
-                        Button("Tiếp tục") { step = .done }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                        Button(String(localized: "Tiếp tục")) { step = .done }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                     } else {
-                        Button("Cài helper") { registerHelper() }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                        Button(String(localized: "Cài helper")) { registerHelper() }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                     }
                 }
             }
         case .done:
             VStack(spacing: 18) {
-                FeatureHeader(symbol: "checkmark.circle", title: "Sẵn sàng quét",
-                              subtitle: holder.hasFullDiskAccess ? "Mọi thứ đã sẵn sàng." : "Đang ở chế độ hạn chế. Bạn có thể cấp Full Disk Access sau trong Cài đặt.")
+                FeatureHeader(symbol: "checkmark.circle", title: String(localized: "Sẵn sàng quét"),
+                              subtitle: holder.hasFullDiskAccess ? String(localized: "Mọi thứ đã sẵn sàng.") : String(localized: "Đang ở chế độ hạn chế. Bạn có thể cấp Full Disk Access sau trong Cài đặt."))
                 VStack(alignment: .leading, spacing: 8) {
-                    Toggle("Hiện MashClean trên thanh menu (RAM, CPU, dung lượng trống)", isOn: $menuBar)
-                    Toggle("Cảnh báo khi ổ đĩa sắp đầy", isOn: $notifications)
+                    Toggle(String(localized: "Hiện MashClean trên thanh menu (RAM, CPU, dung lượng trống)"), isOn: $menuBar)
+                    Toggle(String(localized: "Cảnh báo khi ổ đĩa sắp đầy"), isOn: $notifications)
                 }
                 .toggleStyle(.switch).foregroundStyle(.white)
-                Button("Bắt đầu dùng") { finish() }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                Button(String(localized: "Bắt đầu dùng")) { finish() }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
             }
         }
     }
@@ -136,7 +149,7 @@ struct OnboardingView: View {
             holder.helperStatus = try HelperInstaller.ensureRegistered()
             helperError = nil
         } catch {
-            helperError = "Không đăng ký được helper: \(error.localizedDescription). Bản build ký ad-hoc có thể không được launchd chấp nhận; cần ký bằng Developer ID."
+            helperError = String(localized: "Không đăng ký được helper: \(error.localizedDescription). Bản build ký ad-hoc có thể không được launchd chấp nhận; cần ký bằng Developer ID.")
         }
     }
 

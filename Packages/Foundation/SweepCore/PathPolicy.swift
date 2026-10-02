@@ -42,14 +42,14 @@ public struct PathPolicy: Sendable {
 
         public var description: String {
             switch kind {
-            case .notAbsolute: "Đường dẫn không tuyệt đối: \(path)"
-            case let .forbiddenZone(rule): "Nằm trong vùng cấm (\(rule)): \(path)"
-            case let .protectedDirectory(rule): "Thư mục được bảo vệ (\(rule)): \(path)"
-            case .outsideAllowedRoots: "Đường dẫn ra ngoài vùng rule cho phép sau khi giải symlink: \(path)"
-            case .readOnlyVolume: "Nằm trên ổ chỉ đọc hoặc ổ hệ thống: \(path)"
-            case let .notOwnedByUser(owner): "Không thuộc người dùng hiện tại (uid \(owner)): \(path)"
-            case .notInRootAllowlist: "Không nằm trong vùng helper được phép: \(path)"
-            case let .untrustedParent(why): "Thư mục cha không an toàn (\(why)): \(path)"
+            case .notAbsolute: String(localized: "Đường dẫn không tuyệt đối: \(path)")
+            case let .forbiddenZone(rule): String(localized: "Nằm trong vùng cấm (\(rule)): \(path)")
+            case let .protectedDirectory(rule): String(localized: "Thư mục được bảo vệ (\(rule)): \(path)")
+            case .outsideAllowedRoots: String(localized: "Đường dẫn ra ngoài vùng rule cho phép sau khi giải symlink: \(path)")
+            case .readOnlyVolume: String(localized: "Nằm trên ổ chỉ đọc hoặc ổ hệ thống: \(path)")
+            case let .notOwnedByUser(owner): String(localized: "Không thuộc người dùng hiện tại (uid \(owner)): \(path)")
+            case .notInRootAllowlist: String(localized: "Không nằm trong vùng helper được phép: \(path)")
+            case let .untrustedParent(why): String(localized: "Thư mục cha không an toàn (\(why)): \(path)")
             }
         }
 

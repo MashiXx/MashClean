@@ -66,11 +66,11 @@ public struct LaunchdJob: Sendable, Hashable {
     /// Mô tả ngắn khi nào job chạy.
     public var scheduleDescription: String {
         var parts: [String] = []
-        if runAtLoad { parts.append("Chạy khi đăng nhập/khởi động") }
-        if keepAlive { parts.append("Luôn giữ chạy") }
-        if let startInterval { parts.append("Mỗi \(startInterval) giây") }
-        if hasCalendarInterval { parts.append("Theo lịch") }
-        return parts.isEmpty ? "Chạy theo yêu cầu" : parts.joined(separator: " · ")
+        if runAtLoad { parts.append(String(localized: "Chạy khi đăng nhập/khởi động")) }
+        if keepAlive { parts.append(String(localized: "Luôn giữ chạy")) }
+        if let startInterval { parts.append(String(localized: "Mỗi \(startInterval) giây")) }
+        if hasCalendarInterval { parts.append(String(localized: "Theo lịch")) }
+        return parts.isEmpty ? String(localized: "Chạy theo yêu cầu") : parts.joined(separator: " · ")
     }
 }
 

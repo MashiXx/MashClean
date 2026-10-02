@@ -60,7 +60,7 @@ struct SpaceLensPicker: View {
         VStack(spacing: 26) {
             Spacer()
             FeatureHeader(symbol: "circle.circle", title: "Space Lens",
-                          subtitle: "Xem trực quan thư mục nào đang chiếm nhiều dung lượng nhất, đi sâu dần và dọn ngay trên bản đồ.")
+                          subtitle: String(localized: "Xem trực quan thư mục nào đang chiếm nhiều dung lượng nhất, đi sâu dần và dọn ngay trên bản đồ."))
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 220), spacing: 14)], spacing: 14) {
                 ForEach(volumes) { v in
                     Button { onPick(URL(fileURLWithPath: v.mountPoint)) } label: { VolumeCard(volume: v) }
@@ -69,9 +69,9 @@ struct SpaceLensPicker: View {
             }
             .frame(maxWidth: 720)
             HStack(spacing: 12) {
-                Button { onPick(home) } label: { Label("Thư mục người dùng", systemImage: "house") }
+                Button { onPick(home) } label: { Label(String(localized: "Thư mục người dùng"), systemImage: "house") }
                     .buttonStyle(GlassButtonStyle())
-                Button { chooseFolder() } label: { Label("Chọn thư mục…", systemImage: "folder") }
+                Button { chooseFolder() } label: { Label(String(localized: "Chọn thư mục…"), systemImage: "folder") }
                     .buttonStyle(GlassButtonStyle())
             }
             Spacer()
@@ -85,8 +85,8 @@ struct SpaceLensPicker: View {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.allowsMultipleSelection = false
-        panel.prompt = "Quét"
-        panel.message = "Chọn thư mục để xem bản đồ dung lượng"
+        panel.prompt = String(localized: "Quét")
+        panel.message = String(localized: "Chọn thư mục để xem bản đồ dung lượng")
         if panel.runModal() == .OK, let url = panel.url { onPick(url) }
     }
 }
@@ -103,7 +103,7 @@ struct VolumeCard: View {
                     Spacer()
                 }
                 ProgressView(value: volume.usedFraction).tint(.white)
-                Text("Còn trống \(ByteCount(volume.availableForImportantUsage).formatted) / \(ByteCount(volume.totalCapacity).formatted)")
+                Text(String(localized: "Còn trống \(ByteCount(volume.availableForImportantUsage).formatted) / \(ByteCount(volume.totalCapacity).formatted)"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
             }
         }
@@ -122,14 +122,14 @@ struct SpaceLensScanningView: View {
         VStack(spacing: 22) {
             Spacer()
             ProgressView().controlSize(.large).tint(.white)
-            Text("Đang quét \(root.abbreviatingHome)").font(Theme.Font.headline).foregroundStyle(.white)
+            Text(String(localized: "Đang quét \(root.abbreviatingHome)")).font(Theme.Font.headline).foregroundStyle(.white)
             HStack(spacing: 18) {
-                Label("\(progress.items.formatted()) mục", systemImage: "doc.on.doc")
+                Label(String(localized: "\(progress.items.formatted()) mục"), systemImage: "doc.on.doc")
                 Label(ByteCount(progress.bytes).formatted, systemImage: "externaldrive")
             }
             .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).monospacedDigit()
             Spacer()
-            Button("Dừng", action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
+            Button(String(localized: "Dừng"), action: onCancel).buttonStyle(GlassButtonStyle()).keyboardShortcut(.cancelAction)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -145,7 +145,7 @@ struct SpaceLensResultsView: View {
         VStack(spacing: 12) {
             header
             if let notice = model.notice {
-                NoticeBanner(symbol: "info.circle", text: notice, actionTitle: "Đóng") { model.notice = nil }
+                NoticeBanner(symbol: "info.circle", text: notice, actionTitle: String(localized: "Đóng")) { model.notice = nil }
             }
             HStack(spacing: 14) {
                 SunburstChart(model: model)
@@ -156,10 +156,10 @@ struct SpaceLensResultsView: View {
             footer
         }
         .onChange(of: model.pendingPlan != nil) { confirmTrash = $0 }
-        .alert("Chuyển vào Thùng rác?", isPresented: $confirmTrash, presenting: model.pendingPlan) { plan in
-            Button("Huỷ", role: .cancel) { model.pendingPlan = nil }
+        .alert(String(localized: "Chuyển vào Thùng rác?"), isPresented: $confirmTrash, presenting: model.pendingPlan) { plan in
+            Button(String(localized: "Huỷ"), role: .cancel) { model.pendingPlan = nil }
             if !plan.items.isEmpty {
-                Button("Chuyển vào Thùng rác", role: .destructive) { model.confirmTrash() }
+                Button(String(localized: "Chuyển vào Thùng rác"), role: .destructive) { model.confirmTrash() }
             }
         } message: { plan in
             Text(confirmMessage(plan))
@@ -167,9 +167,9 @@ struct SpaceLensResultsView: View {
     }
 
     private func confirmMessage(_ plan: CleanPlan) -> String {
-        var text = "\(plan.items.count) mục, khoảng \(plan.totalSize.formatted). Có thể khôi phục từ Thùng rác hoặc màn Lịch sử."
+        var text = String(localized: "\(plan.items.count) mục, khoảng \(plan.totalSize.formatted). Có thể khôi phục từ Thùng rác hoặc màn Lịch sử.")
         if !plan.blocked.isEmpty {
-            text += "\n\n\(plan.blocked.count) mục bị chặn vì lý do an toàn:\n" + plan.blocked.prefix(5).map { "• \($0.title)" }.joined(separator: "\n")
+            text += String(localized: "\n\n\(plan.blocked.count) mục bị chặn vì lý do an toàn:\n") + plan.blocked.prefix(5).map { "• \($0.title)" }.joined(separator: "\n")
         }
         return text
     }
@@ -195,26 +195,26 @@ struct SpaceLensResultsView: View {
                 }
             }
             Spacer()
-            Text("Quét trong \(String(format: "%.1f", model.scanDuration)) giây").font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
-            Button("Quét lại") { model.scan(URL(fileURLWithPath: model.tree.rootPath)) }.buttonStyle(GlassButtonStyle())
-            Button("Chọn khác", action: model.chooseAnother).buttonStyle(GlassButtonStyle())
+            Text(String(localized: "Quét trong \(String(format: "%.1f", model.scanDuration)) giây")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
+            Button(String(localized: "Quét lại")) { model.scan(URL(fileURLWithPath: model.tree.rootPath)) }.buttonStyle(GlassButtonStyle())
+            Button(String(localized: "Chọn khác"), action: model.chooseAnother).buttonStyle(GlassButtonStyle())
         }
     }
 
     private var footer: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Đã chọn \(ByteCount(model.selectedBytes).formatted)").font(Theme.Font.headline).foregroundStyle(.white)
-                Text("\(model.selection.count) mục · dung lượng là ước tính (APFS clone có thể làm lệch)")
+                Text(String(localized: "Đã chọn \(ByteCount(model.selectedBytes).formatted)")).font(Theme.Font.headline).foregroundStyle(.white)
+                Text(String(localized: "\(model.selection.count) mục · dung lượng là ước tính (APFS clone có thể làm lệch)"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText)
             }
             Spacer()
             if model.services.settings.dryRun { Pill("DRY RUN", color: Theme.review) }
             if model.isCleaning { ProgressView().controlSize(.small) }
-            Button("Hiện trong Finder") { model.revealInFinder(Array(model.selection)) }
+            Button(String(localized: "Hiện trong Finder")) { model.revealInFinder(Array(model.selection)) }
                 .buttonStyle(GlassButtonStyle())
                 .disabled(model.selection.isEmpty)
-            Button("Chuyển vào Thùng rác", action: model.prepareTrash)
+            Button(String(localized: "Chuyển vào Thùng rác"), action: model.prepareTrash)
                 .buttonStyle(PrimaryButtonStyle(accent: SpaceLensView.accent))
                 .disabled(model.selection.isEmpty || model.isCleaning)
         }
@@ -323,7 +323,7 @@ struct SunburstChart: View {
         let title: String
         switch seg.target {
         case let .node(i): title = model.tree.name(of: i)
-        case let .others(_, count): title = "Các mục nhỏ khác (\(count))"
+        case let .others(_, count): title = String(localized: "Các mục nhỏ khác (\(count))")
         }
         return VStack(spacing: 1) {
             Text(title).font(.system(size: 12, weight: .semibold)).lineLimit(1)
@@ -346,14 +346,14 @@ struct SpaceLensList: View {
         let children = model.currentChildren
         let total = max(model.tree.size(of: model.currentIndex), 1)
         VStack(alignment: .leading, spacing: 6) {
-            Text("\(children.count.formatted()) mục").font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).padding(.horizontal, 8)
+            Text(String(localized: "\(children.count.formatted()) mục")).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).padding(.horizontal, 8)
             ScrollView {
                 LazyVStack(spacing: 2) {
                     ForEach(children.prefix(limit), id: \.self) { i in
                         row(i, total: total)
                     }
                     if children.count > limit {
-                        Text("… và \(children.count - limit) mục nhỏ hơn").font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText).padding(6)
+                        Text(String(localized: "… và \(children.count - limit) mục nhỏ hơn")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText).padding(6)
                     }
                 }
                 .padding(4)
@@ -376,8 +376,8 @@ struct SpaceLensList: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 4) {
                     Text(tree.name(of: i)).font(.system(size: 12, weight: .medium)).foregroundStyle(.white).lineLimit(1).truncationMode(.middle)
-                    if flags.contains(.unreadable) { Image(systemName: "lock.fill").font(.system(size: 9)).foregroundStyle(Theme.review).help("Không đọc được (cần Full Disk Access)") }
-                    if flags.contains(.otherVolume) { Image(systemName: "externaldrive").font(.system(size: 9)).foregroundStyle(Theme.tertiaryText).help("Volume khác, không tính") }
+                    if flags.contains(.unreadable) { Image(systemName: "lock.fill").font(.system(size: 9)).foregroundStyle(Theme.review).help(String(localized: "Không đọc được (cần Full Disk Access)")) }
+                    if flags.contains(.otherVolume) { Image(systemName: "externaldrive").font(.system(size: 9)).foregroundStyle(Theme.tertiaryText).help(String(localized: "Volume khác, không tính")) }
                     if flags.contains(.symlink) { Image(systemName: "arrow.turn.up.right").font(.system(size: 9)).foregroundStyle(Theme.tertiaryText) }
                 }
                 GeometryReader { g in
@@ -395,9 +395,9 @@ struct SpaceLensList: View {
         .contentShape(Rectangle())
         .onTapGesture { model.drill(into: i) }
         .contextMenu {
-            Button("Hiện trong Finder") { model.revealInFinder([path]) }
-            Button(model.isSelected(i) ? "Bỏ chọn" : "Chọn") { model.toggle(i) }
-            if isDir { Button("Mở thư mục này") { model.drill(into: i) } }
+            Button(String(localized: "Hiện trong Finder")) { model.revealInFinder([path]) }
+            Button(model.isSelected(i) ? String(localized: "Bỏ chọn") : String(localized: "Chọn")) { model.toggle(i) }
+            if isDir { Button(String(localized: "Mở thư mục này")) { model.drill(into: i) } }
         }
     }
 }

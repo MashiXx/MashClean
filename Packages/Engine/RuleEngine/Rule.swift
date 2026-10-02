@@ -84,7 +84,7 @@ public struct Rule: Sendable, Codable, Hashable, Identifiable {
         reason = try c.decodeIfPresent(LocalizedText.self, forKey: .reason)
         let safetyRaw = try c.decode(String.self, forKey: .safety)
         guard let s = SafetyLevel(ruleValue: safetyRaw) else {
-            throw DecodingError.dataCorruptedError(forKey: .safety, in: c, debugDescription: "safety phải là safe/review/risky, nhận \(safetyRaw)")
+            throw DecodingError.dataCorruptedError(forKey: .safety, in: c, debugDescription: String(localized: "safety phải là safe/review/risky, nhận \(safetyRaw)"))
         }
         safety = s
         removal = try c.decode(RemovalStrategy.self, forKey: .removal)

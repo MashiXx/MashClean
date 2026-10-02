@@ -66,7 +66,7 @@ final class LoginItemsViewModel: ObservableObject {
             do {
                 if on { try await controller.enable(item) } else { try await controller.disable(item) }
             } catch {
-                message = "\(on ? "Không bật được" : "Không tắt được") \(item.label): \(error)"
+                message = "\(on ? String(localized: "Không bật được") : String(localized: "Không tắt được")) \(item.label): \(error)"
             }
             busy.remove(item.id)
             refresh(item)
@@ -81,14 +81,14 @@ final class LoginItemsViewModel: ObservableObject {
             let report = await controller.remove([item], dryRun: dryRun)
             busy.remove(item.id)
             if let failed = report.failed.first, case let .failed(_, msg) = failed.result.outcome {
-                message = "Không xoá được \(item.label): \(msg)"
+                message = String(localized: "Không xoá được \(item.label): \(msg)")
             } else if report.entries.isEmpty {
-                message = "Không xoá được \(item.label): đường dẫn bị chặn bởi chính sách an toàn"
+                message = String(localized: "Không xoá được \(item.label): đường dẫn bị chặn bởi chính sách an toàn")
             } else if !report.dryRun {
                 items.removeAll { $0.id == item.id }
-                message = "Đã xoá \(item.displayName). Plist đã chuyển vào Thùng rác hoặc xoá qua helper."
+                message = String(localized: "Đã xoá \(item.displayName). Plist đã chuyển vào Thùng rác hoặc xoá qua helper.")
             } else {
-                message = "Chạy thử: sẽ xoá \(item.label)"
+                message = String(localized: "Chạy thử: sẽ xoá \(item.label)")
             }
         }
     }
@@ -115,7 +115,7 @@ public struct LoginItemsView: View {
     public static let appearance = FeatureAppearance(
         accent: .maintenance, symbol: "power.circle",
         title: "Login Items",
-        subtitle: "LaunchAgent và Daemon chạy nền: xem của app nào, đang chạy không, tắt tạm hoặc xoá mục hỏng."
+        subtitle: String(localized: "LaunchAgent và Daemon chạy nền: xem của app nào, đang chạy không, tắt tạm hoặc xoá mục hỏng.")
     )
 
     public init(services: ScanServices, feature: LoginItemsFeature) {
@@ -128,7 +128,7 @@ public struct LoginItemsView: View {
             VStack(alignment: .leading, spacing: 14) {
                 header
                 if let message = model.message {
-                    NoticeBanner(symbol: "info.circle", text: message, actionTitle: "Đóng") { model.message = nil }
+                    NoticeBanner(symbol: "info.circle", text: message, actionTitle: String(localized: "Đóng")) { model.message = nil }
                 }
                 modernItemsNotice
                 if model.isLoading && model.items.isEmpty {
@@ -143,10 +143,10 @@ public struct LoginItemsView: View {
         }
         .onAppear { model.loadIfNeeded() }
         .alert(item: $model.pendingRemoval) { item in
-            Alert(title: Text("Xoá \(item.displayName)?"),
-                  message: Text("Gỡ \(item.label) khỏi launchd và \(item.domain == .userAgent ? "chuyển plist vào Thùng rác" : "xoá plist qua helper (cần quyền quản trị)"). App sở hữu có thể tạo lại mục này khi mở."),
-                  primaryButton: .destructive(Text("Xoá")) { model.confirmRemoval(item) },
-                  secondaryButton: .cancel(Text("Huỷ")))
+            Alert(title: Text(String(localized: "Xoá \(item.displayName)?")),
+                  message: Text(String(localized: "Gỡ \(item.label) khỏi launchd và \(item.domain == .userAgent ? String(localized: "chuyển plist vào Thùng rác") : String(localized: "xoá plist qua helper (cần quyền quản trị)")). App sở hữu có thể tạo lại mục này khi mở.")),
+                  primaryButton: .destructive(Text(String(localized: "Xoá"))) { model.confirmRemoval(item) },
+                  secondaryButton: .cancel(Text(String(localized: "Huỷ"))))
         }
     }
 
@@ -154,12 +154,12 @@ public struct LoginItemsView: View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(Self.appearance.title).font(Theme.Font.title).foregroundStyle(.white)
-                Text("\(model.items.count) mục · \(model.runningCount) đang chạy · \(model.brokenCount) hỏng")
+                Text(String(localized: "\(model.items.count) mục · \(model.runningCount) đang chạy · \(model.brokenCount) hỏng"))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Toggle("Chỉ hiện mục hỏng/đã tắt", isOn: $model.showOnlyProblems).toggleStyle(.switch).font(Theme.Font.caption).foregroundStyle(.white)
-            Button("Làm mới", action: model.reload).buttonStyle(GlassButtonStyle()).disabled(model.isLoading)
+            Toggle(String(localized: "Chỉ hiện mục hỏng/đã tắt"), isOn: $model.showOnlyProblems).toggleStyle(.switch).font(Theme.Font.caption).foregroundStyle(.white)
+            Button(String(localized: "Làm mới"), action: model.reload).buttonStyle(GlassButtonStyle()).disabled(model.isLoading)
         }
     }
 
@@ -169,13 +169,13 @@ public struct LoginItemsView: View {
             HStack(spacing: 12) {
                 Image(systemName: "person.crop.circle.badge.checkmark").font(.system(size: 24)).foregroundStyle(.white)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Login item hiện đại").font(Theme.Font.headline).foregroundStyle(.white)
-                    Text("App mở cùng hệ thống và mục \"Cho phép chạy nền\" đăng ký qua SMAppService chỉ quản lý được trong System Settings > General > Login Items.")
+                    Text(String(localized: "Login item hiện đại")).font(Theme.Font.headline).foregroundStyle(.white)
+                    Text(String(localized: "App mở cùng hệ thống và mục \"Cho phép chạy nền\" đăng ký qua SMAppService chỉ quản lý được trong System Settings > General > Login Items."))
                         .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText).lineLimit(2)
                 }
                 // Không dùng fixedSize: khi đo kích thước tối thiểu, chữ bị ép rộng ~0 nên cao vọt và đẩy lệch cả cửa sổ.
                 .frame(maxWidth: .infinity, alignment: .leading)
-                Button("Mở Login Items") { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
+                Button(String(localized: "Mở Login Items")) { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
             }
         }
     }
@@ -193,7 +193,7 @@ public struct LoginItemsView: View {
                             Text("\(rows.count)").font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
                         }
                         if rows.isEmpty {
-                            Text("Không có mục nào").font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText).padding(.vertical, 4)
+                            Text(String(localized: "Không có mục nào")).font(Theme.Font.caption).foregroundStyle(Theme.tertiaryText).padding(.vertical, 4)
                         } else {
                             VStack(spacing: 2) {
                                 ForEach(rows) { item in
@@ -241,21 +241,21 @@ struct LaunchItemRow: View {
             Toggle("", isOn: Binding(get: { item.state.isActive }, set: { onToggle($0) }))
                 .toggleStyle(.switch).labelsHidden()
                 .disabled(!LoginItemsController.canToggle(item) || isBusy || item.isApple)
-                .help(LoginItemsController.toggleUnavailableReason(item) ?? (item.state.isActive ? "Tắt tạm (bootout)" : "Bật lại (bootstrap)"))
+                .help(LoginItemsController.toggleUnavailableReason(item) ?? (item.state.isActive ? String(localized: "Tắt tạm (bootout)") : String(localized: "Bật lại (bootstrap)")))
             Button { NSWorkspace.shared.activateFileViewerSelecting([item.plistURL]) } label: { Image(systemName: "magnifyingglass") }
-                .buttonStyle(.plain).foregroundStyle(Theme.secondaryText).help("Hiện plist trong Finder")
+                .buttonStyle(.plain).foregroundStyle(Theme.secondaryText).help(String(localized: "Hiện plist trong Finder"))
             Button(action: onRemove) { Image(systemName: "trash") }
                 .buttonStyle(.plain).foregroundStyle(item.isApple ? Theme.tertiaryText : Theme.secondaryText)
                 .disabled(item.isApple || isBusy)
-                .help(item.isApple ? "Thành phần của Apple" : "Xoá hẳn: bootout rồi xoá plist")
+                .help(item.isApple ? String(localized: "Thành phần của Apple") : String(localized: "Xoá hẳn: bootout rồi xoá plist"))
         }
         .padding(.horizontal, 8).padding(.vertical, 6)
         .contextMenu {
-            Button("Hiện plist trong Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.plistURL]) }
+            Button(String(localized: "Hiện plist trong Finder")) { NSWorkspace.shared.activateFileViewerSelecting([item.plistURL]) }
             if let exe = item.job.executablePath, item.executableExists == true {
-                Button("Hiện chương trình trong Finder") { NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: exe)]) }
+                Button(String(localized: "Hiện chương trình trong Finder")) { NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: exe)]) }
             }
-            Button("Sao chép label") {
+            Button(String(localized: "Sao chép label")) {
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(item.label, forType: .string)
             }
@@ -264,19 +264,19 @@ struct LaunchItemRow: View {
 
     private var detailLine: String {
         var parts: [String] = []
-        if let owner = item.owner { parts.append(owner.isInstalled ? "Của \(owner.name)" : "Của \(owner.name) (đã gỡ)") }
+        if let owner = item.owner { parts.append(owner.isInstalled ? String(localized: "Của \(owner.name)") : String(localized: "Của \(owner.name) (đã gỡ)")) }
         parts.append(item.job.scheduleDescription)
         return parts.joined(separator: " · ")
     }
 
     @ViewBuilder private var statusPill: some View {
         if item.isBroken {
-            Pill("Hỏng", color: Theme.risky)
+            Pill(String(localized: "Hỏng"), color: Theme.risky)
         } else {
             switch item.state {
-            case .running: Pill("Đang chạy", color: Theme.safe)
-            case .loaded: Pill(item.isDisabled ? "Đã vô hiệu" : "Đã nạp")
-            case .notLoaded: Pill(item.isDisabled ? "Đã vô hiệu" : "Đã tắt", color: Theme.review)
+            case .running: Pill(String(localized: "Đang chạy"), color: Theme.safe)
+            case .loaded: Pill(item.isDisabled ? String(localized: "Đã vô hiệu") : String(localized: "Đã nạp"))
+            case .notLoaded: Pill(item.isDisabled ? String(localized: "Đã vô hiệu") : String(localized: "Đã tắt"), color: Theme.review)
             case .unknown: EmptyView()
             }
         }

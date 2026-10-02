@@ -49,7 +49,7 @@ public struct FileRemover: Remover {
         for item in items {
             if Task.isCancelled { break }
             guard let url = item.url else {
-                results.append(.failed("", errno: EINVAL, "Mục không có đường dẫn"))
+                results.append(.failed("", errno: EINVAL, String(localized: "Mục không có đường dẫn")))
                 continue
             }
             results.append(await removeOne(item, url: url, context: context))
@@ -349,7 +349,7 @@ public struct DockerRemover: Remover {
     public static var dockerPath: String? { candidates.first { ProcessRunner.exists($0) } }
 
     public func remove(_ items: [CleanPlan.Item], context: RemoveContext) async -> [RemoveResult] {
-        guard let docker = Self.dockerPath else { return items.map { _ in .failed("docker", errno: ENOENT, "Không tìm thấy docker CLI") } }
+        guard let docker = Self.dockerPath else { return items.map { _ in .failed("docker", errno: ENOENT, String(localized: "Không tìm thấy docker CLI")) } }
         if context.dryRun { return items.map { _ in .skipped("docker system prune", .dryRun) } }
         do {
             let out = try await ProcessRunner().run(docker, ["system", "prune", "-f"], timeout: 600)

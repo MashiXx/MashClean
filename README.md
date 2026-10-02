@@ -137,6 +137,18 @@ Clean Boost.app
 
 UI strings are written in Vietnamese in code and wrapped in `String(localized:)`. After adding new strings, run `Scripts/l10n/update.sh`: the compiler extracts the keys into `Localization/en.json`. Fill in the empty English values, then run `python3 Scripts/l10n/gen_strings.py` to regenerate the `.lproj` files.
 
+### Two editions
+
+| | Developer ID (`MashClean` scheme) | Mac App Store (`MashCleanAppStore` scheme) |
+|---|---|---|
+| Sandbox | Off | On |
+| Features | All | No Login Items, no Maintenance, no root-only cleanup |
+| File access | Full Disk Access (optional) | Home and Applications folders the user selects (security-scoped bookmarks) |
+| Admin helper, Sparkle | Included | Not included |
+| Distribution | Archive → Distribute App → Direct Distribution (DMG) | Archive → Distribute App → App Store Connect |
+
+Both editions share the same code. At runtime `AppEdition.isAppStore` (true inside the sandbox) hides what the sandbox can't do.
+
 ### Signing and release
 
 Builds are **ad-hoc** signed by default so they run on a development Mac. In that mode the root helper and the Finder extension may not work. To distribute, copy `Config/Signing.local.xcconfig.example` to `Config/Signing.local.xcconfig`, fill in your Team ID and Developer ID certificate, then run `Scripts/release.sh` (build → sign → DMG → notarize → Sparkle appcast).

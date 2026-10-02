@@ -107,13 +107,48 @@ extension URL {
         PathPolicy.canonicalize(standardizedFileURL.path) ?? standardizedFileURL.path
     }
 
-    public static var userHome: URL { URL(fileURLWithPath: NSHomeDirectory()) }
+    /// Thư mục Home thật của người dùng (không phải container khi chạy trong sandbox).
+    public static var userHome: URL { URL(fileURLWithPath: AppEdition.userHomePath, isDirectory: true) }
+
+    /// `~/Library` của chính app: trong sandbox là thư mục Library trong container, ngoài sandbox là `~/Library`.
+    /// Dùng cho dữ liệu riêng của app (log, cache rule, database dự phòng), không dùng để quét.
+    public static var appLibrary: URL {
+        FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first
+            ?? URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library", isDirectory: true)
+    }
+}
+
+/// Phiên bản phát hành: Developer ID (đầy đủ, không sandbox) hoặc Mac App Store (sandbox, ẩn tính năng cần root).
+public enum AppEdition {
+    /// App đang chạy trong App Sandbox (bản Mac App Store, menu bar sandbox, extension).
+    public static let isSandboxed = ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil
+
+    /// Bản Mac App Store: không có helper root, Sparkle, Full Disk Access; truy cập file qua thư mục người dùng cấp.
+    public static var isAppStore: Bool { isSandboxed }
+
+    /// Home thật lấy từ passwd: `NSHomeDirectory()` trả về container khi chạy trong sandbox.
+    public static let userHomePath: String = {
+        if let entry = getpwuid(getuid()), let dir = entry.pointee.pw_dir {
+            let path = String(cString: dir)
+            if !path.isEmpty { return path }
+        }
+        return NSHomeDirectory()
+    }()
 }
 
 extension String {
     /// Mở rộng `~` đầu chuỗi.
-    public var expandingTilde: String { (self as NSString).expandingTildeInPath }
-    public var abbreviatingHome: String { (self as NSString).abbreviatingWithTildeInPath }
+    public var expandingTilde: String {
+        if self == "~" { return AppEdition.userHomePath }
+        if hasPrefix("~/") { return AppEdition.userHomePath + dropFirst() }
+        return self
+    }
+    public var abbreviatingHome: String {
+        let home = AppEdition.userHomePath
+        if self == home { return "~" }
+        if hasPrefix(home + "/") { return "~" + dropFirst(home.count) }
+        return self
+    }
 }
 
 /// Chế độ chạy thử (mục 15.4): chạy toàn bộ luồng nhưng không xoá gì.

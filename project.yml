@@ -173,3 +173,71 @@ targets:
         CODE_SIGN_ENTITLEMENTS: "Extensions/AppIntents/AppIntents$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
         SKIP_INSTALL: YES
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks"
+
+  # Bản Mac App Store: cùng mã nguồn, bật App Sandbox, không nhúng helper root và Sparkle.
+  # Tính năng cần root/launchctl tự ẩn khi chạy trong sandbox (AppEdition.isAppStore).
+  MashCleanAppStore:
+    type: application
+    platform: macOS
+    sources:
+      - path: App/Sources
+      - path: Localization
+        excludes: ["*.json"]
+      - path: App/Resources/Assets.xcassets
+        optional: true
+      - path: App/Resources/Rules
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_NAME: "Clean Boost"
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac
+        INFOPLIST_FILE: App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: "App/MashClean.appstore$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
+        ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+        COMBINE_HIDPI_IMAGES: YES
+    dependencies:
+      - package: MashCleanKit
+        product: MashCleanAppKit
+      - target: MashCleanMenuAppStore
+        embed: true
+        codeSign: true
+        copy:
+          destination: wrapper
+          subpath: Contents/Library/LoginItems
+      - target: MashCleanFinder
+        embed: true
+        codeSign: true
+      - target: MashCleanIntents
+        embed: true
+        codeSign: true
+        copy:
+          destination: wrapper
+          subpath: Contents/Extensions
+    scheme:
+      environmentVariables:
+        MASHCLEAN_DRY_RUN: "0"
+
+  # Menu bar của bản Mac App Store (login item bật sandbox)
+  MashCleanMenuAppStore:
+    type: application
+    platform: macOS
+    sources:
+      - path: MenuBar
+        excludes: ["*.entitlements"]
+      - path: Localization
+        excludes: ["*.json"]
+    settings:
+      base:
+        PRODUCT_NAME: CleanBoostMenu
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac.menu
+        INFOPLIST_FILE: MenuBar/Info.plist
+        CODE_SIGN_ENTITLEMENTS: "MenuBar/MenuBar.appstore$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
+        ENABLE_HARDENED_RUNTIME: YES
+        SKIP_INSTALL: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+    dependencies:
+      - package: MashCleanKit
+        product: MashCleanMenuKit

@@ -66,6 +66,7 @@
 "Băm nhanh đầu và cuối file" = "Băm nhanh đầu và cuối file";
 "Băm toàn bộ (SHA-256)" = "Băm toàn bộ (SHA-256)";
 "Bước %lld/5: %@" = "Bước %lld/5: %@";
+"Bạn có thể cấp quyền thư mục còn thiếu sau trong Cài đặt." = "Bạn có thể cấp quyền thư mục còn thiếu sau trong Cài đặt.";
 "Bản cài iOS cũ" = "Bản cài iOS cũ";
 "Bản sao lưu iOS" = "Bản sao lưu iOS";
 "Bản tải về cũ" = "Bản tải về cũ";
@@ -91,6 +92,7 @@
 "Cache công cụ lập trình" = "Cache công cụ lập trình";
 "Cache hệ thống" = "Cache hệ thống";
 "Cache người dùng" = "Cache người dùng";
+"Cache, log, file lớn, file trùng lặp và file sót của app" = "Cache, log, file lớn, file trùng lặp và file sót của app";
 "Cao" = "Cao";
 "Cho biết ổ khởi động còn trống bao nhiêu." = "Cho biết ổ khởi động còn trống bao nhiêu.";
 "Cho phép thông báo" = "Cho phép thông báo";
@@ -141,12 +143,19 @@
 "Chọn mọi bản trừ bản nên giữ trong mỗi nhóm" = "Chọn mọi bản trừ bản nên giữ trong mỗi nhóm";
 "Chọn một lần dọn để xem chi tiết" = "Chọn một lần dọn để xem chi tiết";
 "Chọn một ứng dụng để xem file sót" = "Chọn một ứng dụng để xem file sót";
+"Chọn thư mục Applications để Clean Boost gỡ cài đặt ứng dụng." = "Chọn thư mục Applications để Clean Boost gỡ cài đặt ứng dụng.";
+"Chọn thư mục Home (%@) để Clean Boost quét cache, log và file lớn của bạn." = "Chọn thư mục Home (%@) để Clean Boost quét cache, log và file lớn của bạn.";
 "Chọn thư mục để xem bản đồ dung lượng" = "Chọn thư mục để xem bản đồ dung lượng";
 "Chọn thư mục…" = "Chọn thư mục…";
 "Chọn tất cả đang hiện" = "Chọn tất cả đang hiện";
 "Chọn từ bản đồ dung lượng" = "Chọn từ bản đồ dung lượng";
 "Chọn tự động" = "Chọn tự động";
 "Chữ ký rule bundle không hợp lệ" = "Chữ ký rule bundle không hợp lệ";
+"Clean Boost" = "Clean Boost";
+"Clean Boost chỉ đọc và dọn trong các thư mục bạn cấp quyền. File luôn được chuyển vào Thùng rác." = "Clean Boost chỉ đọc và dọn trong các thư mục bạn cấp quyền. File luôn được chuyển vào Thùng rác.";
+"Clean Boost cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container)." = "Clean Boost cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container).";
+"Clean Boost không khởi động được" = "Clean Boost không khởi động được";
+"Clean Boost — báo cáo lỗi" = "Clean Boost — báo cáo lỗi";
 "Clone APFS: xoá không giải phóng dung lượng" = "Clone APFS: xoá không giải phóng dung lượng";
 "Con số thực tế có thể thấp hơn do snapshot APFS giữ lại block hoặc file clone." = "Con số thực tế có thể thấp hơn do snapshot APFS giữ lại block hoặc file clone.";
 "Cài / bật" = "Cài / bật";
@@ -164,6 +173,8 @@
 "Cảnh báo khi ổ đĩa sắp đầy" = "Cảnh báo khi ổ đĩa sắp đầy";
 "Cảnh báo khi ổ đĩa sắp đầy (dưới 10% hoặc 10 GB)" = "Cảnh báo khi ổ đĩa sắp đầy (dưới 10% hoặc 10 GB)";
 "Cấp Full Disk Access" = "Cấp Full Disk Access";
+"Cấp quyền" = "Cấp quyền";
+"Cấp quyền thư mục" = "Cấp quyền thư mục";
 "Cần Full Disk Access" = "Cần Full Disk Access";
 "Cần Full Disk Access để đọc %@" = "Cần Full Disk Access để đọc %@";
 "Cần Full Disk Access để đọc bản sao lưu iOS" = "Cần Full Disk Access để đọc bản sao lưu iOS";
@@ -173,6 +184,7 @@
 "Cần helper để quên package receipt" = "Cần helper để quên package receipt";
 "Cần quyền quản trị" = "Cần quyền quản trị";
 "Cần quyền quản trị (%lld)" = "Cần quyền quản trị (%lld)";
+"Cần quyền quản trị, bản Mac App Store không xoá được: %@" = "Cần quyền quản trị, bản Mac App Store không xoá được: %@";
 "Cần xem lại" = "Cần xem lại";
 "Cần xem lại (%lld)" = "Cần xem lại (%lld)";
 "Cập nhật" = "Cập nhật";
@@ -186,12 +198,14 @@
 "Dung lượng" = "Dung lượng";
 "Dung lượng Thùng rác" = "Dung lượng Thùng rác";
 "Dung lượng trống" = "Dung lượng trống";
+"Dung lượng trống trong ${applicationName}" = "Dung lượng trống trong ${applicationName}";
 "Dùng " = "Dùng ";
 "Dưới 100 MB" = "Dưới 100 MB";
 "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn." = "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn.";
 "Dọn dẹp" = "Dọn dẹp";
 "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác." = "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác.";
 "Dọn rác" = "Dọn rác";
+"Dọn rác bằng ${applicationName}" = "Dọn rác bằng ${applicationName}";
 "Dừng" = "Dừng";
 "Dừng quét thư mục ẩn sau %@ mục" = "Dừng quét thư mục ẩn sau %@ mục";
 "Dựng lại Launch Services" = "Dựng lại Launch Services";
@@ -214,6 +228,7 @@
 "Gỡ app cùng toàn bộ file sót: dữ liệu, cache, LaunchAgent, gói cài đặt. Mỗi mục kèm mức tin cậy." = "Gỡ app cùng toàn bộ file sót: dữ liệu, cache, LaunchAgent, gói cài đặt. Mỗi mục kèm mức tin cậy.";
 "Gỡ bằng Clean Boost" = "Gỡ bằng Clean Boost";
 "Gỡ cài đặt" = "Gỡ cài đặt";
+"Gỡ cài đặt ứng dụng" = "Gỡ cài đặt ứng dụng";
 "Gỡ helper" = "Gỡ helper";
 "Gỡ khỏi launchd và chuyển plist vào Thùng rác" = "Gỡ khỏi launchd và chuyển plist vào Thùng rác";
 "Gửi báo cáo lỗi" = "Gửi báo cáo lỗi";
@@ -237,6 +252,7 @@
 "Huỷ" = "Huỷ";
 "Huỷ · Cancel" = "Huỷ · Cancel";
 "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")." = "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\").";
+"Hãy thoát %@ để tiếp tục gỡ…" = "Hãy thoát %@ để tiếp tục gỡ…";
 "Hãy tắt Mail trước khi tối ưu" = "Hãy tắt Mail trước khi tối ưu";
 "Hãy tắt Mail trước." = "Hãy tắt Mail trước.";
 "Hỏng" = "Hỏng";
@@ -262,6 +278,7 @@
 "Không có file lớn hoặc cũ" = "Không có file lớn hoặc cũ";
 "Không có file trùng lặp" = "Không có file trùng lặp";
 "Không có mục nào" = "Không có mục nào";
+"Không có quyền đọc" = "Không có quyền đọc";
 "Không có rác an toàn để dọn" = "Không có rác an toàn để dọn";
 "Không có snapshot cục bộ." = "Không có snapshot cục bộ.";
 "Không dùng > 1 năm" = "Không dùng > 1 năm";
@@ -335,10 +352,6 @@
 "Lớn bất thường" = "Lớn bất thường";
 "Lớn hơn %@" = "Lớn hơn %@";
 "MB" = "MB";
-"Clean Boost" = "Clean Boost";
-"Clean Boost cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container)." = "Clean Boost cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container).";
-"Clean Boost không khởi động được" = "Clean Boost không khởi động được";
-"Clean Boost — báo cáo lỗi" = "Clean Boost — báo cáo lỗi";
 "Memory pressure bình thường." = "Memory pressure bình thường.";
 "Memory pressure đang ở mức %@." = "Memory pressure đang ở mức %@.";
 "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với Clean Boost." = "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với Clean Boost.";
@@ -357,11 +370,12 @@
 "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý." = "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý.";
 "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng." = "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng.";
 "Một số nhóm cần Full Disk Access để quét đầy đủ." = "Một số nhóm cần Full Disk Access để quét đầy đủ.";
+"Một số thư mục được macOS bảo vệ nên không quét được trong bản này." = "Một số thư mục được macOS bảo vệ nên không quét được trong bản này.";
 "Mở" = "Mở";
-"Mở Login Items" = "Mở Login Items";
 "Mở Clean Boost" = "Mở Clean Boost";
 "Mở Clean Boost và chạy Smart Scan." = "Mở Clean Boost và chạy Smart Scan.";
 "Mở Clean Boost và quét rác hệ thống." = "Mở Clean Boost và quét rác hệ thống.";
+"Mở Login Items" = "Mở Login Items";
 "Mở System Settings" = "Mở System Settings";
 "Mở cài đặt" = "Mở cài đặt";
 "Mở thư mục dữ liệu" = "Mở thư mục dữ liệu";
@@ -399,6 +413,7 @@
 "Quay lại đây, Clean Boost tự nhận ra sau vài giây." = "Quay lại đây, Clean Boost tự nhận ra sau vài giây.";
 "Quyền" = "Quyền";
 "Quyền riêng tư" = "Quyền riêng tư";
+"Quyền truy cập thư mục" = "Quyền truy cập thư mục";
 "Quét" = "Quét";
 "Quét lại" = "Quét lại";
 "Quét lại danh sách app" = "Quét lại danh sách app";
@@ -415,6 +430,7 @@
 "Sao chép label" = "Sao chép label";
 "Sao chép đường dẫn" = "Sao chép đường dẫn";
 "Smart Scan" = "Smart Scan";
+"Smart Scan trong ${applicationName}" = "Smart Scan trong ${applicationName}";
 "Snapshot Time Machine cục bộ" = "Snapshot Time Machine cục bộ";
 "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu." = "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu.";
 "Snapshot cục bộ" = "Snapshot cục bộ";
@@ -441,6 +457,8 @@
 "Thùng rác đang chiếm %@. Bấm để dọn dẹp." = "Thùng rác đang chiếm %@. Bấm để dọn dẹp.";
 "Thùng rác đang chiếm nhiều dung lượng" = "Thùng rác đang chiếm nhiều dung lượng";
 "Thư mục" = "Thư mục";
+"Thư mục Applications" = "Thư mục Applications";
+"Thư mục Home" = "Thư mục Home";
 "Thư mục cha không an toàn (%@): %@" = "Thư mục cha không an toàn (%@): %@";
 "Thư mục người dùng" = "Thư mục người dùng";
 "Thư mục phát triển (chưa ký)" = "Thư mục phát triển (chưa ký)";
@@ -500,7 +518,6 @@
 "Xoá vĩnh viễn" = "Xoá vĩnh viễn";
 "Xác nhận dọn dẹp" = "Xác nhận dọn dẹp";
 "action.uninstall" = "Gỡ cài đặt";
-"bản sao" = "bản sao";
 "chuyển plist vào Thùng rác" = "chuyển plist vào Thùng rác";
 "chưa" = "chưa";
 "chưa chọn" = "chưa chọn";
@@ -511,6 +528,7 @@
 "không rõ" = "không rõ";
 "không tìm thấy" = "không tìm thấy";
 "launchctl lỗi %d" = "launchctl lỗi %d";
+"macOS chỉ cho Clean Boost đọc những thư mục bạn chọn. Chọn đúng thư mục được gợi ý trong hộp thoại rồi bấm \"Cấp quyền\"." = "macOS chỉ cho Clean Boost đọc những thư mục bạn chọn. Chọn đúng thư mục được gợi ý trong hộp thoại rồi bấm \"Cấp quyền\".";
 "s" = "s";
 "safety phải là safe/review/risky, nhận %@" = "safety phải là safe/review/risky, nhận %@";
 "t" = "t";

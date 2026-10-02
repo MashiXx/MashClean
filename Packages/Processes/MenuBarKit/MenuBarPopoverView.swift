@@ -158,11 +158,14 @@ public struct MenuBarPopoverView: View {
                 } label: {
                     Label(String(localized: "Dọn rác"), systemImage: "trash.circle").frame(maxWidth: .infinity)
                 }
-                Button {
-                    MenuBarLinks.open(MenuBarLinks.freeRAM)
-                    onAction()
-                } label: {
-                    Label(String(localized: "Giải phóng RAM"), systemImage: "memorychip").frame(maxWidth: .infinity)
+                // Bản Mac App Store không có Bảo trì (giải phóng RAM cần helper root).
+                if !AppEdition.isAppStore {
+                    Button {
+                        MenuBarLinks.open(MenuBarLinks.freeRAM)
+                        onAction()
+                    } label: {
+                        Label(String(localized: "Giải phóng RAM"), systemImage: "memorychip").frame(maxWidth: .infinity)
+                    }
                 }
             }
             .buttonStyle(GlassButtonStyle())

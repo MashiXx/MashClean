@@ -7,6 +7,7 @@ import ScanEngine
 import SharedUI
 import SweepCore
 import SweepLogging
+import SweepPermissions
 import UninstallerDomain
 import UninstallerScanning
 
@@ -277,8 +278,21 @@ final class UninstallerViewModel: ObservableObject {
         var plan = confirmation.plan
         var apps = confirmation.apps
         // Bước 1 (mục 11.3): tắt app đang chạy, chờ 10 giây, chưa tắt thì hỏi buộc tắt.
+        // Bản Mac App Store: cần quyền ghi /Applications trước khi chuyển app vào Thùng rác.
+        if !confirmation.resetOnly, apps.contains(where: { $0.url.path.hasPrefix("/Applications/") }),
+           !FolderAccess.request(.applications) {
+            phase = .browsing
+            return
+        }
         var skipped: [InstalledApp] = []
         for app in apps where AppTerminator.isRunning(app) {
+            if AppEdition.isSandboxed {
+                // Sandbox không cho tắt app khác: nhờ người dùng tự thoát rồi chờ.
+                phase = .working(title: String(localized: "Hãy thoát \(app.name) để tiếp tục gỡ…"), progress: 0, item: app.name, freed: .zero)
+                if await AppTerminator.waitUntilQuit(app, timeout: 60) { continue }
+                skipped.append(app)
+                continue
+            }
             phase = .working(title: String(localized: "Đang tắt \(app.name)…"), progress: 0, item: app.name, freed: .zero)
             if await AppTerminator.terminate(app, timeout: 10) { continue }
             let force = await askForceQuit(app)

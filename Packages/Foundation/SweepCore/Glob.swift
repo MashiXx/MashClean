@@ -16,7 +16,7 @@ public struct Glob: Sendable, Hashable, CustomStringConvertible {
     /// - Parameters:
     ///   - pattern: glob, có thể bắt đầu bằng `~`.
     ///   - home: thư mục home dùng để mở rộng `~` và `${userHome}`.
-    public init(_ pattern: String, home: String = NSHomeDirectory()) {
+    public init(_ pattern: String, home: String = AppEdition.userHomePath) {
         var p = pattern
         if p == "~" { p = home } else if p.hasPrefix("~/") { p = home + p.dropFirst(1) }
         p = p.replacingOccurrences(of: "${userHome}", with: home)
@@ -107,7 +107,7 @@ public struct Glob: Sendable, Hashable, CustomStringConvertible {
 /// Tập glob dùng cho `exclude` (luôn thắng `match`).
 public struct GlobSet: Sendable, Hashable {
     public let globs: [Glob]
-    public init(_ patterns: [String], home: String = NSHomeDirectory()) {
+    public init(_ patterns: [String], home: String = AppEdition.userHomePath) {
         globs = patterns.map { Glob($0, home: home) }
     }
     public init(globs: [Glob]) { self.globs = globs }

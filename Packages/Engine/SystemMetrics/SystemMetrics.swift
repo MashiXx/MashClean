@@ -136,7 +136,7 @@ public enum SystemMetrics {
     // MARK: Thùng rác, uptime
 
     /// Dung lượng `~/.Trash`. Ném lỗi khi không có quyền đọc (cần Full Disk Access trên một số phiên bản macOS).
-    public static func trashSize(home: URL = URL(fileURLWithPath: NSHomeDirectory())) throws -> Int64 {
+    public static func trashSize(home: URL = .userHome) throws -> Int64 {
         let trash = home.appendingPathComponent(".Trash", isDirectory: true)
         // Thử đọc trước để phân biệt "trống" với "không có quyền".
         _ = try FileManager.default.contentsOfDirectory(atPath: trash.path)

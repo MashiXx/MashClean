@@ -1,5 +1,7 @@
 import AppKit
+#if canImport(Sparkle)
 import Sparkle
+#endif
 import SweepCore
 import SweepLogging
 import SweepStorage
@@ -10,7 +12,9 @@ struct MashCleanApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var holder = AppEnvironmentHolder()
     @StateObject private var router = AppRouter()
+    #if canImport(Sparkle)
     private let updater = UpdaterController()
+    #endif
 
     var body: some Scene {
         WindowGroup("Clean Boost", id: "main") {
@@ -21,15 +25,17 @@ struct MashCleanApp: App {
                 .onOpenURL { router.handle($0) }
                 // Deep link đi vào cửa sổ đang mở thay vì mỗi lần tạo thêm một cửa sổ mới.
                 .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
-                .task { await holder.startBackgroundWork(updater: updater) }
+                .task { await holder.startBackgroundWork() }
         }
         .windowToolbarStyle(.unifiedCompact(showsTitle: false))
         .handlesExternalEvents(matching: ["*"])
         .commands {
+            #if canImport(Sparkle)
             CommandGroup(after: .appInfo) {
                 Button(String(localized: "Kiểm tra cập nhật…")) { updater.checkForUpdates() }
                     .disabled(!updater.canCheckForUpdates)
             }
+            #endif
             CommandGroup(replacing: .newItem) {}
             CommandMenu(String(localized: "Quét")) {
                 Button("Smart Scan") { router.open(.smartScan, autoStart: true) }.keyboardShortcut("1", modifiers: [.command])
@@ -90,6 +96,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 }
 
+#if canImport(Sparkle)
 /// Bọc Sparkle 2 (mục 14.1). `Info.plist` cần `SUFeedURL` và `SUPublicEDKey`.
 /// Kênh `stable`/`beta` chọn trong cài đặt: kênh beta thêm `allowedChannels`.
 @MainActor
@@ -110,3 +117,4 @@ final class UpdaterController: NSObject, SPUUpdaterDelegate {
         AppSettings.shared.updateChannel == "beta" ? ["beta"] : []
     }
 }
+#endif

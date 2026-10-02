@@ -50,6 +50,8 @@ public struct UnavailableSimulatorsProvider: JunkProvider {
     }
 
     static func list() async throws -> SimList? {
+        // Sandbox (bản Mac App Store) không chạy được công cụ dòng lệnh của Xcode.
+        guard !AppEdition.isSandboxed else { return nil }
         guard FileManager.default.fileExists(atPath: "/Applications/Xcode.app") || FileManager.default.fileExists(atPath: "/Library/Developer/CommandLineTools") else { return nil }
         guard let out = try? await ProcessRunner().run("/usr/bin/xcrun", ["simctl", "list", "devices", "-j"], timeout: 30), out.succeeded else { return nil }
         return try? JSONDecoder().decode(SimList.self, from: out.stdout)
@@ -93,7 +95,7 @@ public struct DockerProvider: JunkProvider {
     public init() {}
 
     public func nodes(for rule: Rule, context: ScanContext) async throws -> (nodes: [Node], warnings: [ScanWarning]) {
-        guard let docker = DockerRemoverPaths.docker else { return ([], []) }
+        guard !AppEdition.isSandboxed, let docker = DockerRemoverPaths.docker else { return ([], []) }
         // `docker system df` cho biết dung lượng thu hồi được; daemon chưa chạy thì bỏ qua.
         guard let out = try? await ProcessRunner().run(docker, ["system", "df", "--format", "{{.Reclaimable}}"], timeout: 15), out.succeeded else { return ([], []) }
         let reclaimable = out.stdoutString.split(separator: "\n").reduce(Int64(0)) { $0 + Self.parseSize(String($1)) }
@@ -113,7 +115,7 @@ public struct DockerProvider: JunkProvider {
 enum DockerRemoverPaths {
     static var docker: String? {
         ["/usr/local/bin/docker", "/opt/homebrew/bin/docker", "/Applications/Docker.app/Contents/Resources/bin/docker",
-         "\(NSHomeDirectory())/.docker/bin/docker", "\(NSHomeDirectory())/.orbstack/bin/docker"].first { ProcessRunner.exists($0) }
+         "\(AppEdition.userHomePath)/.docker/bin/docker", "\(AppEdition.userHomePath)/.orbstack/bin/docker"].first { ProcessRunner.exists($0) }
     }
 }
 

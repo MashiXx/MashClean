@@ -342,8 +342,8 @@ public struct DockerRemover: Remover {
 
     public static let candidates = [
         "/usr/local/bin/docker", "/opt/homebrew/bin/docker",
-        "/Applications/Docker.app/Contents/Resources/bin/docker", "\(NSHomeDirectory())/.docker/bin/docker",
-        "\(NSHomeDirectory())/.orbstack/bin/docker",
+        "/Applications/Docker.app/Contents/Resources/bin/docker", "\(AppEdition.userHomePath)/.docker/bin/docker",
+        "\(AppEdition.userHomePath)/.orbstack/bin/docker",
     ]
 
     public static var dockerPath: String? { candidates.first { ProcessRunner.exists($0) } }

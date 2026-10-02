@@ -12,7 +12,7 @@ public enum Permissions {
     // MARK: Full Disk Access
 
     /// Thử đọc metadata một đường dẫn được TCC bảo vệ; lỗi `EPERM` nghĩa là chưa có quyền (mục 10.1).
-    public static func hasFullDiskAccess(home: String = NSHomeDirectory()) -> Bool {
+    public static func hasFullDiskAccess(home: String = AppEdition.userHomePath) -> Bool {
         let probes = [
             "\(home)/Library/Safari/Bookmarks.plist",
             "/Library/Application Support/com.apple.TCC/TCC.db",

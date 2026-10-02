@@ -9,6 +9,7 @@ import SmartScanUI
 import SpaceLensUI
 import SweepCore
 import SweepIPC
+import SweepPermissions
 import SweepStorage
 import SwiftUI
 import SystemJunkUI
@@ -162,7 +163,17 @@ struct Sidebar: View {
 
     private var footer: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if !holder.hasFullDiskAccess {
+            if AppEdition.isAppStore {
+                if !holder.missingFolders.isEmpty {
+                    Button {
+                        for folder in holder.missingFolders { FolderAccess.request(folder) }
+                        holder.refreshPermissions()
+                    } label: {
+                        Label(String(localized: "Cấp quyền thư mục"), systemImage: "folder.badge.plus").font(.caption)
+                    }
+                    .buttonStyle(.link)
+                }
+            } else if !holder.hasFullDiskAccess {
                 Button {
                     holder.showOnboarding = true
                 } label: {

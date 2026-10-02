@@ -61,12 +61,15 @@ struct GeneralSettings: View {
                 Stepper(String(localized: "File cũ: không dùng \(oldDays) ngày"), value: $oldDays, in: 30...3650, step: 30)
                 Toggle(String(localized: "Hiện mục rủi ro (ví dụ gói ngôn ngữ)"), isOn: $showRisky)
             }
-            Section(String(localized: "Cập nhật")) {
-                Picker(String(localized: "Kênh cập nhật"), selection: $channel) {
-                    Text(String(localized: "Ổn định")).tag("stable")
-                    Text("Beta").tag("beta")
+            // Bản Mac App Store cập nhật qua App Store, không có kênh beta của Sparkle.
+            if !AppEdition.isAppStore {
+                Section(String(localized: "Cập nhật")) {
+                    Picker(String(localized: "Kênh cập nhật"), selection: $channel) {
+                        Text(String(localized: "Ổn định")).tag("stable")
+                        Text("Beta").tag("beta")
+                    }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
             }
         }
         .formStyle(.grouped)
@@ -87,6 +90,38 @@ struct PermissionSettings: View {
 
     var body: some View {
         Form {
+            if AppEdition.isAppStore { folderAccessSection } else { fullAccessSections }
+            Section(String(localized: "Thông báo")) {
+                Button(String(localized: "Cho phép thông báo")) { Task { await Permissions.requestNotifications() } }
+            }
+            if let message { Text(message).font(.caption).foregroundStyle(.orange) }
+        }
+        .formStyle(.grouped)
+        .onAppear { holder.refreshPermissions() }
+    }
+
+    /// Bản Mac App Store: quyền thư mục do người dùng cấp.
+    private var folderAccessSection: some View {
+        Section(String(localized: "Quyền truy cập thư mục")) {
+            ForEach(FolderAccess.Folder.allCases, id: \.self) { folder in
+                HStack {
+                    statusDot(!holder.missingFolders.contains(folder))
+                    Text(folder.url.path.abbreviatingHome)
+                    Spacer()
+                    if holder.missingFolders.contains(folder) {
+                        Button(String(localized: "Cấp quyền")) {
+                            FolderAccess.request(folder)
+                            holder.refreshPermissions()
+                        }
+                    }
+                }
+            }
+            Text(String(localized: "Clean Boost chỉ đọc và dọn trong các thư mục bạn cấp quyền. File luôn được chuyển vào Thùng rác."))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+    }
+
+    @ViewBuilder private var fullAccessSections: some View {
             Section("Full Disk Access") {
                 HStack {
                     statusDot(holder.hasFullDiskAccess)
@@ -112,13 +147,6 @@ struct PermissionSettings: View {
                 Text(String(localized: "Helper chỉ nhận lệnh có tên từ Clean Boost đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá."))
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Section(String(localized: "Thông báo")) {
-                Button(String(localized: "Cho phép thông báo")) { Task { await Permissions.requestNotifications() } }
-            }
-            if let message { Text(message).font(.caption).foregroundStyle(.orange) }
-        }
-        .formStyle(.grouped)
-        .onAppear { holder.refreshPermissions() }
     }
 
     private var helperText: String {

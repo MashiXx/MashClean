@@ -27,7 +27,8 @@ final class AppEnvironment {
     let storage: Storage?
     let ruleStore: RuleStore
     let fileSystem: FileSystemService
-    let helper: HelperClient
+    /// Bản Mac App Store không có helper root.
+    let helper: HelperClient?
     let scanEngine: ScanEngine
     let cleanEngine: CleanEngine
     let appScanner: AppScanner
@@ -48,6 +49,8 @@ final class AppEnvironment {
     /// Chỉ việc bắt buộc (database, rule đi kèm) chạy trước khi hiện UI (mục 23.1).
     init() throws {
         settings = AppSettings.shared
+        // Bản Mac App Store: mở lại quyền thư mục người dùng đã cấp trước khi có gì đọc file.
+        FolderAccess.restore()
         do {
             storage = try Storage(url: Storage.defaultURL)
         } catch {
@@ -56,7 +59,7 @@ final class AppEnvironment {
         }
         ruleStore = try RuleStore(bundled: RuleStore.defaultBundledURL, cache: RuleStore.defaultCacheDirectory)
         fileSystem = FileSystemService()
-        helper = HelperClient(machServiceName: MashCleanIdentifiers.helperLabel)
+        helper = AppEdition.isAppStore ? nil : HelperClient(machServiceName: MashCleanIdentifiers.helperLabel)
         scanEngine = ScanEngine(fileSystem: fileSystem)
         cleanEngine = CleanEngine(fileSystem: fileSystem, helper: helper, storage: storage)
         let store = ruleStore
@@ -72,7 +75,9 @@ final class AppEnvironment {
         largeOldFiles = LargeOldFilesFeature()
         duplicates = DuplicatesFeature()
         spaceLens = SpaceLensFeature()
-        features = [systemJunk, maintenance, uninstaller, loginItems, largeOldFiles, duplicates, spaceLens]
+        features = AppEdition.isAppStore
+            ? [systemJunk, uninstaller, largeOldFiles, duplicates, spaceLens]
+            : [systemJunk, maintenance, uninstaller, loginItems, largeOldFiles, duplicates, spaceLens]
         smartScan = SmartScanFeature(providers: features)
 
         maintenance.registerRemovers(in: cleanEngine)
@@ -86,6 +91,8 @@ final class AppEnvironmentHolder: ObservableObject {
     @Published private(set) var environment: AppEnvironment?
     @Published private(set) var startupError: String?
     @Published var hasFullDiskAccess = Permissions.hasFullDiskAccess()
+    /// Bản Mac App Store: thư mục còn thiếu quyền (Home, Applications).
+    @Published var missingFolders = FolderAccess.missingFolders
     @Published var helperStatus: HelperStatus = HelperInstaller.status
     @Published var showOnboarding = !AppSettings.shared.onboardingCompleted
     @Published var dryRun = AppSettings.shared.dryRun
@@ -107,7 +114,7 @@ final class AppEnvironmentHolder: ObservableObject {
     }
 
     /// Việc cần mạng hoặc XPC chạy sau khi UI hiện, song song, không chặn UI (mục 23.1).
-    func startBackgroundWork(updater: UpdaterController) async {
+    func startBackgroundWork() async {
         guard !started, let env = environment else { return }
         // Chạy thử trong script build: không đụng login item, helper hay mạng.
         guard ProcessInfo.processInfo.environment["MASHCLEAN_SMOKE_TEST"] == nil else { return }
@@ -121,9 +128,8 @@ final class AppEnvironmentHolder: ObservableObject {
         hasFullDiskAccess = Permissions.hasFullDiskAccess()
         if AppSettings.shared.menuBarEnabled, AppSettings.shared.onboardingCompleted { await MenuBarLoginItem.ensureRunning() }
 
-        async let helperCheck: HelperStatus = env.helper.ensureCompatible()
         async let ruleCheck: Void = checkRuleUpdates(force: false)
-        helperStatus = await helperCheck
+        if let helper = env.helper { helperStatus = await helper.ensureCompatible() }
         _ = await ruleCheck
         await Analytics.shared.flush()
     }
@@ -155,6 +161,7 @@ final class AppEnvironmentHolder: ObservableObject {
 
     func refreshPermissions() {
         hasFullDiskAccess = Permissions.hasFullDiskAccess()
+        missingFolders = FolderAccess.missingFolders
         helperStatus = HelperInstaller.status
     }
 }

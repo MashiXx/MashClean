@@ -123,7 +123,7 @@ public enum AppTerminator {
         return await waitUntilQuit(app, timeout: timeout)
     }
 
-    private static func waitUntilQuit(_ app: InstalledApp, timeout: TimeInterval) async -> Bool {
+    public static func waitUntilQuit(_ app: InstalledApp, timeout: TimeInterval) async -> Bool {
         let deadline = Date().addingTimeInterval(timeout)
         while Date() < deadline {
             if instances(of: app).allSatisfy(\.isTerminated) { return true }

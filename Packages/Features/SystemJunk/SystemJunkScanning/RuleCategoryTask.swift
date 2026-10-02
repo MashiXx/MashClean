@@ -78,7 +78,9 @@ public struct RuleCategoryTask: ScanTask {
 
         let children = groupByApp ? group(leaves, by: apps) : groupByRule(leaves, rules: rules.map(\.rule))
         var root = Node.group(RuleCategory.title(category), icon: RuleCategory.icon(category), category: category, children: children)
-        if !blockedPrefixes.isEmpty { root.badges.append(String(localized: "Cần Full Disk Access")) }
+        if !blockedPrefixes.isEmpty {
+            root.badges.append(AppEdition.isAppStore ? String(localized: "Không có quyền đọc") : String(localized: "Cần Full Disk Access"))
+        }
         return ScanOutput(nodes: [root], warnings: warnings)
     }
 

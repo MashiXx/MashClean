@@ -84,6 +84,10 @@ public final class CleanEngine: Sendable {
                     }
                 }
             }
+            if requiresRoot, helper == nil, let url = node.url ?? URL(string: "item:\(node.id)") {
+                blocked.append(.init(url: url, violation: .init(.needsAdminHelper, path: url.path), title: node.title))
+                continue
+            }
             items.append(CleanPlan.Item(
                 nodeID: node.id, url: node.url, title: node.title, strategy: node.removal, requiresRoot: requiresRoot,
                 expectedSize: node.size, ruleID: node.ruleID, category: node.category, safety: node.safety,

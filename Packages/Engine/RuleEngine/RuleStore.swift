@@ -16,7 +16,7 @@ public struct PathResolver: Sendable, Hashable {
     /// Tiền tố thêm vào trước đường dẫn tuyệt đối (`/Library/...`). Rỗng khi chạy thật.
     public var rootPrefix: String
 
-    public init(home: String = NSHomeDirectory(), rootPrefix: String = "") {
+    public init(home: String = AppEdition.userHomePath, rootPrefix: String = "") {
         self.home = home
         self.rootPrefix = rootPrefix
     }
@@ -73,7 +73,8 @@ public struct RuleSnapshot: Sendable {
 
     public init(version: UInt64, rules: [Rule], knowledge: Knowledge, disabled: Set<RuleID> = [], resolver: PathResolver = .live, source: Source) {
         self.version = version
-        self.rules = rules.map { CompiledRule($0, resolver: resolver) }
+        // Bản Mac App Store không có helper root: bỏ rule cần root ngay từ đầu để không quét/hiện mục không xoá được.
+        self.rules = rules.filter { !(AppEdition.isSandboxed && $0.requiresRoot == true) }.map { CompiledRule($0, resolver: resolver) }
         self.knowledge = knowledge
         self.disabled = disabled
         self.resolver = resolver
@@ -124,7 +125,7 @@ public final class RuleStore: Sendable {
 
     /// Mặc định: `Resources/Rules/rules.bundle` trong app, cache tại `~/Library/Application Support/CleanBoost/Rules/` (mục 12.1).
     public static var defaultCacheDirectory: URL {
-        URL.userHome.appendingPathComponent("Library/Application Support/CleanBoost/Rules", isDirectory: true)
+        URL.appLibrary.appendingPathComponent("Application Support/CleanBoost/Rules", isDirectory: true)
     }
 
     public static var defaultBundledURL: URL? {

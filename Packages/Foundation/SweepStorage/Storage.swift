@@ -116,7 +116,7 @@ public final class Storage: Sendable {
            FileManager.default.isWritableFile(atPath: container.path) {
             return container.appendingPathComponent("cleanboost.sqlite")
         }
-        return URL.userHome.appendingPathComponent("Library/Application Support/CleanBoost/cleanboost.sqlite")
+        return URL.appLibrary.appendingPathComponent("Application Support/CleanBoost/cleanboost.sqlite")
     }
 
     // MARK: Dọn dữ liệu cũ

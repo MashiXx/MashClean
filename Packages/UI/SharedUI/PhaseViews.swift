@@ -199,8 +199,11 @@ public struct ResultsView: View {
     }
 
     private var warningsBanner: some View {
-        let needsFDA = model.warnings.contains { $0.kind == .needsFullDiskAccess }
-        let text = needsFDA ? String(localized: "Một số nhóm cần Full Disk Access để quét đầy đủ.") : String(localized: "\(model.warnings.count) cảnh báo khi quét: ") + model.warnings.prefix(2).map(\.message).joined(separator: "; ")
+        let blocked = model.warnings.contains { $0.kind == .needsFullDiskAccess }
+        // Bản Mac App Store không xin được Full Disk Access: chỉ báo, không có nút mở cài đặt.
+        let needsFDA = blocked && !AppEdition.isAppStore
+        let text = blocked && AppEdition.isAppStore ? String(localized: "Một số thư mục được macOS bảo vệ nên không quét được trong bản này.")
+            : needsFDA ? String(localized: "Một số nhóm cần Full Disk Access để quét đầy đủ.") : String(localized: "\(model.warnings.count) cảnh báo khi quét: ") + model.warnings.prefix(2).map(\.message).joined(separator: "; ")
         return NoticeBanner(text: text, actionTitle: needsFDA ? String(localized: "Mở cài đặt") : nil) {
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")!)
         }

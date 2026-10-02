@@ -44,6 +44,14 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
         }
     }
 
+    /// Bản Mac App Store (sandbox) không có Login Items và Bảo trì: cần `launchctl` và helper root.
+    var isAvailable: Bool {
+        switch self {
+        case .loginItems, .maintenance: !AppEdition.isAppStore
+        default: true
+        }
+    }
+
     static let sections: [(String, [SidebarItem])] = [
         ("", [.smartScan]),
         (String(localized: "Dọn dẹp"), [.systemJunk, .largeOldFiles, .duplicates]),
@@ -51,7 +59,7 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
         (String(localized: "Tốc độ"), [.maintenance]),
         (String(localized: "Dung lượng"), [.spaceLens]),
         (String(localized: "Khác"), [.history, .diagnostics]),
-    ]
+    ].map { ($0.0, $0.1.filter(\.isAvailable)) }.filter { !$0.1.isEmpty }
 
     init?(feature: FeatureID) {
         switch feature {
@@ -88,6 +96,7 @@ final class AppRouter: ObservableObject {
     @Published var maintenanceID = UUID()
 
     func open(_ item: SidebarItem, autoStart: Bool = false) {
+        let item = item.isAvailable ? item : .smartScan
         selection = item
         if autoStart {
             autoStartTarget = item
@@ -125,7 +134,7 @@ final class AppRouter: ObservableObject {
                 uninstallerID = UUID()
             }
             open(.uninstaller)
-        case "maintenance":
+        case "maintenance" where SidebarItem.maintenance.isAvailable:
             maintenanceTask = value("task").flatMap(MaintenanceTaskName.init(rawValue:))
             maintenanceID = UUID()
             open(.maintenance)

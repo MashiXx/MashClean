@@ -30,6 +30,7 @@ public struct PathPolicy: Sendable {
             case notOwnedByUser(owner: uid_t)
             case notInRootAllowlist
             case untrustedParent(String)
+            case needsAdminHelper            // bản Mac App Store không có helper root
         }
 
         public let kind: Kind
@@ -49,6 +50,7 @@ public struct PathPolicy: Sendable {
             case .readOnlyVolume: String(localized: "Nằm trên ổ chỉ đọc hoặc ổ hệ thống: \(path)")
             case let .notOwnedByUser(owner): String(localized: "Không thuộc người dùng hiện tại (uid \(owner)): \(path)")
             case .notInRootAllowlist: String(localized: "Không nằm trong vùng helper được phép: \(path)")
+            case .needsAdminHelper: String(localized: "Cần quyền quản trị, bản Mac App Store không xoá được: \(path)")
             case let .untrustedParent(why): String(localized: "Thư mục cha không an toàn (\(why)): \(path)")
             }
         }
@@ -73,7 +75,7 @@ public struct PathPolicy: Sendable {
 
     // MARK: Khởi tạo
 
-    public static func user(home: URL = URL(fileURLWithPath: NSHomeDirectory()), uid: uid_t = getuid()) -> PathPolicy {
+    public static func user(home: URL = .userHome, uid: uid_t = getuid()) -> PathPolicy {
         PathPolicy(mode: .user(uid: uid), home: Self.canonicalize(home.path) ?? home.path)
     }
 

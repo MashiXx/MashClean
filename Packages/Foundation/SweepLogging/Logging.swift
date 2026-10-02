@@ -33,7 +33,7 @@ public final class FileLog: Sendable {
         } else if getuid() == 0 {
             self.directory = URL(fileURLWithPath: "/Library/Logs/CleanBoost")
         } else {
-            self.directory = URL.userHome.appendingPathComponent("Library/Logs/CleanBoost", isDirectory: true)
+            self.directory = URL.appLibrary.appendingPathComponent("Logs/CleanBoost", isDirectory: true)
         }
         self.processName = processName
     }

@@ -19,7 +19,10 @@ struct OnboardingView: View {
     private let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
 
     enum Step: Int, CaseIterable {
-        case welcome, fullDiskAccess, helper, done
+        case welcome, fullDiskAccess, helper, folderAccess, done
+
+        /// Bản Mac App Store: cấp quyền thư mục thay cho Full Disk Access và helper.
+        static var flow: [Step] { AppEdition.isAppStore ? [.welcome, .folderAccess, .done] : [.welcome, .fullDiskAccess, .helper, .done] }
     }
 
     var body: some View {
@@ -39,7 +42,7 @@ struct OnboardingView: View {
 
     private var stepIndicator: some View {
         HStack(spacing: 8) {
-            ForEach(Step.allCases, id: \.rawValue) { s in
+            ForEach(Step.flow, id: \.rawValue) { s in
                 Capsule().fill(s.rawValue <= step.rawValue ? Color.white : Color.white.opacity(0.25)).frame(width: 36, height: 4)
             }
         }
@@ -61,7 +64,9 @@ struct OnboardingView: View {
                     Button("Khởi động lại · Restart") { GeneralSettings.restartForLanguage() }
                         .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                 } else {
-                    Button(String(localized: "Bắt đầu")) { step = holder.hasFullDiskAccess ? .helper : .fullDiskAccess }
+                    Button(String(localized: "Bắt đầu")) {
+                        step = AppEdition.isAppStore ? .folderAccess : holder.hasFullDiskAccess ? .helper : .fullDiskAccess
+                    }
                         .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                 }
             }
@@ -117,10 +122,26 @@ struct OnboardingView: View {
                     }
                 }
             }
+        case .folderAccess:
+            VStack(spacing: 16) {
+                FeatureHeader(symbol: "folder.badge.person.crop", title: String(localized: "Cấp quyền thư mục"),
+                              subtitle: String(localized: "macOS chỉ cho Clean Boost đọc những thư mục bạn chọn. Chọn đúng thư mục được gợi ý trong hộp thoại rồi bấm \"Cấp quyền\"."))
+                VStack(spacing: 10) {
+                    folderRow(.home, title: String(localized: "Thư mục Home"),
+                              detail: String(localized: "Cache, log, file lớn, file trùng lặp và file sót của app"))
+                    folderRow(.applications, title: String(localized: "Thư mục Applications"),
+                              detail: String(localized: "Gỡ cài đặt ứng dụng"))
+                }
+                .padding(14)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.2)))
+                HStack(spacing: 12) {
+                    Button(String(localized: "Để sau")) { step = .done }.buttonStyle(GlassButtonStyle())
+                    Button(String(localized: "Tiếp tục")) { step = .done }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
+                }
+            }
         case .done:
             VStack(spacing: 18) {
-                FeatureHeader(symbol: "checkmark.circle", title: String(localized: "Sẵn sàng quét"),
-                              subtitle: holder.hasFullDiskAccess ? String(localized: "Mọi thứ đã sẵn sàng.") : String(localized: "Đang ở chế độ hạn chế. Bạn có thể cấp Full Disk Access sau trong Cài đặt."))
+                FeatureHeader(symbol: "checkmark.circle", title: String(localized: "Sẵn sàng quét"), subtitle: doneSubtitle)
                 VStack(alignment: .leading, spacing: 8) {
                     Toggle(String(localized: "Hiện Clean Boost trên thanh menu (RAM, CPU, dung lượng trống)"), isOn: $menuBar)
                     Toggle(String(localized: "Cảnh báo khi ổ đĩa sắp đầy"), isOn: $notifications)
@@ -129,6 +150,35 @@ struct OnboardingView: View {
                 Button(String(localized: "Bắt đầu dùng")) { finish() }.buttonStyle(PrimaryButtonStyle(accent: .smartScan))
             }
         }
+    }
+
+    private var doneSubtitle: String {
+        if AppEdition.isAppStore {
+            return holder.missingFolders.isEmpty ? String(localized: "Mọi thứ đã sẵn sàng.")
+                : String(localized: "Bạn có thể cấp quyền thư mục còn thiếu sau trong Cài đặt.")
+        }
+        return holder.hasFullDiskAccess ? String(localized: "Mọi thứ đã sẵn sàng.")
+            : String(localized: "Đang ở chế độ hạn chế. Bạn có thể cấp Full Disk Access sau trong Cài đặt.")
+    }
+
+    private func folderRow(_ folder: FolderAccess.Folder, title: String, detail: String) -> some View {
+        let granted = !holder.missingFolders.contains(folder)
+        return HStack(spacing: 12) {
+            Image(systemName: granted ? "checkmark.circle.fill" : "folder").font(.system(size: 20)).frame(width: 24)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(Theme.Font.headline)
+                Text(detail).font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
+            }
+            Spacer()
+            if !granted {
+                Button(String(localized: "Cấp quyền")) {
+                    FolderAccess.request(folder)
+                    holder.refreshPermissions()
+                }
+                .buttonStyle(GlassButtonStyle())
+            }
+        }
+        .foregroundStyle(.white)
     }
 
     private func guideLine(_ n: Int, _ text: String) -> some View {

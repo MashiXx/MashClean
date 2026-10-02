@@ -137,6 +137,18 @@ Clean Boost.app
 
 Chuỗi giao diện viết bằng tiếng Việt trong code và bọc bằng `String(localized:)`. Thêm chuỗi mới thì chạy `Scripts/l10n/update.sh`: trình biên dịch trích khoá vào `Localization/en.json`. Điền bản dịch tiếng Anh còn trống rồi chạy `python3 Scripts/l10n/gen_strings.py` để sinh lại các file `.lproj`.
 
+### Hai phiên bản
+
+| | Developer ID (scheme `MashClean`) | Mac App Store (scheme `MashCleanAppStore`) |
+|---|---|---|
+| Sandbox | Tắt | Bật |
+| Tính năng | Đầy đủ | Không có Login Items, Bảo trì, dọn mục cần root |
+| Truy cập file | Full Disk Access (tuỳ chọn) | Thư mục Home và Applications do người dùng chọn (security-scoped bookmark) |
+| Helper quản trị, Sparkle | Có | Không |
+| Phát hành | Archive → Distribute App → Direct Distribution (DMG) | Archive → Distribute App → App Store Connect |
+
+Hai bản dùng chung mã nguồn. Khi chạy, `AppEdition.isAppStore` (đúng khi ở trong sandbox) ẩn những gì sandbox không cho làm.
+
 ### Ký và phát hành
 
 Mặc định build ký **ad-hoc** để chạy trên máy dev. Ở chế độ này helper root và Finder extension có thể không hoạt động. Để phân phối, sao chép `Config/Signing.local.xcconfig.example` thành `Config/Signing.local.xcconfig`, điền Team ID và chứng chỉ Developer ID, rồi chạy `Scripts/release.sh` (build → ký → DMG → notarize → appcast Sparkle).

@@ -4,143 +4,143 @@
 
 # MashClean
 
-**Dọn dẹp Mac an toàn, minh bạch, nhanh.**
+**Clean your Mac safely, transparently, and fast.**
 
-Biết rõ từng byte sắp xoá là gì, thuộc app nào, và vì sao an toàn.
+Know exactly what every byte is before it goes: which app it belongs to, and why it's safe to remove.
 
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-black?logo=apple)
 ![Apple Silicon & Intel](https://img.shields.io/badge/Universal-Apple%20Silicon%20%2B%20Intel-6A3093)
 ![Swift 6](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)
-![Tiếng Việt · English](https://img.shields.io/badge/giao%20di%E1%BB%87n-Ti%E1%BA%BFng%20Vi%E1%BB%87t%20%C2%B7%20English-2BB39B)
+![English · Tiếng Việt](https://img.shields.io/badge/UI-English%20%C2%B7%20Ti%E1%BA%BFng%20Vi%E1%BB%87t-2BB39B)
 
-[English](README.en.md) · **Tiếng Việt**
+**English** · [Tiếng Việt](README.vi.md)
 
-[**⬇️ Tải về**](https://github.com/MashiXx/MashClean/releases/latest)
+[**⬇️ Download**](https://github.com/MashiXx/MashClean/releases/latest)
 
 </div>
 
 ---
 
-## Tải về
+## Download
 
-**[⬇️ Tải MashClean cho macOS](https://github.com/MashiXx/MashClean/releases/latest)** · bản DMG universal, chạy trên Apple Silicon và Intel, yêu cầu macOS 13 trở lên.
+**[⬇️ Download MashClean for macOS](https://github.com/MashiXx/MashClean/releases/latest)** · universal DMG for Apple Silicon and Intel, requires macOS 13 or later.
 
-> Bản hiện tại chưa được ký bằng Developer ID và chưa notarize, nên lần đầu mở macOS sẽ chặn. Cách mở: kéo app vào Applications, mở thử một lần, rồi vào **System Settings → Privacy & Security** và bấm **Open Anyway** (trên macOS 14 trở về trước có thể chuột phải vào app → **Open**). Helper quyền quản trị và menu chuột phải trong Finder có thể chưa hoạt động ở bản này.
+> This build is not yet signed with a Developer ID or notarized, so macOS blocks it the first time. To open it: drag the app to Applications, try opening it once, then go to **System Settings → Privacy & Security** and click **Open Anyway** (on macOS 14 and earlier you can also right-click the app → **Open**). The admin helper and the Finder right-click menu may not work in this build.
 
-## Vì sao là MashClean?
+## Why MashClean?
 
-Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "Dọn ngay". MashClean làm khác:
+Most cleaners hand you one big number and a "Clean Now" button. MashClean does it differently:
 
-- 🔍 **Mọi mục đều giải thích được.** Mỗi đề xuất kèm lý do ("npm sẽ tự tải lại khi cần"), app sở hữu và mức an toàn: *An toàn*, *Cần xem lại*, *Rủi ro*. Chỉ mục an toàn mới được chọn sẵn.
-- 🗑️ **File của bạn đi qua Thùng rác.** File do bạn tạo (bản tải về, file lớn, file trùng) không bao giờ bị xoá thẳng hay tự chọn. Màn **Lịch sử** có nút **Khôi phục** trong 90 ngày.
-- 🛡️ **Có vùng cấm không thể vượt qua.** `/System`, Keychain, iCloud Drive, Ảnh, Tin nhắn và chính các thư mục Documents/Desktop luôn bị chặn, ngay cả khi một rule chỉ tới. Mọi đường dẫn được kiểm tra lại ngay trước khi xoá, chống cả tấn công bằng symlink.
-- ⚡ **Nhanh.** Quét rác cả máy khoảng 290 nghìn file trong ~6 giây trên SSD, nhờ đọc thư mục hàng loạt bằng `getattrlistbulk` và đo song song.
-- 👩‍💻 **Hiểu dân lập trình.** Rác Xcode (DerivedData, simulator hỏng, runtime không dùng), cache npm/yarn/pnpm, Homebrew, pip, Gradle, Maven, CocoaPods, JetBrains, VS Code, Docker…
-- 🌐 **Tiếng Việt và tiếng Anh.** Đổi ngôn ngữ ngay ở sidebar, trong Cài đặt hoặc từ thanh menu.
+- 🔍 **Every item is explained.** Each suggestion comes with a reason ("npm downloads these again when needed"), the app it belongs to, and a safety level: *Safe*, *Review*, or *Risky*. Only safe items are preselected.
+- 🗑️ **Your files go to the Trash.** Files you created (downloads, large files, duplicates) are never deleted outright and never preselected. The **History** screen has a **Restore** button for 90 days.
+- 🛡️ **Some places are simply off-limits.** `/System`, your Keychain, iCloud Drive, Photos, Messages, and the Documents/Desktop folders themselves are always blocked, even if a rule points at them. Every path is checked again right before deletion, including against symlink tricks.
+- ⚡ **Fast.** Scans about 290,000 files of system junk in roughly 6 seconds on an SSD, by reading directories in bulk with `getattrlistbulk` and measuring in parallel.
+- 👩‍💻 **Speaks developer.** Xcode junk (DerivedData, broken simulators, unused runtimes), npm/yarn/pnpm, Homebrew, pip, Gradle, Maven, CocoaPods, JetBrains, VS Code, and Docker caches.
+- 🌐 **English and Vietnamese.** Switch languages from the sidebar, Settings, or the menu bar.
 
-## Tính năng
+## Features
 
-| | Tính năng | Làm gì |
+| | Feature | What it does |
 |---|---|---|
-| ✨ | **Smart Scan** | Một nút quét cả máy, gom kết quả thành 3 thẻ *Dọn dẹp*, *Bảo trì*, *Ứng dụng*. Bấm **Chạy** để làm mọi mục an toàn cùng lúc. |
-| 🧹 | **Rác hệ thống** | Cache, log, báo cáo crash, rác Xcode, cache công cụ lập trình, bản sao lưu iOS, bản cài iOS cũ, Thùng rác (cả ổ ngoài), bản tải về cũ, tệp đính kèm Mail. |
-| 📦 | **Gỡ cài đặt** | Gỡ app kèm file sót, xếp theo độ tin cậy: theo bundle ID, Team ID, tên app, LaunchAgent, package receipt. Tìm cả file sót của app bạn đã kéo vào Thùng rác từ lâu. |
-| 🌀 | **Space Lens** | Bản đồ dung lượng dạng biểu đồ tròn nhiều tầng: bấm để đi sâu vào thư mục, tự cập nhật khi file thay đổi. |
-| 🔧 | **Bảo trì** | Xoá cache DNS, đánh lại chỉ mục Spotlight, giải phóng RAM, chạy script định kỳ, thu gọn snapshot Time Machine, dựng lại Launch Services, tối ưu Mail. Có gợi ý tác vụ nào nên chạy dựa trên tình trạng máy. |
-| ⏻ | **Login Items** | Xem, tắt, xoá LaunchAgent/Daemon; đánh dấu mục **hỏng** khi chương trình của nó không còn tồn tại. |
-| 🐘 | **File lớn & cũ** | Tìm qua Spotlight, lọc theo loại file, dung lượng, lần dùng cuối. |
-| 👯 | **File trùng lặp** | So 3 bước (dung lượng → xxHash3 đầu/cuối file → SHA-256 toàn bộ), bỏ qua bản clone APFS vì xoá chúng không giải phóng gì, gợi ý bản nên giữ. |
-| 📊 | **Thanh menu** | CPU, RAM, tốc độ mạng, dung lượng trống, pin, có biểu đồ nhỏ. Tự chọn chỉ số nào hiện trên thanh menu. Cảnh báo khi ổ sắp đầy hoặc Thùng rác quá lớn. |
-| 🖱️ | **Finder & Shortcuts** | Chuột phải trong Finder: *Phân tích bằng MashClean*, *Gỡ bằng MashClean*. Shortcuts: *Dọn rác*, *Dung lượng trống*. |
+| ✨ | **Smart Scan** | One scan for the whole Mac, summarized as three cards: *Cleanup*, *Maintenance*, *Applications*. Press **Run** to handle every safe item at once. |
+| 🧹 | **System Junk** | Caches, logs, crash reports, Xcode junk, developer tool caches, iOS backups, old iOS installers, the Trash (external drives too), old downloads, Mail attachments. |
+| 📦 | **Uninstaller** | Removes apps along with their leftovers, ranked by confidence: bundle ID, Team ID, app name, LaunchAgents, package receipts. Also finds leftovers from apps you dragged to the Trash long ago. |
+| 🌀 | **Space Lens** | A sunburst map of your disk: click to drill into folders. It updates itself as files change. |
+| 🔧 | **Maintenance** | Flush DNS, reindex Spotlight, free up RAM, run periodic scripts, thin Time Machine local snapshots, rebuild Launch Services, speed up Mail. Suggests which tasks are worth running based on your Mac's current state. |
+| ⏻ | **Login Items** | View, disable, and remove LaunchAgents and LaunchDaemons. Flags items as **broken** when their program no longer exists. |
+| 🐘 | **Large & Old Files** | Finds them through Spotlight; filter by type, size, and last use. |
+| 👯 | **Duplicates** | Compares in three steps (size → xxHash3 of the start and end of each file → full SHA-256). Skips APFS clones, since deleting them frees nothing, and suggests which copy to keep. |
+| 📊 | **Menu bar** | CPU, RAM, network speed, free space, and battery, with small history charts. Choose which numbers show in the menu bar. Alerts you when the disk is almost full or the Trash gets too big. |
+| 🖱️ | **Finder & Shortcuts** | Right-click in Finder: *Analyze with MashClean*, *Uninstall with MashClean*. Shortcuts actions: *Clean Junk*, *Free Space*. |
 
-## An toàn là trên hết
+## Safety first
 
-Chỉ một lần xoá nhầm là mất niềm tin. Vì vậy MashClean được thiết kế để khó xoá nhầm:
+One wrong deletion is enough to lose a user's trust. So MashClean is built to make wrong deletions hard:
 
-1. **Lập kế hoạch trước, xoá sau.** Bạn thấy chính xác những gì sắp xảy ra. Mục cần quyền quản trị hoặc cần xem lại luôn có hộp xác nhận liệt kê chi tiết.
-2. **Helper quyền root bị khoá chặt.** Helper chỉ nhận lệnh có tên cụ thể từ chính MashClean (kiểm tra chữ ký hai chiều), không bao giờ chạy lệnh shell tuỳ ý, và tự kiểm tra lại từng đường dẫn.
-3. **Không đụng thứ đang dùng.** Bỏ qua file đang mở và cache của app đang chạy.
-4. **Không thinning app.** MashClean không cắt bớt binary vì làm vậy phá chữ ký của app. Gói ngôn ngữ chỉ hiện trong mục *Nâng cao* kèm cảnh báo rõ.
-5. **Chế độ thử (dry run).** Chạy toàn bộ luồng mà không xoá gì, để xem trước kết quả.
+1. **Plan first, delete second.** You see exactly what will happen. Anything that needs administrator rights or a second look always gets a confirmation dialog that lists the details.
+2. **A locked-down admin helper.** The privileged helper only accepts named commands from MashClean itself (code signatures are checked in both directions), never runs arbitrary shell commands, and re-checks every path on its own.
+3. **Hands off what's in use.** Open files and caches of running apps are skipped.
+4. **No app thinning.** MashClean doesn't strip binaries, because that breaks an app's code signature. Language files only appear under *Advanced* with a clear warning.
+5. **Dry run mode.** Run the whole flow without deleting anything, to preview the result.
 
-## Tri thức tách khỏi code
+## Knowledge lives outside the code
 
-Phần "biết đường dẫn nào xoá được" nằm trong bộ **111 rule JSON**: 61 rule cho các nhóm rác hệ thống và 50 rule cho file sót của 30 ứng dụng phổ biến (JetBrains, Adobe, Microsoft Office, Chrome, Slack, Zoom, Steam, Battle.net, Docker Desktop…). Bộ rule được:
+Knowing which paths are safe to delete lives in a set of **111 JSON rules**: 61 for system junk categories and 50 for the leftovers of 30 popular apps (JetBrains, Adobe, Microsoft Office, Chrome, Slack, Zoom, Steam, Battle.net, Docker Desktop…). The rule set is:
 
-- **ký Ed25519**, nên không ai sửa được để biến app thành công cụ xoá file tuỳ ý;
-- **cập nhật từ xa** mà không cần cập nhật app, có chống hạ cấp và công tắc tắt khẩn cấp từng rule;
-- **kiểm thử tự động** trên cây thư mục giả lập bằng công cụ `rulepack`.
+- **signed with Ed25519**, so nobody can tamper with it to turn the app into a tool that deletes arbitrary files;
+- **updated remotely** without an app update, with downgrade protection and a kill switch for individual rules;
+- **tested automatically** against mock directory trees with the `rulepack` tool.
 
-## Riêng tư
+## Privacy
 
-- Không gửi gì đi mặc định. Thống kê ẩn danh chỉ bật khi bạn đồng ý, và chỉ gồm số liệu tổng hợp, không bao giờ có đường dẫn hay tên file.
-- Báo cáo lỗi được gom ngay trên máy để bạn xem trước, chỉ gửi khi bạn bấm.
-- Không có SDK bên thứ ba theo dõi người dùng.
+- Nothing is sent by default. Anonymous statistics are only enabled if you opt in, and contain only aggregate numbers, never paths or file names.
+- Problem reports are assembled on your Mac for you to review, and only sent when you click.
+- No third-party tracking SDKs.
 
-## Cài đặt
+## Installation
 
-1. Tải `MashClean-<phiên bản>.dmg` ở trang [Releases](https://github.com/MashiXx/MashClean/releases/latest), mở ra, kéo **MashClean** vào **Applications**.
-2. Mở app và làm theo hướng dẫn lần đầu:
-   - **Ngôn ngữ**: chọn tiếng Việt, tiếng Anh hoặc theo hệ thống.
-   - **Full Disk Access**: để quét được cache và dữ liệu của app khác. Có thể bỏ qua; khi đó app chạy ở chế độ hạn chế và ghi rõ nhóm nào cần quyền.
-   - **Helper quản trị**: để dọn cache hệ thống và chạy tác vụ bảo trì cần root.
-3. Bấm **Quét**.
+1. Download `MashClean-<version>.dmg` from the [Releases](https://github.com/MashiXx/MashClean/releases/latest) page, open it, and drag **MashClean** to **Applications**.
+2. Open the app and follow the first-run guide:
+   - **Language**: pick English, Vietnamese, or follow the system.
+   - **Full Disk Access**: lets MashClean scan caches and other apps' data. You can skip it; the app then runs in limited mode and labels the categories that need it.
+   - **Admin helper**: needed to clean system caches and run maintenance tasks that require root.
+3. Click **Scan**.
 
-Yêu cầu macOS 13 Ventura trở lên, chạy native trên cả Apple Silicon và Intel.
+Requires macOS 13 Ventura or later. Runs natively on both Apple Silicon and Intel.
 
 ---
 
-## Dành cho lập trình viên
+## For developers
 
-MashClean viết bằng Swift 6 (strict concurrency), SwiftUI + AppKit, theo tài liệu thiết kế [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md).
+MashClean is written in Swift 6 (strict concurrency) with SwiftUI and AppKit, following the design document [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md) (in Vietnamese).
 
 ### Build
 
-Cần Xcode 16+ và `brew install xcodegen`.
+Requires Xcode 16+ and `brew install xcodegen`.
 
 ```bash
-Scripts/build-rules.sh        # lint → test → đóng gói → ký → kiểm tra bộ rule
-Scripts/build-app.sh          # sinh Xcode project bằng XcodeGen rồi build (Debug)
-Scripts/build-app.sh Release  # bản Release universal
+Scripts/build-rules.sh        # lint → test → package → sign → verify the rule set
+Scripts/build-app.sh          # generate the Xcode project with XcodeGen, then build (Debug)
+Scripts/build-app.sh Release  # universal Release build
 open .build/DerivedData/Build/Products/Debug/MashClean.app
 ```
 
-Chạy test: `cd Packages && swift test`.
+Run tests: `cd Packages && swift test`.
 
-### Kiến trúc
+### Architecture
 
 ```
 MashClean.app
-├── App chính (quyền người dùng): UI, Scan Engine, Clean Engine
-├── Library/LoginItems/MashCleanMenu.app   thanh menu và giám sát
-├── Library/HelperTools/com.mashclean.helper   helper root (XPC, SMAppService)
-├── PlugIns/MashCleanFinder.appex            menu chuột phải trong Finder
-└── Extensions/MashCleanIntents.appex        Shortcuts
+├── Main app (user privileges): UI, Scan Engine, Clean Engine
+├── Library/LoginItems/MashCleanMenu.app      menu bar and monitoring
+├── Library/HelperTools/com.mashclean.helper   root helper (XPC, SMAppService)
+├── PlugIns/MashCleanFinder.appex             Finder right-click menu
+└── Extensions/MashCleanIntents.appex         Shortcuts
 ```
 
-| Thư mục | Nội dung |
+| Folder | Contents |
 |---|---|
-| `Packages/Foundation` | Model chung, `PathPolicy`, log, database (GRDB), XPC, quyền |
-| `Packages/Engine` | Duyệt file nhanh, cây kết quả, Scan Engine dạng DAG, Rule Engine, Clean Engine |
-| `Packages/Features` | 8 tính năng, mỗi cái chia `Scanning` / `Domain` / `UI` |
-| `Packages/UI` | Design system và màn hình dùng chung |
-| `Rules/` | Nguồn rule JSON; `Tests/Fixtures/rules` là fixture cho `rulepack test` |
-| `Localization/` | `en.json` (bản dịch tiếng Anh, khoá là chuỗi tiếng Việt gốc) và các file `.lproj` sinh tự động |
-| `App/`, `MenuBar/`, `Helper/`, `Extensions/` | Các target Xcode (chỉ entry point và cấu hình) |
-| `Scripts/` | Build, DMG, notarize, phát hành, công cụ bản địa hoá |
+| `Packages/Foundation` | Shared models, `PathPolicy`, logging, database (GRDB), XPC, permissions |
+| `Packages/Engine` | Fast file system walking, result tree, DAG-based Scan Engine, Rule Engine, Clean Engine |
+| `Packages/Features` | 8 features, each split into `Scanning` / `Domain` / `UI` |
+| `Packages/UI` | Design system and shared screens |
+| `Rules/` | JSON rule sources; `Tests/Fixtures/rules` holds the fixtures for `rulepack test` |
+| `Localization/` | `en.json` (English translations keyed by the Vietnamese source strings) and the generated `.lproj` files |
+| `App/`, `MenuBar/`, `Helper/`, `Extensions/` | Xcode targets (entry points and configuration only) |
+| `Scripts/` | Build, DMG, notarization, release, localization tools |
 
-### Bản địa hoá
+### Localization
 
-Chuỗi giao diện viết bằng tiếng Việt trong code và bọc bằng `String(localized:)`. Thêm chuỗi mới thì chạy `Scripts/l10n/update.sh`: trình biên dịch trích khoá vào `Localization/en.json`. Điền bản dịch tiếng Anh còn trống rồi chạy `python3 Scripts/l10n/gen_strings.py` để sinh lại các file `.lproj`.
+UI strings are written in Vietnamese in code and wrapped in `String(localized:)`. After adding new strings, run `Scripts/l10n/update.sh`: the compiler extracts the keys into `Localization/en.json`. Fill in the empty English values, then run `python3 Scripts/l10n/gen_strings.py` to regenerate the `.lproj` files.
 
-### Ký và phát hành
+### Signing and release
 
-Mặc định build ký **ad-hoc** để chạy trên máy dev. Ở chế độ này helper root và Finder extension có thể không hoạt động. Để phân phối, sao chép `Config/Signing.local.xcconfig.example` thành `Config/Signing.local.xcconfig`, điền Team ID và chứng chỉ Developer ID, rồi chạy `Scripts/release.sh` (build → ký → DMG → notarize → appcast Sparkle).
+Builds are **ad-hoc** signed by default so they run on a development Mac. In that mode the root helper and the Finder extension may not work. To distribute, copy `Config/Signing.local.xcconfig.example` to `Config/Signing.local.xcconfig`, fill in your Team ID and Developer ID certificate, then run `Scripts/release.sh` (build → sign → DMG → notarize → Sparkle appcast).
 
-Khoá ký rule nằm ở `Secrets/rules_signing_key.b64` (không commit; trên CI là secret `RULES_SIGNING_KEY`).
+The rule signing key lives in `Secrets/rules_signing_key.b64` (not committed; on CI it is the `RULES_SIGNING_KEY` secret).
 
-### Gỡ lỗi
+### Debugging
 
-- Chế độ thử: biến môi trường `MASHCLEAN_DRY_RUN=1` hoặc menu **Debug → Chế độ thử**.
-- Bản Debug nạp được rule chưa ký từ thư mục nguồn: `MASHCLEAN_RULES_DIR=/path/to/Rules`.
-- Xem log: `log stream --predicate 'subsystem BEGINSWITH "com.mashclean"' --level debug`, file log ở `~/Library/Logs/MashClean/`.
+- Dry run: environment variable `MASHCLEAN_DRY_RUN=1`, or **Debug → Dry run mode** in the menu.
+- Debug builds can load unsigned rules straight from the source folder: `MASHCLEAN_RULES_DIR=/path/to/Rules`.
+- Logs: `log stream --predicate 'subsystem BEGINSWITH "com.mashclean"' --level debug`; log files live in `~/Library/Logs/MashClean/`.

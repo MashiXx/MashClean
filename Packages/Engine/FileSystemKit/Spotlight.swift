@@ -84,7 +84,7 @@ public final class SpotlightQuery {
 /// Theo dõi thay đổi thư mục bằng FSEvents (mục 11.4, 22.3). Độ trễ 1 giây gom nhiều thay đổi thành một lần.
 public final class DirectoryWatcher: @unchecked Sendable {
     private var stream: FSEventStreamRef?
-    private let queue = DispatchQueue(label: "com.mashclean.fsevents", qos: .utility)
+    private let queue = DispatchQueue(label: "com.cleanboost.fsevents", qos: .utility)
     private var box: Unmanaged<CallbackBox>?
 
     public init() {}

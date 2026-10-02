@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build MashClean.app (mục 19): rule → sinh Xcode project → xcodebuild.
+# Build Clean Boost.app (mục 19): rule → sinh Xcode project → xcodebuild.
 # Dùng: Scripts/build-app.sh [Debug|Release]
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -23,7 +23,7 @@ else
     xcodebuild "${ARGS[@]}" build -quiet
 fi
 
-APP="$DERIVED/Build/Products/$CONFIG/MashClean.app"
+APP="$DERIVED/Build/Products/$CONFIG/Clean Boost.app"
 codesign --verify --deep --strict "$APP"
 Scripts/smoke-launch.sh "$APP"
 echo "==> Xong: $APP"

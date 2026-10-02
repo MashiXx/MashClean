@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.mashclean.helper</string>
+	<string>com.cleanboost.mac.helper</string>
 	<key>BundleProgram</key>
-	<string>Contents/Library/HelperTools/com.mashclean.helper</string>
+	<string>Contents/Library/HelperTools/com.cleanboost.mac.helper</string>
 	<key>MachServices</key>
 	<dict>
-		<key>com.mashclean.helper</key>
+		<key>com.cleanboost.mac.helper</key>
 		<true/>
 	</dict>
 	<key>AssociatedBundleIdentifiers</key>
 	<array>
-		<string>com.mashclean.app</string>
+		<string>com.cleanboost.mac</string>
 	</array>
 </dict>
 </plist>

@@ -38,7 +38,7 @@ public struct DiagnosticReport: Sendable {
 
     public var rendered: String {
         var s = """
-        MashClean — báo cáo chẩn đoán
+        Clean Boost — báo cáo chẩn đoán
         Thời điểm: \(ISO8601DateFormatter().string(from: createdAt))
         App: \(appVersion)
         Rule: \(rulesVersion)
@@ -55,7 +55,7 @@ public struct DiagnosticReport: Sendable {
 
     /// Ghi ra file tạm để người dùng đính kèm hoặc xem trước.
     public func write(to directory: URL = FileManager.default.temporaryDirectory) throws -> URL {
-        let url = directory.appendingPathComponent("MashClean-Diagnostics-\(Int(createdAt.timeIntervalSince1970)).txt")
+        let url = directory.appendingPathComponent("CleanBoost-Diagnostics-\(Int(createdAt.timeIntervalSince1970)).txt")
         try rendered.write(to: url, atomically: true, encoding: .utf8)
         return url
     }

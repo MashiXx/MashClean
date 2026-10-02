@@ -11,12 +11,12 @@ import SweepLogging
 import SweepStorage
 import UninstallerScanning
 
-/// App nào được phép gỡ (mục 11.3, 15): không gỡ app hệ thống (/System), app Apple mặc định, hay chính MashClean.
+/// App nào được phép gỡ (mục 11.3, 15): không gỡ app hệ thống (/System), app Apple mặc định, hay chính Clean Boost.
 public enum UninstallPolicy {
     public static func reasonCannotUninstall(_ app: InstalledApp) -> String? {
         if app.isSystemApp { return String(localized: "App hệ thống của macOS") }
         if app.isApple && !app.isAppStore { return String(localized: "App Apple cài sẵn cùng macOS") }
-        if app.bundleID.hasPrefix("com.mashclean.") { return String(localized: "Chính MashClean") }
+        if app.bundleID.hasPrefix("com.cleanboost.") { return String(localized: "Chính Clean Boost") }
         if app.url.path.hasPrefix("/Library/Apple/") { return String(localized: "Thành phần hệ thống") }
         return nil
     }

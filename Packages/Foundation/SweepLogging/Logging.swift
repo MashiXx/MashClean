@@ -2,7 +2,7 @@ import Foundation
 import os
 import SweepCore
 
-/// Logger theo module (mục 17): subsystem `com.mashclean`, category `scan`, `clean`, `helper`, `rules`, `ui`...
+/// Logger theo module (mục 17): subsystem `com.cleanboost`, category `scan`, `clean`, `helper`, `rules`, `ui`...
 /// Không ghi đường dẫn đầy đủ ở mức `info`; dùng `privacy: .private` để macOS che khi xuất log.
 extension Logger {
     public static let scan = Logger(subsystem: MashCleanIdentifiers.logSubsystem, category: "scan")
@@ -16,7 +16,7 @@ extension Logger {
     public static let helper = Logger(subsystem: MashCleanIdentifiers.helperLogSubsystem, category: "xpc")
 }
 
-/// Ghi song song ra file xoay vòng tại `~/Library/Logs/MashClean/` (mục 12.1) để gom khi gửi báo cáo lỗi.
+/// Ghi song song ra file xoay vòng tại `~/Library/Logs/CleanBoost/` (mục 12.1) để gom khi gửi báo cáo lỗi.
 /// Chỉ ghi thông điệp đã lược bỏ đường dẫn chi tiết.
 public final class FileLog: Sendable {
     public static let shared = FileLog()
@@ -24,16 +24,16 @@ public final class FileLog: Sendable {
     public let directory: URL
     private let maxFileSize: UInt64 = 5 * 1024 * 1024
     private let maxFiles = 5
-    private let queue = DispatchQueue(label: "com.mashclean.filelog", qos: .utility)
+    private let queue = DispatchQueue(label: "com.cleanboost.filelog", qos: .utility)
     private let processName: String
 
     public init(directory: URL? = nil, processName: String = ProcessInfo.processInfo.processName) {
         if let directory {
             self.directory = directory
         } else if getuid() == 0 {
-            self.directory = URL(fileURLWithPath: "/Library/Logs/MashClean")
+            self.directory = URL(fileURLWithPath: "/Library/Logs/CleanBoost")
         } else {
-            self.directory = URL.userHome.appendingPathComponent("Library/Logs/MashClean", isDirectory: true)
+            self.directory = URL.userHome.appendingPathComponent("Library/Logs/CleanBoost", isDirectory: true)
         }
         self.processName = processName
     }
@@ -84,8 +84,8 @@ public final class FileLog: Sendable {
         let fm = FileManager.default
         guard let items = try? fm.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey]) else { return [] }
         let cutoff = Date().addingTimeInterval(-interval)
-        // Chỉ log của các tiến trình MashClean (app, menu bar, helper).
-        return items.filter { $0.lastPathComponent.hasPrefix("MashClean") || $0.lastPathComponent.hasPrefix("com.mashclean") }.filter {
+        // Chỉ log của các tiến trình Clean Boost (app, menu bar, helper).
+        return items.filter { $0.lastPathComponent.hasPrefix("Clean Boost") || $0.lastPathComponent.hasPrefix("CleanBoost") || $0.lastPathComponent.hasPrefix("com.cleanboost") }.filter {
             ((try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast) >= cutoff
         }.sorted { $0.lastPathComponent < $1.lastPathComponent }
     }

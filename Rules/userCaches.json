@@ -30,7 +30,7 @@
       "~/Library/Caches/storeassetd",
       "~/Library/Caches/TemporaryItems",
       "~/Library/Caches/MashClean",
-      "~/Library/Caches/com.mashclean.*",
+      "~/Library/Caches/com.cleanboost.*",
       "~/Library/Caches/Homebrew",
       "~/Library/Caches/Yarn",
       "~/Library/Caches/pnpm",
@@ -79,8 +79,8 @@
       "~/Library/Caches/com.apple.*",
       "~/Library/Containers/com.apple.*",
       "~/Library/Caches/CloudKit",
-      "~/Library/Caches/com.mashclean.*",
-      "~/Library/Containers/com.mashclean.*"
+      "~/Library/Caches/com.cleanboost.*",
+      "~/Library/Containers/com.cleanboost.*"
     ]
   },
   {
@@ -111,7 +111,7 @@
     },
     "exclude": [
       "~/Library/HTTPStorages/com.apple.*",
-      "~/Library/HTTPStorages/com.mashclean.*"
+      "~/Library/HTTPStorages/com.cleanboost.*"
     ]
   },
   {

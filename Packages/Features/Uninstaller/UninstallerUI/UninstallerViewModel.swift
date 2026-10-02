@@ -119,7 +119,7 @@ final class UninstallerViewModel: ObservableObject {
         }
     }
 
-    /// Mở thẳng một app (FinderSync "Gỡ bằng MashClean": `mashclean://uninstall?path=...`).
+    /// Mở thẳng một app (FinderSync "Gỡ bằng Clean Boost": `cleanboost://uninstall?path=...`).
     func open(appPath: String) {
         let target = URL(fileURLWithPath: appPath).standardizedFileURL.path
         var app = apps.first { $0.url.standardizedFileURL.path == target }

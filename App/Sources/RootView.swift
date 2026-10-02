@@ -102,8 +102,8 @@ struct Sidebar: View {
         VStack(spacing: 0) {
             List(selection: $selection) {
                 HStack(spacing: 8) {
-                    Image(systemName: "sparkles.rectangle.stack.fill").font(.system(size: 18)).foregroundStyle(.purple)
-                    Text("MashClean").font(.system(size: 16, weight: .bold, design: .rounded))
+                    Image(nsImage: NSImage(named: "AppIcon") ?? NSApp.applicationIconImage).resizable().interpolation(.high).frame(width: 26, height: 26)
+                    Text("Clean Boost").font(.system(size: 16, weight: .bold, design: .rounded))
                 }
                 .padding(.vertical, 4)
 
@@ -148,7 +148,7 @@ struct Sidebar: View {
         .fixedSize()
         .help("Ngôn ngữ · Language")
         .confirmationDialog(
-            "Khởi động lại MashClean để đổi ngôn ngữ? · Restart MashClean to change the language?",
+            "Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?",
             isPresented: Binding(get: { pendingLanguage != nil }, set: { if !$0 { pendingLanguage = nil } })
         ) {
             Button("Khởi động lại · Restart") {
@@ -193,7 +193,7 @@ struct StartupErrorView: View {
     var body: some View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle.fill").font(.system(size: 48)).foregroundStyle(.orange)
-            Text(String(localized: "MashClean không khởi động được")).font(.title2.bold())
+            Text(String(localized: "Clean Boost không khởi động được")).font(.title2.bold())
             Text(message).foregroundStyle(.secondary).multilineTextAlignment(.center).frame(maxWidth: 480)
             Text(String(localized: "Thường do bộ rule đi kèm bị hỏng. Hãy cài lại ứng dụng.")).font(.caption).foregroundStyle(.secondary)
         }

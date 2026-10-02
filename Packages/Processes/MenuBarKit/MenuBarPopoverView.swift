@@ -52,7 +52,7 @@ public struct MenuBarPopoverView: View {
                 .frame(width: 32, height: 32)
                 .background(Circle().fill(Color.white.opacity(0.18)))
             VStack(alignment: .leading, spacing: 1) {
-                Text("MashClean").font(Theme.Font.headline)
+                Text("Clean Boost").font(Theme.Font.headline)
                 Text(String(localized: "Đã bật máy \(Self.duration(model.snapshot.uptime))"))
                     .font(Theme.Font.caption).foregroundStyle(Theme.secondaryText)
             }
@@ -213,7 +213,7 @@ public struct MenuBarPopoverView: View {
                 MenuBarLinks.openMainApp()
                 onAction()
             } label: {
-                Label(String(localized: "Mở MashClean"), systemImage: "macwindow")
+                Label(String(localized: "Mở Clean Boost"), systemImage: "macwindow")
             }
             .buttonStyle(GlassButtonStyle())
             Spacer()

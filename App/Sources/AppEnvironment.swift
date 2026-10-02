@@ -112,7 +112,7 @@ final class AppEnvironmentHolder: ObservableObject {
         // Chạy thử trong script build: không đụng login item, helper hay mạng.
         guard ProcessInfo.processInfo.environment["MASHCLEAN_SMOKE_TEST"] == nil else { return }
         started = true
-        Log.info(.ui, "app", "Khởi động MashClean \(AppVersion.current), rule \(rulesVersion)")
+        Log.info(.ui, "app", "Khởi động Clean Boost \(AppVersion.current), rule \(rulesVersion)")
 
         // Dọn dữ liệu cũ: clean_item_log 90 ngày, scan_session 1 năm (mục 12.2).
         if let storage = env.storage {

@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="128" alt="MashClean">
+<img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="128" alt="Clean Boost">
 
-# MashClean
+# Clean Boost
 
 **Dọn dẹp Mac an toàn, minh bạch, nhanh.**
 
@@ -17,19 +17,21 @@ Biết rõ từng byte sắp xoá là gì, thuộc app nào, và vì sao an toà
 
 [**⬇️ Tải về**](https://github.com/MashiXx/MashClean/releases/latest)
 
+<img src="design/AppStore/1440x900/01-smartscan.png" width="720" alt="Clean Boost Smart Scan">
+
 </div>
 
 ---
 
 ## Tải về
 
-**[⬇️ Tải MashClean cho macOS](https://github.com/MashiXx/MashClean/releases/latest)** · bản DMG universal, chạy trên Apple Silicon và Intel, yêu cầu macOS 13 trở lên.
+**[⬇️ Tải Clean Boost cho macOS](https://github.com/MashiXx/MashClean/releases/latest)** · bản DMG universal, chạy trên Apple Silicon và Intel, yêu cầu macOS 13 trở lên.
 
 > Bản hiện tại chưa được ký bằng Developer ID và chưa notarize, nên lần đầu mở macOS sẽ chặn. Cách mở: kéo app vào Applications, mở thử một lần, rồi vào **System Settings → Privacy & Security** và bấm **Open Anyway** (trên macOS 14 trở về trước có thể chuột phải vào app → **Open**). Helper quyền quản trị và menu chuột phải trong Finder có thể chưa hoạt động ở bản này.
 
-## Vì sao là MashClean?
+## Vì sao là Clean Boost?
 
-Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "Dọn ngay". MashClean làm khác:
+Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "Dọn ngay". Clean Boost làm khác:
 
 - 🔍 **Mọi mục đều giải thích được.** Mỗi đề xuất kèm lý do ("npm sẽ tự tải lại khi cần"), app sở hữu và mức an toàn: *An toàn*, *Cần xem lại*, *Rủi ro*. Chỉ mục an toàn mới được chọn sẵn.
 - 🗑️ **File của bạn đi qua Thùng rác.** File do bạn tạo (bản tải về, file lớn, file trùng) không bao giờ bị xoá thẳng hay tự chọn. Màn **Lịch sử** có nút **Khôi phục** trong 90 ngày.
@@ -51,16 +53,16 @@ Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "D�
 | 🐘 | **File lớn & cũ** | Tìm qua Spotlight, lọc theo loại file, dung lượng, lần dùng cuối. |
 | 👯 | **File trùng lặp** | So 3 bước (dung lượng → xxHash3 đầu/cuối file → SHA-256 toàn bộ), bỏ qua bản clone APFS vì xoá chúng không giải phóng gì, gợi ý bản nên giữ. |
 | 📊 | **Thanh menu** | CPU, RAM, tốc độ mạng, dung lượng trống, pin, có biểu đồ nhỏ. Tự chọn chỉ số nào hiện trên thanh menu. Cảnh báo khi ổ sắp đầy hoặc Thùng rác quá lớn. |
-| 🖱️ | **Finder & Shortcuts** | Chuột phải trong Finder: *Phân tích bằng MashClean*, *Gỡ bằng MashClean*. Shortcuts: *Dọn rác*, *Dung lượng trống*. |
+| 🖱️ | **Finder & Shortcuts** | Chuột phải trong Finder: *Phân tích bằng Clean Boost*, *Gỡ bằng Clean Boost*. Shortcuts: *Dọn rác*, *Dung lượng trống*. |
 
 ## An toàn là trên hết
 
-Chỉ một lần xoá nhầm là mất niềm tin. Vì vậy MashClean được thiết kế để khó xoá nhầm:
+Chỉ một lần xoá nhầm là mất niềm tin. Vì vậy Clean Boost được thiết kế để khó xoá nhầm:
 
 1. **Lập kế hoạch trước, xoá sau.** Bạn thấy chính xác những gì sắp xảy ra. Mục cần quyền quản trị hoặc cần xem lại luôn có hộp xác nhận liệt kê chi tiết.
-2. **Helper quyền root bị khoá chặt.** Helper chỉ nhận lệnh có tên cụ thể từ chính MashClean (kiểm tra chữ ký hai chiều), không bao giờ chạy lệnh shell tuỳ ý, và tự kiểm tra lại từng đường dẫn.
+2. **Helper quyền root bị khoá chặt.** Helper chỉ nhận lệnh có tên cụ thể từ chính Clean Boost (kiểm tra chữ ký hai chiều), không bao giờ chạy lệnh shell tuỳ ý, và tự kiểm tra lại từng đường dẫn.
 3. **Không đụng thứ đang dùng.** Bỏ qua file đang mở và cache của app đang chạy.
-4. **Không thinning app.** MashClean không cắt bớt binary vì làm vậy phá chữ ký của app. Gói ngôn ngữ chỉ hiện trong mục *Nâng cao* kèm cảnh báo rõ.
+4. **Không thinning app.** Clean Boost không cắt bớt binary vì làm vậy phá chữ ký của app. Gói ngôn ngữ chỉ hiện trong mục *Nâng cao* kèm cảnh báo rõ.
 5. **Chế độ thử (dry run).** Chạy toàn bộ luồng mà không xoá gì, để xem trước kết quả.
 
 ## Tri thức tách khỏi code
@@ -79,7 +81,7 @@ Phần "biết đường dẫn nào xoá được" nằm trong bộ **111 rule J
 
 ## Cài đặt
 
-1. Tải `MashClean-<phiên bản>.dmg` ở trang [Releases](https://github.com/MashiXx/MashClean/releases/latest), mở ra, kéo **MashClean** vào **Applications**.
+1. Tải `CleanBoost-<phiên bản>.dmg` ở trang [Releases](https://github.com/MashiXx/MashClean/releases/latest), mở ra, kéo **Clean Boost** vào **Applications**.
 2. Mở app và làm theo hướng dẫn lần đầu:
    - **Ngôn ngữ**: chọn tiếng Việt, tiếng Anh hoặc theo hệ thống.
    - **Full Disk Access**: để quét được cache và dữ liệu của app khác. Có thể bỏ qua; khi đó app chạy ở chế độ hạn chế và ghi rõ nhóm nào cần quyền.
@@ -92,7 +94,7 @@ Yêu cầu macOS 13 Ventura trở lên, chạy native trên cả Apple Silicon v
 
 ## Dành cho lập trình viên
 
-MashClean viết bằng Swift 6 (strict concurrency), SwiftUI + AppKit, theo tài liệu thiết kế [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md).
+Clean Boost viết bằng Swift 6 (strict concurrency), SwiftUI + AppKit, theo tài liệu thiết kế [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md).
 
 ### Build
 
@@ -102,20 +104,22 @@ Cần Xcode 16+ và `brew install xcodegen`.
 Scripts/build-rules.sh        # lint → test → đóng gói → ký → kiểm tra bộ rule
 Scripts/build-app.sh          # sinh Xcode project bằng XcodeGen rồi build (Debug)
 Scripts/build-app.sh Release  # bản Release universal
-open .build/DerivedData/Build/Products/Debug/MashClean.app
+open ".build/DerivedData/Build/Products/Debug/Clean Boost.app"
 ```
 
 Chạy test: `cd Packages && swift test`.
 
+Icon app: `swift Scripts/make-icon.swift` sinh lại mọi kích thước trong `AppIcon.appiconset` từ `design/logo_design.png`. Ảnh chụp cho App Store nằm ở `design/AppStore/` (`python3 design/AppStore/compose.py` dựng lại từ `raw/`).
+
 ### Kiến trúc
 
 ```
-MashClean.app
+Clean Boost.app
 ├── App chính (quyền người dùng): UI, Scan Engine, Clean Engine
-├── Library/LoginItems/MashCleanMenu.app   thanh menu và giám sát
-├── Library/HelperTools/com.mashclean.helper   helper root (XPC, SMAppService)
-├── PlugIns/MashCleanFinder.appex            menu chuột phải trong Finder
-└── Extensions/MashCleanIntents.appex        Shortcuts
+├── Library/LoginItems/CleanBoostMenu.app    thanh menu và giám sát
+├── Library/HelperTools/com.cleanboost.mac.helper   helper root (XPC, SMAppService)
+├── PlugIns/CleanBoostFinder.appex            menu chuột phải trong Finder
+└── Extensions/CleanBoostIntents.appex        Shortcuts
 ```
 
 | Thư mục | Nội dung |
@@ -143,4 +147,4 @@ Khoá ký rule nằm ở `Secrets/rules_signing_key.b64` (không commit; trên C
 
 - Chế độ thử: biến môi trường `MASHCLEAN_DRY_RUN=1` hoặc menu **Debug → Chế độ thử**.
 - Bản Debug nạp được rule chưa ký từ thư mục nguồn: `MASHCLEAN_RULES_DIR=/path/to/Rules`.
-- Xem log: `log stream --predicate 'subsystem BEGINSWITH "com.mashclean"' --level debug`, file log ở `~/Library/Logs/MashClean/`.
+- Xem log: `log stream --predicate 'subsystem BEGINSWITH "com.cleanboost"' --level debug`, file log ở `~/Library/Logs/CleanBoost/`.

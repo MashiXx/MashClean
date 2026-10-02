@@ -16,7 +16,7 @@ public final class Storage: Sendable {
         config.readonly = readOnly
         config.foreignKeysEnabled = true
         config.busyMode = .timeout(5)
-        config.label = "MashClean"
+        config.label = "Clean Boost"
         pool = try DatabasePool(path: url.path, configuration: config)
         self.url = url
         if !readOnly { try Self.migrator.migrate(pool) }
@@ -107,16 +107,16 @@ public final class Storage: Sendable {
 
     // MARK: Vị trí
 
-    /// `~/Library/Group Containers/group.com.mashclean/mashclean.sqlite` (mục 12.1).
-    /// Nếu không truy cập được App Group container thì dùng `~/Library/Application Support/MashClean/`.
+    /// `~/Library/Group Containers/group.com.cleanboost.mac/cleanboost.sqlite` (mục 12.1).
+    /// Nếu không truy cập được App Group container thì dùng `~/Library/Application Support/CleanBoost/`.
     public static var defaultURL: URL {
         // Bản ký ad-hoc không có entitlement App Group: macOS chặn ghi vào Group Containers, nên phải thử tạo được thư mục.
         if let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: MashCleanIdentifiers.appGroup),
            (try? FileManager.default.createDirectory(at: container, withIntermediateDirectories: true)) != nil,
            FileManager.default.isWritableFile(atPath: container.path) {
-            return container.appendingPathComponent("mashclean.sqlite")
+            return container.appendingPathComponent("cleanboost.sqlite")
         }
-        return URL.userHome.appendingPathComponent("Library/Application Support/MashClean/mashclean.sqlite")
+        return URL.userHome.appendingPathComponent("Library/Application Support/CleanBoost/cleanboost.sqlite")
     }
 
     // MARK: Dọn dữ liệu cũ

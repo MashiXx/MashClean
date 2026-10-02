@@ -10,7 +10,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>MashClean</string>
+	<string>Clean Boost</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,7 +18,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>MashClean</string>
+	<string>Clean Boost</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,10 +29,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.mashclean.app</string>
+			<string>com.cleanboost.mac</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>mashclean</string>
+				<string>cleanboost</string>
 			</array>
 		</dict>
 	</array>
@@ -41,19 +41,19 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2026 MashClean</string>
+	<string>© 2026 Clean Boost</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>MashClean cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt.</string>
+	<string>Clean Boost cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt.</string>
 	<key>NSDesktopFolderUsageDescription</key>
-	<string>MashClean quét Desktop để tìm file lớn, cũ và trùng lặp.</string>
+	<string>Clean Boost quét Desktop để tìm file lớn, cũ và trùng lặp.</string>
 	<key>NSDocumentsFolderUsageDescription</key>
-	<string>MashClean quét Documents để tìm file lớn, cũ và trùng lặp.</string>
+	<string>Clean Boost quét Documents để tìm file lớn, cũ và trùng lặp.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string>MashClean quét Downloads để tìm bản cài đặt cũ.</string>
+	<string>Clean Boost quét Downloads để tìm bản cài đặt cũ.</string>
 	<key>NSRemovableVolumesUsageDescription</key>
-	<string>MashClean phân tích dung lượng và dọn Thùng rác trên ổ ngoài.</string>
+	<string>Clean Boost phân tích dung lượng và dọn Thùng rác trên ổ ngoài.</string>
 	<key>NSNetworkVolumesUsageDescription</key>
-	<string>MashClean phân tích dung lượng trên ổ mạng khi bạn yêu cầu.</string>
+	<string>Clean Boost phân tích dung lượng trên ổ mạng khi bạn yêu cầu.</string>
 	<key>MashCleanTeamID</key>
 	<string>$(DEVELOPMENT_TEAM)</string>
 	<key>MashCleanRulesManifestURL</key>

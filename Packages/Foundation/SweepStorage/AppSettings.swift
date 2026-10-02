@@ -1,7 +1,7 @@
 import Foundation
 import SweepCore
 
-/// Cài đặt dùng chung qua `UserDefaults(suiteName: "group.com.mashclean")` (mục 12.1).
+/// Cài đặt dùng chung qua `UserDefaults(suiteName: "group.com.cleanboost.mac")` (mục 12.1).
 public final class AppSettings: @unchecked Sendable {
     public static let shared = AppSettings()
 

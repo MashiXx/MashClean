@@ -37,7 +37,7 @@ public struct UninstallerView: View {
         scanTitle: String(localized: "Quét"), cleanTitle: String(localized: "Chuyển vào Thùng rác")
     )
 
-    /// - Parameter initialAppPath: mở thẳng một app (FinderSync gửi `mashclean://uninstall?path=/Applications/Foo.app`).
+    /// - Parameter initialAppPath: mở thẳng một app (FinderSync gửi `cleanboost://uninstall?path=/Applications/Foo.app`).
     public init(services: ScanServices, feature: UninstallerFeature, initialAppPath: String? = nil) {
         _model = StateObject(wrappedValue: UninstallerViewModel(services: services, feature: feature, initialAppPath: initialAppPath))
         _orphans = StateObject(wrappedValue: ScanCleanViewModel(services: services, kind: "orphanedLeftovers", tasks: { feature.scanTasks() }))

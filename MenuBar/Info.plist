@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.mashclean.menu</string>
+	<string>com.cleanboost.mac.menu</string>
 	<key>CFBundleName</key>
-	<string>MashCleanMenu</string>
+	<string>CleanBoostMenu</string>
 	<key>CFBundleDisplayName</key>
-	<string>MashClean Menu</string>
+	<string>Clean Boost Menu</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundlePackageType</key>

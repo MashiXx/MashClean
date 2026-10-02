@@ -51,16 +51,16 @@ public struct FeatureID: Hashable, Sendable, Codable, RawRepresentable, Expressi
 
 /// Hằng số định danh dùng chung giữa các tiến trình (mục 3, 12.1).
 public enum MashCleanIdentifiers {
-    public static let appBundleID = "com.mashclean.app"
-    public static let menuBundleID = "com.mashclean.menu"
-    public static let helperLabel = "com.mashclean.helper"
-    public static let helperPlistName = "com.mashclean.helper.plist"
-    public static let appGroup = "group.com.mashclean"
-    public static let urlScheme = "mashclean"
-    public static let logSubsystem = "com.mashclean"
-    public static let helperLogSubsystem = "com.mashclean.helper"
-    public static let didCleanNotification = Notification.Name("com.mashclean.didClean")
-    public static let settingsChangedNotification = Notification.Name("com.mashclean.settingsChanged")
+    public static let appBundleID = "com.cleanboost.mac"
+    public static let menuBundleID = "com.cleanboost.mac.menu"
+    public static let helperLabel = "com.cleanboost.mac.helper"
+    public static let helperPlistName = "com.cleanboost.mac.helper.plist"
+    public static let appGroup = "group.com.cleanboost.mac"
+    public static let urlScheme = "cleanboost"
+    public static let logSubsystem = "com.cleanboost"
+    public static let helperLogSubsystem = "com.cleanboost.mac.helper"
+    public static let didCleanNotification = Notification.Name("com.cleanboost.didClean")
+    public static let settingsChangedNotification = Notification.Name("com.cleanboost.settingsChanged")
     /// Phiên bản giao thức XPC hiện tại; tăng khi đổi `HelperProtocol` (mục 9.5).
     public static let helperProtocolVersion = 3
 }

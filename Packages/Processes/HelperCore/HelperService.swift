@@ -18,7 +18,7 @@ private final class Reply<T>: @unchecked Sendable {
 public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable {
     public let peerPID: pid_t
     private let maintenanceBusy = Locked(false)
-    private let workQueue = DispatchQueue(label: "com.mashclean.helper.work", qos: .userInitiated, attributes: .concurrent)
+    private let workQueue = DispatchQueue(label: "com.cleanboost.mac.helper.work", qos: .userInitiated, attributes: .concurrent)
 
     public init(peerPID: pid_t) {
         self.peerPID = peerPID

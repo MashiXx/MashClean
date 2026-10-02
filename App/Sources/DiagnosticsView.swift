@@ -47,7 +47,7 @@ struct DiagnosticsView: View {
 
     private func save(_ report: DiagnosticReport) {
         let panel = NSSavePanel()
-        panel.nameFieldStringValue = "MashClean-Diagnostics.txt"
+        panel.nameFieldStringValue = "CleanBoost-Diagnostics.txt"
         guard panel.runModal() == .OK, let url = panel.url else { return }
         try? report.rendered.write(to: url, atomically: true, encoding: .utf8)
         savedURL = url
@@ -57,7 +57,7 @@ struct DiagnosticsView: View {
         guard let file = try? report.write() else { return }
         let service = NSSharingService(named: .composeEmail)
         service?.recipients = [Bundle.main.object(forInfoDictionaryKey: "MashCleanSupportEmail") as? String ?? ""].filter { !$0.isEmpty }
-        service?.subject = String(localized: "MashClean — báo cáo lỗi")
+        service?.subject = String(localized: "Clean Boost — báo cáo lỗi")
         service?.perform(withItems: [String(localized: "Báo cáo chẩn đoán đính kèm."), file])
     }
 }

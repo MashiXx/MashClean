@@ -53,8 +53,8 @@
     "homebrew",
     "Homebrew",
     "MashClean",
-    "com.mashclean.*",
-    "group.com.mashclean",
+    "com.cleanboost.*",
+    "group.com.cleanboost.mac",
     "com.crashlytics",
     "com.crashlytics.*",
     "io.fabric.*",
@@ -96,7 +96,7 @@
     "storeassetd",
     "TemporaryItems",
     "MashClean",
-    "com.mashclean.*"
+    "com.cleanboost.*"
   ],
   "keepLanguages": [
     "Base",

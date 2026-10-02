@@ -20,7 +20,7 @@ public enum MenuBarLinks {
         let workspace = NSWorkspace.shared
         var appURL = workspace.urlForApplication(withBundleIdentifier: MashCleanIdentifiers.appBundleID)
         if appURL == nil {
-            // MashClean.app/Contents/Library/LoginItems/MashCleanMenu.app → MashClean.app
+            // Clean Boost.app/Contents/Library/LoginItems/CleanBoostMenu.app → Clean Boost.app
             let candidate = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
                 .deletingLastPathComponent().deletingLastPathComponent()
             if candidate.pathExtension == "app" { appURL = candidate }

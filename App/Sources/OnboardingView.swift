@@ -49,7 +49,7 @@ struct OnboardingView: View {
         switch step {
         case .welcome:
             VStack(spacing: 18) {
-                FeatureHeader(symbol: "sparkles", title: String(localized: "Chào mừng đến với MashClean"),
+                FeatureHeader(symbol: "sparkles", title: String(localized: "Chào mừng đến với Clean Boost"),
                               subtitle: String(localized: "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác."))
                 Picker("Ngôn ngữ · Language", selection: $language) {
                     ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
@@ -68,12 +68,12 @@ struct OnboardingView: View {
         case .fullDiskAccess:
             VStack(spacing: 16) {
                 FeatureHeader(symbol: "lock.shield", title: String(localized: "Cấp Full Disk Access"),
-                              subtitle: String(localized: "MashClean cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container)."))
+                              subtitle: String(localized: "Clean Boost cần quyền này để đọc cache, log và dữ liệu của app khác trong ~/Library (Mail, Safari, container)."))
                 VStack(alignment: .leading, spacing: 8) {
                     guideLine(1, String(localized: "Bấm \"Mở System Settings\" bên dưới."))
-                    guideLine(2, String(localized: "Tìm MashClean trong danh sách Full Disk Access và bật công tắc."))
-                    guideLine(3, String(localized: "Nếu chưa có, bấm dấu + rồi chọn MashClean trong thư mục Applications (hoặc kéo app vào danh sách)."))
-                    guideLine(4, String(localized: "Quay lại đây, MashClean tự nhận ra sau vài giây."))
+                    guideLine(2, String(localized: "Tìm Clean Boost trong danh sách Full Disk Access và bật công tắc."))
+                    guideLine(3, String(localized: "Nếu chưa có, bấm dấu + rồi chọn Clean Boost trong thư mục Applications (hoặc kéo app vào danh sách)."))
+                    guideLine(4, String(localized: "Quay lại đây, Clean Boost tự nhận ra sau vài giây."))
                 }
                 .padding(14)
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.2)))
@@ -92,13 +92,13 @@ struct OnboardingView: View {
         case .helper:
             VStack(spacing: 16) {
                 FeatureHeader(symbol: "gearshape.2", title: String(localized: "Cài thành phần quản trị"),
-                              subtitle: String(localized: "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ MashClean đã ký, không bao giờ chạy lệnh tuỳ ý."))
+                              subtitle: String(localized: "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý."))
                 switch holder.helperStatus {
                 case .enabled:
                     Label(String(localized: "Helper đã sẵn sàng"), systemImage: "checkmark.seal.fill").foregroundStyle(.white)
                 case .requiresApproval:
                     VStack(spacing: 8) {
-                        Text(String(localized: "Hãy bật MashClean trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")."))
+                        Text(String(localized: "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")."))
                             .font(Theme.Font.body).foregroundStyle(.white).multilineTextAlignment(.center)
                         Button(String(localized: "Mở Login Items")) { Permissions.openLoginItemsSettings() }.buttonStyle(GlassButtonStyle())
                     }
@@ -122,7 +122,7 @@ struct OnboardingView: View {
                 FeatureHeader(symbol: "checkmark.circle", title: String(localized: "Sẵn sàng quét"),
                               subtitle: holder.hasFullDiskAccess ? String(localized: "Mọi thứ đã sẵn sàng.") : String(localized: "Đang ở chế độ hạn chế. Bạn có thể cấp Full Disk Access sau trong Cài đặt."))
                 VStack(alignment: .leading, spacing: 8) {
-                    Toggle(String(localized: "Hiện MashClean trên thanh menu (RAM, CPU, dung lượng trống)"), isOn: $menuBar)
+                    Toggle(String(localized: "Hiện Clean Boost trên thanh menu (RAM, CPU, dung lượng trống)"), isOn: $menuBar)
                     Toggle(String(localized: "Cảnh báo khi ổ đĩa sắp đầy"), isOn: $notifications)
                 }
                 .toggleStyle(.switch).foregroundStyle(.white)

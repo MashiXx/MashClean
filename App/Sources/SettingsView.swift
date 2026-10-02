@@ -43,7 +43,7 @@ struct GeneralSettings: View {
                 }
                 if needsRestart {
                     HStack {
-                        Text(String(localized: "Khởi động lại MashClean để áp dụng ngôn ngữ mới."))
+                        Text(String(localized: "Khởi động lại Clean Boost để áp dụng ngôn ngữ mới."))
                             .font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         Button(String(localized: "Khởi động lại")) { Self.restartForLanguage() }
@@ -51,7 +51,7 @@ struct GeneralSettings: View {
                 }
             }
             Section("Thanh menu") {
-                Toggle(String(localized: "Hiện MashClean trên thanh menu"), isOn: $menuBar)
+                Toggle(String(localized: "Hiện Clean Boost trên thanh menu"), isOn: $menuBar)
                     .onChange(of: menuBar) { MenuBarLoginItem.setEnabled($0) }
                 Toggle(String(localized: "Cảnh báo khi ổ đĩa sắp đầy (dưới 10% hoặc 10 GB)"), isOn: $lowDisk)
                 Stepper(String(localized: "Cảnh báo khi Thùng rác lớn hơn \(trashGB) GB"), value: $trashGB, in: 1...200)
@@ -109,7 +109,7 @@ struct PermissionSettings: View {
                         }
                     }
                 }
-                Text(String(localized: "Helper chỉ nhận lệnh có tên từ MashClean đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá."))
+                Text(String(localized: "Helper chỉ nhận lệnh có tên từ Clean Boost đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá."))
                     .font(.caption).foregroundStyle(.secondary)
             }
             Section(String(localized: "Thông báo")) {
@@ -142,7 +142,7 @@ struct IgnoreListSettings: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(String(localized: "Các mục bạn đã chọn \"Không bao giờ đề xuất\". Xoá khỏi danh sách để MashClean đề xuất lại."))
+            Text(String(localized: "Các mục bạn đã chọn \"Không bao giờ đề xuất\". Xoá khỏi danh sách để Clean Boost đề xuất lại."))
                 .font(.callout).foregroundStyle(.secondary)
             Table(entries) {
                 TableColumn(String(localized: "Loại")) { e in Text(kindTitle(e.kind)) }.width(90)

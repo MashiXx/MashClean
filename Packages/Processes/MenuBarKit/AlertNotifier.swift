@@ -55,7 +55,7 @@ public final class AlertNotifier: NSObject, UNUserNotificationCenterDelegate, @u
         content.body = body
         content.sound = .default
         content.userInfo = [Self.urlKey: url.absoluteString]
-        let request = UNNotificationRequest(identifier: "com.mashclean.alert.\(alert.rawValue)", content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: "com.cleanboost.alert.\(alert.rawValue)", content: content, trigger: nil)
         do {
             try await UNUserNotificationCenter.current().add(request)
             Log.info(.menu, "menu", "Đã gửi cảnh báo \(alert.rawValue)")

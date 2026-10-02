@@ -21,13 +21,13 @@ public final class MenuBarController: NSObject, NSPopoverDelegate {
         super.init()
 
         if let button = statusItem.button {
-            let image = NSImage(systemSymbolName: "sparkles", accessibilityDescription: "MashClean")
+            let image = NSImage(systemSymbolName: "sparkles", accessibilityDescription: "Clean Boost")
             image?.isTemplate = true
             button.image = image
             button.imagePosition = .imageLeading
             button.target = self
             button.action = #selector(togglePopover(_:))
-            button.toolTip = "MashClean"
+            button.toolTip = "Clean Boost"
         }
 
         popover.behavior = .transient
@@ -56,7 +56,7 @@ public final class MenuBarController: NSObject, NSPopoverDelegate {
         guard text != lastTitle, let button = statusItem.button else { return }
         lastTitle = text
         button.attributedTitle = Self.statusTitle(model.statusParts)
-        button.toolTip = text.map { "MashClean — \($0)" } ?? "MashClean"
+        button.toolTip = text.map { "Clean Boost — \($0)" } ?? "Clean Boost"
     }
 
     /// Mỗi chỉ số có icon riêng đứng trước (CPU: `cpu`, RAM: `memorychip`) để biết số nào là gì.

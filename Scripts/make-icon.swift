@@ -1,40 +1,46 @@
-// Vẽ icon MashClean (gradient + sparkles) ra AppIcon.appiconset. Chạy: swift Scripts/make-icon.swift
+// Tạo AppIcon.appiconset từ logo gốc design/logo_design.png.
+// Cắt theo vùng không trong suốt rồi đặt vào lưới icon macOS của Apple (thân 824/1024, lề 100).
+// Chạy: swift Scripts/make-icon.swift [logo.png] [thư mục appiconset]
 import AppKit
 
-let out = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "App/Resources/Assets.xcassets/AppIcon.appiconset")
+let args = CommandLine.arguments
+let source = URL(fileURLWithPath: args.count > 1 ? args[1] : "design/logo_design.png")
+let out = URL(fileURLWithPath: args.count > 2 ? args[2] : "App/Resources/Assets.xcassets/AppIcon.appiconset")
 try? FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
 
-func render(_ px: Int) -> Data {
-    let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: px, pixelsHigh: px, bitsPerSample: 8, samplesPerPixel: 4,
-                               hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
-    NSGraphicsContext.saveGraphicsState()
-    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
-    let s = CGFloat(px)
-    let inset = s * 0.1
-    let rect = NSRect(x: inset, y: inset, width: s - 2 * inset, height: s - 2 * inset)
-    let path = NSBezierPath(roundedRect: rect, xRadius: rect.width * 0.225, yRadius: rect.width * 0.225)
-    let shadow = NSShadow()
-    shadow.shadowBlurRadius = s * 0.03
-    shadow.shadowOffset = NSSize(width: 0, height: -s * 0.012)
-    shadow.shadowColor = NSColor.black.withAlphaComponent(0.35)
-    shadow.set()
-    NSGradient(colors: [NSColor(srgbRed: 0.23, green: 0.11, blue: 0.44, alpha: 1),
-                        NSColor(srgbRed: 0.42, green: 0.19, blue: 0.58, alpha: 1),
-                        NSColor(srgbRed: 0.63, green: 0.27, blue: 1.0, alpha: 1)])!.draw(in: path, angle: 60)
-    NSShadow().set()
-    if let symbol = NSImage(systemSymbolName: "sparkles", accessibilityDescription: nil)?
-        .withSymbolConfiguration(.init(pointSize: s * 0.42, weight: .semibold)) {
-        let tinted = NSImage(size: symbol.size, flipped: false) { r in
-            symbol.draw(in: r)
-            NSColor.white.set()
-            r.fill(using: .sourceAtop)
-            return true
+guard let src = NSImage(contentsOf: source)?.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+    fatalError("Không đọc được logo: \(source.path)")
+}
+
+/// Khung bao các pixel có alpha > 8 (bỏ phần nền trong suốt quanh logo).
+func opaqueBounds(_ image: CGImage) -> CGRect {
+    let w = image.width, h = image.height
+    var pixels = [UInt8](repeating: 0, count: w * h * 4)
+    let ctx = CGContext(data: &pixels, width: w, height: h, bitsPerComponent: 8, bytesPerRow: w * 4,
+                        space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+    ctx.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+    var minX = w, minY = h, maxX = -1, maxY = -1
+    for y in 0..<h {
+        for x in 0..<w where pixels[(y * w + x) * 4 + 3] > 8 {
+            minX = min(minX, x); maxX = max(maxX, x); minY = min(minY, y); maxY = max(maxY, y)
         }
-        let size = tinted.size
-        tinted.draw(in: NSRect(x: (s - size.width) / 2, y: (s - size.height) / 2, width: size.width, height: size.height))
     }
-    NSGraphicsContext.restoreGraphicsState()
-    return rep.representation(using: .png, properties: [:])!
+    guard maxX >= minX else { return CGRect(x: 0, y: 0, width: w, height: h) }
+    return CGRect(x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1)
+}
+
+let body = src.cropping(to: opaqueBounds(src))!
+
+func render(_ px: Int) -> Data {
+    let ctx = CGContext(data: nil, width: px, height: px, bitsPerComponent: 8, bytesPerRow: 0,
+                        space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+    ctx.interpolationQuality = .high
+    let s = CGFloat(px)
+    let side = s * 824 / 1024
+    let scale = side / CGFloat(max(body.width, body.height))
+    let w = CGFloat(body.width) * scale, h = CGFloat(body.height) * scale
+    ctx.draw(body, in: CGRect(x: (s - w) / 2, y: (s - h) / 2, width: w, height: h))
+    return NSBitmapImageRep(cgImage: ctx.makeImage()!).representation(using: .png, properties: [:])!
 }
 
 var images: [[String: String]] = []

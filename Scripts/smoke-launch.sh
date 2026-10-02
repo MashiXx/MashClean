@@ -1,9 +1,9 @@
 #!/bin/bash
 # Chạy thử app vài giây để bắt lỗi chết ngay khi mở (vd dyld từ chối nạp framework vì chữ ký).
-# Dùng: Scripts/smoke-launch.sh path/to/MashClean.app
+# Dùng: Scripts/smoke-launch.sh path/to/Clean Boost.app
 set -euo pipefail
 APP="$1"
-BIN="$APP/Contents/MacOS/MashClean"
+BIN="$APP/Contents/MacOS/Clean Boost"
 LOG="$(mktemp)"
 trap 'rm -f "$LOG"' EXIT
 MASHCLEAN_SMOKE_TEST=1 MASHCLEAN_DRY_RUN=1 "$BIN" >"$LOG" 2>&1 &

@@ -1,5 +1,5 @@
 // swift-tools-version: 6.0
-// MashClean: toàn bộ mã nguồn nằm trong package này (SYSTEM_DESIGN mục 4, 19.1).
+// Clean Boost: toàn bộ mã nguồn nằm trong package này (SYSTEM_DESIGN mục 4, 19.1).
 // Xcode project (project.yml) chỉ chứa các target app, menu bar, helper và extension.
 
 import PackageDescription

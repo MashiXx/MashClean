@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 import SweepCore
 
-/// Bảng màu và kiểu chữ của MashClean.
+/// Bảng màu và kiểu chữ của Clean Boost.
 public enum Theme {
     // Nền gradient của cửa sổ chính, theo từng feature để người dùng biết đang ở đâu.
     public static func background(for accent: Accent) -> LinearGradient {

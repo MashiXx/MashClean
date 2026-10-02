@@ -13,12 +13,14 @@ struct MashCleanApp: App {
     private let updater = UpdaterController()
 
     var body: some Scene {
-        WindowGroup("MashClean", id: "main") {
+        WindowGroup("Clean Boost", id: "main") {
             RootView()
                 .environmentObject(holder)
                 .environmentObject(router)
                 .frame(minWidth: 980, minHeight: 640)
                 .onOpenURL { router.handle($0) }
+                // Deep link đi vào cửa sổ đang mở thay vì mỗi lần tạo thêm một cửa sổ mới.
+                .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
                 .task { await holder.startBackgroundWork(updater: updater) }
         }
         .windowToolbarStyle(.unifiedCompact(showsTitle: false))

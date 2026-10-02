@@ -74,7 +74,7 @@ public final class MenuBarModel: ObservableObject {
     public private(set) var isPopoverOpen = false
 
     private let sampler = SystemSampler()
-    private let samplingQueue = DispatchQueue(label: "com.mashclean.menu.sampling", qos: .utility)
+    private let samplingQueue = DispatchQueue(label: "com.cleanboost.mac.menu.sampling", qos: .utility)
     private let freedReader = FreedStatsReader()
     private let settings = AppSettings.shared
     private var timer: Timer?
@@ -227,7 +227,7 @@ public final class MenuBarModel: ObservableObject {
             raise(.lowDisk, body: String(localized: "Chỉ còn \(ByteCount(disk.available).formatted) trống trên \(disk.name). Bấm để quét và dọn dẹp."))
         }
         if let since = criticalSince, Date().timeIntervalSince(since) >= Self.criticalPressureDuration {
-            raise(.memoryPressure, body: String(localized: "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với MashClean."))
+            raise(.memoryPressure, body: String(localized: "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với Clean Boost."))
         }
     }
 

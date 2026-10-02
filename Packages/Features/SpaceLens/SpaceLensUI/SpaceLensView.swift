@@ -15,7 +15,7 @@ public struct SpaceLensView: View {
 
     public static let accent: Theme.Accent = .spaceLens
 
-    /// - Parameter initialPath: thư mục cần quét ngay (ví dụ từ FinderSync qua `mashclean://spacelens?path=...`).
+    /// - Parameter initialPath: thư mục cần quét ngay (ví dụ từ FinderSync qua `cleanboost://spacelens?path=...`).
     public init(services: ScanServices, feature: SpaceLensFeature, initialPath: URL? = nil) {
         _model = StateObject(wrappedValue: SpaceLensViewModel(services: services, feature: feature))
         self.initialPath = initialPath

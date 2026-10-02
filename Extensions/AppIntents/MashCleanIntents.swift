@@ -10,7 +10,7 @@ struct MashCleanIntentsExtension: AppIntentsExtension {}
 enum MashCleanLink {
     static func url(host: String, query: [String: String]) -> URL? {
         var components = URLComponents()
-        components.scheme = "mashclean"
+        components.scheme = "cleanboost"
         components.host = host
         components.queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value) }
         return components.url
@@ -29,7 +29,7 @@ enum MashCleanIntentError: Error, CustomLocalizedStringResourceConvertible {
 
     var localizedStringResource: LocalizedStringResource {
         switch self {
-        case .cannotOpenApp: "Không mở được MashClean"
+        case .cannotOpenApp: "Không mở được Clean Boost"
         }
     }
 }
@@ -52,7 +52,7 @@ struct FreeSpaceIntent: AppIntent {
 /// "Dọn rác": mở app chính ở màn System Junk và bắt đầu quét.
 struct CleanJunkIntent: AppIntent {
     static let title: LocalizedStringResource = "Dọn rác"
-    static let description = IntentDescription("Mở MashClean và quét rác hệ thống.")
+    static let description = IntentDescription("Mở Clean Boost và quét rác hệ thống.")
 
     @MainActor
     func perform() async throws -> some IntentResult {
@@ -64,7 +64,7 @@ struct CleanJunkIntent: AppIntent {
 /// "Smart Scan": mở app chính và chạy Smart Scan.
 struct OpenSmartScanIntent: AppIntent {
     static let title: LocalizedStringResource = "Smart Scan"
-    static let description = IntentDescription("Mở MashClean và chạy Smart Scan.")
+    static let description = IntentDescription("Mở Clean Boost và chạy Smart Scan.")
 
     @MainActor
     func perform() async throws -> some IntentResult {

@@ -19,7 +19,7 @@
       "/Library/Caches/ColorSync",
       "/Library/Caches/Desktop Pictures",
       "/Library/Caches/Homebrew",
-      "/Library/Caches/com.mashclean.*"
+      "/Library/Caches/com.cleanboost.*"
     ],
     "notes": "Cache của Apple trong /Library/Caches (iconservices, amsengagementd, SoftwareUpdate...) bị loại trừ vì xoá khi đang dùng gây lỗi giao diện hoặc phải tải lại."
   },
@@ -117,7 +117,7 @@
       "~/Library/Logs/DiagnosticReports",
       "~/Library/Logs/CoreSimulator",
       "~/Library/Logs/CrashReporter",
-      "~/Library/Logs/MashClean"
+      "~/Library/Logs/CleanBoost"
     ]
   },
   {
@@ -137,7 +137,7 @@
       "paths": ["~/Library/Containers/${bundleID}/Data/Library/Logs"]
     },
     "conditions": { "appNotRunning": ["${bundleID}"] },
-    "exclude": ["~/Library/Containers/com.apple.*", "~/Library/Containers/com.mashclean.*"]
+    "exclude": ["~/Library/Containers/com.apple.*", "~/Library/Containers/com.cleanboost.*"]
   },
   {
     "id": "crash.user.reports",

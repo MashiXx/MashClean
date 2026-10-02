@@ -15,7 +15,7 @@ public enum HelperError: Error, Sendable, CustomStringConvertible {
         switch self {
         case .unavailable: String(localized: "Không kết nối được helper")
         case .notInstalled: String(localized: "Helper chưa được cài")
-        case .requiresApproval: String(localized: "Cần bật MashClean trong System Settings > General > Login Items")
+        case .requiresApproval: String(localized: "Cần bật Clean Boost trong System Settings > General > Login Items")
         case let .connection(m): String(localized: "Lỗi kết nối helper: \(m)")
         case .badReply: String(localized: "Helper trả về dữ liệu không hợp lệ")
         }

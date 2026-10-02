@@ -122,9 +122,9 @@ public final class RuleStore: Sendable {
 
     public var snapshot: RuleSnapshot { state.current }
 
-    /// Mặc định: `Resources/Rules/rules.bundle` trong app, cache tại `~/Library/Application Support/MashClean/Rules/` (mục 12.1).
+    /// Mặc định: `Resources/Rules/rules.bundle` trong app, cache tại `~/Library/Application Support/CleanBoost/Rules/` (mục 12.1).
     public static var defaultCacheDirectory: URL {
-        URL.userHome.appendingPathComponent("Library/Application Support/MashClean/Rules", isDirectory: true)
+        URL.userHome.appendingPathComponent("Library/Application Support/CleanBoost/Rules", isDirectory: true)
     }
 
     public static var defaultBundledURL: URL? {

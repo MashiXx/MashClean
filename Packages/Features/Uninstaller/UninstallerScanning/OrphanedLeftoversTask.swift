@@ -18,7 +18,7 @@ public struct OrphanFilter: Sendable {
     public let excluded: Set<String>
 
     /// Không bao giờ coi là file sót dù không có app tương ứng (thành phần hệ thống không phải `com.apple`).
-    public static let builtInWhitelist = ["org.cups.*", "com.openssh.*", "com.mashclean.*", "com.apple.*", "group.*"]
+    public static let builtInWhitelist = ["org.cups.*", "com.openssh.*", "com.cleanboost.*", "com.apple.*", "group.*"]
 
     public init(installedBundleIDs: [String], knowledge: Knowledge, excluded: Set<String> = []) {
         self.installedBundleIDs = Set(installedBundleIDs.map { $0.lowercased() })

@@ -68,7 +68,7 @@ public enum AppLanguage: String, CaseIterable, Sendable, Identifiable {
 public enum AppRelauncher {
     public static let relaunchedFlag = "--relaunched"
 
-    /// Áp dụng ngôn ngữ mới: đóng tiến trình MashClean còn lại (app chính hoặc menu bar) nếu đang chạy,
+    /// Áp dụng ngôn ngữ mới: đóng tiến trình Clean Boost còn lại (app chính hoặc menu bar) nếu đang chạy,
     /// rồi mở lại tất cả. Gọi được từ cả app chính lẫn menu bar.
     @MainActor
     public static func restartForLanguageChange() {

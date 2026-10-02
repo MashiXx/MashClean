@@ -101,7 +101,7 @@ extension SMAppService.Status: @retroactive CustomStringConvertible {
     }
 }
 
-/// Login item menu bar (mục 13): `SMAppService.loginItem(identifier: "com.mashclean.menu")`.
+/// Login item menu bar (mục 13): `SMAppService.loginItem(identifier: "com.cleanboost.mac.menu")`.
 public enum MenuBarLoginItem {
     public static var service: SMAppService { SMAppService.loginItem(identifier: MashCleanIdentifiers.menuBundleID) }
 
@@ -119,7 +119,7 @@ public enum MenuBarLoginItem {
         } catch {
             Log.error(.permissions, "permissions", "Không đăng ký lại được login item menu bar: \(error)")
         }
-        let menuApp = appBundle.appendingPathComponent("Contents/Library/LoginItems/MashCleanMenu.app")
+        let menuApp = appBundle.appendingPathComponent("Contents/Library/LoginItems/CleanBoostMenu.app")
         guard FileManager.default.fileExists(atPath: menuApp.path),
               NSRunningApplication.runningApplications(withBundleIdentifier: MashCleanIdentifiers.menuBundleID).isEmpty else { return }
         let config = NSWorkspace.OpenConfiguration()

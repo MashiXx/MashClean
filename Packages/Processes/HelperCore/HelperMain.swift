@@ -59,7 +59,7 @@ public final class HelperDelegate: NSObject, NSXPCListenerDelegate, @unchecked S
 
 /// Tự thoát sau `timeout` giây không còn kết nối nào; launchd sẽ bật lại khi có kết nối mới (mục 9.4.6).
 final class IdleExitMonitor: @unchecked Sendable {
-    private let queue = DispatchQueue(label: "com.mashclean.helper.idle")
+    private let queue = DispatchQueue(label: "com.cleanboost.mac.helper.idle")
     private let timeout: TimeInterval
     private var openConnections = 0
     private var pending: DispatchWorkItem?

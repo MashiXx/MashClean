@@ -2,7 +2,7 @@
 # Sinh project: `xcodegen generate` (hoặc `Scripts/build-app.sh`).
 name: MashClean
 options:
-  bundleIdPrefix: com.mashclean
+  bundleIdPrefix: com.cleanboost
   deploymentTarget:
     macOS: "13.0"
   createIntermediateGroups: true
@@ -52,15 +52,15 @@ targets:
       - path: App/Resources/Rules
         type: folder
         buildPhase: resources
-      - path: Helper/com.mashclean.helper.plist
+      - path: Helper/com.cleanboost.mac.helper.plist
         buildPhase:
           copyFiles:
             destination: wrapper
             subpath: Contents/Library/LaunchDaemons
     settings:
       base:
-        PRODUCT_NAME: MashClean
-        PRODUCT_BUNDLE_IDENTIFIER: com.mashclean.app
+        PRODUCT_NAME: "Clean Boost"
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac
         INFOPLIST_FILE: App/Info.plist
         CODE_SIGN_ENTITLEMENTS: "App/MashClean$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -106,8 +106,8 @@ targets:
         excludes: ["*.json"]
     settings:
       base:
-        PRODUCT_NAME: MashCleanMenu
-        PRODUCT_BUNDLE_IDENTIFIER: com.mashclean.menu
+        PRODUCT_NAME: CleanBoostMenu
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac.menu
         INFOPLIST_FILE: MenuBar/Info.plist
         CODE_SIGN_ENTITLEMENTS: "MenuBar/MenuBar$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
         SKIP_INSTALL: YES
@@ -123,18 +123,18 @@ targets:
     sources:
       - path: Helper
         excludes:
-          - "com.mashclean.helper.plist"
+          - "com.cleanboost.mac.helper.plist"
           - "Info.plist"
           - "*.entitlements"
     settings:
       base:
-        PRODUCT_NAME: com.mashclean.helper
-        PRODUCT_BUNDLE_IDENTIFIER: com.mashclean.helper
+        PRODUCT_NAME: com.cleanboost.mac.helper
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac.helper
         INFOPLIST_FILE: Helper/Info.plist
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
         CODE_SIGN_ENTITLEMENTS: Helper/Helper.entitlements
         SKIP_INSTALL: YES
-        OTHER_CODE_SIGN_FLAGS: "$(inherited) --identifier com.mashclean.helper"
+        OTHER_CODE_SIGN_FLAGS: "$(inherited) --identifier com.cleanboost.mac.helper"
     dependencies:
       - package: MashCleanKit
         product: MashCleanHelperKit
@@ -150,8 +150,8 @@ targets:
         excludes: ["*.json"]
     settings:
       base:
-        PRODUCT_NAME: MashCleanFinder
-        PRODUCT_BUNDLE_IDENTIFIER: com.mashclean.app.FinderSync
+        PRODUCT_NAME: CleanBoostFinder
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac.FinderSync
         INFOPLIST_FILE: Extensions/FinderSync/Info.plist
         CODE_SIGN_ENTITLEMENTS: "Extensions/FinderSync/FinderSync$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
         SKIP_INSTALL: YES
@@ -167,8 +167,8 @@ targets:
         excludes: ["*.json"]
     settings:
       base:
-        PRODUCT_NAME: MashCleanIntents
-        PRODUCT_BUNDLE_IDENTIFIER: com.mashclean.app.Intents
+        PRODUCT_NAME: CleanBoostIntents
+        PRODUCT_BUNDLE_IDENTIFIER: com.cleanboost.mac.Intents
         INFOPLIST_FILE: Extensions/AppIntents/Info.plist
         CODE_SIGN_ENTITLEMENTS: "Extensions/AppIntents/AppIntents$(MASHCLEAN_ENTITLEMENTS_VARIANT).entitlements"
         SKIP_INSTALL: YES

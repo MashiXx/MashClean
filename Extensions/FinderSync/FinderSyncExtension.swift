@@ -4,7 +4,7 @@ import FinderSync
 /// Menu chuột phải trong Finder (mục 3.1, 22.3). Extension chỉ mở URL scheme của app chính,
 /// không import package để giữ nhẹ.
 final class FinderSyncExtension: FIFinderSync {
-    private static let scheme = "mashclean"
+    private static let scheme = "cleanboost"
 
     override init() {
         super.init()
@@ -13,14 +13,14 @@ final class FinderSyncExtension: FIFinderSync {
 
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
         guard menuKind == .contextualMenuForItems || menuKind == .contextualMenuForContainer else { return nil }
-        let menu = NSMenu(title: "MashClean")
-        let analyze = NSMenuItem(title: String(localized: "Phân tích bằng MashClean"), action: #selector(analyze(_:)), keyEquivalent: "")
+        let menu = NSMenu(title: "Clean Boost")
+        let analyze = NSMenuItem(title: String(localized: "Phân tích bằng Clean Boost"), action: #selector(analyze(_:)), keyEquivalent: "")
         analyze.image = NSImage(systemSymbolName: "chart.pie", accessibilityDescription: nil)
         menu.addItem(analyze)
 
         if menuKind == .contextualMenuForItems, let items = FIFinderSyncController.default().selectedItemURLs(),
            items.count == 1, items[0].pathExtension.lowercased() == "app" {
-            let uninstall = NSMenuItem(title: String(localized: "Gỡ bằng MashClean"), action: #selector(uninstall(_:)), keyEquivalent: "")
+            let uninstall = NSMenuItem(title: String(localized: "Gỡ bằng Clean Boost"), action: #selector(uninstall(_:)), keyEquivalent: "")
             uninstall.image = NSImage(systemSymbolName: "trash", accessibilityDescription: nil)
             menu.addItem(uninstall)
         }

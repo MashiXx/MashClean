@@ -68,11 +68,11 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
     }
 }
 
-/// Xử lý deep link `mashclean://` từ menu bar, FinderSync, App Intents và thông báo (mục 13, 22.3):
-/// - `mashclean://scan?feature=smartScan|systemJunk`
-/// - `mashclean://spacelens?path=/Users/...`
-/// - `mashclean://uninstall?path=/Applications/Foo.app`
-/// - `mashclean://maintenance?task=freeRAM`
+/// Xử lý deep link `cleanboost://` từ menu bar, FinderSync, App Intents và thông báo (mục 13, 22.3):
+/// - `cleanboost://scan?feature=smartScan|systemJunk`
+/// - `cleanboost://spacelens?path=/Users/...`
+/// - `cleanboost://uninstall?path=/Applications/Foo.app`
+/// - `cleanboost://maintenance?task=freeRAM`
 @MainActor
 final class AppRouter: ObservableObject {
     @Published var selection: SidebarItem = .smartScan
@@ -106,7 +106,7 @@ final class AppRouter: ObservableObject {
         case "debug":
             // Chỉ bản Debug: vẽ cửa sổ chính ra PNG để kiểm tra giao diện khi không chụp được màn hình.
             if let target = value("target").flatMap(SidebarItem.init(rawValue:)) { open(target) }
-            let path = value("path") ?? NSTemporaryDirectory() + "mashclean-snapshot.png"
+            let path = value("path") ?? NSTemporaryDirectory() + "cleanboost-snapshot.png"
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { DebugSnapshot.write(to: path) }
             return
         #endif
@@ -138,9 +138,22 @@ final class AppRouter: ObservableObject {
 #if DEBUG
 @MainActor
 enum DebugSnapshot {
+    /// `CGWindowListCreateImage` bị đánh dấu không dùng được từ SDK macOS 15 nhưng vẫn có lúc chạy; app được chụp cửa sổ
+    /// của chính mình mà không cần quyền Screen Recording, và ảnh giữ nguyên vibrancy, bóng đổ, sheet đang mở.
+    private typealias WindowListCreateImage = @convention(c) (CGRect, UInt32, UInt32, UInt32) -> Unmanaged<CGImage>?
+
     static func write(to path: String) {
-        guard let window = NSApp.windows.first(where: { $0.isVisible && $0.contentView != nil && !($0 is NSPanel) }),
-              let view = window.contentView?.superview ?? window.contentView,
+        guard let window = NSApp.windows.first(where: { $0.isVisible && $0.contentView != nil && !($0 is NSPanel) }) else { return }
+        if let symbol = dlsym(UnsafeMutableRawPointer(bitPattern: -2), "CGWindowListCreateImage") {
+            let create = unsafeBitCast(symbol, to: WindowListCreateImage.self)
+            // optionIncludingWindow = 1 << 3; boundsIgnoreFraming = 1 << 0, bestResolution = 1 << 3
+            if let image = create(.null, 1 << 3, UInt32(window.windowNumber), (1 << 0) | (1 << 3))?.takeRetainedValue(),
+               let data = NSBitmapImageRep(cgImage: image).representation(using: .png, properties: [:]) {
+                try? data.write(to: URL(fileURLWithPath: path))
+                return
+            }
+        }
+        guard let view = window.contentView?.superview ?? window.contentView,
               let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { return }
         view.cacheDisplay(in: view.bounds, to: rep)
         try? rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: path))

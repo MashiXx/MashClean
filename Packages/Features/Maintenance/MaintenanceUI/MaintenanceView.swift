@@ -89,7 +89,7 @@ public struct MaintenanceView: View {
                 header
                 if let status = model.status {
                     if !status.helperAvailable && MaintenanceTaskName.allCases.contains(where: { model.selected.contains($0) && $0.requiresRoot }) {
-                        NoticeBanner(symbol: "lock.shield", text: String(localized: "Tác vụ cần quyền quản trị sẽ yêu cầu cài helper của MashClean."),
+                        NoticeBanner(symbol: "lock.shield", text: String(localized: "Tác vụ cần quyền quản trị sẽ yêu cầu cài helper của Clean Boost."),
                                      actionTitle: String(localized: "Cài helper")) { _ = try? HelperInstaller.ensureRegistered() }
                     }
                     statusRow(status)
@@ -117,7 +117,7 @@ public struct MaintenanceView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(String(localized: "Bảo trì")).font(Theme.Font.title).foregroundStyle(.white)
-                Text(String(localized: "Chạy các tác vụ giúp máy ổn định hơn. Chỉ chạy khi cần; MashClean gợi ý dựa trên trạng thái hệ thống."))
+                Text(String(localized: "Chạy các tác vụ giúp máy ổn định hơn. Chỉ chạy khi cần; Clean Boost gợi ý dựa trên trạng thái hệ thống."))
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()

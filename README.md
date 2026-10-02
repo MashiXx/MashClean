@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="128" alt="MashClean">
+<img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="128" alt="Clean Boost">
 
-# MashClean
+# Clean Boost
 
 **Clean your Mac safely, transparently, and fast.**
 
@@ -17,19 +17,21 @@ Know exactly what every byte is before it goes: which app it belongs to, and why
 
 [**⬇️ Download**](https://github.com/MashiXx/MashClean/releases/latest)
 
+<img src="design/AppStore/1440x900/01-smartscan.png" width="720" alt="Clean Boost Smart Scan">
+
 </div>
 
 ---
 
 ## Download
 
-**[⬇️ Download MashClean for macOS](https://github.com/MashiXx/MashClean/releases/latest)** · universal DMG for Apple Silicon and Intel, requires macOS 13 or later.
+**[⬇️ Download Clean Boost for macOS](https://github.com/MashiXx/MashClean/releases/latest)** · universal DMG for Apple Silicon and Intel, requires macOS 13 or later.
 
 > This build is not yet signed with a Developer ID or notarized, so macOS blocks it the first time. To open it: drag the app to Applications, try opening it once, then go to **System Settings → Privacy & Security** and click **Open Anyway** (on macOS 14 and earlier you can also right-click the app → **Open**). The admin helper and the Finder right-click menu may not work in this build.
 
-## Why MashClean?
+## Why Clean Boost?
 
-Most cleaners hand you one big number and a "Clean Now" button. MashClean does it differently:
+Most cleaners hand you one big number and a "Clean Now" button. Clean Boost does it differently:
 
 - 🔍 **Every item is explained.** Each suggestion comes with a reason ("npm downloads these again when needed"), the app it belongs to, and a safety level: *Safe*, *Review*, or *Risky*. Only safe items are preselected.
 - 🗑️ **Your files go to the Trash.** Files you created (downloads, large files, duplicates) are never deleted outright and never preselected. The **History** screen has a **Restore** button for 90 days.
@@ -51,16 +53,16 @@ Most cleaners hand you one big number and a "Clean Now" button. MashClean does i
 | 🐘 | **Large & Old Files** | Finds them through Spotlight; filter by type, size, and last use. |
 | 👯 | **Duplicates** | Compares in three steps (size → xxHash3 of the start and end of each file → full SHA-256). Skips APFS clones, since deleting them frees nothing, and suggests which copy to keep. |
 | 📊 | **Menu bar** | CPU, RAM, network speed, free space, and battery, with small history charts. Choose which numbers show in the menu bar. Alerts you when the disk is almost full or the Trash gets too big. |
-| 🖱️ | **Finder & Shortcuts** | Right-click in Finder: *Analyze with MashClean*, *Uninstall with MashClean*. Shortcuts actions: *Clean Junk*, *Free Space*. |
+| 🖱️ | **Finder & Shortcuts** | Right-click in Finder: *Analyze with Clean Boost*, *Uninstall with Clean Boost*. Shortcuts actions: *Clean Junk*, *Free Space*. |
 
 ## Safety first
 
-One wrong deletion is enough to lose a user's trust. So MashClean is built to make wrong deletions hard:
+One wrong deletion is enough to lose a user's trust. So Clean Boost is built to make wrong deletions hard:
 
 1. **Plan first, delete second.** You see exactly what will happen. Anything that needs administrator rights or a second look always gets a confirmation dialog that lists the details.
-2. **A locked-down admin helper.** The privileged helper only accepts named commands from MashClean itself (code signatures are checked in both directions), never runs arbitrary shell commands, and re-checks every path on its own.
+2. **A locked-down admin helper.** The privileged helper only accepts named commands from Clean Boost itself (code signatures are checked in both directions), never runs arbitrary shell commands, and re-checks every path on its own.
 3. **Hands off what's in use.** Open files and caches of running apps are skipped.
-4. **No app thinning.** MashClean doesn't strip binaries, because that breaks an app's code signature. Language files only appear under *Advanced* with a clear warning.
+4. **No app thinning.** Clean Boost doesn't strip binaries, because that breaks an app's code signature. Language files only appear under *Advanced* with a clear warning.
 5. **Dry run mode.** Run the whole flow without deleting anything, to preview the result.
 
 ## Knowledge lives outside the code
@@ -79,10 +81,10 @@ Knowing which paths are safe to delete lives in a set of **111 JSON rules**: 61 
 
 ## Installation
 
-1. Download `MashClean-<version>.dmg` from the [Releases](https://github.com/MashiXx/MashClean/releases/latest) page, open it, and drag **MashClean** to **Applications**.
+1. Download `CleanBoost-<version>.dmg` from the [Releases](https://github.com/MashiXx/MashClean/releases/latest) page, open it, and drag **Clean Boost** to **Applications**.
 2. Open the app and follow the first-run guide:
    - **Language**: pick English, Vietnamese, or follow the system.
-   - **Full Disk Access**: lets MashClean scan caches and other apps' data. You can skip it; the app then runs in limited mode and labels the categories that need it.
+   - **Full Disk Access**: lets Clean Boost scan caches and other apps' data. You can skip it; the app then runs in limited mode and labels the categories that need it.
    - **Admin helper**: needed to clean system caches and run maintenance tasks that require root.
 3. Click **Scan**.
 
@@ -92,7 +94,7 @@ Requires macOS 13 Ventura or later. Runs natively on both Apple Silicon and Inte
 
 ## For developers
 
-MashClean is written in Swift 6 (strict concurrency) with SwiftUI and AppKit, following the design document [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md) (in Vietnamese).
+Clean Boost is written in Swift 6 (strict concurrency) with SwiftUI and AppKit, following the design document [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md) (in Vietnamese).
 
 ### Build
 
@@ -102,20 +104,22 @@ Requires Xcode 16+ and `brew install xcodegen`.
 Scripts/build-rules.sh        # lint → test → package → sign → verify the rule set
 Scripts/build-app.sh          # generate the Xcode project with XcodeGen, then build (Debug)
 Scripts/build-app.sh Release  # universal Release build
-open .build/DerivedData/Build/Products/Debug/MashClean.app
+open ".build/DerivedData/Build/Products/Debug/Clean Boost.app"
 ```
 
 Run tests: `cd Packages && swift test`.
 
+App icon: `swift Scripts/make-icon.swift` regenerates every size in `AppIcon.appiconset` from `design/logo_design.png`. App Store screenshots live in `design/AppStore/` (`python3 design/AppStore/compose.py` rebuilds them from `raw/`).
+
 ### Architecture
 
 ```
-MashClean.app
+Clean Boost.app
 ├── Main app (user privileges): UI, Scan Engine, Clean Engine
-├── Library/LoginItems/MashCleanMenu.app      menu bar and monitoring
-├── Library/HelperTools/com.mashclean.helper   root helper (XPC, SMAppService)
-├── PlugIns/MashCleanFinder.appex             Finder right-click menu
-└── Extensions/MashCleanIntents.appex         Shortcuts
+├── Library/LoginItems/CleanBoostMenu.app       menu bar and monitoring
+├── Library/HelperTools/com.cleanboost.mac.helper   root helper (XPC, SMAppService)
+├── PlugIns/CleanBoostFinder.appex             Finder right-click menu
+└── Extensions/CleanBoostIntents.appex         Shortcuts
 ```
 
 | Folder | Contents |
@@ -143,4 +147,4 @@ The rule signing key lives in `Secrets/rules_signing_key.b64` (not committed; on
 
 - Dry run: environment variable `MASHCLEAN_DRY_RUN=1`, or **Debug → Dry run mode** in the menu.
 - Debug builds can load unsigned rules straight from the source folder: `MASHCLEAN_RULES_DIR=/path/to/Rules`.
-- Logs: `log stream --predicate 'subsystem BEGINSWITH "com.mashclean"' --level debug`; log files live in `~/Library/Logs/MashClean/`.
+- Logs: `log stream --predicate 'subsystem BEGINSWITH "com.cleanboost"' --level debug`; log files live in `~/Library/Logs/CleanBoost/`.

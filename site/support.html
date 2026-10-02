@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clean Boost Support</title>
+  <meta name="description" content="Help with Clean Boost for Mac: folder access, restoring files, uninstalling apps and reporting a problem.">
+  <link rel="icon" href="img/favicon.png">
+  <meta name="theme-color" content="#100828">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="img/icon.png" alt="">Clean Boost</a>
+      <nav class="nav-links" aria-label="Main">
+        <a class="hide-sm" href="/#features">Features</a>
+        <a href="support.html" aria-current="page">Support</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc">
+    <div class="wrap">
+      <h1 class="reveal">How can we help?</h1>
+      <p class="updated reveal">Answers to common questions about Clean Boost for Mac. Still stuck? Contact us at the bottom of this page.</p>
+
+      <div class="faq">
+        <details class="reveal">
+          <summary>I deleted something by mistake. Can I get it back?</summary>
+          <div><p>Yes, in most cases. Files you created, and most caches, go to the Trash instead of being deleted. Open <strong>History</strong> in the sidebar, find the item and click <strong>Restore</strong>. History keeps records for 90 days, as long as you haven't emptied the Trash.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Why does the Mac App Store version ask for my Home and Applications folders?</summary>
+          <div><p>Apps from the Mac App Store run in Apple's sandbox and can only read folders you choose. Clean Boost asks for your <strong>Home</strong> folder to scan caches, logs, large files and duplicates, and for <strong>Applications</strong> to uninstall apps. Select exactly the folder suggested in the dialog, then click <strong>Grant Access</strong>. You can change this later in <strong>Settings → Permissions</strong>.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>What is Full Disk Access, and do I need it?</summary>
+          <div><p>The direct-download version can read data from other apps, such as Mail and Safari caches, when you turn on Full Disk Access in <strong>System Settings → Privacy &amp; Security → Full Disk Access</strong>. It's optional: without it, Clean Boost scans what it can and labels the categories it couldn't read.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Why are some items not selected after a scan?</summary>
+          <div><p>Only items marked <strong>Safe</strong> are selected for you. Items marked <strong>Review</strong> (like old installers) or <strong>Risky</strong> (like iPhone backups) may still matter to you, so you decide.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>An app won't uninstall.</summary>
+          <div><p>Quit the app first; in the Mac App Store version Clean Boost waits for you to quit it. Apps installed by the system or owned by another user can't be removed by the Mac App Store version. Apps from the Mac App Store can also be removed from Launchpad.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Where are Login Items and Maintenance in the App Store version?</summary>
+          <div><p>These tools need permissions that Apple's sandbox doesn't allow. They're available in the direct download from our website.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>How do I switch between English and Vietnamese?</summary>
+          <div><p>Use the language menu at the bottom of the sidebar, or <strong>Settings → General</strong>. Clean Boost restarts to apply the new language.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>How do I remove Clean Boost completely?</summary>
+          <div><p>Turn off the menu bar item in <strong>Settings</strong>, then drag Clean Boost from Applications to the Trash. If you installed the admin helper in the direct-download version, remove it first in <strong>Settings → Permissions → Remove helper</strong>.</p></div>
+        </details>
+      </div>
+
+      <h2 class="reveal">Contact us</h2>
+      <p class="reveal">Questions, bugs or feature requests: email us. To include logs, use <strong>Report a Problem</strong> in the app sidebar: it builds a report on your Mac that you can review before sending.</p>
+      <div class="contact reveal">
+        <a class="btn btn-primary" href="mailto:support@mashtool.com?subject=Clean%20Boost%20support">Email support@mashtool.com</a>
+        <a class="btn btn-ghost" href="/download">Download the latest version</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span data-year>2026</span> Clean Boost</span>
+      <nav aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

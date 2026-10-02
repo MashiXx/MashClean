@@ -1,0 +1,11 @@
+// Website clean.mashtool.com (Marketing, Support, Privacy). Deploy: cd site && npx wrangler deploy
+{
+  "name": "clean-boost",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": ".",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "clean.mashtool.com", "custom_domain": true }]
+}

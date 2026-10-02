@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clean Boost — Clean your Mac, and know what you're deleting</title>
+  <meta name="description" content="Clean Boost finds caches, logs, app leftovers, large files and duplicates on your Mac, and explains every item before anything goes to the Trash.">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/icon.png">
+  <meta property="og:title" content="Clean Boost for Mac">
+  <meta property="og:description" content="Clean your Mac safely. Every item is explained before it goes to the Trash.">
+  <meta property="og:image" content="https://clean.mashtool.com/img/01-smartscan.webp">
+  <meta property="og:url" content="https://clean.mashtool.com/">
+  <meta name="theme-color" content="#100828">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="img/icon.png" alt="">Clean Boost</a>
+      <nav class="nav-links" aria-label="Main">
+        <a class="hide-sm" href="#features">Features</a>
+        <a class="hide-sm" href="#editions">Editions</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Clean your Mac. <span class="sweep">Know every byte</span> before it goes.</h1>
+          <p class="lead">Clean Boost finds caches, logs, app leftovers and forgotten files, and tells you what each one is, which app it belongs to, and why it's safe to remove.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="/download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+              Download for Mac
+            </a>
+            <a class="btn btn-ghost" href="#editions">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.4-.9-2.4-4.2zM14 5.2c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z"/></svg>
+              Mac App Store
+            </a>
+          </div>
+          <p class="fine">Free · macOS 13 or later · Apple Silicon and Intel</p>
+        </div>
+
+        <div class="scan" aria-label="Interactive scan example">
+          <div class="broom" id="broom" aria-hidden="true"></div>
+          <div class="scan-head">
+            <span class="scan-title">Smart Scan</span>
+            <span class="scan-status" id="scan-status" aria-live="polite">Ready</span>
+          </div>
+          <div class="scan-bar"><span id="scan-bar"></span></div>
+          <ul class="rows" id="rows"></ul>
+          <div class="scan-foot">
+            <div class="total"><small>Selected</small><span id="total">0.0 GB</span></div>
+            <div class="cta">
+              <button class="btn btn-ghost" id="rescan-btn" type="button">Scan again</button>
+              <button class="btn btn-primary clean-btn" id="clean-btn" type="button" disabled>Clean</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="safety">
+      <div class="wrap">
+        <h2 class="reveal">Three levels of safety, decided before you click</h2>
+        <p class="sub reveal">Each item carries a level. Only safe items are selected for you; everything else waits for your decision.</p>
+        <div class="levels">
+          <article class="level reveal" style="--c: var(--safe)">
+            <h3>Safe</h3>
+            <p>Caches and logs that apps rebuild on their own, like Xcode DerivedData or npm downloads.</p>
+            <p class="pre">Selected automatically</p>
+          </article>
+          <article class="level reveal" data-delay="120" style="--c: var(--review)">
+            <h3>Review</h3>
+            <p>Things you might still want: old installers, large downloads, Mail attachments.</p>
+            <p class="pre">Never selected for you</p>
+          </article>
+          <article class="level reveal" data-delay="240" style="--c: var(--risky)">
+            <h3>Risky</h3>
+            <p>Data that could be your only copy, such as iPhone backups or language files inside apps.</p>
+            <p class="pre">Shown with a clear warning</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tour">
+      <div class="wrap showcase">
+        <div class="tabs" role="tablist" aria-label="App screens">
+          <button class="tab" role="tab" type="button"><strong>Smart Scan</strong>One scan for junk, apps and big files.<span class="progress"></span></button>
+          <button class="tab" role="tab" type="button"><strong>System Junk</strong>Every item explained, with its source app.<span class="progress"></span></button>
+          <button class="tab" role="tab" type="button"><strong>Uninstaller</strong>Remove apps and everything they left behind.<span class="progress"></span></button>
+          <button class="tab" role="tab" type="button"><strong>Space Lens</strong>See where your disk space went.<span class="progress"></span></button>
+        </div>
+        <div class="frame reveal">
+          <img src="img/01-smartscan.webp" alt="Smart Scan results showing 3.79 GB of safe junk, maintenance tasks and apps to review" loading="lazy">
+          <img src="img/02-systemjunk.webp" alt="System Junk list with log files, each explained with the app it belongs to" loading="lazy">
+          <img src="img/03-uninstaller.webp" alt="Uninstaller showing installed apps sorted by size with their leftover files" loading="lazy">
+          <img src="img/04-spacelens.webp" alt="Space Lens sunburst chart of the Library folder" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <h2 class="reveal">Everything a cleaner should do, and nothing it shouldn't</h2>
+        <p class="sub reveal">Files you created are never deleted outright. They go to the Trash, and History can restore them for 90 days.</p>
+        <div class="features">
+          <div class="feature reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2m-9 0l1 14h8l1-14"/></svg></div>
+            <div><h3>System junk</h3><p>Caches, logs, crash reports, old iOS installers and the Trash, including on external drives.</p></div>
+          </div>
+          <div class="feature reveal" data-delay="80">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 9l6 6m0-6l-6 6"/></svg></div>
+            <div><h3>Uninstaller</h3><p>Removes apps with their support files, matched by bundle ID, team and name, ranked by confidence.</p></div>
+          </div>
+          <div class="feature reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.5 6.5"/></svg></div>
+            <div><h3>Space Lens</h3><p>An interactive map of your disk. Click any ring to drill into a folder.</p></div>
+          </div>
+          <div class="feature reveal" data-delay="80">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8l4 4v12H8z"/><path d="M4 8v12h4"/></svg></div>
+            <div><h3>Duplicates</h3><p>Compares size, then a fast hash, then a full checksum, and suggests which copy to keep.</p></div>
+          </div>
+          <div class="feature reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></div>
+            <div><h3>Large and old files</h3><p>Find big files you haven't opened in a year, filtered by type, size and last use.</p></div>
+          </div>
+          <div class="feature reveal" data-delay="80">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+            <div><h3>Menu bar monitor</h3><p>CPU, memory, network and free space at a glance, with an alert when the disk is almost full.</p></div>
+          </div>
+          <div class="feature reveal">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+            <div><h3>Made for developers too</h3><p>Xcode, simulators, npm, yarn, pnpm, Homebrew, pip, Gradle, CocoaPods and Docker caches.</p></div>
+          </div>
+          <div class="feature reveal" data-delay="80">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div>
+            <div><h3>Private by default</h3><p>Nothing leaves your Mac unless you opt in. No tracking SDKs, no file names ever sent.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="editions">
+      <div class="wrap">
+        <h2 class="reveal">Two ways to get it</h2>
+        <p class="sub reveal">The Mac App Store version runs in Apple's sandbox, so it only cleans folders you give it access to. The direct download can clean system-wide.</p>
+        <div class="table-scroll reveal">
+          <table class="editions">
+            <thead><tr><th scope="col"></th><th scope="col">Mac App Store</th><th scope="col">Direct download</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Updates</th><td>Through the App Store</td><td>Built-in updater</td></tr>
+              <tr><th scope="row">Cleans</th><td>Your Home and Applications folders</td><td>Your Mac, including system caches</td></tr>
+              <tr><th scope="row">Uninstaller, Space Lens, duplicates</th><td>Included</td><td>Included</td></tr>
+              <tr><th scope="row">Login items, maintenance tasks</th><td>Not available in the sandbox</td><td>Included</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <img class="icon reveal" src="img/icon.png" alt="Clean Boost app icon">
+        <h2 class="reveal">A cleaner Mac in one scan</h2>
+        <p class="sub reveal">English and Vietnamese. Free to download.</p>
+        <div class="cta reveal">
+          <a class="btn btn-primary" href="/download">Download for Mac</a>
+          <a class="btn btn-ghost" href="support.html">Get help</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span data-year>2026</span> Clean Boost</span>
+      <nav aria-label="Footer">
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="main.js" defer></script>
+</body>
+</html>

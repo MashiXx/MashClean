@@ -12,12 +12,14 @@ import SweepStorage
 
 public enum MaintenanceError: Error, CustomStringConvertible {
     case helperUnavailable
+    case helperUnreachable
     case mailRunning
     case failed(String)
 
     public var description: String {
         switch self {
         case .helperUnavailable: String(localized: "Cần cài helper (quyền quản trị) để chạy tác vụ này")
+        case .helperUnreachable: String(localized: "Helper không khởi động được. Hãy tắt rồi bật lại Clean Boost trong System Settings > General > Login Items")
         case .mailRunning: String(localized: "Hãy tắt Mail trước khi tối ưu")
         case let .failed(m): m
         }
@@ -69,7 +71,13 @@ public struct MaintenanceRunner: Sendable {
             return try speedUpMail(start: start)
         default:
             guard let helper, HelperInstaller.status == .enabled else { throw MaintenanceError.helperUnavailable }
-            return try await helper.runMaintenance(task)
+            // Ping trước (timeout ngắn): helper đã đăng ký nhưng không khởi động được thì báo lỗi ngay,
+            // thay vì treo tới hết timeout 300 giây của lệnh bảo trì.
+            switch await helper.ensureCompatible() {
+            case .enabled: return try await helper.runMaintenance(task)
+            case .requiresApproval: throw HelperError.requiresApproval
+            default: throw MaintenanceError.helperUnreachable
+            }
         }
     }
 

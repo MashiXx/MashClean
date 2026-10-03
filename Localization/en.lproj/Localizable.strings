@@ -239,6 +239,7 @@
 "Gửi thống kê ẩn danh" = "Send anonymous statistics";
 "Helper chưa được cài" = "Helper not installed";
 "Helper chỉ nhận lệnh có tên từ Clean Boost đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá." = "The helper only accepts named commands from a Clean Boost build signed with the correct Team ID, and re-checks every path before deleting.";
+"Helper không khởi động được. Hãy tắt rồi bật lại Clean Boost trong System Settings > General > Login Items" = "The helper failed to start. Turn Clean Boost off and on again in System Settings > General > Login Items";
 "Helper quản trị" = "Admin helper";
 "Helper trả về dữ liệu không hợp lệ" = "Helper returned invalid data";
 "Helper đã sẵn sàng" = "Helper is ready";

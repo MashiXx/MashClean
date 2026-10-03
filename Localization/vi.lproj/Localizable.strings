@@ -239,6 +239,7 @@
 "Gửi thống kê ẩn danh" = "Gửi thống kê ẩn danh";
 "Helper chưa được cài" = "Helper chưa được cài";
 "Helper chỉ nhận lệnh có tên từ Clean Boost đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá." = "Helper chỉ nhận lệnh có tên từ Clean Boost đã ký đúng Team ID, và kiểm tra lại mọi đường dẫn trước khi xoá.";
+"Helper không khởi động được. Hãy tắt rồi bật lại Clean Boost trong System Settings > General > Login Items" = "Helper không khởi động được. Hãy tắt rồi bật lại Clean Boost trong System Settings > General > Login Items";
 "Helper quản trị" = "Helper quản trị";
 "Helper trả về dữ liệu không hợp lệ" = "Helper trả về dữ liệu không hợp lệ";
 "Helper đã sẵn sàng" = "Helper đã sẵn sàng";

@@ -131,7 +131,9 @@ public actor HelperClient {
     }
 
     /// Kiểm tra phiên bản helper; cũ hơn app cần thì đăng ký lại (mục 9.5).
-    public func ensureCompatible() async -> HelperStatus {
+    /// `repair`: helper "enabled" nhưng không trả lời (thường do app bị thay bằng bản mới, launchd giữ đăng ký cũ
+    /// và spawn lỗi EX_CONFIG) thì đăng ký lại một lần rồi ping lại.
+    public func ensureCompatible(repair: Bool = true) async -> HelperStatus {
         let status = HelperInstaller.status
         guard status == .enabled else { return status }
         do {
@@ -145,7 +147,16 @@ public actor HelperClient {
             return .enabled
         } catch {
             Log.error(.ipc, "ipc", "Không gọi được helper: \(error)")
-            return .unreachable
+            guard repair else { return .unreachable }
+            disconnect()
+            do {
+                try await HelperInstaller.reinstall()
+            } catch {
+                Log.error(.ipc, "ipc", "Đăng ký lại helper lỗi: \(error)")
+                return .unreachable
+            }
+            try? await Task.sleep(for: .seconds(1))
+            return await ensureCompatible(repair: false)
         }
     }
 }

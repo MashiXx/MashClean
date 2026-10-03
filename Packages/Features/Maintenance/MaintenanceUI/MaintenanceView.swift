@@ -60,6 +60,16 @@ final class MaintenanceViewModel: ObservableObject {
         }
     }
 
+    /// Chưa đăng ký thì đăng ký; đã "enabled" mà không trả lời thì đăng ký lại (sửa đăng ký cũ sau khi cập nhật app).
+    func installHelper() {
+        let status = (try? HelperInstaller.ensureRegistered()) ?? HelperInstaller.status
+        guard status == .enabled, let helper = feature.helper else { return refresh() }
+        Task {
+            _ = await helper.ensureCompatible()
+            refresh()
+        }
+    }
+
     func delete(_ snapshot: LocalSnapshot) {
         let plan = services.cleanEngine.makePlan(nodes: [feature.snapshotNode(snapshot)])
         Task {
@@ -90,7 +100,7 @@ public struct MaintenanceView: View {
                 if let status = model.status {
                     if !status.helperAvailable && MaintenanceTaskName.allCases.contains(where: { model.selected.contains($0) && $0.requiresRoot }) {
                         NoticeBanner(symbol: "lock.shield", text: String(localized: "Tác vụ cần quyền quản trị sẽ yêu cầu cài helper của Clean Boost."),
-                                     actionTitle: String(localized: "Cài helper")) { _ = try? HelperInstaller.ensureRegistered() }
+                                     actionTitle: String(localized: "Cài helper")) { model.installHelper() }
                     }
                     statusRow(status)
                     ScrollView {

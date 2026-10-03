@@ -38,7 +38,9 @@ public struct SmartScanView: View {
     public static let appearance = FeatureAppearance(
         accent: .smartScan, symbol: "sparkles",
         title: "Smart Scan",
-        subtitle: String(localized: "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng."),
+        subtitle: AppEdition.isAppStore
+            ? String(localized: "Một lần quét cho cả máy: dọn rác an toàn, tìm file sót của ứng dụng.")
+            : String(localized: "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng."),
         scanTitle: String(localized: "Quét"), cleanTitle: String(localized: "Chạy")
     )
 

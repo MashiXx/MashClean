@@ -69,9 +69,11 @@ struct RootView: View {
             SystemJunkView(services: env.services, feature: env.systemJunk, autoStart: router.autoStartTarget == .systemJunk)
                 .id(router.autoStartTarget == .systemJunk ? router.autoStartToken : 0)
         case .largeOldFiles:
-            LargeOldFilesView(services: env.services, feature: env.largeOldFiles)
+            LargeOldFilesView(services: env.services, feature: env.largeOldFiles, autoStart: router.autoStartTarget == .largeOldFiles)
+                .id(router.autoStartTarget == .largeOldFiles ? router.autoStartToken : 0)
         case .duplicates:
-            DuplicatesView(services: env.services, feature: env.duplicates)
+            DuplicatesView(services: env.services, feature: env.duplicates, autoStart: router.autoStartTarget == .duplicates)
+                .id(router.autoStartTarget == .duplicates ? router.autoStartToken : 0)
         case .uninstaller:
             UninstallerView(services: env.services, feature: env.uninstaller, initialAppPath: router.uninstallPath)
                 .id(router.uninstallerID)

@@ -131,7 +131,13 @@ public struct MaintenanceView: View {
                     .font(Theme.Font.body).foregroundStyle(Theme.secondaryText)
             }
             Spacer()
-            Button { model.refresh() } label: { Label(String(localized: "Làm mới"), systemImage: "arrow.clockwise") }
+            Button { model.refresh() } label: {
+                if model.loading {
+                    HStack(spacing: 6) { ProgressView().controlSize(.small); Text(String(localized: "Làm mới")) }
+                } else {
+                    Label(String(localized: "Làm mới"), systemImage: "arrow.clockwise")
+                }
+            }
                 .buttonStyle(GlassButtonStyle()).disabled(model.loading)
         }
     }

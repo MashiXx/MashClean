@@ -8,11 +8,12 @@ def font(size, weight):
     except Exception: pass
     return f
 SHOTS = [
- ("01-smartscan",   "One scan. A cleaner Mac.",            "Smart Scan finds junk, maintenance tasks and app leftovers in seconds."),
+ ("01-smartscan",   "One scan. A cleaner Mac.",            "Smart Scan finds safe junk and app leftovers in seconds."),
  ("02-systemjunk",  "Know what every byte is.",            "Each item explains what it is, which app it belongs to, and why it's safe."),
  ("03-uninstaller", "Uninstall apps completely.",          "Remove apps together with every leftover file they scattered around."),
  ("04-spacelens",   "See where your space went.",          "Space Lens maps your disk so you can drill into the biggest folders."),
- ("05-maintenance", "Keep your Mac running smoothly.",     "Flush DNS, free up RAM, reindex Spotlight — only when it's actually needed."),
+ ("05-largeoldfiles", "Find large & forgotten files.",     "Filter by size, kind and last opened. Nothing is preselected — you decide."),
+ ("06-duplicates",  "Clear out duplicate files.",          "Identical files are matched by content, so you only keep one copy."),
 ]
 W, H = 2880, 1800
 def background():

@@ -205,7 +205,6 @@ struct AppRow: View {
 
     private static let relative: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()
-        f.locale = Locale(identifier: "vi")
         f.unitsStyle = .short
         return f
     }()

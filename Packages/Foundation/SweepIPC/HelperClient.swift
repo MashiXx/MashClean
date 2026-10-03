@@ -193,7 +193,13 @@ public enum HelperInstaller {
             SMAppService.openSystemSettingsLoginItems()
             return .requiresApproval
         case .notRegistered, .notFound:
-            try service.register()
+            do {
+                try service.register()
+            } catch {
+                // Người dùng đã tắt helper trong Login Items: register lỗi, cần bật lại bằng tay.
+                guard service.status == .requiresApproval else { throw error }
+            }
+            if service.status == .requiresApproval { SMAppService.openSystemSettingsLoginItems() }
             return status
         @unknown default:
             return status
@@ -202,7 +208,7 @@ public enum HelperInstaller {
 
     public static func reinstall() async throws {
         try? await service.unregister()
-        try service.register()
+        try ensureRegistered()
     }
 
     public static func unregister() async throws {

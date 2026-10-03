@@ -372,6 +372,7 @@
 "Mỗi bản %@" = "Mỗi bản %@";
 "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý." = "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý.";
 "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng." = "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng.";
+"Một lần quét cho cả máy: dọn rác an toàn, tìm file sót của ứng dụng." = "Một lần quét cho cả máy: dọn rác an toàn, tìm file sót của ứng dụng.";
 "Một số nhóm cần Full Disk Access để quét đầy đủ." = "Một số nhóm cần Full Disk Access để quét đầy đủ.";
 "Một số thư mục được macOS bảo vệ nên không quét được trong bản này." = "Một số thư mục được macOS bảo vệ nên không quét được trong bản này.";
 "Mở" = "Mở";

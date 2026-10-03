@@ -38,6 +38,7 @@ final class LargeOldFilesViewModel: ScanCleanViewModel {
 /// Màn Large & Old Files (mục 11.7): thanh lọc, bảng, chọn tay, chuyển vào Thùng rác qua Clean Engine.
 public struct LargeOldFilesView: View {
     @StateObject private var model: LargeOldFilesViewModel
+    private let autoStart: Bool
 
     public static let appearance = FeatureAppearance(
         accent: .files, symbol: "doc.badge.clock",
@@ -46,8 +47,9 @@ public struct LargeOldFilesView: View {
         cleanTitle: String(localized: "Chuyển vào Thùng rác")
     )
 
-    public init(services: ScanServices, feature: LargeOldFilesFeature) {
+    public init(services: ScanServices, feature: LargeOldFilesFeature, autoStart: Bool = false) {
         _model = StateObject(wrappedValue: LargeOldFilesViewModel(services: services, feature: feature))
+        self.autoStart = autoStart
     }
 
     public var body: some View {
@@ -73,6 +75,9 @@ public struct LargeOldFilesView: View {
                 }
             }
             .padding(24)
+        }
+        .onAppear {
+            if autoStart, case .idle = model.phase { model.startScan() }
         }
         .sheet(item: $model.permanentDeletePrompt) { prompt in
             PermanentDeleteConfirm(prompt: prompt)

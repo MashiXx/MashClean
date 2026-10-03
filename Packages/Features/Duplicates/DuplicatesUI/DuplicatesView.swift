@@ -78,6 +78,7 @@ final class DuplicatesViewModel: ScanCleanViewModel {
 /// Màn Duplicates (mục 11.8).
 public struct DuplicatesView: View {
     @StateObject private var model: DuplicatesViewModel
+    private let autoStart: Bool
 
     public static let appearance = FeatureAppearance(
         accent: .files, symbol: "doc.on.doc",
@@ -86,8 +87,9 @@ public struct DuplicatesView: View {
         scanTitle: String(localized: "Tìm"), cleanTitle: String(localized: "Chuyển vào Thùng rác")
     )
 
-    public init(services: ScanServices, feature: DuplicatesFeature) {
+    public init(services: ScanServices, feature: DuplicatesFeature, autoStart: Bool = false) {
         _model = StateObject(wrappedValue: DuplicatesViewModel(services: services, feature: feature))
+        self.autoStart = autoStart
     }
 
     public var body: some View {
@@ -113,6 +115,9 @@ public struct DuplicatesView: View {
                 }
             }
             .padding(24)
+        }
+        .onAppear {
+            if autoStart, case .idle = model.phase { model.startScan() }
         }
         .alert(String(localized: "Chọn hết mọi bản trong nhóm?"), isPresented: $model.confirmAllSelected) {
             Button(String(localized: "Huỷ"), role: .cancel) {}

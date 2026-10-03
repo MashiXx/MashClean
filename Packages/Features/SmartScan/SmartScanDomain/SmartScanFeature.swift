@@ -61,7 +61,8 @@ public struct SmartScanFeature: Sendable {
             byCard[summary.card, default: ([], [])].0.append(summary)
             byCard[summary.card, default: ([], [])].1 += nodes
         }
-        return SmartScanCard.allCases.map { card in
+        // Chỉ thẻ có feature đóng góp: bản App Store không có Bảo trì/Login Items nên không hiện thẻ Bảo trì.
+        return SmartScanCard.allCases.filter { byCard[$0] != nil }.map { card in
             SmartScanCardSummary(card: card, features: byCard[card]?.0 ?? [], nodes: byCard[card]?.1 ?? [])
         }
     }

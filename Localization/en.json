@@ -371,6 +371,7 @@
   "Mỗi bản %@": "%@ each",
   "Một helper nhỏ chạy với quyền root để xoá cache hệ thống và chạy tác vụ bảo trì. Helper chỉ nhận lệnh có tên cụ thể từ Clean Boost đã ký, không bao giờ chạy lệnh tuỳ ý.": "A small helper that runs as root to delete system caches and run maintenance tasks. It only accepts specific named commands from signed Clean Boost and never runs arbitrary commands.",
   "Một lần quét cho cả máy: dọn rác an toàn, gợi ý bảo trì, tìm file sót của ứng dụng.": "One scan for your whole Mac: safe junk cleanup, maintenance suggestions, and app leftovers.",
+  "Một lần quét cho cả máy: dọn rác an toàn, tìm file sót của ứng dụng.": "One scan for your whole Mac: safe junk cleanup and app leftovers.",
   "Một số nhóm cần Full Disk Access để quét đầy đủ.": "Some categories need Full Disk Access for a complete scan.",
   "Một số thư mục được macOS bảo vệ nên không quét được trong bản này.": "Some folders are protected by macOS and can't be scanned in this version.",
   "Mở": "Open",

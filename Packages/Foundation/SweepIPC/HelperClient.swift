@@ -75,9 +75,10 @@ public actor HelperClient {
         reset()
     }
 
-    private func call<T: Sendable>(_ body: @escaping @Sendable (any HelperProtocol, @escaping @Sendable (T) -> Void) -> Void) async throws -> T {
+    private func call<T: Sendable>(timeout: TimeInterval? = nil,
+                                   _ body: @escaping @Sendable (any HelperProtocol, @escaping @Sendable (T) -> Void) -> Void) async throws -> T {
         let conn = currentConnection()
-        let timeout = timeout
+        let timeout = timeout ?? self.timeout
         return try await withCheckedThrowingContinuation { (cont: CheckedContinuation<T, any Error>) in
             let once = ResumeOnce(cont)
             let proxy = conn.remoteObjectProxyWithErrorHandler { once.fail(HelperError.connection($0.localizedDescription)) }
@@ -89,8 +90,10 @@ public actor HelperClient {
 
     // MARK: API
 
-    public func protocolVersion() async throws -> Int {
-        try await call { helper, reply in helper.protocolVersion { reply($0) } }
+    /// Chỉ là lệnh ping: helper khoẻ thì trả lời ngay. Timeout ngắn để helper hỏng (đã đăng ký nhưng launchd
+    /// không khởi động được) không làm treo màn quét/bảo trì tới hết timeout 300 giây của lệnh xoá.
+    public func protocolVersion(timeout: TimeInterval = 5) async throws -> Int {
+        try await call(timeout: timeout) { helper, reply in helper.protocolVersion { reply($0) } }
     }
 
     public func removeItems(_ paths: [String], mode: RemoveMode) async throws -> [RemoveResult] {

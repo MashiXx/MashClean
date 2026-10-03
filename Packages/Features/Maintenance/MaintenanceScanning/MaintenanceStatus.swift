@@ -118,17 +118,23 @@ public struct MaintenanceStatusReader: Sendable {
         for (k, v) in runs { if let t = MaintenanceTaskName(rawValue: k) { lastRuns[t] = v.ranAt } }
         let volume = VolumeInfo(url: URL(fileURLWithPath: "/"))
         let purgeable = volume.map { max(0, $0.availableForImportantUsage - $0.available) } ?? 0
-        let snapshots = await Self.localSnapshots(volume: "/")
+        // Các lệnh ngoài (tmutil, mdutil, ping helper) chạy song song: chờ lâu nhất bằng lệnh chậm nhất, không cộng dồn.
+        async let snapshotsResult = Self.localSnapshots(volume: "/")
+        async let spotlightResult = Self.spotlightEnabled()
+        async let helperResult = Self.helperReachable(helper)
         let mailRunning = RunningAppsCheck.isRunning("com.apple.mail")
         let envelope = Self.envelopeIndexFiles(home: home).reduce(Int64(0)) { sum, url in
             sum + Int64((try? url.resourceValues(forKeys: [.totalFileAllocatedSizeKey]).totalFileAllocatedSize) ?? 0)
         }
-        let spotlight = await Self.spotlightEnabled()
-        var helperOK = false
-        if let helper, HelperInstaller.status == .enabled { helperOK = (try? await helper.protocolVersion()) != nil }
+        let (snapshots, spotlight, helperOK) = await (snapshotsResult, spotlightResult, helperResult)
         return MaintenanceStatus(memoryPressure: .current, purgeableBytes: ByteCount(purgeable), localSnapshots: snapshots, mailRunning: mailRunning,
                                  mailEnvelopeIndexBytes: envelope > 0 ? ByteCount(envelope) : nil, spotlightEnabled: spotlight,
                                  lastRuns: lastRuns, helperAvailable: helperOK)
+    }
+
+    static func helperReachable(_ helper: HelperClient?) async -> Bool {
+        guard let helper, HelperInstaller.status == .enabled else { return false }
+        return (try? await helper.protocolVersion()) != nil
     }
 
     /// `tmutil listlocalsnapshots /` không cần root.

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Các tính năng (phần quét + nghiệp vụ, không có giao diện). Mỗi tính năng một thư mục, giống Scanning/Domain của bản Mac. -->
+  <PropertyGroup>
+    <RootNamespace>CleanBoost.Features</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CleanBoost.Engine\CleanBoost.Engine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Hashing" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CleanBoost.Tests" />
+  </ItemGroup>
+</Project>

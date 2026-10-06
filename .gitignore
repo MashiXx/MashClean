@@ -18,3 +18,11 @@ App/Resources/Rules/rules.unsigned
 !.env.example
 site/download/
 site/.wrangler/
+
+# Windows
+Windows/.artifacts*/
+Windows/dist/
+Windows/**/bin/
+Windows/**/obj/
+*.user
+.vs/

@@ -1,0 +1,10 @@
+{
+  "Video": "Videos",
+  "Cần quyền quản trị để đọc %@": "Administrator rights are needed to read %@",
+  "Không đọc được %@": "Can't read %@",
+  "Không có file nào khớp bộ lọc": "No files match the filters",
+  "Bỏ qua AppData, thư mục hệ thống, liên kết và file đám mây chưa tải về.": "Skips AppData, system folders, links, and cloud files that aren't downloaded.",
+  "Tìm file lớn hơn %@ hoặc không dùng hơn %lld ngày.": "Finds files larger than %@ or unused for more than %lld days.",
+  "Hiện trong File Explorer": "Show in File Explorer",
+  "Bỏ thư mục này": "Remove this folder"
+}

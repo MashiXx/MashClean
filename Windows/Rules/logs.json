@@ -1,0 +1,291 @@
+[
+  {
+    "id": "app.generic.logs",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log theo ứng dụng",
+      "en": "App logs"
+    },
+    "reason": {
+      "vi": "Thư mục log của ứng dụng đã cài; ứng dụng tự tạo file mới khi cần.",
+      "en": "Log folders of installed apps; apps create new log files when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "forEachInstalledApp": true,
+      "paths": [
+        "%LOCALAPPDATA%\\${appName}\\logs",
+        "%APPDATA%\\${appName}\\logs",
+        "%LOCALAPPDATA%\\${publisher}\\${appName}\\logs",
+        "%APPDATA%\\${publisher}\\${appName}\\logs"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "${appID}"
+      ]
+    },
+    "exclude": [
+      "%LOCALAPPDATA%\\CleanBoost",
+      "%APPDATA%\\CleanBoost",
+      "%LOCALAPPDATA%\\Microsoft",
+      "%APPDATA%\\Microsoft"
+    ]
+  },
+  {
+    "id": "user.logs.old-log-files",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "File log cũ của ứng dụng",
+      "en": "Old app log files"
+    },
+    "reason": {
+      "vi": "File .log ứng dụng để ngay trong thư mục dữ liệu của mình, không ghi thêm hơn 14 ngày.",
+      "en": "Loose .log files apps keep directly in their data folders that have not been written for over 14 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\*\\*.log",
+        "%APPDATA%\\*\\*.log",
+        "%LOCALAPPDATALOW%\\*\\*.log"
+      ],
+      "minAgeDays": 14
+    },
+    "exclude": [
+      "%LOCALAPPDATA%\\Microsoft",
+      "%APPDATA%\\Microsoft",
+      "%LOCALAPPDATA%\\CleanBoost",
+      "%LOCALAPPDATA%\\Temp",
+      "%LOCALAPPDATA%\\Packages",
+      "%LOCALAPPDATA%\\*\\[0-9]*.log",
+      "%APPDATA%\\*\\[0-9]*.log",
+      "%LOCALAPPDATALOW%\\*\\[0-9]*.log",
+      "%LOCALAPPDATA%\\*\\edb*.log",
+      "%APPDATA%\\*\\edb*.log",
+      "%LOCALAPPDATALOW%\\*\\edb*.log"
+    ],
+    "notes": "Chỉ file .log ở cấp thứ hai. Loại trừ tên bắt đầu bằng số (write-ahead log của LevelDB như 000003.log chứa dữ liệu thật) và edb*.log (log giao dịch ESE)."
+  },
+  {
+    "id": "user.logs.onedrive",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log của OneDrive",
+      "en": "OneDrive logs"
+    },
+    "reason": {
+      "vi": "Nhật ký đồng bộ cũ hơn 7 ngày của OneDrive; tệp trong OneDrive không bị ảnh hưởng.",
+      "en": "OneDrive sync logs older than 7 days; your OneDrive files are not affected."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\*\\*.odl*",
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\*\\*.aodl",
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\*\\*.log"
+      ],
+      "minAgeDays": 7
+    },
+    "notes": "Chỉ thư mục logs trong %LOCALAPPDATA%\\Microsoft\\OneDrive; thư mục OneDrive của người dùng là vùng cấm."
+  },
+  {
+    "id": "app.zoom.logs",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log Zoom",
+      "en": "Zoom logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 7 ngày của Zoom; lịch sử trò chuyện không bị ảnh hưởng.",
+      "en": "Zoom logs older than 7 days; chat history is not affected."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Zoom\\logs\\*"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "app.steam.logs",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log Steam",
+      "en": "Steam logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 7 ngày của ứng dụng Steam.",
+      "en": "Steam client logs older than 7 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMFILES(X86)%\\Steam\\logs\\*"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "app.epic.logs",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log Epic Games Launcher",
+      "en": "Epic Games Launcher logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 7 ngày của Epic Games Launcher.",
+      "en": "Epic Games Launcher logs older than 7 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Logs\\*"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "devtools.logs",
+    "version": 1,
+    "category": "userLogs",
+    "title": {
+      "vi": "Log công cụ lập trình",
+      "en": "Developer tool logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 3 ngày của npm, VS Code, Cursor, IDE JetBrains và Gradle daemon.",
+      "en": "Logs older than 3 days from npm, VS Code, Cursor, JetBrains IDEs and the Gradle daemon."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\npm-cache\\_logs\\*",
+        "%APPDATA%\\npm-cache\\_logs\\*",
+        "%APPDATA%\\Code\\logs\\*",
+        "%APPDATA%\\Code - Insiders\\logs\\*",
+        "%APPDATA%\\Cursor\\logs\\*",
+        "%LOCALAPPDATA%\\JetBrains\\*\\log\\*",
+        "%LOCALAPPDATA%\\Google\\AndroidStudio*\\log\\*",
+        "~\\.gradle\\daemon\\*\\*.log"
+      ],
+      "minAgeDays": 3
+    },
+    "notes": "VS Code ghi log theo phiên (thư mục ngày giờ); phiên đang chạy có file mới nên không bị lấy."
+  },
+  {
+    "id": "crash.user.dumps",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "File dump khi ứng dụng bị crash",
+      "en": "App crash dumps"
+    },
+    "reason": {
+      "vi": "Bản ghi bộ nhớ Windows lưu khi ứng dụng bị crash; chỉ nhà phát triển cần đến.",
+      "en": "Memory dumps Windows saves when apps crash; only developers need them."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\CrashDumps\\*"
+      ]
+    }
+  },
+  {
+    "id": "crash.user.wer",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Báo cáo lỗi Windows",
+      "en": "Windows Error Reporting files"
+    },
+    "reason": {
+      "vi": "Báo cáo crash và treo của ứng dụng, đã gửi hoặc đang chờ gửi cho Microsoft.",
+      "en": "Crash and hang reports of apps, already sent or waiting to be sent to Microsoft."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\*",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\*",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\Temp\\*"
+      ]
+    }
+  },
+  {
+    "id": "crash.user.crashpad",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Báo cáo crash của trình duyệt và ứng dụng Electron",
+      "en": "Browser and Electron crash reports"
+    },
+    "reason": {
+      "vi": "Bản ghi crash Crashpad của Chrome, Edge, Brave, Firefox và ứng dụng Electron (Discord, VS Code, Slack...), đã gửi hoặc đang chờ gửi.",
+      "en": "Crashpad crash dumps from Chrome, Edge, Brave, Firefox and Electron apps (Discord, VS Code, Slack...), sent or waiting to be sent."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\*\\Crashpad\\reports\\*",
+        "%LOCALAPPDATA%\\*\\Crashpad\\reports\\*",
+        "%LOCALAPPDATA%\\Google\\*\\User Data\\Crashpad\\reports\\*",
+        "%LOCALAPPDATA%\\Microsoft\\Edge*\\User Data\\Crashpad\\reports\\*",
+        "%LOCALAPPDATA%\\BraveSoftware\\*\\User Data\\Crashpad\\reports\\*",
+        "%LOCALAPPDATA%\\*\\User Data\\Crashpad\\reports\\*",
+        "%APPDATA%\\Mozilla\\Firefox\\Crash Reports\\pending\\*",
+        "%APPDATA%\\Mozilla\\Firefox\\Crash Reports\\submitted\\*"
+      ]
+    },
+    "notes": "Chỉ thư mục Crashpad\\reports (dump đã ghi), không đụng settings.dat hay metadata của Crashpad."
+  },
+  {
+    "id": "app.steam.dumps",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "File dump của Steam",
+      "en": "Steam crash dumps"
+    },
+    "reason": {
+      "vi": "Bản ghi crash của Steam và game khởi chạy qua Steam.",
+      "en": "Crash dumps from Steam and games launched through it."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMFILES(X86)%\\Steam\\dumps\\*"
+      ]
+    }
+  }
+]

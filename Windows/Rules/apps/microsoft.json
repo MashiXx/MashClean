@@ -1,0 +1,61 @@
+[
+  {
+    "id": "app.microsoft-office.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Microsoft Office",
+      "en": "Microsoft Office leftovers"
+    },
+    "reason": {
+      "vi": "Cache add-in, giấy phép, dữ liệu đo lường và danh sách tệp gần đây Office để lại sau khi gỡ.",
+      "en": "Add-in cache, licenses, telemetry data and recent file lists Office leaves behind after removal."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Microsoft Office*",
+        "Microsoft 365*"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Office\\16.0\\Wef",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\OTele",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\SolutionPackages",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\Licenses",
+        "%APPDATA%\\Microsoft\\Office\\Recent"
+      ]
+    },
+    "notes": "Cố ý không đụng OfficeFileCache (tệp chờ tải lên OneDrive/SharePoint), AutoRecover trong %APPDATA%\\Microsoft\\Word|Excel|PowerPoint, Templates, Outlook (*.pst/*.ost là vùng cấm). Gói ngôn ngữ cũng có tên 'Microsoft 365 - xx-xx' nên chỉ lấy dữ liệu ít rủi ro."
+  },
+  {
+    "id": "app.microsoft-teams-classic.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Microsoft Teams (cổ điển)",
+      "en": "Microsoft Teams (cổ điển) leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Microsoft Teams (cổ điển) để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Microsoft Teams (cổ điển) leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appIDs": [
+        "Teams"
+      ],
+      "appNames": [
+        "Microsoft Teams*"
+      ],
+      "paths": [
+        "%APPDATA%\\Microsoft\\Teams",
+        "%LOCALAPPDATA%\\Microsoft\\Teams"
+      ]
+    },
+    "notes": "Lọc appIDs 'Teams' (khoá Uninstall của Teams cổ điển) để gỡ Teams mới (gói MSTeams) hay Teams Machine-Wide Installer không lấy dữ liệu của Teams cổ điển."
+  }
+]

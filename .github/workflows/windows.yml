@@ -1,0 +1,56 @@
+# CI bản Windows: build → test → rulepack lint/test → (main) đóng gói rule đã ký + bản portable.
+name: Windows
+on:
+  push:
+    branches: [main, windows]
+    paths: ["Windows/**", ".github/workflows/windows.yml"]
+  pull_request:
+    paths: ["Windows/**", ".github/workflows/windows.yml"]
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: Windows
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+      - name: Build
+        run: dotnet build CleanBoost.sln -c Release
+      - name: Unit test
+        run: dotnet test tests/CleanBoost.Tests -c Release --no-build
+      - name: rulepack lint + test
+        run: |
+          dotnet .artifacts/bin/CleanBoost.RulePack/release/rulepack.dll lint Rules
+          dotnet .artifacts/bin/CleanBoost.RulePack/release/rulepack.dll test Rules --fixtures tests/Fixtures/rules
+
+  package:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-test
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: Windows
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+      - name: Ký bộ rule
+        shell: pwsh
+        env:
+          WINDOWS_RULES_SIGNING_KEY: ${{ secrets.WINDOWS_RULES_SIGNING_KEY }}
+        run: |
+          New-Item -ItemType Directory -Force ../Secrets | Out-Null
+          Set-Content -NoNewline -Path ../Secrets/windows_rules_signing_key.b64 -Value $env:WINDOWS_RULES_SIGNING_KEY
+          ./Scripts/build-rules.ps1
+      - name: Đóng gói
+        shell: pwsh
+        run: ./Scripts/publish.ps1 -SkipInstaller
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CleanBoost-windows
+          path: Windows/dist/*.zip

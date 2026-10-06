@@ -29,6 +29,10 @@ Know exactly what every byte is before it goes: which app it belongs to, and why
 
 > This build is not yet signed with a Developer ID or notarized, so macOS blocks it the first time. To open it: drag the app to Applications, try opening it once, then go to **System Settings → Privacy & Security** and click **Open Anyway** (on macOS 14 and earlier you can also right-click the app → **Open**). The admin helper and the Finder right-click menu may not work in this build.
 
+### Windows
+
+A Windows edition (Windows 10 1809+ and 11) lives in [`Windows/`](Windows/README.md): same design and safety model, built with .NET 9 and WPF.
+
 ## Why Clean Boost?
 
 Most cleaners hand you one big number and a "Clean Now" button. Clean Boost does it differently:

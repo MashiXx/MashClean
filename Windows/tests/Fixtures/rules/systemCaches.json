@@ -1,0 +1,110 @@
+{
+  "cases": [
+    {
+      "name": "INetCache: từng thư mục con, loại Content.Outlook và thư mục rỗng",
+      "rules": ["system.caches.inet-cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\IE\\ABCD1234\\page[1].htm", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\Content.MSO\\x.tmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\Content.Outlook\\Q1W2E3\\report.docx", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\Low", "dir": true}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\IE",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\Content.MSO"
+      ]
+    },
+    {
+      "name": "D3DSCache: xoá nội dung; rỗng thì bỏ",
+      "rules": ["system.caches.directx"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\D3DSCache\\5f6a\\idx.bin", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\D3DSCache"
+      ]
+    },
+    {
+      "name": "D3DSCache rỗng",
+      "rules": ["system.caches.directx"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\D3DSCache", "dir": true}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Shader NVIDIA, AMD, Intel; không đụng cài đặt",
+      "rules": ["system.caches.nvidia-shaders", "system.caches.amd-shaders", "system.caches.intel-shaders"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\NVIDIA\\DXCache\\a.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA\\GLCache\\x\\b.bin", "size": 4096},
+        {"path": "%LOCALAPPDATALOW%\\NVIDIA\\PerDriverVersion\\DXCache\\c.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\NV_Cache\\d.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\AMD\\DxCache\\e.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\AMD\\VkCache\\f.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\AMD\\CN\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATALOW%\\Intel\\ShaderCache\\g.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Intel\\ShaderCache\\h.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Intel\\Other\\i.bin", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\NVIDIA\\DXCache",
+        "%LOCALAPPDATA%\\NVIDIA\\GLCache",
+        "%LOCALAPPDATALOW%\\NVIDIA\\PerDriverVersion\\DXCache",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NV_Cache",
+        "%LOCALAPPDATA%\\AMD\\DxCache",
+        "%LOCALAPPDATA%\\AMD\\VkCache",
+        "%LOCALAPPDATALOW%\\Intel\\ShaderCache",
+        "%LOCALAPPDATA%\\Intel\\ShaderCache"
+      ]
+    },
+    {
+      "name": "Explorer: thumbcache cho rule ảnh thu nhỏ, iconcache cho rule biểu tượng",
+      "rules": ["system.caches.thumbnails", "system.caches.icon-cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_256.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_idx.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\iconcache_32.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\IconCache.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\ExplorerStartupLog.etl", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_256.db",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_idx.db",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\iconcache_32.db",
+        "%LOCALAPPDATA%\\IconCache.db"
+      ]
+    },
+    {
+      "name": "Chỉ thumbcache khi chỉ bật rule ảnh thu nhỏ",
+      "rules": ["system.caches.thumbnails"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_96.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\iconcache_16.db", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_96.db"
+      ]
+    },
+    {
+      "name": "Ứng dụng Store: TempState, AC\\Temp, AC\\INetCache; không đụng LocalState, LocalCache, cookie",
+      "rules": ["system.caches.store-apps.temp", "system.caches.store-apps.inet-cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\TempState\\a.tmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\AC\\Temp\\b.tmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\AC\\INetCache\\c.htm", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\AC\\INetCookies\\d.cookie", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\LocalState\\data.db", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\LocalCache\\local-packages\\x.py", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.LockApp_cw5n1h2txyewy\\AC\\INetCache\\IE", "dir": true},
+        {"path": "%LOCALAPPDATA%\\Packages\\Microsoft.LockApp_cw5n1h2txyewy\\TempState\\Sub", "dir": true}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\TempState",
+        "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\AC\\Temp",
+        "%LOCALAPPDATA%\\Packages\\Microsoft.Windows.Photos_8wekyb3d8bbwe\\AC\\INetCache"
+      ]
+    }
+  ]
+}

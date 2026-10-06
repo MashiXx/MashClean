@@ -1,0 +1,18 @@
+{
+  "Hiện trên khay hệ thống": "Show in System Tray",
+  "Cài đặt…": "Settings…",
+  "Không đọc được Thùng rác": "Can't read the Recycle Bin",
+  "Máy đang thiếu bộ nhớ": "Your PC is low on memory",
+  "Memory pressure ở mức nguy cấp hơn 5 phút. Hãy đóng bớt ứng dụng hoặc kiểm tra với Clean Boost.": "Memory usage has been critical for more than 5 minutes. Close some apps or check with Clean Boost.",
+  "Ổ %@": "Drive %@",
+  "Clean Boost đang làm việc": "Clean Boost is busy",
+  "Đang quét hoặc dọn dẹp. Thoát bây giờ sẽ dừng việc đang làm.": "A scan or cleanup is in progress. Quitting now will stop it.",
+  "Ổ đang được một chương trình khác sử dụng.": "The drive is in use by another program.",
+  "Windows không cho tháo thiết bị này.": "Windows doesn't allow this device to be ejected.",
+  "Không đủ quyền để tháo thiết bị này.": "You don't have permission to eject this device.",
+  "Windows từ chối yêu cầu (mã %@).": "Windows refused the request (code %@).",
+  "Không tìm thấy thiết bị.": "Device not found.",
+  "Ổ vẫn còn gắn sau khi tháo.": "The drive is still connected after ejecting.",
+  "Xem thư mục nào đang chiếm nhiều dung lượng.": "See which folders take up the most space.",
+  "Dọn bộ nhớ đang bị chiếm giữ.": "Free up memory held by apps."
+}

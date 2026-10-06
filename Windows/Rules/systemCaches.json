@@ -1,0 +1,213 @@
+[
+  {
+    "id": "system.caches.inet-cache",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache Internet của Windows",
+      "en": "Windows Internet cache"
+    },
+    "reason": {
+      "vi": "Nội dung web lưu tạm của Internet Explorer, Office và ứng dụng dùng thành phần web của Windows; được tải lại khi cần.",
+      "en": "Web content cached by Internet Explorer, Office and apps that use Windows web components; it is downloaded again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\*"
+      ],
+      "minSizeBytes": 1
+    },
+    "exclude": [
+      "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache\\Content.Outlook"
+    ],
+    "notes": "Content.Outlook chứa bản sao tệp đính kèm Outlook người dùng đã mở (có thể đã sửa mà chưa lưu nơi khác) nên loại trừ. Nhắm thư mục con (IE, Low, Content.MSO...) để exclude có hiệu lực; INetCache là thư mục vỏ."
+  },
+  {
+    "id": "system.caches.directx",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache shader DirectX",
+      "en": "DirectX shader cache"
+    },
+    "reason": {
+      "vi": "Shader đồ hoạ đã biên dịch sẵn; game và ứng dụng sẽ biên dịch lại, lần mở đầu có thể chậm hơn một chút.",
+      "en": "Precompiled graphics shaders; games and apps compile them again, so the first launch may be slightly slower."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\D3DSCache"
+      ],
+      "minSizeBytes": 1
+    },
+    "notes": "Tương đương mục DirectX Shader Cache của Disk Cleanup (mặc định được chọn)."
+  },
+  {
+    "id": "system.caches.nvidia-shaders",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache shader của driver NVIDIA",
+      "en": "NVIDIA driver shader cache"
+    },
+    "reason": {
+      "vi": "Shader DirectX, OpenGL và OptiX do driver NVIDIA biên dịch sẵn; driver tạo lại khi chạy game.",
+      "en": "DirectX, OpenGL and OptiX shaders precompiled by the NVIDIA driver; the driver rebuilds them when games run."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\NVIDIA\\DXCache",
+        "%LOCALAPPDATA%\\NVIDIA\\GLCache",
+        "%LOCALAPPDATA%\\NVIDIA\\OptixCache",
+        "%LOCALAPPDATALOW%\\NVIDIA\\PerDriverVersion\\DXCache",
+        "%LOCALAPPDATALOW%\\NVIDIA\\PerDriverVersion\\GLCache",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NV_Cache"
+      ]
+    }
+  },
+  {
+    "id": "system.caches.amd-shaders",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache shader của driver AMD",
+      "en": "AMD driver shader cache"
+    },
+    "reason": {
+      "vi": "Shader DirectX, OpenGL và Vulkan do driver AMD biên dịch sẵn; driver tạo lại khi chạy game.",
+      "en": "DirectX, OpenGL and Vulkan shaders precompiled by the AMD driver; the driver rebuilds them when games run."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\AMD\\DxCache",
+        "%LOCALAPPDATA%\\AMD\\DxcCache",
+        "%LOCALAPPDATA%\\AMD\\GLCache",
+        "%LOCALAPPDATA%\\AMD\\VkCache"
+      ]
+    }
+  },
+  {
+    "id": "system.caches.intel-shaders",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache shader của driver Intel",
+      "en": "Intel driver shader cache"
+    },
+    "reason": {
+      "vi": "Shader do driver đồ hoạ Intel biên dịch sẵn; driver tạo lại khi cần.",
+      "en": "Shaders precompiled by the Intel graphics driver; the driver rebuilds them when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATALOW%\\Intel\\ShaderCache",
+        "%LOCALAPPDATA%\\Intel\\ShaderCache"
+      ]
+    }
+  },
+  {
+    "id": "system.caches.thumbnails",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache ảnh thu nhỏ của File Explorer",
+      "en": "File Explorer thumbnail cache"
+    },
+    "reason": {
+      "vi": "Ảnh thu nhỏ của ảnh, video, tài liệu; Explorer tạo lại khi bạn mở thư mục nên lần đầu sẽ chậm hơn. File đang được Explorer mở sẽ được bỏ qua.",
+      "en": "Thumbnails of pictures, videos and documents; Explorer recreates them when you open folders, so the first time is slower. Files Explorer keeps open are skipped."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\thumbcache_*.db"
+      ]
+    },
+    "notes": "Explorer thường khoá vài file thumbcache: được bỏ qua với lý do inUse."
+  },
+  {
+    "id": "system.caches.icon-cache",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache biểu tượng của Windows",
+      "en": "Windows icon cache"
+    },
+    "reason": {
+      "vi": "Biểu tượng ứng dụng và tệp Windows lưu tạm; được dựng lại sau khi khởi động lại máy, trong lúc đó có thể thấy biểu tượng trống.",
+      "en": "Icons of apps and files cached by Windows; they are rebuilt after a restart and may look blank until then."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer\\iconcache_*.db",
+        "%LOCALAPPDATA%\\IconCache.db"
+      ]
+    }
+  },
+  {
+    "id": "system.caches.store-apps.temp",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Tệp tạm của ứng dụng Microsoft Store",
+      "en": "Microsoft Store app temporary files"
+    },
+    "reason": {
+      "vi": "Thư mục TempState và Temp của từng ứng dụng Store; Windows cho phép xoá bất kỳ lúc nào.",
+      "en": "The TempState and Temp folders of each Store app; Windows may clear them at any time."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Packages\\*\\TempState",
+        "%LOCALAPPDATA%\\Packages\\*\\AC\\Temp"
+      ],
+      "minSizeBytes": 1
+    },
+    "notes": "Không đụng LocalCache: một số gói (Python của Store, WhatsApp...) lưu dữ liệu thật ở đó."
+  },
+  {
+    "id": "system.caches.store-apps.inet-cache",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Cache web của ứng dụng Microsoft Store",
+      "en": "Microsoft Store app web cache"
+    },
+    "reason": {
+      "vi": "Nội dung web lưu tạm của từng ứng dụng Store; ứng dụng tải lại khi cần. Cookie và dữ liệu đăng nhập không bị đụng tới.",
+      "en": "Web content cached by each Store app; apps download it again when needed. Cookies and sign-in data are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Packages\\*\\AC\\INetCache"
+      ],
+      "minSizeBytes": 1
+    }
+  }
+]

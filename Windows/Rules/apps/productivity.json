@@ -1,0 +1,231 @@
+[
+  {
+    "id": "app.spotify.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Spotify",
+      "en": "Spotify leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Spotify để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Spotify leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Spotify"
+      ],
+      "paths": [
+        "%APPDATA%\\Spotify",
+        "%LOCALAPPDATA%\\Spotify"
+      ]
+    }
+  },
+  {
+    "id": "app.notion.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Notion",
+      "en": "Notion leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Notion để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Notion leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Notion",
+        "Notion [0-9]*"
+      ],
+      "paths": [
+        "%APPDATA%\\Notion"
+      ]
+    },
+    "notes": "Không khớp Notion Calendar, Notion Mail."
+  },
+  {
+    "id": "app.vlc.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của VLC",
+      "en": "VLC leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ VLC để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files VLC leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "VLC media player"
+      ],
+      "paths": [
+        "%APPDATA%\\vlc"
+      ]
+    }
+  },
+  {
+    "id": "app.obs-studio.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của OBS Studio",
+      "en": "OBS Studio leftovers"
+    },
+    "reason": {
+      "vi": "Cảnh, hồ sơ và cài đặt OBS Studio để lại sau khi gỡ.",
+      "en": "Scenes, profiles and settings OBS Studio leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "OBS Studio"
+      ],
+      "paths": [
+        "%APPDATA%\\obs-studio"
+      ]
+    }
+  },
+  {
+    "id": "app.notepad-plus-plus.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Notepad++",
+      "en": "Notepad++ leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, plugin và bản sao lưu tab chưa lưu của Notepad++ để lại sau khi gỡ.",
+      "en": "Settings, plugins and backups of unsaved tabs Notepad++ leaves behind after removal."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Notepad++*"
+      ],
+      "paths": [
+        "%APPDATA%\\Notepad++"
+      ]
+    }
+  },
+  {
+    "id": "app.figma.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Figma",
+      "en": "Figma leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Figma để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Figma leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Figma"
+      ],
+      "paths": [
+        "%APPDATA%\\Figma",
+        "%LOCALAPPDATA%\\Figma"
+      ]
+    },
+    "notes": "Tên chính xác để không khớp Figma Agent."
+  },
+  {
+    "id": "app.dropbox.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Dropbox",
+      "en": "Dropbox leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Dropbox để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Dropbox leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Dropbox"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Dropbox",
+        "%APPDATA%\\Dropbox"
+      ]
+    },
+    "notes": "Thư mục Dropbox của người dùng (~\\Dropbox*) là vùng cấm; chỉ lấy cấu hình và cache."
+  },
+  {
+    "id": "app.nvidia-app.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của NVIDIA app",
+      "en": "NVIDIA app leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ NVIDIA app để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files NVIDIA app leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "NVIDIA app*"
+      ],
+      "publishers": [
+        "NVIDIA*"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app"
+      ]
+    }
+  },
+  {
+    "id": "app.geforce-experience.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của GeForce Experience",
+      "en": "GeForce Experience leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ GeForce Experience để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files GeForce Experience leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "NVIDIA GeForce Experience*"
+      ],
+      "publishers": [
+        "NVIDIA*"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience"
+      ]
+    }
+  }
+]

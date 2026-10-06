@@ -1,0 +1,122 @@
+[
+  {
+    "id": "downloads.old-installers",
+    "version": 1,
+    "category": "oldDownloads",
+    "title": {
+      "vi": "Bộ cài cũ trong Tải về",
+      "en": "Old installers in Downloads"
+    },
+    "reason": {
+      "vi": "Bộ cài và ảnh đĩa không mở hơn 30 ngày; thường ứng dụng đã được cài xong.",
+      "en": "Installers and disk images not opened for over 30 days; the app is usually already installed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%DOWNLOADS%\\*.exe",
+        "%DOWNLOADS%\\*.msi",
+        "%DOWNLOADS%\\*.msix",
+        "%DOWNLOADS%\\*.msixbundle",
+        "%DOWNLOADS%\\*.appx",
+        "%DOWNLOADS%\\*.appxbundle",
+        "%DOWNLOADS%\\*.iso",
+        "%DOWNLOADS%\\*.img"
+      ],
+      "minAgeDays": 30
+    },
+    "notes": "Không bao giờ để safe: là file của người dùng. Chuyển vào Thùng rác để khôi phục được."
+  },
+  {
+    "id": "downloads.old-archives",
+    "version": 1,
+    "category": "oldDownloads",
+    "title": {
+      "vi": "File nén cũ trong Tải về",
+      "en": "Old archives in Downloads"
+    },
+    "reason": {
+      "vi": "File nén không mở hơn 30 ngày; kiểm tra lại vì có thể chứa tài liệu bạn chưa giải nén nơi khác.",
+      "en": "Archives not opened for over 30 days; check them first as they may hold documents you have not extracted elsewhere."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%DOWNLOADS%\\*.zip",
+        "%DOWNLOADS%\\*.7z",
+        "%DOWNLOADS%\\*.rar",
+        "%DOWNLOADS%\\*.tar.gz",
+        "%DOWNLOADS%\\*.tgz"
+      ],
+      "minAgeDays": 30
+    }
+  },
+  {
+    "id": "ios.backups",
+    "version": 1,
+    "category": "iosBackups",
+    "title": {
+      "vi": "Bản sao lưu thiết bị iOS",
+      "en": "iOS device backups"
+    },
+    "reason": {
+      "vi": "Bản sao lưu iPhone, iPad trên máy. Hãy chắc chắn còn bản mới hơn trước khi xoá bản cũ.",
+      "en": "Local backups of iPhone and iPad. Make sure you have a newer backup before removing an old one."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "iosBackups"
+    },
+    "notes": "Provider đọc %APPDATA%\\Apple Computer\\MobileSync\\Backup và %USERPROFILE%\\Apple\\MobileSync\\Backup (iTunes bản Store), đọc Info.plist để hiện tên thiết bị."
+  },
+  {
+    "id": "ios.software-updates",
+    "version": 1,
+    "category": "iosSoftwareUpdates",
+    "title": {
+      "vi": "File cài đặt iOS cũ",
+      "en": "Old iOS firmware files"
+    },
+    "reason": {
+      "vi": "File firmware tải về để cập nhật hoặc khôi phục thiết bị; iTunes hoặc ứng dụng Thiết bị Apple sẽ tải lại khi cần.",
+      "en": "Firmware files downloaded to update or restore devices; iTunes or the Apple Devices app downloads them again when needed."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Apple Computer\\iTunes\\* Software Updates\\*.ipsw",
+        "%LOCALAPPDATA%\\Packages\\AppleInc.*\\LocalCache\\Roaming\\Apple Computer\\iTunes\\* Software Updates\\*.ipsw"
+      ]
+    },
+    "notes": "'* Software Updates' khớp iPhone, iPad, iPod, Apple TV Software Updates."
+  },
+  {
+    "id": "trash.recycle-bin",
+    "version": 1,
+    "category": "trash",
+    "title": {
+      "vi": "Thùng rác",
+      "en": "Recycle Bin"
+    },
+    "reason": {
+      "vi": "Những mục bạn đã xoá vào Thùng rác trên mọi ổ đĩa.",
+      "en": "Items you have already deleted to the Recycle Bin on all drives."
+    },
+    "safety": "review",
+    "removal": "custom:recycleBin",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "recycleBin"
+    }
+  }
+]

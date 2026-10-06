@@ -1,0 +1,322 @@
+{
+  "cases": [
+    {
+      "name": "npm: _cacache và _npx ở Local và Roaming; không đụng gói toàn cục, _logs",
+      "rules": ["devtools.npm.cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\npm-cache\\_cacache\\index-v5\\aa\\bb", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\npm-cache\\_npx\\abc\\package.json", "size": 4096},
+        {"path": "%APPDATA%\\npm-cache\\_cacache\\content-v2\\x", "size": 4096},
+        {"path": "%APPDATA%\\npm\\node_modules\\typescript\\package.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\npm-cache\\_logs\\debug.log", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\npm-cache\\_cacache",
+        "%LOCALAPPDATA%\\npm-cache\\_npx",
+        "%APPDATA%\\npm-cache\\_cacache"
+      ]
+    },
+    {
+      "name": "Yarn, pnpm, Bun; không đụng gói toàn cục pnpm, bun.exe",
+      "rules": ["devtools.yarn.cache", "devtools.pnpm.store", "devtools.bun.cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Yarn\\Cache\\v6\\npm-react-18.2.0\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Yarn\\Berry\\cache\\b.zip", "size": 4096},
+        {"path": "~\\.yarn\\berry\\cache\\c.zip", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pnpm\\store\\v3\\files\\00\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pnpm-cache\\metadata\\y.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pnpm\\global\\5\\node_modules\\z\\package.json", "size": 4096},
+        {"path": "~\\.bun\\install\\cache\\react@18.2.0\\x", "size": 4096},
+        {"path": "~\\.bun\\bin\\bun.exe", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Yarn\\Cache",
+        "%LOCALAPPDATA%\\Yarn\\Berry\\cache",
+        "~\\.yarn\\berry\\cache",
+        "%LOCALAPPDATA%\\pnpm\\store",
+        "%LOCALAPPDATA%\\pnpm-cache",
+        "~\\.bun\\install\\cache"
+      ]
+    },
+    {
+      "name": "Deno, node-gyp, Electron, TypeScript; không đụng location_data",
+      "rules": ["devtools.deno.cache", "devtools.node-tools.cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\deno\\deps\\https\\deno.land\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\deno\\npm\\registry.npmjs.org\\y", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\deno\\location_data\\z\\local_storage", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\node-gyp\\Cache\\20.10.0\\include\\node\\node.h", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\electron\\Cache\\electron-v28.zip", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\electron-builder\\Cache\\nsis\\x.7z", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\TypeScript\\5.4\\node_modules\\@types\\node\\index.d.ts", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\deno\\deps",
+        "%LOCALAPPDATA%\\deno\\npm",
+        "%LOCALAPPDATA%\\node-gyp\\Cache",
+        "%LOCALAPPDATA%\\electron\\Cache",
+        "%LOCALAPPDATA%\\electron-builder\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\TypeScript"
+      ]
+    },
+    {
+      "name": "Trình duyệt test: mỗi phiên bản một mục, giữ .links của Playwright",
+      "rules": ["devtools.test-browsers"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\ms-playwright\\chromium-1091\\chrome-win\\chrome.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\ms-playwright\\firefox-1429\\firefox\\firefox.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\ms-playwright\\.links\\abc", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Cypress\\Cache\\13.6.0\\Cypress\\Cypress.exe", "size": 4096},
+        {"path": "~\\.cache\\puppeteer\\chrome\\win64-121.0\\chrome.exe", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\ms-playwright\\chromium-1091",
+        "%LOCALAPPDATA%\\ms-playwright\\firefox-1429",
+        "%LOCALAPPDATA%\\Cypress\\Cache\\13.6.0",
+        "~\\.cache\\puppeteer\\chrome"
+      ]
+    },
+    {
+      "name": "pip, Poetry, uv; giữ virtualenvs và Python do uv cài",
+      "rules": ["devtools.pip.cache", "devtools.poetry.cache", "devtools.uv.cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\pip\\Cache\\http-v2\\a\\b", "size": 4096},
+        {"path": "%APPDATA%\\pip\\pip.ini", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pypoetry\\Cache\\cache\\repositories\\PyPI\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pypoetry\\Cache\\artifacts\\ab\\y.whl", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\pypoetry\\Cache\\virtualenvs\\proj-abc-py3.12\\Scripts\\python.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\uv\\cache\\wheels-v1\\x.whl", "size": 4096},
+        {"path": "%APPDATA%\\uv\\python\\cpython-3.12-windows-x86_64\\python.exe", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\pip\\Cache",
+        "%LOCALAPPDATA%\\pypoetry\\Cache\\cache",
+        "%LOCALAPPDATA%\\pypoetry\\Cache\\artifacts",
+        "%LOCALAPPDATA%\\uv\\cache"
+      ]
+    },
+    {
+      "name": "conda: chỉ file gói nén, không đụng gói đã giải nén",
+      "rules": ["devtools.conda.tarballs"],
+      "files": [
+        {"path": "~\\anaconda3\\pkgs\\numpy-1.26.4-py312h8753938_0.conda", "size": 4096},
+        {"path": "~\\anaconda3\\pkgs\\zlib-1.2.13-h8cc25b3_0.tar.bz2", "size": 4096},
+        {"path": "~\\anaconda3\\pkgs\\numpy-1.26.4-py312h8753938_0\\info\\index.json", "size": 4096},
+        {"path": "~\\miniconda3\\pkgs\\python-3.12.1.conda", "size": 4096},
+        {"path": "~\\anaconda3\\envs\\ml\\python.exe", "size": 4096}
+      ],
+      "expect": [
+        "~\\anaconda3\\pkgs\\numpy-1.26.4-py312h8753938_0.conda",
+        "~\\anaconda3\\pkgs\\zlib-1.2.13-h8cc25b3_0.tar.bz2",
+        "~\\miniconda3\\pkgs\\python-3.12.1.conda"
+      ]
+    },
+    {
+      "name": "NuGet: cache HTTP (safe) và thư mục gói (review); không đụng NuGet.Config",
+      "rules": ["devtools.nuget.http-cache", "devtools.nuget.packages"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\NuGet\\v3-cache\\abc$ps_api.nuget.org_v3_index.json\\list.dat", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NuGet\\plugins-cache\\y", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NuGet\\Cache\\z.nupkg", "size": 4096},
+        {"path": "%APPDATA%\\NuGet\\NuGet.Config", "size": 4096},
+        {"path": "~\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.nuspec", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\NuGet\\v3-cache",
+        "%LOCALAPPDATA%\\NuGet\\plugins-cache",
+        "%LOCALAPPDATA%\\NuGet\\Cache",
+        "~\\.nuget\\packages"
+      ]
+    },
+    {
+      "name": "Visual Studio đang chạy: không đề xuất thư mục gói NuGet",
+      "rules": ["devtools.nuget.packages"],
+      "running": ["devenv"],
+      "files": [
+        {"path": "~\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.nuspec", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Gradle, Maven; giữ cấu hình",
+      "rules": ["devtools.gradle.caches", "devtools.maven.repository"],
+      "files": [
+        {"path": "~\\.gradle\\caches\\modules-2\\files-2.1\\x.jar", "size": 4096},
+        {"path": "~\\.gradle\\wrapper\\dists\\gradle-8.5-bin\\abc\\gradle-8.5-bin.zip", "size": 4096},
+        {"path": "~\\.gradle\\gradle.properties", "size": 4096},
+        {"path": "~\\.m2\\repository\\org\\example\\lib\\1.0\\lib-1.0.jar", "size": 4096},
+        {"path": "~\\.m2\\settings.xml", "size": 4096}
+      ],
+      "expect": [
+        "~\\.gradle\\caches",
+        "~\\.gradle\\wrapper\\dists",
+        "~\\.m2\\repository"
+      ]
+    },
+    {
+      "name": "Cargo, rustup: cache (safe) và mã nguồn (review); không đụng toolchain, bin",
+      "rules": ["devtools.cargo.registry-cache", "devtools.cargo.sources"],
+      "files": [
+        {"path": "~\\.cargo\\registry\\cache\\index.crates.io-6f17d22bba15001f\\serde-1.0.197.crate", "size": 4096},
+        {"path": "~\\.rustup\\downloads\\x.tar.xz", "size": 4096},
+        {"path": "~\\.cargo\\registry\\src\\index.crates.io-6f17d22bba15001f\\serde-1.0.197\\src\\lib.rs", "size": 4096},
+        {"path": "~\\.cargo\\git\\checkouts\\repo-abc\\def\\Cargo.toml", "size": 4096},
+        {"path": "~\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin\\rustc.exe", "size": 4096},
+        {"path": "~\\.cargo\\bin\\cargo.exe", "size": 4096}
+      ],
+      "expect": [
+        "~\\.cargo\\registry\\cache",
+        "~\\.rustup\\downloads",
+        "~\\.cargo\\registry\\src",
+        "~\\.cargo\\git\\checkouts"
+      ]
+    },
+    {
+      "name": "Go: cache build và bản tải module; không đụng module đã giải nén",
+      "rules": ["devtools.go.build-cache", "devtools.go.module-downloads"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\go-build\\00\\0012ab-d", "size": 4096},
+        {"path": "~\\go\\pkg\\mod\\cache\\download\\github.com\\pkg\\errors\\@v\\v0.9.1.zip", "size": 4096},
+        {"path": "~\\go\\pkg\\mod\\github.com\\pkg\\errors@v0.9.1\\errors.go", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\go-build",
+        "~\\go\\pkg\\mod\\cache\\download"
+      ]
+    },
+    {
+      "name": "Composer, Scoop, vcpkg; không đụng cấu hình và app đã cài",
+      "rules": ["devtools.composer.cache", "devtools.scoop.cache", "devtools.vcpkg.archives"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Composer\\files\\vendor\\pkg\\x.zip", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Composer\\repo\\https---repo.packagist.org\\packages.json", "size": 4096},
+        {"path": "%APPDATA%\\Composer\\composer.json", "size": 4096},
+        {"path": "~\\scoop\\cache\\git#2.44.0#https_github.com_x.7z", "size": 4096},
+        {"path": "~\\scoop\\apps\\git\\current\\git.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\vcpkg\\archives\\ab\\abcdef.zip", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Composer\\files",
+        "%LOCALAPPDATA%\\Composer\\repo",
+        "~\\scoop\\cache",
+        "%LOCALAPPDATA%\\vcpkg\\archives"
+      ]
+    },
+    {
+      "name": "Dart pub, Hugging Face; không đụng công cụ toàn cục, token",
+      "rules": ["devtools.dart.pub-cache", "devtools.huggingface.models"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Pub\\Cache\\hosted\\pub.dev\\http-1.2.0\\pubspec.yaml", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Pub\\Cache\\bin\\flutterfire.bat", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Pub\\Cache\\global_packages\\flutterfire_cli\\x", "size": 4096},
+        {"path": "~\\.cache\\huggingface\\hub\\models--bert-base-uncased\\blobs\\a", "size": 4096},
+        {"path": "~\\.cache\\huggingface\\hub\\datasets--squad\\blobs\\b", "size": 4096},
+        {"path": "~\\.cache\\huggingface\\hub\\version.txt", "size": 4096},
+        {"path": "~\\.cache\\huggingface\\token", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Pub\\Cache\\hosted",
+        "~\\.cache\\huggingface\\hub\\models--bert-base-uncased",
+        "~\\.cache\\huggingface\\hub\\datasets--squad"
+      ]
+    },
+    {
+      "name": "JetBrains: caches (safe) tách khỏi index (review); không đụng LocalHistory",
+      "rules": ["devtools.jetbrains.caches", "devtools.jetbrains.index"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\caches\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\IntelliJIdea2024.1\\caches\\y", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\index\\z", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\LocalHistory\\changes.storageData", "size": 4096},
+        {"path": "%APPDATA%\\JetBrains\\Rider2024.1\\options\\ide.general.xml", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\caches",
+        "%LOCALAPPDATA%\\JetBrains\\IntelliJIdea2024.1\\caches",
+        "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\index"
+      ]
+    },
+    {
+      "name": "IDE JetBrains đang chạy",
+      "rules": ["devtools.jetbrains.caches", "devtools.jetbrains.index"],
+      "running": ["rider64"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\caches\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\index\\z", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "VS Code: cache, gói extension, ipch; không đụng User\\settings, workspaceStorage, History",
+      "rules": ["devtools.vscode.caches"],
+      "files": [
+        {"path": "%APPDATA%\\Code\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%APPDATA%\\Code\\CachedData\\abc123\\chrome\\js\\b", "size": 4096},
+        {"path": "%APPDATA%\\Code\\CachedExtensionVSIXs\\ms-python.python-2024.1", "size": 4096},
+        {"path": "%APPDATA%\\Code\\Code Cache\\js\\c", "size": 4096},
+        {"path": "%APPDATA%\\Code\\GPUCache\\d", "size": 4096},
+        {"path": "%APPDATA%\\Code\\User\\settings.json", "size": 4096},
+        {"path": "%APPDATA%\\Code\\User\\workspaceStorage\\abc\\state.vscdb", "size": 4096},
+        {"path": "%APPDATA%\\Code\\User\\History\\-1a2b\\entries.json", "size": 4096},
+        {"path": "%APPDATA%\\Code - Insiders\\Cache\\Cache_Data\\e", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\vscode-cpptools\\ipch\\abc\\x.ipch", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Code\\Cache",
+        "%APPDATA%\\Code\\CachedData",
+        "%APPDATA%\\Code\\CachedExtensionVSIXs",
+        "%APPDATA%\\Code\\Code Cache",
+        "%APPDATA%\\Code\\GPUCache",
+        "%APPDATA%\\Code - Insiders\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\vscode-cpptools\\ipch"
+      ]
+    },
+    {
+      "name": "VS Code đang chạy",
+      "rules": ["devtools.vscode.caches"],
+      "running": ["Code"],
+      "files": [
+        {"path": "%APPDATA%\\Code\\Cache\\Cache_Data\\a", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Cursor, Windsurf, VSCodium",
+      "rules": ["devtools.vscode-forks.caches"],
+      "files": [
+        {"path": "%APPDATA%\\Cursor\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%APPDATA%\\Windsurf\\CachedData\\abc\\b", "size": 4096},
+        {"path": "%APPDATA%\\VSCodium\\GPUCache\\c", "size": 4096},
+        {"path": "%APPDATA%\\Cursor\\User\\settings.json", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Cursor\\Cache",
+        "%APPDATA%\\Windsurf\\CachedData",
+        "%APPDATA%\\VSCodium\\GPUCache"
+      ]
+    },
+    {
+      "name": "Visual Studio ComponentModelCache, Android, Unity; không đụng AVD, keystore, SDK",
+      "rules": ["devtools.visual-studio.component-cache", "devtools.android.caches", "devtools.unity.cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\VisualStudio\\17.0_abc12345\\ComponentModelCache\\Microsoft.VisualStudio.Default.cache", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\VisualStudio\\17.0_abc12345\\Settings\\x.vssettings", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Android\\Sdk\\.temp\\PackageOperation01\\x.zip", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Android\\Sdk\\platforms\\android-34\\android.jar", "size": 4096},
+        {"path": "~\\.android\\cache\\sdkbin-1_abc", "size": 4096},
+        {"path": "~\\.android\\avd\\Pixel_7.avd\\userdata-qemu.img", "size": 4096},
+        {"path": "~\\.android\\debug.keystore", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\AndroidStudio2024.1\\caches\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Unity\\cache\\packages\\packages.unity.com\\x.tgz", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Unity\\Editor\\Editor.log", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\VisualStudio\\17.0_abc12345\\ComponentModelCache",
+        "%LOCALAPPDATA%\\Android\\Sdk\\.temp",
+        "~\\.android\\cache",
+        "%LOCALAPPDATA%\\Google\\AndroidStudio2024.1\\caches",
+        "%LOCALAPPDATA%\\Unity\\cache"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "app.steam.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Steam",
+      "en": "Steam leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Steam để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Steam leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Steam"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Steam"
+      ]
+    },
+    "notes": "Thư mục cài đặt (gồm steamapps chứa game) do trình gỡ của Steam xử lý; rule chỉ lấy dữ liệu trong hồ sơ người dùng."
+  },
+  {
+    "id": "app.epic-games-launcher.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Epic Games Launcher",
+      "en": "Epic Games Launcher leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Epic Games Launcher để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Epic Games Launcher leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Epic Games Launcher"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\EpicGamesLauncher"
+      ]
+    },
+    "notes": "Không đụng %PROGRAMDATA%\\Epic (manifest game đã cài) và %LOCALAPPDATA%\\UnrealEngine (dùng chung với Unreal Engine)."
+  },
+  {
+    "id": "app.battle-net.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Battle.net",
+      "en": "Battle.net leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Battle.net để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Battle.net leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Battle.net"
+      ],
+      "paths": [
+        "%APPDATA%\\Battle.net",
+        "%LOCALAPPDATA%\\Battle.net",
+        "%LOCALAPPDATA%\\Blizzard Entertainment"
+      ]
+    }
+  },
+  {
+    "id": "app.battle-net.programdata.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Battle.net (dữ liệu chung)",
+      "en": "Battle.net (dữ liệu chung) leftovers"
+    },
+    "reason": {
+      "vi": "Dữ liệu dùng chung cho mọi người dùng mà Battle.net để lại, gồm cả trình cập nhật Agent; cần quyền quản trị và bị xoá vĩnh viễn.",
+      "en": "Data shared by all users that Battle.net leaves behind, including its update Agent; needs admin rights and is deleted permanently."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "appNames": [
+        "Battle.net"
+      ],
+      "paths": [
+        "%PROGRAMDATA%\\Battle.net",
+        "%PROGRAMDATA%\\Blizzard Entertainment"
+      ]
+    },
+    "notes": "Tách khỏi rule chính vì cần requiresRoot (không chuyển vào Thùng rác được)."
+  },
+  {
+    "id": "app.ea-app.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của EA app",
+      "en": "EA app leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ EA app để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files EA app leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "EA app"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Electronic Arts\\EA Desktop"
+      ]
+    }
+  },
+  {
+    "id": "app.gog-galaxy.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của GOG GALAXY",
+      "en": "GOG GALAXY leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ GOG GALAXY để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files GOG GALAXY leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "GOG GALAXY*"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\GOG.com\\Galaxy"
+      ]
+    }
+  }
+]

@@ -1,0 +1,234 @@
+<UserControl x:Class="CleanBoost.App.Shared.FeatureFlowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:CleanBoost.App.UI"
+             xmlns:shared="clr-namespace:CleanBoost.App.Shared"
+             Foreground="White" FontFamily="{StaticResource TextFont}">
+    <Grid x:Name="Root">
+        <!-- Idle -->
+        <Grid x:Name="IdlePanel" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock x:Name="IdleIcon" FontFamily="{StaticResource IconFont}" FontSize="64" Foreground="White" HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.25" />
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock x:Name="IdleTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,0" />
+                <TextBlock x:Name="IdleSubtitle" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" TextAlignment="Center" MaxWidth="480" Margin="0,8,0,0" />
+            </StackPanel>
+            <ContentPresenter x:Name="IdleAccessoryHost" Grid.Row="2" HorizontalAlignment="Center" Margin="0,24,0,0" />
+            <Button x:Name="ScanButton" Grid.Row="4" Style="{StaticResource BigActionButton}" Click="OnScan" IsDefault="True">
+                <TextBlock x:Name="ScanButtonText" FontFamily="{StaticResource DisplayFont}" FontSize="20" FontWeight="Bold" Foreground="White" />
+            </Button>
+        </Grid>
+
+        <!-- Scanning -->
+        <Grid x:Name="ScanningPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <ui:ProgressRing x:Name="ScanRing" Grid.Row="1" Width="170" Height="170" LineWidth="12" />
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,24,0,0">
+                <TextBlock x:Name="ScanTaskText" Style="{StaticResource HeadlineText}" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="560" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+                    <TextBlock Text="&#xE8C8;" Style="{StaticResource IconText}" FontSize="11" Foreground="{StaticResource SecondaryText}" Margin="0,0,5,0" />
+                    <TextBlock x:Name="ScanFilesText" Style="{StaticResource CaptionText}" />
+                    <StackPanel x:Name="ScanBytesPanel" Orientation="Horizontal" Margin="18,0,0,0">
+                        <TextBlock Text="&#xEDA2;" Style="{StaticResource IconText}" FontSize="11" Foreground="{StaticResource SecondaryText}" Margin="0,0,5,0" />
+                        <TextBlock x:Name="ScanBytesText" Style="{StaticResource CaptionText}" />
+                    </StackPanel>
+                    <TextBlock Text="&#xE9D5;" Style="{StaticResource IconText}" FontSize="11" Foreground="{StaticResource SecondaryText}" Margin="18,0,5,0" />
+                    <TextBlock x:Name="ScanStepsText" Style="{StaticResource CaptionText}" />
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="StopButton" Grid.Row="4" Style="{StaticResource GlassButton}" HorizontalAlignment="Center" Click="OnStop" IsCancel="True" />
+        </Grid>
+
+        <!-- Results -->
+        <Grid x:Name="ResultsPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" LastChildFill="True">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                    <ContentPresenter x:Name="ResultsAccessoryHost" VerticalAlignment="Center" Margin="0,0,12,0" />
+                    <CheckBox x:Name="RiskyToggle" Style="{StaticResource Switch}" VerticalAlignment="Center" Margin="0,0,14,0" FontSize="12"
+                              Checked="OnRiskyToggled" Unchecked="OnRiskyToggled" />
+                    <Button x:Name="RescanButton" Style="{StaticResource GlassButton}" Click="OnRescan" />
+                </StackPanel>
+                <StackPanel>
+                    <ContentPresenter x:Name="ResultsTopHost" />
+                    <TextBlock x:Name="ResultsTitle" Style="{StaticResource TitleText}" />
+                    <TextBlock x:Name="ResultsSubtitle" Style="{StaticResource SecondaryBodyText}" Margin="0,2,0,0" />
+                </StackPanel>
+            </DockPanel>
+            <Border x:Name="WarningBanner" Grid.Row="1" CornerRadius="10" Background="{StaticResource BannerBackground}" Padding="12,9" Margin="0,14,0,0" Visibility="Collapsed">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="&#xE7BA;" Style="{StaticResource IconText}" Foreground="{StaticResource ReviewBrush}" FontSize="15" Margin="0,0,10,0" />
+                    <Button x:Name="WarningAction" DockPanel.Dock="Right" Style="{StaticResource GlassButton}" Visibility="Collapsed" Click="OnWarningAction" />
+                    <TextBlock x:Name="WarningText" Style="{StaticResource BodyText}" VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+
+            <!-- Phần thân: mặc định hai cột (nhóm + chi tiết), tính năng có thể thay bằng giao diện riêng -->
+            <Grid Grid.Row="2" Margin="0,14,0,0">
+                <Grid x:Name="DefaultBody">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource Panel}">
+                        <DockPanel>
+                            <CheckBox x:Name="SelectAll" DockPanel.Dock="Top" Style="{StaticResource TriCheck}" Margin="16,12,14,6" IsThreeState="False"
+                                      Click="OnSelectAll" Foreground="{StaticResource SecondaryText}" FontSize="12" />
+                            <ListBox x:Name="GroupList" Style="{StaticResource PlainListBox}" Margin="6,0,6,6" SelectionChanged="OnGroupFocused">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type shared:GroupRow}">
+                                        <Grid Margin="8,7" Background="Transparent">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="28" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Style="{StaticResource TriCheck}" IsChecked="{Binding IsChecked, Mode=OneWay}" Click="OnGroupCheck" Margin="0,0,8,0" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Glyph}" Style="{StaticResource IconText}" FontSize="15" HorizontalAlignment="Center" />
+                                            <StackPanel Grid.Column="2" Margin="6,0,8,0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Title}" FontSize="13" FontWeight="Medium" Foreground="White" TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Text="{Binding Badges}" FontSize="11" Foreground="{StaticResource ReviewBrush}" TextTrimming="CharacterEllipsis"
+                                                           Visibility="{Binding Badges, Converter={StaticResource Visible}}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="3" Text="{Binding SizeText}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource SecondaryText}"
+                                                       Typography.NumeralAlignment="Tabular" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+                    <Border Grid.Column="2" Style="{StaticResource Panel}" Padding="12">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="4,2,4,0">
+                                <Border x:Name="FocusSafety" DockPanel.Dock="Right" Style="{StaticResource PillBorder}">
+                                    <TextBlock x:Name="FocusSafetyText" Style="{StaticResource PillText}" />
+                                </Border>
+                                <TextBlock x:Name="FocusTitle" Style="{StaticResource HeadlineText}" FontSize="16" TextTrimming="CharacterEllipsis" />
+                            </DockPanel>
+                            <TextBlock x:Name="FocusReason" DockPanel.Dock="Top" Style="{StaticResource CaptionText}" TextWrapping="Wrap" Margin="4,4,4,6" />
+                            <shared:NodeOutlineView x:Name="Outline" Margin="0,4,0,0" />
+                        </DockPanel>
+                    </Border>
+                </Grid>
+                <ContentPresenter x:Name="CustomBodyHost" Visibility="Collapsed" />
+                <StackPanel x:Name="EmptyState" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                    <TextBlock Text="&#xEC61;" Style="{StaticResource IconText}" FontSize="56" HorizontalAlignment="Center" />
+                    <TextBlock x:Name="EmptyTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,16" />
+                    <Button x:Name="EmptyRescan" Style="{StaticResource GlassButton}" HorizontalAlignment="Center" Click="OnRescan" />
+                </StackPanel>
+            </Grid>
+
+            <DockPanel x:Name="ResultsFooter" Grid.Row="3" Margin="0,16,0,0">
+                <Button x:Name="CleanButton" DockPanel.Dock="Right" Style="{StaticResource PrimaryButton}" Click="OnClean" IsDefault="True" />
+                <Border x:Name="DryRunPill" DockPanel.Dock="Right" Style="{StaticResource PillBorder}" Background="#40FFCC00" Margin="0,0,12,0">
+                    <TextBlock Text="DRY RUN" Style="{StaticResource PillText}" Foreground="{StaticResource ReviewBrush}" />
+                </Border>
+                <ContentPresenter x:Name="FooterAccessoryHost" DockPanel.Dock="Right" Margin="0,0,12,0" VerticalAlignment="Center" />
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="SelectedText" Style="{StaticResource HeadlineText}" FontSize="17" />
+                    <TextBlock x:Name="SelectedDetail" Style="{StaticResource TertiaryCaptionText}" />
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+
+        <!-- Confirming -->
+        <Grid x:Name="ConfirmPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" Margin="0,8,0,0">
+                <TextBlock Text="&#xE730;" Style="{StaticResource IconText}" FontSize="46" HorizontalAlignment="Center" />
+                <TextBlock x:Name="ConfirmTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,12,0,0" />
+                <TextBlock x:Name="ConfirmSubtitle" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,16,0,0" MaxWidth="680">
+                <StackPanel x:Name="ConfirmCards" />
+            </ScrollViewer>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,8">
+                <Button x:Name="ConfirmCancel" Style="{StaticResource GlassButton}" Click="OnConfirmCancel" IsCancel="True" Margin="0,0,12,0" />
+                <Button x:Name="ConfirmOk" Style="{StaticResource PrimaryButton}" Click="OnConfirm" IsDefault="True" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Cleaning -->
+        <Grid x:Name="CleaningPanel" Margin="24" Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:ProgressRing x:Name="CleanRing" Width="170" Height="170" LineWidth="12" />
+                <TextBlock x:Name="CleanFreedText" Style="{StaticResource HeadlineText}" HorizontalAlignment="Center" Margin="0,22,0,0" />
+                <TextBlock x:Name="CleanItemText" Style="{StaticResource CaptionText}" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="520" Margin="0,6,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Done -->
+        <Grid x:Name="DonePanel" Margin="24" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
+                    <TextBlock x:Name="DoneIcon" Style="{StaticResource IconText}" FontSize="64" HorizontalAlignment="Center" />
+                    <TextBlock x:Name="DoneTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,18" />
+                    <WrapPanel x:Name="DoneTiles" HorizontalAlignment="Center" />
+                    <TextBlock x:Name="DoneNote" Style="{StaticResource TertiaryCaptionText}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="520" Margin="0,12,0,0" />
+                    <Border x:Name="InUseBanner" CornerRadius="10" Background="{StaticResource BannerBackground}" Padding="12,9" Margin="0,14,0,0" MaxWidth="560">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left" Text="&#xE785;" Style="{StaticResource IconText}" Foreground="{StaticResource ReviewBrush}" FontSize="15" Margin="0,0,10,0" />
+                            <TextBlock x:Name="InUseText" Style="{StaticResource BodyText}" />
+                        </DockPanel>
+                    </Border>
+                    <Border x:Name="FailuresCard" Style="{StaticResource Card}" Padding="10" Margin="0,14,0,0" MaxWidth="600">
+                        <ScrollViewer MaxHeight="150" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="FailuresList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="2,3">
+                                            <TextBlock Text="{Binding Title}" FontSize="12.5" Foreground="White" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding Message}" FontSize="11" Foreground="{StaticResource RiskyBrush}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,22,0,0">
+                        <Button x:Name="DoneButton" Style="{StaticResource GlassButton}" Click="OnDone" Margin="0,0,12,0" />
+                        <Button x:Name="DoneRescan" Style="{StaticResource PrimaryButton}" Click="OnRescan" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Error -->
+        <StackPanel x:Name="ErrorPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+            <TextBlock Text="&#xEB90;" Style="{StaticResource IconText}" FontSize="54" HorizontalAlignment="Center" />
+            <TextBlock x:Name="ErrorTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,6" />
+            <TextBlock x:Name="ErrorText" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" TextAlignment="Center" MaxWidth="480" />
+            <Button x:Name="ErrorRetry" Style="{StaticResource GlassButton}" HorizontalAlignment="Center" Margin="0,18,0,0" Click="OnRescan" />
+        </StackPanel>
+    </Grid>
+</UserControl>

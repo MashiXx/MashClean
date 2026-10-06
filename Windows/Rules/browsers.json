@@ -1,0 +1,352 @@
+[
+  {
+    "id": "browser.chrome.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Google Chrome",
+      "en": "Google Chrome cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Google Chrome đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Google Chrome stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\GraphiteDawnCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome *\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "chrome"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions. Gồm cả Chrome Beta/Dev/Canary (Chrome SxS) vì cùng tiến trình chrome.exe."
+  },
+  {
+    "id": "browser.edge.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Microsoft Edge",
+      "en": "Microsoft Edge cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Microsoft Edge đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Microsoft Edge stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\GraphiteDawnCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge *\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "msedge"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions. Edge thường chạy nền (Startup boost); khi đó rule bị bỏ qua. 'Edge *' khớp Edge Beta/Dev/SxS, không khớp EdgeUpdate, EdgeWebView."
+  },
+  {
+    "id": "browser.brave.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Brave",
+      "en": "Brave cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Brave đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Brave stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\GraphiteDawnCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-*\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "brave"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions."
+  },
+  {
+    "id": "browser.vivaldi.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Vivaldi",
+      "en": "Vivaldi cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Vivaldi đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Vivaldi stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "vivaldi"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions."
+  },
+  {
+    "id": "browser.opera.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Opera",
+      "en": "Opera cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Opera đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Opera stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Opera Software\\Opera*\\Cache",
+        "%LOCALAPPDATA%\\Opera Software\\Opera*\\*\\Cache",
+        "%APPDATA%\\Opera Software\\Opera*\\Code Cache",
+        "%APPDATA%\\Opera Software\\Opera*\\*\\Code Cache",
+        "%APPDATA%\\Opera Software\\Opera*\\GPUCache",
+        "%APPDATA%\\Opera Software\\Opera*\\*\\GPUCache",
+        "%APPDATA%\\Opera Software\\Opera*\\Service Worker\\CacheStorage",
+        "%APPDATA%\\Opera Software\\Opera*\\*\\Service Worker\\CacheStorage",
+        "%APPDATA%\\Opera Software\\Opera*\\ShaderCache",
+        "%APPDATA%\\Opera Software\\Opera*\\GrShaderCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "opera"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions. Opera (gồm Opera GX, Air) để hồ sơ ở %APPDATA% và cache đĩa ở %LOCALAPPDATA%; bản mới chuyển vào thư mục con Default nên khớp cả hai cấp."
+  },
+  {
+    "id": "browser.yandex.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Yandex Browser",
+      "en": "Yandex Browser cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Yandex Browser đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Yandex Browser stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "browser"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions. Tiến trình của Yandex Browser tên là browser.exe."
+  },
+  {
+    "id": "browser.chromium.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Chromium",
+      "en": "Chromium cache"
+    },
+    "reason": {
+      "vi": "Trang web, script và shader Chromium đã lưu tạm; không đụng tới lịch sử, mật khẩu, cookie, dấu trang.",
+      "en": "Web pages, scripts and shaders Chromium stored temporarily; history, passwords, cookies and bookmarks are not touched."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\DawnCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\DawnGraphiteCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\DawnWebGPUCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\GraphiteDawnCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "chrome"
+      ]
+    },
+    "notes": "Chỉ nhắm thư mục cache theo tên trong từng hồ sơ (User Data\\<hồ sơ>\\...) và cache shader cấp User Data. Không bao giờ đụng Cookies, Login Data, History, Bookmarks, Local Storage, IndexedDB, Sessions."
+  },
+  {
+    "id": "browser.firefox.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache Firefox",
+      "en": "Firefox cache"
+    },
+    "reason": {
+      "vi": "Cache nội dung web, ảnh thu nhỏ và shader của Firefox; hồ sơ, mật khẩu và dấu trang được giữ nguyên.",
+      "en": "Firefox's web content, thumbnail and shader caches; your profile, passwords and bookmarks are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\startupCache",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\thumbnails",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\jumpListCache",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\shader-cache",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\*\\OfflineCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "firefox"
+      ]
+    },
+    "notes": "Chỉ phần Local của hồ sơ (cache). Hồ sơ thật nằm ở %APPDATA%\\Mozilla\\Firefox\\Profiles và không bao giờ bị đụng."
+  },
+  {
+    "id": "browser.firefox-forks.caches",
+    "version": 1,
+    "category": "browserCaches",
+    "title": {
+      "vi": "Cache trình duyệt nhân Firefox khác",
+      "en": "Other Firefox-based browser caches"
+    },
+    "reason": {
+      "vi": "Cache nội dung web của LibreWolf, Waterfox, Floorp và Zen; hồ sơ và dữ liệu đã lưu được giữ nguyên.",
+      "en": "Web content caches of LibreWolf, Waterfox, Floorp and Zen; profiles and saved data are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\librewolf\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\librewolf\\Profiles\\*\\startupCache",
+        "%LOCALAPPDATA%\\Waterfox\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\Waterfox\\Profiles\\*\\startupCache",
+        "%LOCALAPPDATA%\\Floorp\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\Floorp\\Profiles\\*\\startupCache",
+        "%LOCALAPPDATA%\\zen\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\zen\\Profiles\\*\\startupCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "librewolf",
+        "waterfox",
+        "floorp",
+        "zen"
+      ]
+    }
+  }
+]

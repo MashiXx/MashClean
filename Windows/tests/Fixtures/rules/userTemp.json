@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "name": "%TEMP%: mục cũ hơn 1 ngày; bỏ mục mới, thư mục đang dùng, Clean Boost và Temp\\Low",
+      "rules": ["user.temp"],
+      "files": [
+        {"path": "%TEMP%\\old.tmp", "size": 4096, "ageDays": 2},
+        {"path": "%TEMP%\\olddir\\setup.log", "size": 4096, "ageDays": 3},
+        {"path": "%TEMP%\\fresh.tmp", "size": 4096},
+        {"path": "%TEMP%\\activedir\\a.tmp", "size": 4096, "ageDays": 3},
+        {"path": "%TEMP%\\activedir\\b.tmp", "size": 4096},
+        {"path": "%TEMP%\\CleanBoost-update\\pkg.zip", "size": 4096, "ageDays": 3},
+        {"path": "%TEMP%\\cb-rulepack-1234\\x", "size": 4096, "ageDays": 3},
+        {"path": "%TEMP%\\Low\\x.tmp", "size": 4096, "ageDays": 3}
+      ],
+      "expect": [
+        "%TEMP%\\old.tmp",
+        "%TEMP%\\olddir"
+      ]
+    },
+    {
+      "name": "LocalLow\\Temp: chỉ mục cũ",
+      "rules": ["user.temp.local-low"],
+      "files": [
+        {"path": "%LOCALAPPDATALOW%\\Temp\\old.tmp", "size": 4096, "ageDays": 2},
+        {"path": "%LOCALAPPDATALOW%\\Temp\\new.tmp", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATALOW%\\Temp\\old.tmp"
+      ]
+    }
+  ]
+}

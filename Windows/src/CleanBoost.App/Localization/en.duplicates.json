@@ -1,0 +1,7 @@
+{
+  "Kiểm tra lại từng bản": "Verify each copy",
+  "Tìm file có nội dung giống hệt nhau (so dung lượng, băm nhanh rồi SHA-256). Bỏ qua hard link và file đám mây chưa tải về vì xoá chúng không giải phóng dung lượng.": "Find files with identical content (compares size, quick hash, then SHA-256). Skips hard links and cloud files that aren't downloaded, because deleting them doesn't free space.",
+  "Bỏ qua AppData, thư mục ẩn, file đám mây chưa tải về và file nhỏ hơn 1 MB.": "Skips AppData, hidden folders, cloud files that aren't downloaded, and files smaller than 1 MB.",
+  "%@/%@ file": "%@/%@ files",
+  "Hard link: xoá không giải phóng dung lượng": "Hard link: deleting it doesn't free space"
+}

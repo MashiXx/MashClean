@@ -1,0 +1,57 @@
+[
+  {
+    "id": "app.adobe.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của ứng dụng Adobe",
+      "en": "Adobe app leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt và tệp hỗ trợ ứng dụng Adobe để lại sau khi gỡ (thư mục mang tên ứng dụng).",
+      "en": "Settings and support files an Adobe app leaves behind after removal (folders named after the app)."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "publishers": [
+        "Adobe*"
+      ],
+      "paths": [
+        "%APPDATA%\\Adobe\\${appName}",
+        "%LOCALAPPDATA%\\Adobe\\${appName}"
+      ]
+    },
+    "notes": "Photoshop, Illustrator... lưu cài đặt trong %APPDATA%\\Adobe\\<tên hiển thị> (vd 'Adobe Photoshop 2024'). Không đụng Adobe\\Common, OOBE, CoreSync (dùng chung cho mọi app Adobe)."
+  },
+  {
+    "id": "app.adobe-acrobat.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Adobe Acrobat",
+      "en": "Adobe Acrobat leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Adobe Acrobat để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Adobe Acrobat leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Adobe Acrobat*"
+      ],
+      "publishers": [
+        "Adobe*"
+      ],
+      "paths": [
+        "%APPDATA%\\Adobe\\Acrobat",
+        "%LOCALAPPDATA%\\Adobe\\Acrobat"
+      ]
+    },
+    "notes": "Acrobat Reader và Acrobat Pro (từ 2022 là một ứng dụng) dùng chung thư mục."
+  }
+]

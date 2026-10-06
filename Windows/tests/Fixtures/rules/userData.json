@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "name": "Tải về: bộ cài cũ hơn 30 ngày; bỏ file mới, tài liệu, file nén",
+      "rules": ["downloads.old-installers"],
+      "files": [
+        {"path": "%DOWNLOADS%\\setup.exe", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\app.msi", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\Win11_23H2.iso", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\new.exe", "size": 4096},
+        {"path": "%DOWNLOADS%\\report.pdf", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\archive.zip", "size": 4096, "ageDays": 40}
+      ],
+      "expect": [
+        "%DOWNLOADS%\\setup.exe",
+        "%DOWNLOADS%\\app.msi",
+        "%DOWNLOADS%\\Win11_23H2.iso"
+      ]
+    },
+    {
+      "name": "Tải về: file nén cũ hơn 30 ngày",
+      "rules": ["downloads.old-archives"],
+      "files": [
+        {"path": "%DOWNLOADS%\\archive.zip", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\b.7z", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\c.tar.gz", "size": 4096, "ageDays": 40},
+        {"path": "%DOWNLOADS%\\new.zip", "size": 4096},
+        {"path": "%DOWNLOADS%\\report.pdf", "size": 4096, "ageDays": 40}
+      ],
+      "expect": [
+        "%DOWNLOADS%\\archive.zip",
+        "%DOWNLOADS%\\b.7z",
+        "%DOWNLOADS%\\c.tar.gz"
+      ]
+    },
+    {
+      "name": "Firmware iOS: iTunes và Thiết bị Apple; không đụng bản sao lưu",
+      "rules": ["ios.software-updates"],
+      "files": [
+        {"path": "%APPDATA%\\Apple Computer\\iTunes\\iPhone Software Updates\\iPhone15,2_17.0_21A329_Restore.ipsw", "size": 65536},
+        {"path": "%APPDATA%\\Apple Computer\\iTunes\\iPad Software Updates\\iPad13,1_17.0_Restore.ipsw", "size": 65536},
+        {"path": "%APPDATA%\\Apple Computer\\iTunes\\iPhone Software Updates\\notes.txt", "size": 4096},
+        {"path": "%APPDATA%\\Apple Computer\\MobileSync\\Backup\\00008110-abc\\Info.plist", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\AppleInc.AppleDevices_nzyj5cx40ttqa\\LocalCache\\Roaming\\Apple Computer\\iTunes\\iPhone Software Updates\\x.ipsw", "size": 65536}
+      ],
+      "expect": [
+        "%APPDATA%\\Apple Computer\\iTunes\\iPhone Software Updates\\iPhone15,2_17.0_21A329_Restore.ipsw",
+        "%APPDATA%\\Apple Computer\\iTunes\\iPad Software Updates\\iPad13,1_17.0_Restore.ipsw",
+        "%LOCALAPPDATA%\\Packages\\AppleInc.AppleDevices_nzyj5cx40ttqa\\LocalCache\\Roaming\\Apple Computer\\iTunes\\iPhone Software Updates\\x.ipsw"
+      ]
+    }
+  ]
+}

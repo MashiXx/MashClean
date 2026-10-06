@@ -1,0 +1,392 @@
+[
+  {
+    "id": "app.jetbrains-intellij-idea.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của IntelliJ IDEA",
+      "en": "IntelliJ IDEA leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ IntelliJ IDEA để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files IntelliJ IDEA leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "IntelliJ IDEA 20*",
+        "IntelliJ IDEA Ultimate*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\IntelliJIdea20*",
+        "%LOCALAPPDATA%\\JetBrains\\IntelliJIdea20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-intellij-idea-ce.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của IntelliJ IDEA Community Edition",
+      "en": "IntelliJ IDEA Community Edition leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ IntelliJ IDEA Community Edition để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files IntelliJ IDEA Community Edition leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "IntelliJ IDEA Community Edition*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\IdeaIC20*",
+        "%LOCALAPPDATA%\\JetBrains\\IdeaIC20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-pycharm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của PyCharm",
+      "en": "PyCharm leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ PyCharm để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files PyCharm leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "PyCharm 20*",
+        "PyCharm Professional*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\PyCharm20*",
+        "%LOCALAPPDATA%\\JetBrains\\PyCharm20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-pycharm-ce.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của PyCharm Community Edition",
+      "en": "PyCharm Community Edition leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ PyCharm Community Edition để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files PyCharm Community Edition leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "PyCharm Community Edition*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\PyCharmCE20*",
+        "%LOCALAPPDATA%\\JetBrains\\PyCharmCE20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-webstorm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của WebStorm",
+      "en": "WebStorm leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ WebStorm để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files WebStorm leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "WebStorm*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\WebStorm20*",
+        "%LOCALAPPDATA%\\JetBrains\\WebStorm20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-phpstorm.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của PhpStorm",
+      "en": "PhpStorm leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ PhpStorm để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files PhpStorm leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "PhpStorm*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\PhpStorm20*",
+        "%LOCALAPPDATA%\\JetBrains\\PhpStorm20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-clion.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của CLion",
+      "en": "CLion leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ CLion để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files CLion leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "CLion*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\CLion20*",
+        "%LOCALAPPDATA%\\JetBrains\\CLion20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-goland.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của GoLand",
+      "en": "GoLand leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ GoLand để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files GoLand leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "GoLand*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\GoLand20*",
+        "%LOCALAPPDATA%\\JetBrains\\GoLand20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-rider.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Rider",
+      "en": "Rider leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Rider để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Rider leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "JetBrains Rider*",
+        "Rider*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\Rider20*",
+        "%LOCALAPPDATA%\\JetBrains\\Rider20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-rubymine.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của RubyMine",
+      "en": "RubyMine leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ RubyMine để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files RubyMine leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "RubyMine*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\RubyMine20*",
+        "%LOCALAPPDATA%\\JetBrains\\RubyMine20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-datagrip.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của DataGrip",
+      "en": "DataGrip leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ DataGrip để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files DataGrip leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "DataGrip*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\DataGrip20*",
+        "%LOCALAPPDATA%\\JetBrains\\DataGrip20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.jetbrains-rustrover.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của RustRover",
+      "en": "RustRover leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ RustRover để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files RustRover leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "RustRover*"
+      ],
+      "publishers": [
+        "JetBrains*"
+      ],
+      "paths": [
+        "%APPDATA%\\JetBrains\\RustRover20*",
+        "%LOCALAPPDATA%\\JetBrains\\RustRover20*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Thư mục cấu hình/hệ thống theo phiên bản (<Sản phẩm><năm.bản>). minAgeDays 14 để không lấy thư mục của phiên bản khác vẫn đang dùng (IDE ghi vào đó mỗi lần chạy) khi chỉ gỡ một phiên bản."
+  },
+  {
+    "id": "app.android-studio.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Android Studio",
+      "en": "Android Studio leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Android Studio để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Android Studio leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Android Studio*"
+      ],
+      "paths": [
+        "%APPDATA%\\Google\\AndroidStudio*",
+        "%LOCALAPPDATA%\\Google\\AndroidStudio*"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Không đụng ~\\.android (máy ảo, debug.keystore) và %LOCALAPPDATA%\\Android\\Sdk (dùng chung với công cụ khác). minAgeDays 14 như IDE JetBrains."
+  }
+]

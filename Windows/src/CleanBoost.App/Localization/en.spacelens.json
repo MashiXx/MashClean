@@ -1,0 +1,19 @@
+{
+  "Không đọc được (cần quyền quản trị)": "Can't read (administrator rights required)",
+  "Liên kết (symlink/junction), không đi theo": "Link (symlink/junction), not followed",
+  "Chỉ có trên đám mây, không chiếm dung lượng ổ": "Online-only cloud file, takes no disk space",
+  "Thùng rác của ổ này: chỉ đo tổng. Dọn ở màn Rác hệ thống.": "This drive's Recycle Bin: total only. Empty it from System Junk.",
+  "Hard link: dung lượng đã tính ở chỗ khác": "Hard link: its size is already counted elsewhere",
+  "Lên một cấp": "Up One Level",
+  "Không đọc được thư mục này (cần quyền quản trị)": "Can't read this folder (administrator rights required)",
+  "Thư mục này không chiếm dung lượng": "This folder takes up no space",
+  "thư mục được bảo vệ": "protected folder",
+  "vùng hệ thống không được xoá": "system area that can't be deleted",
+  "trỏ ra ngoài thư mục đang xem": "points outside the scanned folder",
+  "ổ chỉ đọc": "read-only drive",
+  "ổ mạng": "network drive",
+  "cần quyền quản trị": "administrator rights required",
+  "không an toàn": "not safe",
+  "Không quét được %@: %@": "Couldn't scan %@: %@",
+  "Không xoá được: %@": "Couldn't delete: %@"
+}

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Test đơn vị + tích hợp cho phần lõi an toàn (PathPolicy, SecureRemover, rule, quét, dọn, lưu trữ).
+       Mọi test chỉ thao tác trong thư mục tạm dưới %TEMP% do chính test tạo và xoá. TFM kế thừa từ Directory.Build.props. -->
+  <PropertyGroup>
+    <RootNamespace>CleanBoost.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <!-- Test chạy với tên tiếng Việt của rule/hằng số; không cần cảnh báo thiếu XML doc hay async không await. -->
+    <NoWarn>$(NoWarn);CS1998;xUnit1031</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.5.23" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CleanBoost.Core\CleanBoost.Core.csproj" />
+    <ProjectReference Include="..\..\src\CleanBoost.Engine\CleanBoost.Engine.csproj" />
+    <ProjectReference Include="..\..\src\CleanBoost.Features\CleanBoost.Features.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

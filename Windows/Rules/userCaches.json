@@ -1,0 +1,526 @@
+[
+  {
+    "id": "app.generic.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache theo ứng dụng",
+      "en": "App caches"
+    },
+    "reason": {
+      "vi": "Thư mục cache của một ứng dụng đã cài; ứng dụng sẽ tạo lại ở lần mở sau.",
+      "en": "Cache folders that belong to an installed app; the app recreates them on next launch."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "forEachInstalledApp": true,
+      "paths": [
+        "%LOCALAPPDATA%\\${appName}\\Cache",
+        "%LOCALAPPDATA%\\${appName}\\Code Cache",
+        "%LOCALAPPDATA%\\${appName}\\GPUCache",
+        "%APPDATA%\\${appName}\\Cache",
+        "%APPDATA%\\${appName}\\Code Cache",
+        "%APPDATA%\\${appName}\\GPUCache",
+        "%LOCALAPPDATA%\\${publisher}\\${appName}\\Cache",
+        "%LOCALAPPDATA%\\${publisher}\\${appName}\\Code Cache",
+        "%LOCALAPPDATA%\\${publisher}\\${appName}\\GPUCache",
+        "%APPDATA%\\${publisher}\\${appName}\\Cache",
+        "%APPDATA%\\${publisher}\\${appName}\\Code Cache",
+        "%APPDATA%\\${publisher}\\${appName}\\GPUCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "${appID}"
+      ]
+    },
+    "exclude": [
+      "%LOCALAPPDATA%\\CleanBoost",
+      "%APPDATA%\\CleanBoost",
+      "%LOCALAPPDATA%\\Microsoft",
+      "%APPDATA%\\Microsoft",
+      "%LOCALAPPDATA%\\Packages",
+      "%LOCALAPPDATA%\\Temp"
+    ],
+    "notes": "App của nhà phát hành hệ thống (Microsoft) bị bỏ qua trước khi mở rộng biến. Biến ${publisher} có dấu chấm cuối (vd 'Discord Inc.') làm mẫu đó bị bỏ qua, các mẫu còn lại vẫn áp dụng."
+  },
+  {
+    "id": "electron.discord.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Discord",
+      "en": "Discord cache"
+    },
+    "reason": {
+      "vi": "Ảnh và cache web Discord đã tải; sẽ tải lại khi cần, tin nhắn vẫn nằm trên máy chủ.",
+      "en": "Images and web caches Discord downloaded; they are fetched again when needed and messages stay on Discord's servers."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\discord*\\Cache",
+        "%APPDATA%\\discord*\\Code Cache",
+        "%APPDATA%\\discord*\\GPUCache",
+        "%APPDATA%\\discord*\\DawnCache",
+        "%APPDATA%\\discord*\\DawnGraphiteCache",
+        "%APPDATA%\\discord*\\DawnWebGPUCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "discord",
+        "discordptb",
+        "discordcanary"
+      ]
+    },
+    "notes": "discord* khớp cả Discord PTB (discordptb) và Canary (discordcanary)."
+  },
+  {
+    "id": "electron.slack.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Slack",
+      "en": "Slack cache"
+    },
+    "reason": {
+      "vi": "Cache web của Slack; tin nhắn vẫn nằm trên máy chủ Slack.",
+      "en": "Slack's web cache; messages stay on Slack's servers."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Slack\\Cache",
+        "%APPDATA%\\Slack\\Code Cache",
+        "%APPDATA%\\Slack\\GPUCache",
+        "%APPDATA%\\Slack\\DawnCache",
+        "%APPDATA%\\Slack\\DawnGraphiteCache",
+        "%APPDATA%\\Slack\\DawnWebGPUCache",
+        "%APPDATA%\\Slack\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_*\\LocalCache\\Roaming\\Slack\\Cache",
+        "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_*\\LocalCache\\Roaming\\Slack\\Code Cache",
+        "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_*\\LocalCache\\Roaming\\Slack\\GPUCache",
+        "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_*\\LocalCache\\Roaming\\Slack\\Service Worker\\CacheStorage"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "slack"
+      ]
+    },
+    "notes": "Gồm bản Microsoft Store (gói 91750D7E.Slack, dữ liệu ảo hoá trong LocalCache\\Roaming)."
+  },
+  {
+    "id": "electron.teams.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Microsoft Teams",
+      "en": "Microsoft Teams cache"
+    },
+    "reason": {
+      "vi": "Cache web của Teams; tin nhắn và tệp vẫn nằm trên đám mây.",
+      "en": "Teams' web cache; chats and files stay in the cloud."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Microsoft\\Teams\\Cache",
+        "%APPDATA%\\Microsoft\\Teams\\Code Cache",
+        "%APPDATA%\\Microsoft\\Teams\\GPUCache",
+        "%APPDATA%\\Microsoft\\Teams\\Service Worker\\CacheStorage",
+        "%APPDATA%\\Microsoft\\Teams\\application cache\\Cache",
+        "%APPDATA%\\Microsoft\\Teams\\tmp",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\*\\Cache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\*\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\ShaderCache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_*\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\GrShaderCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "teams",
+        "ms-teams"
+      ]
+    },
+    "notes": "Teams cổ điển (%APPDATA%\\Microsoft\\Teams) và Teams mới (gói MSTeams, WebView2 trong EBWebView). Không đụng IndexedDB, Local Storage, blob_storage (trạng thái đăng nhập)."
+  },
+  {
+    "id": "media.spotify.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache phát nhạc Spotify",
+      "en": "Spotify streaming cache"
+    },
+    "reason": {
+      "vi": "Bài hát lưu tạm khi nghe trực tuyến và cache giao diện; nhạc đã tải để nghe ngoại tuyến được giữ.",
+      "en": "Songs cached while streaming and the app's web cache; music downloaded for offline listening is kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Spotify\\Data",
+        "%LOCALAPPDATA%\\Spotify\\Browser\\Cache",
+        "%LOCALAPPDATA%\\Packages\\SpotifyAB.SpotifyMusic_*\\LocalCache\\Spotify\\Data"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "spotify"
+      ]
+    },
+    "notes": "Spotify\\Storage là vị trí lưu nhạc ngoại tuyến mặc định nên tách sang rule review riêng."
+  },
+  {
+    "id": "media.spotify.offline",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Bộ nhớ ngoại tuyến của Spotify",
+      "en": "Spotify offline storage"
+    },
+    "reason": {
+      "vi": "Có thể chứa bài hát, podcast bạn đã tải để nghe khi không có mạng; xoá thì phải tải lại trong Spotify.",
+      "en": "May contain songs and podcasts you downloaded for offline listening; you will need to download them again in Spotify."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Spotify\\Storage",
+        "%LOCALAPPDATA%\\Packages\\SpotifyAB.SpotifyMusic_*\\LocalCache\\Spotify\\Storage"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "spotify"
+      ]
+    }
+  },
+  {
+    "id": "app.steam.web-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache trình duyệt của Steam",
+      "en": "Steam web cache"
+    },
+    "reason": {
+      "vi": "Trang cửa hàng, ảnh và cache web của giao diện Steam; game và dữ liệu lưu không bị ảnh hưởng.",
+      "en": "Store pages, images and web cache of the Steam client; games and saves are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Steam\\htmlcache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "steam",
+        "steamwebhelper"
+      ]
+    }
+  },
+  {
+    "id": "app.steam.app-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache HTTP của Steam",
+      "en": "Steam HTTP cache"
+    },
+    "reason": {
+      "vi": "Ảnh và dữ liệu cửa hàng Steam tải về trong thư mục cài đặt; Steam tải lại khi cần.",
+      "en": "Store images and data Steam downloaded into its install folder; Steam downloads them again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMFILES(X86)%\\Steam\\appcache\\httpcache",
+        "%PROGRAMFILES(X86)%\\Steam\\htmlcache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "steam",
+        "steamwebhelper"
+      ]
+    },
+    "notes": "Thư mục Steam thường cho người dùng ghi; requiresRoot vì nằm trong Program Files (x86), PathPolicy chuyển helper khi cần. Steam cài ở thư viện khác không được tìm thấy."
+  },
+  {
+    "id": "app.steam.shader-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache shader game Steam",
+      "en": "Steam game shader cache"
+    },
+    "reason": {
+      "vi": "Shader đã biên dịch sẵn cho từng game Steam (thư mục theo mã game). Xoá thì game phải biên dịch hoặc tải lại shader, lần chơi đầu có thể giật.",
+      "en": "Precompiled shaders for each Steam game (one folder per game ID). Games have to rebuild or redownload them, so the first session may stutter."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMFILES(X86)%\\Steam\\steamapps\\shadercache\\*"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "steam"
+      ]
+    }
+  },
+  {
+    "id": "app.epic.web-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache web của Epic Games Launcher",
+      "en": "Epic Games Launcher web cache"
+    },
+    "reason": {
+      "vi": "Cache trang cửa hàng của Epic Games Launcher; game đã cài không bị ảnh hưởng.",
+      "en": "Store page cache of the Epic Games Launcher; installed games are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\webcache*"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "EpicGamesLauncher",
+        "EpicWebHelper"
+      ]
+    },
+    "notes": "webcache* khớp webcache, webcache_4147, webcache_4430... theo phiên bản CEF."
+  },
+  {
+    "id": "app.battlenet.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Battle.net",
+      "en": "Battle.net cache"
+    },
+    "reason": {
+      "vi": "Cache dữ liệu và trình duyệt của ứng dụng Battle.net; game đã cài không bị ảnh hưởng.",
+      "en": "Data and browser cache of the Battle.net app; installed games are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Battle.net\\Cache",
+        "%LOCALAPPDATA%\\Battle.net\\BrowserCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "Battle.net"
+      ]
+    }
+  },
+  {
+    "id": "app.adobe.media-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Media cache của Adobe",
+      "en": "Adobe media cache"
+    },
+    "reason": {
+      "vi": "Âm thanh đã chuyển đổi và dạng sóng Premiere Pro, After Effects, Media Encoder tạo ra; được tạo lại khi mở dự án nhưng có thể mất nhiều thời gian.",
+      "en": "Conformed audio and waveform files created by Premiere Pro, After Effects and Media Encoder; they are rebuilt when projects open, which can take a while."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Adobe\\Common\\Media Cache Files",
+        "%APPDATA%\\Adobe\\Common\\Media Cache",
+        "%APPDATA%\\Adobe\\Common\\Peak Files"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "Adobe Premiere Pro",
+        "AfterFX",
+        "Adobe Media Encoder",
+        "Adobe Audition",
+        "Adobe Premiere Rush"
+      ]
+    },
+    "notes": "Để review vì dựng lại cache cho dự án lớn rất lâu; người dùng có thể đã đổi vị trí cache trong Preferences (khi đó rule không thấy gì)."
+  },
+  {
+    "id": "app.adobe.camera-raw-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Camera Raw",
+      "en": "Camera Raw cache"
+    },
+    "reason": {
+      "vi": "Bản xem trước ảnh RAW do Camera Raw tạo cho Photoshop, Bridge, Lightroom; được tạo lại khi mở ảnh.",
+      "en": "RAW previews Camera Raw created for Photoshop, Bridge and Lightroom; they are regenerated when photos are opened."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Adobe\\CameraRaw\\Cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "Photoshop",
+        "Lightroom",
+        "Adobe Bridge"
+      ]
+    }
+  },
+  {
+    "id": "app.telegram.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Telegram Desktop",
+      "en": "Telegram Desktop cache"
+    },
+    "reason": {
+      "vi": "Ảnh, video và tệp Telegram đã tải khi xem tin nhắn; được tải lại từ đám mây khi cần. Phiên đăng nhập được giữ.",
+      "en": "Photos, videos and files Telegram downloaded while you read chats; they are downloaded again from the cloud. Your session is kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Telegram Desktop\\tdata\\user_data*\\cache",
+        "%APPDATA%\\Telegram Desktop\\tdata\\user_data*\\media_cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "telegram"
+      ]
+    },
+    "notes": "user_data* khớp cả tài khoản phụ (user_data#2...). Không đụng các file khác trong tdata (khoá phiên đăng nhập)."
+  },
+  {
+    "id": "app.nvidia.web-cache",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache giao diện NVIDIA app",
+      "en": "NVIDIA app web cache"
+    },
+    "reason": {
+      "vi": "Cache trình duyệt nhúng của NVIDIA app và GeForce Experience; driver và cài đặt không bị ảnh hưởng.",
+      "en": "Embedded browser cache of the NVIDIA app and GeForce Experience; drivers and settings are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\CefCache",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience\\CefCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "NVIDIA app",
+        "NVIDIA Share",
+        "NVIDIA GeForce Experience",
+        "NVIDIA Overlay"
+      ]
+    }
+  },
+  {
+    "id": "user.caches.java",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Java",
+      "en": "Java deployment cache"
+    },
+    "reason": {
+      "vi": "Applet và ứng dụng Java Web Start đã tải; được tải lại khi chạy lại.",
+      "en": "Downloaded applets and Java Web Start apps; they are downloaded again when run."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATALOW%\\Sun\\Java\\Deployment\\cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "javaws",
+        "jp2launcher"
+      ]
+    }
+  },
+  {
+    "id": "app.thunderbird.caches",
+    "version": 1,
+    "category": "userCaches",
+    "title": {
+      "vi": "Cache Thunderbird",
+      "en": "Thunderbird cache"
+    },
+    "reason": {
+      "vi": "Cache nội dung web của Thunderbird; thư, tài khoản và hồ sơ được giữ nguyên.",
+      "en": "Thunderbird's web content cache; mail, accounts and profile are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Thunderbird\\Profiles\\*\\cache2",
+        "%LOCALAPPDATA%\\Thunderbird\\Profiles\\*\\startupCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "thunderbird"
+      ]
+    },
+    "notes": "Chỉ phần Local của hồ sơ; thư nằm trong %APPDATA%\\Thunderbird và không bị đụng."
+  }
+]

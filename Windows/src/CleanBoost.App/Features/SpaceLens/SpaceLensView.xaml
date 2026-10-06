@@ -1,0 +1,287 @@
+<UserControl x:Class="CleanBoost.App.Features.SpaceLens.SpaceLensView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:CleanBoost.App.UI"
+             xmlns:lens="clr-namespace:CleanBoost.App.Features.SpaceLens"
+             Foreground="White" FontFamily="{StaticResource TextFont}">
+    <UserControl.Resources>
+        <!-- Thẻ ổ đĩa bấm được (Card của bản Mac) -->
+        <Style x:Key="VolumeCardButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="14" Background="#14FFFFFF" BorderBrush="#1FFFFFFF" BorderThickness="1" Padding="14,13">
+                            <ContentPresenter HorizontalAlignment="Stretch" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#24FFFFFF" />
+                                <Setter TargetName="Bg" Property="BorderBrush" Value="#40FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#33FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bg" Property="BorderBrush" Value="#B3FFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Mảnh đường dẫn (breadcrumb): chữ trơn -->
+        <Style x:Key="CrumbButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" Background="Transparent" CornerRadius="6" Padding="5,3">
+                            <ContentPresenter VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#1FFFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Vỏ dòng danh sách: không có hiệu ứng chọn của ListBox -->
+        <Style x:Key="RowContainer" TargetType="ListBoxItem">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Chọn ổ hoặc thư mục -->
+        <Grid x:Name="IdlePanel" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock x:Name="IdleIcon" FontFamily="{StaticResource IconFont}" FontSize="64" Foreground="White" HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.25" />
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="Space Lens" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,0" />
+                <TextBlock x:Name="IdleSubtitle" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" TextAlignment="Center" MaxWidth="460" Margin="0,8,0,0" />
+            </StackPanel>
+            <ItemsControl x:Name="VolumeList" Grid.Row="2" HorizontalAlignment="Center" MaxWidth="740" Margin="0,26,0,0" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type lens:LensVolume}">
+                        <Button Style="{StaticResource VolumeCardButton}" Width="226" Margin="7" Click="OnVolumeClick" ToolTip="{Binding Info.MountPoint}">
+                            <StackPanel>
+                                <DockPanel>
+                                    <TextBlock Text="{Binding Glyph}" FontFamily="{StaticResource IconFont}" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource HeadlineText}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                </DockPanel>
+                                <ProgressBar Style="{StaticResource ThinProgress}" Maximum="1" Value="{Binding UsedFraction, Mode=OneWay}" Foreground="{Binding BarBrush}" Margin="0,11,0,0" />
+                                <TextBlock Text="{Binding FreeText}" Style="{StaticResource CaptionText}" Margin="0,7,0,0" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,22,0,0">
+                <Button x:Name="HomeButton" Style="{StaticResource GlassButton}" Click="OnHome" Margin="0,0,12,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE80F;" FontFamily="{StaticResource IconFont}" FontSize="13" VerticalAlignment="Center" Margin="0,0,7,0" />
+                        <TextBlock x:Name="HomeText" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="FolderButton" Style="{StaticResource GlassButton}" Click="OnChooseFolder">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="FolderGlyph" FontFamily="{StaticResource IconFont}" FontSize="13" VerticalAlignment="Center" Margin="0,0,7,0" />
+                        <TextBlock x:Name="FolderText" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Đang quét -->
+        <Grid x:Name="ScanningPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Width="170" Height="170">
+                <ui:ProgressRing x:Name="ScanRing" LineWidth="12" />
+                <lens:Spinner x:Name="ScanSpinner" />
+            </Grid>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,24,0,0">
+                <TextBlock x:Name="ScanTitle" Style="{StaticResource HeadlineText}" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="600" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+                    <TextBlock Text="&#xE8C8;" Style="{StaticResource IconText}" FontSize="11" Foreground="{StaticResource SecondaryText}" Margin="0,0,5,0" />
+                    <TextBlock x:Name="ScanItemsText" Style="{StaticResource CaptionText}" Typography.NumeralAlignment="Tabular" />
+                    <TextBlock Text="&#xEDA2;" Style="{StaticResource IconText}" FontSize="11" Foreground="{StaticResource SecondaryText}" Margin="18,0,5,0" />
+                    <TextBlock x:Name="ScanBytesText" Style="{StaticResource CaptionText}" Typography.NumeralAlignment="Tabular" />
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="StopButton" Grid.Row="4" Style="{StaticResource GlassButton}" HorizontalAlignment="Center" Click="OnStop" />
+        </Grid>
+
+        <!-- Kết quả -->
+        <Grid x:Name="ResultsPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" LastChildFill="True">
+                <Button x:Name="BackButton" DockPanel.Dock="Left" Style="{StaticResource GlassButton}" Padding="13,7" Click="OnBack" VerticalAlignment="Center">
+                    <TextBlock Text="&#xE76B;" FontFamily="{StaticResource IconFont}" FontSize="12" />
+                </Button>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="ScanTimeText" Style="{StaticResource TertiaryCaptionText}" FontSize="12" VerticalAlignment="Center" Margin="12,0,14,0" />
+                    <Button x:Name="RescanButton" Style="{StaticResource GlassButton}" Click="OnRescan" Margin="0,0,10,0" />
+                    <Button x:Name="ChooseButton" Style="{StaticResource GlassButton}" Click="OnChooseAnother" />
+                </StackPanel>
+                <ScrollViewer x:Name="CrumbScroller" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" Margin="10,0,0,0" VerticalAlignment="Center">
+                    <StackPanel x:Name="Crumbs" Orientation="Horizontal" VerticalAlignment="Center" />
+                </ScrollViewer>
+            </DockPanel>
+
+            <Border x:Name="NoticeBanner" Grid.Row="1" CornerRadius="10" Background="{StaticResource BannerBackground}" Padding="12,8" Margin="0,12,0,0" Visibility="Collapsed">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="&#xE946;" Style="{StaticResource IconText}" Foreground="{StaticResource ReviewBrush}" FontSize="15" Margin="0,0,10,0" />
+                    <Button x:Name="NoticeClose" DockPanel.Dock="Right" Style="{StaticResource GlassButton}" Click="OnCloseNotice" Margin="10,0,0,0" />
+                    <TextBlock x:Name="NoticeText" Style="{StaticResource BodyText}" VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Row="2" Margin="0,14,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="320" />
+                    <ColumnDefinition Width="14" />
+                    <ColumnDefinition Width="340" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Panel}">
+                    <Grid>
+                        <lens:SunburstChart x:Name="Chart" Margin="6" />
+                        <StackPanel x:Name="EmptyChart" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" IsHitTestVisible="False">
+                            <TextBlock Text="&#xE8B7;" Style="{StaticResource IconText}" FontSize="40" HorizontalAlignment="Center" Foreground="{StaticResource SecondaryText}" />
+                            <TextBlock x:Name="EmptyChartText" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,10,0,0" MaxWidth="280" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Panel}">
+                    <DockPanel Margin="0,10,0,6">
+                        <DockPanel DockPanel.Dock="Top" Margin="14,0,14,6">
+                            <TextBlock x:Name="CountText" DockPanel.Dock="Right" Style="{StaticResource CaptionText}" FontSize="12" VerticalAlignment="Center" />
+                            <CheckBox x:Name="SelectAll" Style="{StaticResource TriCheck}" IsThreeState="False" Click="OnSelectAll" FontSize="13"
+                                      Foreground="{StaticResource SecondaryText}" HorizontalAlignment="Left" />
+                        </DockPanel>
+                        <TextBlock x:Name="MoreText" DockPanel.Dock="Bottom" Style="{StaticResource TertiaryCaptionText}" Margin="16,4,14,2" Visibility="Collapsed" />
+                        <ListBox x:Name="Rows" Style="{StaticResource PlainListBox}" ItemContainerStyle="{StaticResource RowContainer}" Margin="6,0,4,0"
+                                 VirtualizingPanel.ScrollUnit="Pixel" Focusable="False">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type lens:LensRow}">
+                                    <Border x:Name="Bg" CornerRadius="7" Background="Transparent" Padding="8,6,6,6"
+                                            MouseLeftButtonUp="OnRowClick" MouseEnter="OnRowEnter" MouseLeave="OnRowLeave" ContextMenuOpening="OnRowContextMenu">
+                                        <Border.ContextMenu>
+                                            <ContextMenu />
+                                        </Border.ContextMenu>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="18" />
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Style="{StaticResource TriCheck}" IsThreeState="False" IsChecked="{Binding IsChecked, Mode=OneWay}" Click="OnRowCheck" Margin="0,0,10,0" />
+                                            <Grid Grid.Column="1" Width="20" Height="20" Margin="0,0,9,0" VerticalAlignment="Center">
+                                                <Image Source="{Binding Icon}" Width="18" Height="18" RenderOptions.BitmapScalingMode="HighQuality" />
+                                                <TextBlock Text="{Binding FallbackGlyph}" FontFamily="{StaticResource IconFont}" FontSize="15" Foreground="#D9FFFFFF"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding HasIcon, Converter={StaticResource Hidden}}" />
+                                            </Grid>
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0">
+                                                <DockPanel>
+                                                    <TextBlock DockPanel.Dock="Right" Text="{Binding BadgeGlyph}" FontFamily="{StaticResource IconFont}" FontSize="10.5"
+                                                               Foreground="{Binding BadgeBrush}" ToolTip="{Binding BadgeTooltip}" VerticalAlignment="Center" Margin="6,1,0,0"
+                                                               Visibility="{Binding HasBadge, Converter={StaticResource Visible}}" />
+                                                    <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="Medium" Foreground="White" TextTrimming="CharacterEllipsis" />
+                                                </DockPanel>
+                                                <lens:SizeBar Height="3" Margin="0,4,0,0" Fraction="{Binding Fraction}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="3" Text="{Binding SizeText}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource SecondaryText}"
+                                                       Typography.NumeralAlignment="Tabular" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="4" Text="&#xE76C;" FontFamily="{StaticResource IconFont}" FontSize="10" Foreground="{StaticResource TertiaryText}"
+                                                       HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="{Binding HasChildren, Converter={StaticResource Visible}}" />
+                                        </Grid>
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding HasChildren}" Value="True">
+                                            <Setter TargetName="Bg" Property="Cursor" Value="Hand" />
+                                        </DataTrigger>
+                                        <Trigger SourceName="Bg" Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bg" Property="Background" Value="#14FFFFFF" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                                            <Setter TargetName="Bg" Property="Background" Value="#29FFFFFF" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <DockPanel Grid.Row="3" Margin="0,16,0,0">
+                <Button x:Name="TrashButton" DockPanel.Dock="Right" Style="{StaticResource PrimaryButton}" Click="OnTrash" />
+                <Button x:Name="RevealButton" DockPanel.Dock="Right" Style="{StaticResource GlassButton}" Click="OnReveal" Margin="0,0,12,0" VerticalAlignment="Center" />
+                <lens:Spinner x:Name="CleaningSpinner" DockPanel.Dock="Right" Width="18" Height="18" LineWidth="3" Margin="0,0,12,0" Visibility="Collapsed" />
+                <Border x:Name="DryRunPill" DockPanel.Dock="Right" Style="{StaticResource PillBorder}" Background="#40FFCC00" Margin="0,0,12,0" Visibility="Collapsed">
+                    <TextBlock Text="DRY RUN" Style="{StaticResource PillText}" Foreground="{StaticResource ReviewBrush}" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="SelectedText" Style="{StaticResource HeadlineText}" FontSize="17" FontFamily="{StaticResource DisplayFont}" FontWeight="Bold" />
+                    <TextBlock x:Name="SelectedDetail" Style="{StaticResource TertiaryCaptionText}" FontSize="12" Margin="0,1,0,0" />
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+
+        <!-- Lỗi -->
+        <StackPanel x:Name="ErrorPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" MaxWidth="560">
+            <TextBlock Text="&#xE7BA;" Style="{StaticResource IconText}" FontSize="52" HorizontalAlignment="Center" Foreground="{StaticResource ReviewBrush}" />
+            <TextBlock x:Name="ErrorTitle" Style="{StaticResource TitleText}" HorizontalAlignment="Center" Margin="0,14,0,0" />
+            <TextBlock x:Name="ErrorText" Style="{StaticResource SecondaryBodyText}" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,18" />
+            <Button x:Name="ErrorRetry" Style="{StaticResource GlassButton}" HorizontalAlignment="Center" Click="OnChooseAnother" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,844 @@
+[
+  {
+    "id": "devtools.npm.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của npm",
+      "en": "npm cache"
+    },
+    "reason": {
+      "vi": "Gói đã tải về và gói npx tạm; npm sẽ tự tải lại khi cần. Gói cài toàn cục không bị ảnh hưởng.",
+      "en": "Downloaded packages and temporary npx packages; npm downloads them again when needed. Globally installed packages are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\npm-cache\\_cacache",
+        "%LOCALAPPDATA%\\npm-cache\\_npx",
+        "%APPDATA%\\npm-cache\\_cacache",
+        "%APPDATA%\\npm-cache\\_npx"
+      ]
+    },
+    "notes": "Không đụng %APPDATA%\\npm (gói cài toàn cục)."
+  },
+  {
+    "id": "devtools.yarn.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Yarn",
+      "en": "Yarn cache"
+    },
+    "reason": {
+      "vi": "Cache gói toàn cục của Yarn; gói sẽ được tải lại khi cần.",
+      "en": "Yarn's global package cache; packages are fetched again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Yarn\\Cache",
+        "%LOCALAPPDATA%\\Yarn\\Berry\\cache",
+        "~\\.yarn\\berry\\cache"
+      ]
+    }
+  },
+  {
+    "id": "devtools.pnpm.store",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Kho gói pnpm",
+      "en": "pnpm store"
+    },
+    "reason": {
+      "vi": "Kho gói và cache metadata của pnpm; dự án sẽ liên kết lại gói ở lần cài kế tiếp.",
+      "en": "pnpm's package store and metadata cache; projects re-link packages on the next install."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\pnpm\\store",
+        "%LOCALAPPDATA%\\pnpm-cache"
+      ]
+    },
+    "notes": "Không đụng %LOCALAPPDATA%\\pnpm (PNPM_HOME, chứa gói toàn cục) ngoài thư mục store."
+  },
+  {
+    "id": "devtools.bun.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Bun",
+      "en": "Bun cache"
+    },
+    "reason": {
+      "vi": "Cache cài đặt toàn cục của Bun; gói được tải lại khi cần.",
+      "en": "Bun's global install cache; packages are downloaded again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.bun\\install\\cache"
+      ]
+    }
+  },
+  {
+    "id": "devtools.deno.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Deno",
+      "en": "Deno cache"
+    },
+    "reason": {
+      "vi": "Module từ xa đã tải, gói npm và mã đã biên dịch; Deno tải lại khi cần.",
+      "en": "Downloaded remote modules, npm packages and compiled code; Deno fetches them again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\deno\\deps",
+        "%LOCALAPPDATA%\\deno\\gen",
+        "%LOCALAPPDATA%\\deno\\npm",
+        "%LOCALAPPDATA%\\deno\\registries",
+        "%LOCALAPPDATA%\\deno\\remote"
+      ]
+    },
+    "notes": "Không đụng location_data (localStorage của script chạy với --location)."
+  },
+  {
+    "id": "devtools.node-tools.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache công cụ Node.js",
+      "en": "Node.js tool caches"
+    },
+    "reason": {
+      "vi": "Header của node-gyp, bản Electron tải về và cache kiểu TypeScript; được tạo lại tự động.",
+      "en": "node-gyp headers, downloaded Electron builds and TypeScript typings cache; recreated automatically."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\node-gyp\\Cache",
+        "%LOCALAPPDATA%\\electron\\Cache",
+        "%LOCALAPPDATA%\\electron-builder\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\TypeScript"
+      ]
+    }
+  },
+  {
+    "id": "devtools.test-browsers",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Trình duyệt cho test tự động",
+      "en": "Test automation browsers"
+    },
+    "reason": {
+      "vi": "Trình duyệt Playwright, Cypress, Puppeteer tải về để chạy test; chạy lệnh cài đặt của công cụ để tải lại.",
+      "en": "Browsers downloaded by Playwright, Cypress and Puppeteer to run tests; run the tool's install command to get them back."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\ms-playwright\\*",
+        "%LOCALAPPDATA%\\Cypress\\Cache\\*",
+        "~\\.cache\\puppeteer\\*"
+      ]
+    },
+    "exclude": [
+      "%LOCALAPPDATA%\\ms-playwright\\.links"
+    ],
+    "notes": "Mỗi phiên bản trình duyệt là một mục để người dùng giữ bản đang dùng. .links là danh sách dự án của Playwright."
+  },
+  {
+    "id": "devtools.pip.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của pip",
+      "en": "pip cache"
+    },
+    "reason": {
+      "vi": "Wheel Python và cache HTTP pip đã tải.",
+      "en": "Python wheels and HTTP responses pip downloaded."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\pip\\Cache"
+      ]
+    }
+  },
+  {
+    "id": "devtools.poetry.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Poetry",
+      "en": "Poetry cache"
+    },
+    "reason": {
+      "vi": "Cache gói và artifact của Poetry; môi trường ảo được giữ nguyên.",
+      "en": "Poetry's package and artifact caches; virtual environments are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\pypoetry\\Cache\\cache",
+        "%LOCALAPPDATA%\\pypoetry\\Cache\\artifacts"
+      ]
+    },
+    "notes": "Không đụng pypoetry\\Cache\\virtualenvs."
+  },
+  {
+    "id": "devtools.uv.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của uv",
+      "en": "uv cache"
+    },
+    "reason": {
+      "vi": "Cache gói của trình quản lý gói Python uv; môi trường ảo và bản Python uv cài được giữ.",
+      "en": "Package cache of the uv Python package manager; virtual environments and uv-managed Pythons are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\uv\\cache"
+      ]
+    },
+    "notes": "Python do uv cài nằm ở %APPDATA%\\uv\\python, công cụ ở %APPDATA%\\uv\\tools: không đụng."
+  },
+  {
+    "id": "devtools.conda.tarballs",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Gói nén conda đã tải",
+      "en": "Downloaded conda package archives"
+    },
+    "reason": {
+      "vi": "File gói .conda và .tar.bz2 conda đã tải và giải nén xong (tương đương conda clean --tarballs); môi trường không bị ảnh hưởng.",
+      "en": "Downloaded .conda and .tar.bz2 archives conda has already extracted (like conda clean --tarballs); environments are not affected."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\anaconda3\\pkgs\\*.conda",
+        "~\\anaconda3\\pkgs\\*.tar.bz2",
+        "~\\miniconda3\\pkgs\\*.conda",
+        "~\\miniconda3\\pkgs\\*.tar.bz2",
+        "~\\miniforge3\\pkgs\\*.conda",
+        "~\\miniforge3\\pkgs\\*.tar.bz2",
+        "~\\.conda\\pkgs\\*.conda",
+        "~\\.conda\\pkgs\\*.tar.bz2",
+        "%LOCALAPPDATA%\\conda\\conda\\pkgs\\*.conda",
+        "%LOCALAPPDATA%\\conda\\conda\\pkgs\\*.tar.bz2"
+      ]
+    },
+    "notes": "Chỉ file nén, không đụng thư mục gói đã giải nén (môi trường có thể liên kết tới)."
+  },
+  {
+    "id": "devtools.nuget.http-cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache HTTP của NuGet",
+      "en": "NuGet HTTP cache"
+    },
+    "reason": {
+      "vi": "Metadata và gói NuGet tải qua HTTP; được tải lại ở lần restore sau.",
+      "en": "NuGet metadata and packages downloaded over HTTP; fetched again on the next restore."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\NuGet\\v3-cache",
+        "%LOCALAPPDATA%\\NuGet\\plugins-cache",
+        "%LOCALAPPDATA%\\NuGet\\Cache"
+      ]
+    }
+  },
+  {
+    "id": "devtools.nuget.packages",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Thư mục gói NuGet toàn cục",
+      "en": "NuGet global packages folder"
+    },
+    "reason": {
+      "vi": "Gói NuGet đã giải nén dùng chung cho mọi dự án .NET; lần build sau phải restore lại, cần mạng.",
+      "en": "Extracted NuGet packages shared by all .NET projects; the next build has to restore them, which needs a network."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.nuget\\packages"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "devenv",
+        "rider64"
+      ]
+    }
+  },
+  {
+    "id": "devtools.gradle.caches",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Gradle",
+      "en": "Gradle caches"
+    },
+    "reason": {
+      "vi": "Thư viện đã tải, cache build và bản phân phối Gradle wrapper; lần build sau sẽ tải lại, có thể mất thời gian.",
+      "en": "Downloaded libraries, build caches and Gradle wrapper distributions; the next build downloads them again, which can take a while."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.gradle\\caches",
+        "~\\.gradle\\wrapper\\dists"
+      ]
+    }
+  },
+  {
+    "id": "devtools.maven.repository",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Kho Maven cục bộ",
+      "en": "Local Maven repository"
+    },
+    "reason": {
+      "vi": "Artifact Maven đã tải; cả artifact bạn tự cài bằng `mvn install` cũng bị xoá.",
+      "en": "Downloaded Maven artifacts; artifacts you installed yourself with `mvn install` are removed too."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.m2\\repository"
+      ]
+    }
+  },
+  {
+    "id": "devtools.cargo.registry-cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache registry của Cargo",
+      "en": "Cargo registry cache"
+    },
+    "reason": {
+      "vi": "File crate đã tải và bản tải về của rustup; Cargo tải lại khi build.",
+      "en": "Downloaded crate archives and rustup downloads; Cargo fetches them again when building."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.cargo\\registry\\cache",
+        "~\\.rustup\\downloads",
+        "~\\.rustup\\tmp"
+      ]
+    }
+  },
+  {
+    "id": "devtools.cargo.sources",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Mã nguồn crate đã giải nén",
+      "en": "Extracted crate sources"
+    },
+    "reason": {
+      "vi": "Mã nguồn crate và repo git Cargo đã giải nén; build sau sẽ giải nén lại, nhảy tới định nghĩa trong IDE cần chờ tải lại.",
+      "en": "Extracted crate sources and git checkouts; the next build extracts them again and IDE go-to-definition waits for that."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.cargo\\registry\\src",
+        "~\\.cargo\\git\\checkouts"
+      ]
+    }
+  },
+  {
+    "id": "devtools.go.build-cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache build của Go",
+      "en": "Go build cache"
+    },
+    "reason": {
+      "vi": "Gói Go đã biên dịch; lần build sau sẽ biên dịch lại.",
+      "en": "Compiled Go packages; the next build compiles them again."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\go-build"
+      ]
+    }
+  },
+  {
+    "id": "devtools.go.module-downloads",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Bản tải module Go",
+      "en": "Go module downloads"
+    },
+    "reason": {
+      "vi": "File zip module Go đã tải; module đã giải nén giữ nguyên, nhưng go mod verify và build ngoại tuyến có thể cần tải lại.",
+      "en": "Downloaded Go module zips; extracted modules are kept, but go mod verify and offline builds may need to download them again."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\go\\pkg\\mod\\cache\\download"
+      ]
+    }
+  },
+  {
+    "id": "devtools.composer.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Composer",
+      "en": "Composer cache"
+    },
+    "reason": {
+      "vi": "Gói PHP và metadata Composer đã tải; được tải lại khi cài.",
+      "en": "PHP packages and metadata Composer downloaded; fetched again on install."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Composer\\files",
+        "%LOCALAPPDATA%\\Composer\\repo",
+        "%LOCALAPPDATA%\\Composer\\vcs"
+      ]
+    }
+  },
+  {
+    "id": "devtools.scoop.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Bộ cài Scoop đã tải",
+      "en": "Scoop download cache"
+    },
+    "reason": {
+      "vi": "Bộ cài ứng dụng Scoop đã tải về; ứng dụng đã cài không bị ảnh hưởng.",
+      "en": "Installers Scoop downloaded; installed apps are not affected."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\scoop\\cache"
+      ]
+    }
+  },
+  {
+    "id": "devtools.vcpkg.archives",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache nhị phân vcpkg",
+      "en": "vcpkg binary cache"
+    },
+    "reason": {
+      "vi": "Thư viện C++ vcpkg đã build sẵn; được build lại khi cần.",
+      "en": "Prebuilt vcpkg C++ libraries; they are rebuilt when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\vcpkg\\archives"
+      ]
+    }
+  },
+  {
+    "id": "devtools.dart.pub-cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache gói Dart và Flutter",
+      "en": "Dart and Flutter package cache"
+    },
+    "reason": {
+      "vi": "Gói pub đã tải cho dự án Dart, Flutter; dự án cần chạy lại `flutter pub get` trước khi build.",
+      "en": "pub packages downloaded for Dart and Flutter projects; projects need `flutter pub get` before building again."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Pub\\Cache\\hosted",
+        "%LOCALAPPDATA%\\Pub\\Cache\\git"
+      ]
+    },
+    "notes": "Không đụng Pub\\Cache\\bin và global_packages (công cụ kích hoạt toàn cục)."
+  },
+  {
+    "id": "devtools.huggingface.models",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Mô hình Hugging Face đã tải",
+      "en": "Downloaded Hugging Face models"
+    },
+    "reason": {
+      "vi": "Mô hình và bộ dữ liệu thư viện Hugging Face tải về; thường rất lớn, chương trình sẽ tải lại khi dùng.",
+      "en": "Models and datasets downloaded by Hugging Face libraries; often very large and downloaded again when used."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "~\\.cache\\huggingface\\hub\\models--*",
+        "~\\.cache\\huggingface\\hub\\datasets--*",
+        "~\\.cache\\huggingface\\hub\\spaces--*"
+      ]
+    }
+  },
+  {
+    "id": "devtools.jetbrains.caches",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache IDE JetBrains",
+      "en": "JetBrains IDE caches"
+    },
+    "reason": {
+      "vi": "Cache của IDE JetBrains; IDE sẽ tạo lại ở lần mở sau (tương đương Invalidate Caches).",
+      "en": "Caches of JetBrains IDEs; the IDE recreates them on next launch (like Invalidate Caches)."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\JetBrains\\*\\caches"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "idea64",
+        "idea",
+        "pycharm64",
+        "pycharm",
+        "webstorm64",
+        "phpstorm64",
+        "clion64",
+        "goland64",
+        "rider64",
+        "rubymine64",
+        "datagrip64",
+        "rustrover64",
+        "dataspell64",
+        "aqua64",
+        "studio64"
+      ]
+    }
+  },
+  {
+    "id": "devtools.jetbrains.index",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Chỉ mục IDE JetBrains",
+      "en": "JetBrains IDE indexes"
+    },
+    "reason": {
+      "vi": "Chỉ mục mã nguồn của IDE JetBrains; IDE đánh chỉ mục lại ở lần mở dự án sau, có thể mất nhiều phút.",
+      "en": "Source indexes of JetBrains IDEs; the IDE re-indexes projects on next open, which can take minutes."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\JetBrains\\*\\index"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "idea64",
+        "idea",
+        "pycharm64",
+        "pycharm",
+        "webstorm64",
+        "phpstorm64",
+        "clion64",
+        "goland64",
+        "rider64",
+        "rubymine64",
+        "datagrip64",
+        "rustrover64",
+        "dataspell64",
+        "aqua64",
+        "studio64"
+      ]
+    },
+    "notes": "Không đụng LocalHistory (lịch sử thay đổi tệp cục bộ) và thư mục cấu hình trong %APPDATA%\\JetBrains."
+  },
+  {
+    "id": "devtools.vscode.caches",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache của Visual Studio Code",
+      "en": "Visual Studio Code caches"
+    },
+    "reason": {
+      "vi": "Dữ liệu cache, gói extension đã tải và cache IntelliSense C/C++ của VS Code; cài đặt và extension được giữ.",
+      "en": "VS Code's caches, downloaded extension packages and C/C++ IntelliSense cache; settings and extensions are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Code\\Cache",
+        "%APPDATA%\\Code\\CachedData",
+        "%APPDATA%\\Code\\CachedExtensionVSIXs",
+        "%APPDATA%\\Code\\Code Cache",
+        "%APPDATA%\\Code\\GPUCache",
+        "%APPDATA%\\Code\\DawnCache",
+        "%APPDATA%\\Code\\DawnGraphiteCache",
+        "%APPDATA%\\Code\\DawnWebGPUCache",
+        "%APPDATA%\\Code\\Service Worker\\CacheStorage",
+        "%APPDATA%\\Code - Insiders\\Cache",
+        "%APPDATA%\\Code - Insiders\\CachedData",
+        "%APPDATA%\\Code - Insiders\\CachedExtensionVSIXs",
+        "%APPDATA%\\Code - Insiders\\Code Cache",
+        "%APPDATA%\\Code - Insiders\\GPUCache",
+        "%APPDATA%\\Code - Insiders\\DawnCache",
+        "%APPDATA%\\Code - Insiders\\DawnGraphiteCache",
+        "%APPDATA%\\Code - Insiders\\DawnWebGPUCache",
+        "%APPDATA%\\Code - Insiders\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Microsoft\\vscode-cpptools\\ipch"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "code",
+        "code - insiders"
+      ]
+    },
+    "notes": "Không đụng User\\workspaceStorage, User\\History (Local History) và ~\\.vscode\\extensions."
+  },
+  {
+    "id": "devtools.vscode-forks.caches",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache trình soạn thảo nhân VS Code",
+      "en": "VS Code-based editor caches"
+    },
+    "reason": {
+      "vi": "Dữ liệu cache và gói extension đã tải của Cursor, Windsurf, VSCodium; cài đặt và extension được giữ.",
+      "en": "Caches and downloaded extension packages of Cursor, Windsurf and VSCodium; settings and extensions are kept."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%APPDATA%\\Cursor\\Cache",
+        "%APPDATA%\\Cursor\\CachedData",
+        "%APPDATA%\\Cursor\\CachedExtensionVSIXs",
+        "%APPDATA%\\Cursor\\Code Cache",
+        "%APPDATA%\\Cursor\\GPUCache",
+        "%APPDATA%\\Cursor\\DawnCache",
+        "%APPDATA%\\Cursor\\DawnGraphiteCache",
+        "%APPDATA%\\Cursor\\DawnWebGPUCache",
+        "%APPDATA%\\Cursor\\Service Worker\\CacheStorage",
+        "%APPDATA%\\Windsurf\\Cache",
+        "%APPDATA%\\Windsurf\\CachedData",
+        "%APPDATA%\\Windsurf\\CachedExtensionVSIXs",
+        "%APPDATA%\\Windsurf\\Code Cache",
+        "%APPDATA%\\Windsurf\\GPUCache",
+        "%APPDATA%\\Windsurf\\DawnCache",
+        "%APPDATA%\\Windsurf\\DawnGraphiteCache",
+        "%APPDATA%\\Windsurf\\DawnWebGPUCache",
+        "%APPDATA%\\Windsurf\\Service Worker\\CacheStorage",
+        "%APPDATA%\\VSCodium\\Cache",
+        "%APPDATA%\\VSCodium\\CachedData",
+        "%APPDATA%\\VSCodium\\CachedExtensionVSIXs",
+        "%APPDATA%\\VSCodium\\Code Cache",
+        "%APPDATA%\\VSCodium\\GPUCache",
+        "%APPDATA%\\VSCodium\\DawnCache",
+        "%APPDATA%\\VSCodium\\DawnGraphiteCache",
+        "%APPDATA%\\VSCodium\\DawnWebGPUCache",
+        "%APPDATA%\\VSCodium\\Service Worker\\CacheStorage"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "cursor",
+        "windsurf",
+        "vscodium"
+      ]
+    }
+  },
+  {
+    "id": "devtools.visual-studio.component-cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache thành phần Visual Studio",
+      "en": "Visual Studio component cache"
+    },
+    "reason": {
+      "vi": "Cache MEF của Visual Studio; được dựng lại ở lần mở sau, thường giúp sửa lỗi extension.",
+      "en": "Visual Studio's MEF component cache; rebuilt on next launch and often fixes extension errors."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Microsoft\\VisualStudio\\*\\ComponentModelCache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "devenv"
+      ]
+    }
+  },
+  {
+    "id": "devtools.android.caches",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache Android Studio và SDK",
+      "en": "Android Studio and SDK caches"
+    },
+    "reason": {
+      "vi": "Cache của Android Studio, Android Gradle plugin và tệp tạm của SDK Manager; tạo lại ở lần build sau.",
+      "en": "Caches of Android Studio, the Android Gradle plugin and SDK Manager temp files; recreated on the next build."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Android\\Sdk\\.temp",
+        "~\\.android\\cache",
+        "~\\.android\\build-cache",
+        "%LOCALAPPDATA%\\Google\\AndroidStudio*\\caches"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "studio64",
+        "studio"
+      ]
+    },
+    "notes": "Không đụng ~\\.android\\avd (máy ảo) và debug.keystore."
+  },
+  {
+    "id": "devtools.unity.cache",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Cache toàn cục của Unity",
+      "en": "Unity global cache"
+    },
+    "reason": {
+      "vi": "Gói Unity Package Manager và tài nguyên đã tải; Unity tải lại khi mở dự án.",
+      "en": "Unity Package Manager packages and downloads; Unity fetches them again when projects open."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATA%\\Unity\\cache"
+      ]
+    },
+    "conditions": {
+      "appNotRunning": [
+        "Unity",
+        "Unity Hub"
+      ]
+    }
+  },
+  {
+    "id": "devtools.docker.prune",
+    "version": 1,
+    "category": "devToolCaches",
+    "title": {
+      "vi": "Dữ liệu Docker không dùng",
+      "en": "Unused Docker data"
+    },
+    "reason": {
+      "vi": "Container đã dừng, image treo và cache build, dọn bằng `docker system prune`.",
+      "en": "Stopped containers, dangling images and build cache, cleaned with `docker system prune`."
+    },
+    "safety": "review",
+    "removal": "custom:docker",
+    "requiresRoot": false,
+    "match": {
+      "paths": [],
+      "provider": "docker.prune"
+    }
+  }
+]

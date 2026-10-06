@@ -1,0 +1,57 @@
+[
+  {
+    "id": "user.temp",
+    "version": 1,
+    "category": "userTemp",
+    "title": {
+      "vi": "Tệp tạm của người dùng",
+      "en": "User temporary files"
+    },
+    "reason": {
+      "vi": "Tệp và thư mục tạm do ứng dụng, trình cài đặt để lại trong thư mục Temp, không dùng tới hơn một ngày.",
+      "en": "Files and folders that apps and installers left in your Temp folder and have not used for more than a day."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%TEMP%\\*",
+        "%LOCALAPPDATA%\\Temp\\*"
+      ],
+      "minAgeDays": 1
+    },
+    "exclude": [
+      "%TEMP%\\CleanBoost*",
+      "%TEMP%\\cb-*",
+      "%TEMP%\\Low",
+      "%LOCALAPPDATA%\\Temp\\CleanBoost*",
+      "%LOCALAPPDATA%\\Temp\\cb-*",
+      "%LOCALAPPDATA%\\Temp\\Low"
+    ],
+    "notes": "Nhắm từng mục con vì Temp là thư mục vỏ. minAgeDays tính theo mục mới nhất bên trong nên bộ cài đang chạy không bị đụng. Loại trừ thư mục tạm của chính Clean Boost (CleanBoost*, cb-*) và Temp\\Low (thư mục integrity thấp, một số app không tự tạo lại). Liệt kê thêm %LOCALAPPDATA%\\Temp phòng khi biến TEMP bị đổi; mục trùng được gộp."
+  },
+  {
+    "id": "user.temp.local-low",
+    "version": 1,
+    "category": "userTemp",
+    "title": {
+      "vi": "Tệp tạm của ứng dụng chạy hạn chế quyền",
+      "en": "Low-integrity temporary files"
+    },
+    "reason": {
+      "vi": "Tệp tạm của trình duyệt, Java và ứng dụng chạy ở chế độ hạn chế quyền, không dùng tới hơn một ngày.",
+      "en": "Temporary files of browsers, Java and other apps running with low integrity, unused for more than a day."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": false,
+    "match": {
+      "paths": [
+        "%LOCALAPPDATALOW%\\Temp\\*"
+      ],
+      "minAgeDays": 1,
+      "minSizeBytes": 1
+    }
+  }
+]

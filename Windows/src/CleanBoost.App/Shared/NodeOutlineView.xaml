@@ -1,0 +1,75 @@
+<UserControl x:Class="CleanBoost.App.Shared.NodeOutlineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:CleanBoost.App.UI"
+             xmlns:shared="clr-namespace:CleanBoost.App.Shared">
+    <ListBox x:Name="List" Style="{StaticResource PlainListBox}" SelectionMode="Extended"
+             VirtualizingPanel.ScrollUnit="Item" MouseDoubleClick="OnDoubleClick" KeyDown="OnKeyDown">
+        <ListBox.ItemTemplate>
+            <DataTemplate DataType="{x:Type shared:OutlineRow}">
+                <Grid Height="26" Background="Transparent" ToolTip="{Binding Tooltip}" ToolTipService.InitialShowDelay="700">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="18" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="96" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Width="{Binding Indent}" />
+                    <ToggleButton Grid.Column="1" Width="18" Height="22" Focusable="False" Cursor="Hand"
+                                  IsChecked="{Binding IsExpanded, Mode=OneWay}" Click="OnExpanderClick"
+                                  Visibility="{Binding HasChildren, Converter={StaticResource Visible}}">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border Background="Transparent">
+                                    <TextBlock x:Name="Chevron" Text="&#xE76C;" FontFamily="{StaticResource IconFont}" FontSize="9" Foreground="#B3FFFFFF"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <RotateTransform Angle="0" />
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="Chevron" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="90" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                    <CheckBox Grid.Column="2" Style="{StaticResource SquareCheck}" IsThreeState="False" Margin="2,0,8,0"
+                              IsChecked="{Binding IsChecked, Mode=OneWay}" Click="OnCheckClick"
+                              Visibility="{Binding ShowCheckboxes, RelativeSource={RelativeSource AncestorType=shared:NodeOutlineView}, Converter={StaticResource Visible}}" />
+                    <Grid Grid.Column="3" Width="18" Height="18" Margin="0,0,7,0">
+                        <Image Source="{Binding FileIcon}" Width="16" Height="16" RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Text="{Binding Glyph}" FontFamily="{StaticResource IconFont}" FontSize="14" Foreground="#D9FFFFFF"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Visibility="{Binding HasFileIcon, Converter={StaticResource Hidden}}" />
+                    </Grid>
+                    <DockPanel Grid.Column="4" LastChildFill="True" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Title}" FontSize="13" Foreground="White" TextTrimming="CharacterEllipsis" MaxWidth="420" DockPanel.Dock="Left" />
+                        <TextBlock Text="{Binding Detail}" FontSize="11.5" Foreground="#8CFFFFFF" Margin="8,0,0,0" TextTrimming="CharacterEllipsis" />
+                    </DockPanel>
+                    <TextBlock Grid.Column="5" Text="{Binding SafetyLabel}" FontSize="10.5" FontWeight="SemiBold" Foreground="{Binding SafetyBrush}"
+                               Margin="8,0,4,0" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="6" Text="{Binding SizeText}" FontSize="12" FontWeight="Medium" Foreground="White" TextAlignment="Right"
+                               Typography.NumeralAlignment="Tabular" VerticalAlignment="Center" Margin="0,0,10,0" />
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+        <ListBox.ContextMenu>
+            <ContextMenu Opened="OnContextMenuOpened">
+                <MenuItem x:Name="RevealItem" Click="OnReveal" />
+                <MenuItem x:Name="CopyItem" Click="OnCopyPath" />
+                <Separator x:Name="IgnoreSeparator" />
+                <MenuItem x:Name="IgnoreItem" Click="OnIgnoreClick" />
+            </ContextMenu>
+        </ListBox.ContextMenu>
+    </ListBox>
+</UserControl>

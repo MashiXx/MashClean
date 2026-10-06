@@ -1,0 +1,189 @@
+<ResourceDictionary x:Class="CleanBoost.App.Screens.ScreenStyles"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ui="clr-namespace:CleanBoost.App.UI"
+                    xmlns:s="clr-namespace:CleanBoost.App.Screens">
+
+    <!-- Style riêng của các màn ứng dụng (Onboarding, Cài đặt, Lịch sử, Báo cáo lỗi); dựa trên UI\Styles.xaml. -->
+
+    <!-- Nút trong suốt cỡ nhỏ (trong bảng, hàng cài đặt) -->
+    <Style x:Key="SmallGlassButton" TargetType="ButtonBase" BasedOn="{StaticResource GlassButton}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="12,4" />
+    </Style>
+
+    <!-- Tab trên thanh công cụ cửa sổ Cài đặt: biểu tượng trên, chữ dưới -->
+    <Style x:Key="SettingsTab" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="#B8FFFFFF" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin" Value="3,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="Bg" CornerRadius="9" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Padding="12,7,12,6" MinWidth="88">
+                        <ContentPresenter x:Name="Content" HorizontalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#14FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#29FFFFFF" />
+                            <Setter TargetName="Bg" Property="BorderBrush" Value="#1FFFFFFF" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Bg" Property="BorderBrush" Value="#B3FFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Một ô của bộ chọn phân đoạn (segmented picker) -->
+    <Style x:Key="SegmentButton" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="#B8FFFFFF" />
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="Bg" CornerRadius="7" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Padding="14,3" MinWidth="64">
+                        <ContentPresenter x:Name="Content" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#14FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#47FFFFFF" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Bg" Property="BorderBrush" Value="#B3FFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Nút − / + của Stepper (giữ để lặp) -->
+    <Style x:Key="StepperButton" TargetType="RepeatButton">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Delay" Value="400" />
+        <Setter Property="Interval" Value="70" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border x:Name="Bg" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#1FFFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bg" Property="Background" Value="#3DFFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.35" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Nhóm của form cài đặt (giống Form .grouped của macOS) -->
+    <Style x:Key="FormGroup" TargetType="Border">
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Background" Value="#12FFFFFF" />
+        <Setter Property="BorderBrush" Value="#1AFFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style x:Key="FormSectionHeader" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="#D9FFFFFF" />
+        <Setter Property="Margin" Value="4,16,0,6" />
+    </Style>
+    <Style x:Key="FormFootnote" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11.5" />
+        <Setter Property="Foreground" Value="#8CFFFFFF" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="LineHeight" Value="16" />
+        <Setter Property="Margin" Value="4,7,4,0" />
+    </Style>
+
+    <!-- Tiêu đề cột của bảng -->
+    <Style x:Key="TableHeaderText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="#8CFFFFFF" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <!-- Danh sách lần dọn (cột trái màn Lịch sử) -->
+    <DataTemplate x:Key="HistoryOperationTemplate" DataType="{x:Type s:HistoryOperationRow}">
+        <StackPanel Margin="12,8,10,8" Background="Transparent">
+            <TextBlock Text="{Binding DateText}" FontSize="13" FontWeight="SemiBold" Foreground="White" TextTrimming="CharacterEllipsis" />
+            <TextBlock Text="{Binding DetailText}" FontSize="11.5" Foreground="{Binding DetailBrush}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"
+                       Typography.NumeralAlignment="Tabular" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Một hàng của bảng mục đã dọn (cột phải màn Lịch sử) -->
+    <DataTemplate x:Key="HistoryItemTemplate" DataType="{x:Type s:HistoryItemRow}">
+        <Grid Height="32" Margin="10,0,8,0" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="108" />
+                <ColumnDefinition Width="84" />
+                <ColumnDefinition Width="108" />
+                <ColumnDefinition Width="88" />
+            </Grid.ColumnDefinitions>
+            <s:MiddleTrimmedText Text="{Binding DisplayPath}" ToolTip="{Binding FullPath}" FontSize="12.5" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0" />
+            <TextBlock Grid.Column="1" Text="{Binding StrategyText}" FontSize="12" Foreground="#B8FFFFFF" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            <TextBlock Grid.Column="2" Text="{Binding SizeText}" FontSize="12" FontWeight="SemiBold" Foreground="#D9FFFFFF" VerticalAlignment="Center"
+                       HorizontalAlignment="Right" Margin="0,0,16,0" Typography.NumeralAlignment="Tabular" />
+            <TextBlock Grid.Column="3" Text="{Binding ResultText}" ToolTip="{Binding ResultTip}" FontSize="12" Foreground="{Binding ResultBrush}" VerticalAlignment="Center"
+                       TextTrimming="CharacterEllipsis" ToolTipService.IsEnabled="{Binding HasResultTip}" />
+            <Button Grid.Column="4" Style="{StaticResource SmallGlassButton}" Content="{ui:L 'Khôi phục'}" Tag="restore" HorizontalAlignment="Right"
+                    VerticalAlignment="Center" Visibility="{Binding CanRestore, Converter={StaticResource Visible}}" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- Ô văn bản chỉ đọc, chữ đơn cách (báo cáo chẩn đoán) -->
+    <Style x:Key="ReportTextBox" TargetType="TextBox">
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="IsReadOnlyCaretVisible" Value="False" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="Cascadia Mono, Consolas" />
+        <Setter Property="FontSize" Value="11.5" />
+        <Setter Property="SelectionBrush" Value="#80FFFFFF" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="Padding" Value="12,10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

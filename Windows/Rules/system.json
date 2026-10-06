@@ -1,0 +1,398 @@
+[
+  {
+    "id": "system.temp.windows",
+    "version": 1,
+    "category": "systemTemp",
+    "title": {
+      "vi": "Tệp tạm của Windows",
+      "en": "Windows temporary files"
+    },
+    "reason": {
+      "vi": "Tệp tạm do dịch vụ hệ thống, Windows Update và trình cài đặt chạy với quyền quản trị để lại trong Windows\\Temp, không dùng tới hơn một ngày.",
+      "en": "Temporary files that system services, Windows Update and elevated installers left in Windows\\Temp and have not used for more than a day."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Temp\\*"
+      ],
+      "minAgeDays": 1
+    },
+    "exclude": [
+      "%WINDIR%\\Temp\\CleanBoost*"
+    ],
+    "notes": "Nhắm vào từng mục con vì Windows\\Temp là thư mục vỏ được bảo vệ. minAgeDays tính theo mục mới nhất bên trong thư mục nên bộ cài đang chạy không bị đụng."
+  },
+  {
+    "id": "system.temp.system-temp",
+    "version": 1,
+    "category": "systemTemp",
+    "title": {
+      "vi": "Tệp tạm của tài khoản hệ thống",
+      "en": "SYSTEM account temporary files"
+    },
+    "reason": {
+      "vi": "Thư mục tạm riêng của các tiến trình chạy dưới tài khoản SYSTEM (Windows 11), chỉ lấy mục không dùng tới hơn một ngày.",
+      "en": "The private temporary folder of processes running as SYSTEM (Windows 11); only items unused for more than a day."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\SystemTemp\\*"
+      ],
+      "minAgeDays": 1
+    },
+    "exclude": [
+      "%WINDIR%\\SystemTemp\\CleanBoost*"
+    ]
+  },
+  {
+    "id": "windows-update.download",
+    "version": 1,
+    "category": "windowsUpdate",
+    "title": {
+      "vi": "Bản tải về của Windows Update",
+      "en": "Windows Update downloads"
+    },
+    "reason": {
+      "vi": "Gói cập nhật Windows Update đã tải về. Bản cập nhật chưa cài xong sẽ phải tải lại, nên dọn sau khi đã cập nhật và khởi động lại máy.",
+      "en": "Update packages downloaded by Windows Update. Updates that have not finished installing will be downloaded again, so clean this after updating and restarting."
+    },
+    "safety": "review",
+    "removal": "deleteContents",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\SoftwareDistribution\\Download"
+      ],
+      "minSizeBytes": 1
+    },
+    "notes": "Để review: dịch vụ wuauserv có thể đang dùng thư mục mà rule không biểu diễn được điều kiện dịch vụ; file đang mở được bỏ qua (inUse). deleteContents vì Download là thư mục vỏ."
+  },
+  {
+    "id": "windows-update.delivery-optimization",
+    "version": 1,
+    "category": "windowsUpdate",
+    "title": {
+      "vi": "Cache Tối ưu hoá phân phối",
+      "en": "Delivery Optimization cache"
+    },
+    "reason": {
+      "vi": "Bản sao gói cập nhật Windows giữ lại để chia sẻ cho máy khác trong mạng; Windows tự tải lại khi cần.",
+      "en": "Copies of update packages Windows keeps to share with other PCs on the network; Windows downloads them again when needed."
+    },
+    "safety": "safe",
+    "removal": "deleteContents",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Cache"
+      ],
+      "minSizeBytes": 1
+    },
+    "notes": "Tương đương mục Delivery Optimization Files của Disk Cleanup (mặc định được chọn)."
+  },
+  {
+    "id": "system.logs.delivery-optimization",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log Tối ưu hoá phân phối",
+      "en": "Delivery Optimization logs"
+    },
+    "reason": {
+      "vi": "File theo dõi (ETL) cũ hơn 7 ngày của dịch vụ Tối ưu hoá phân phối.",
+      "en": "Trace files (ETL) of the Delivery Optimization service older than 7 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Logs\\*.etl"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.cbs",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log bảo trì thành phần (CBS)",
+      "en": "Component servicing (CBS) logs"
+    },
+    "reason": {
+      "vi": "Log và bản nén log cũ hơn 7 ngày ghi lại khi cài bản cập nhật, tính năng Windows; chỉ dùng khi chẩn đoán lỗi cập nhật.",
+      "en": "Logs and compressed log archives older than 7 days written while installing updates and Windows features; only needed to troubleshoot update errors."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Logs\\CBS\\*.log",
+        "%WINDIR%\\Logs\\CBS\\*.cab"
+      ],
+      "minAgeDays": 7
+    },
+    "notes": "CBS.log đang ghi bị TrustedInstaller khoá nên được bỏ qua (inUse) nếu chưa đủ cũ."
+  },
+  {
+    "id": "system.logs.dism",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log DISM",
+      "en": "DISM logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 7 ngày của công cụ bảo trì ảnh hệ thống DISM.",
+      "en": "Logs of the DISM image servicing tool older than 7 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Logs\\DISM\\*.log"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.mosetup",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log nâng cấp Windows",
+      "en": "Windows upgrade logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 7 ngày của trình nâng cấp phiên bản Windows.",
+      "en": "Logs of the Windows feature upgrade engine older than 7 days."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Logs\\MoSetup\\*"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.windows-update",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log Windows Update",
+      "en": "Windows Update logs"
+    },
+    "reason": {
+      "vi": "File theo dõi (ETL) cũ hơn 7 ngày của Windows Update; Windows tự ghi file mới.",
+      "en": "Windows Update trace files (ETL) older than 7 days; Windows writes new ones as needed."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Logs\\WindowsUpdate\\*.etl"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.services",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log dịch vụ hệ thống khác",
+      "en": "Other system service logs"
+    },
+    "reason": {
+      "vi": "Log cũ hơn 14 ngày của dịch vụ sửa lỗi cập nhật, cài đặt mạng và giải nén gói cập nhật.",
+      "en": "Logs older than 14 days from the update repair, network setup and update extraction services."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Logs\\SIH\\*.etl",
+        "%WINDIR%\\Logs\\NetSetup\\*.etl",
+        "%WINDIR%\\Logs\\waasmedic\\*.etl",
+        "%WINDIR%\\Logs\\DPX\\*.log"
+      ],
+      "minAgeDays": 14
+    },
+    "notes": "Không dùng %WINDIR%\\Logs\\* chung vì có thư mục như MeasuredBoot (log TCG dùng cho chứng thực khởi động) cần giữ."
+  },
+  {
+    "id": "system.logs.update-orchestrator",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log Update Orchestrator",
+      "en": "Update Orchestrator logs"
+    },
+    "reason": {
+      "vi": "File theo dõi (ETL) cũ hơn 7 ngày do dịch vụ điều phối cập nhật ghi.",
+      "en": "Trace files (ETL) older than 7 days written by the Update Orchestrator service."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMDATA%\\USOShared\\Logs\\*.etl",
+        "%PROGRAMDATA%\\USOShared\\Logs\\*\\*.etl"
+      ],
+      "minAgeDays": 7
+    }
+  },
+  {
+    "id": "system.logs.panther",
+    "version": 1,
+    "category": "systemLogs",
+    "title": {
+      "vi": "Log cài đặt Windows (Panther)",
+      "en": "Windows setup logs (Panther)"
+    },
+    "reason": {
+      "vi": "Log của lần cài đặt hoặc nâng cấp Windows trước; chỉ cần khi điều tra lỗi cài đặt. Bỏ qua mục mới hơn 30 ngày.",
+      "en": "Logs from previous Windows installations or upgrades; only needed to investigate setup problems. Items newer than 30 days are skipped."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Panther\\*"
+      ],
+      "minAgeDays": 30
+    },
+    "exclude": [
+      "%WINDIR%\\Panther\\unattend*.xml",
+      "%WINDIR%\\Panther\\autounattend*.xml"
+    ],
+    "notes": "Giữ file unattend vì quản trị viên có thể dùng lại khi sysprep. Để review vì thư mục cũng chứa log nâng cấp có ích khi khôi phục."
+  },
+  {
+    "id": "crash.system.minidump",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Minidump lỗi màn hình xanh",
+      "en": "Blue screen minidumps"
+    },
+    "reason": {
+      "vi": "Bản ghi nhỏ Windows lưu khi máy gặp lỗi dừng (màn hình xanh); chỉ cần khi gửi cho kỹ thuật viên phân tích.",
+      "en": "Small dumps Windows saves when the PC hits a stop error (blue screen); only needed if someone is analysing the crash."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\Minidump\\*.dmp"
+      ]
+    }
+  },
+  {
+    "id": "crash.system.memory-dump",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Bản ghi bộ nhớ khi lỗi hệ thống",
+      "en": "System memory dump"
+    },
+    "reason": {
+      "vi": "Bản ghi toàn bộ bộ nhớ lúc xảy ra lỗi dừng gần nhất, thường rất lớn. Giữ lại nếu đang nhờ người phân tích lỗi.",
+      "en": "A dump of memory from the most recent stop error, usually very large. Keep it if someone is analysing the crash."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\MEMORY.DMP"
+      ]
+    }
+  },
+  {
+    "id": "crash.system.live-kernel-reports",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Báo cáo lỗi nhân không làm dừng máy",
+      "en": "Live kernel reports"
+    },
+    "reason": {
+      "vi": "Bản ghi bộ nhớ Windows tạo khi driver (thường là đồ hoạ, USB, mạng) bị treo rồi tự phục hồi; có thể chiếm vài GB.",
+      "en": "Dumps Windows writes when a driver (often graphics, USB or networking) hangs and recovers; they can take several GB."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%WINDIR%\\LiveKernelReports\\*.dmp",
+        "%WINDIR%\\LiveKernelReports\\*\\*.dmp"
+      ]
+    }
+  },
+  {
+    "id": "crash.system.wer",
+    "version": 1,
+    "category": "crashReports",
+    "title": {
+      "vi": "Báo cáo lỗi Windows của hệ thống",
+      "en": "System Windows Error Reporting files"
+    },
+    "reason": {
+      "vi": "Báo cáo crash của dịch vụ và ứng dụng chạy cho mọi người dùng, đã gửi hoặc đang chờ gửi cho Microsoft.",
+      "en": "Crash reports from services and apps for all users, already sent or waiting to be sent to Microsoft."
+    },
+    "safety": "safe",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\*",
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\*",
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\Temp\\*"
+      ]
+    },
+    "notes": "Tương đương mục System archived/queued Windows Error Reporting của Disk Cleanup."
+  },
+  {
+    "id": "system.caches.nvidia-driver-downloads",
+    "version": 1,
+    "category": "systemCaches",
+    "title": {
+      "vi": "Bộ cài driver NVIDIA đã tải",
+      "en": "Downloaded NVIDIA driver installers"
+    },
+    "reason": {
+      "vi": "Bộ cài driver do NVIDIA app hoặc GeForce Experience tải về; driver đã cài không bị ảnh hưởng. Bỏ qua bộ cài mới hơn 7 ngày.",
+      "en": "Driver installers downloaded by the NVIDIA app or GeForce Experience; the installed driver is not affected. Installers newer than 7 days are skipped."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "paths": [
+        "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\**\\*.exe"
+      ],
+      "minAgeDays": 7
+    },
+    "notes": "Chỉ lấy file .exe, giữ cấu hình của trình tải. Không đụng Program Files\\NVIDIA Corporation\\Installer2 (cần khi gỡ driver) và C:\\NVIDIA, C:\\AMD (ngoài vùng helper được phép)."
+  }
+]

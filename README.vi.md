@@ -29,6 +29,10 @@ Biết rõ từng byte sắp xoá là gì, thuộc app nào, và vì sao an toà
 
 > Bản hiện tại chưa được ký bằng Developer ID và chưa notarize, nên lần đầu mở macOS sẽ chặn. Cách mở: kéo app vào Applications, mở thử một lần, rồi vào **System Settings → Privacy & Security** và bấm **Open Anyway** (trên macOS 14 trở về trước có thể chuột phải vào app → **Open**). Helper quyền quản trị và menu chuột phải trong Finder có thể chưa hoạt động ở bản này.
 
+### Windows
+
+Bản cho Windows (Windows 10 1809 trở lên và Windows 11) nằm trong [`Windows/`](Windows/README.md): cùng thiết kế và mô hình an toàn, viết bằng .NET 9 và WPF.
+
 ## Vì sao là Clean Boost?
 
 Hầu hết app dọn dẹp chỉ đưa bạn một con số lớn và nút "Dọn ngay". Clean Boost làm khác:

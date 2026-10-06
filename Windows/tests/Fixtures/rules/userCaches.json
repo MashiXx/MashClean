@@ -1,0 +1,260 @@
+{
+  "cases": [
+    {
+      "name": "app.generic.caches: theo từng app, bỏ app đang chạy, thư mục của Clean Boost và app không cài",
+      "rules": ["app.generic.caches"],
+      "apps": [
+        {"appID": "Editor", "appName": "Editor", "publisher": "Example Corp"},
+        {"appID": "ChatApp", "appName": "Chat", "publisher": "Chat Inc."},
+        {"appID": "CleanBoost", "appName": "CleanBoost", "publisher": "Clean Boost"}
+      ],
+      "running": ["ChatApp"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Editor\\Cache\\a", "size": 4096},
+        {"path": "%APPDATA%\\Editor\\Code Cache\\js\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Example Corp\\Editor\\GPUCache\\c", "size": 4096},
+        {"path": "%APPDATA%\\Editor\\settings.json", "size": 4096},
+        {"path": "%APPDATA%\\Chat\\Cache\\d", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Orphan\\Cache\\e", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\CleanBoost\\Cache\\f", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Editor\\GPUCache", "dir": true}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Editor\\Cache",
+        "%APPDATA%\\Editor\\Code Cache",
+        "%LOCALAPPDATA%\\Example Corp\\Editor\\GPUCache"
+      ]
+    },
+    {
+      "name": "Discord (cả PTB); không đụng Local Storage, settings",
+      "rules": ["electron.discord.caches"],
+      "files": [
+        {"path": "%APPDATA%\\discord\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%APPDATA%\\discord\\Code Cache\\js\\b", "size": 4096},
+        {"path": "%APPDATA%\\discord\\GPUCache\\c", "size": 4096},
+        {"path": "%APPDATA%\\discordptb\\Cache\\Cache_Data\\d", "size": 4096},
+        {"path": "%APPDATA%\\discord\\Local Storage\\leveldb\\000003.log", "size": 4096},
+        {"path": "%APPDATA%\\discord\\settings.json", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\discord\\Cache",
+        "%APPDATA%\\discord\\Code Cache",
+        "%APPDATA%\\discord\\GPUCache",
+        "%APPDATA%\\discordptb\\Cache"
+      ]
+    },
+    {
+      "name": "Discord đang chạy",
+      "rules": ["electron.discord.caches"],
+      "running": ["Discord"],
+      "files": [
+        {"path": "%APPDATA%\\discord\\Cache\\Cache_Data\\a", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Slack: bản thường và bản Store; không đụng IndexedDB",
+      "rules": ["electron.slack.caches"],
+      "files": [
+        {"path": "%APPDATA%\\Slack\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%APPDATA%\\Slack\\Service Worker\\CacheStorage\\b", "size": 4096},
+        {"path": "%APPDATA%\\Slack\\IndexedDB\\c", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_8she8kybcnzg4\\LocalCache\\Roaming\\Slack\\Cache\\Cache_Data\\d", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Slack\\Cache",
+        "%APPDATA%\\Slack\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Packages\\91750D7E.Slack_8she8kybcnzg4\\LocalCache\\Roaming\\Slack\\Cache"
+      ]
+    },
+    {
+      "name": "Teams cổ điển và Teams mới; không đụng IndexedDB, Local Storage, Cookies",
+      "rules": ["electron.teams.caches"],
+      "files": [
+        {"path": "%APPDATA%\\Microsoft\\Teams\\Cache\\a", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Teams\\tmp\\b", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Teams\\IndexedDB\\c", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Teams\\Local Storage\\leveldb\\d", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\WV2Profile_tfw\\Cache\\Cache_Data\\e", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\Default\\Code Cache\\js\\f", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\ShaderCache\\g", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\WV2Profile_tfw\\Network\\Cookies", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Microsoft\\Teams\\Cache",
+        "%APPDATA%\\Microsoft\\Teams\\tmp",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\WV2Profile_tfw\\Cache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\Default\\Code Cache",
+        "%LOCALAPPDATA%\\Packages\\MSTeams_8wekyb3d8bbwe\\LocalCache\\Microsoft\\MSTeams\\EBWebView\\ShaderCache"
+      ]
+    },
+    {
+      "name": "Teams mới đang chạy",
+      "rules": ["electron.teams.caches"],
+      "running": ["ms-teams"],
+      "files": [
+        {"path": "%APPDATA%\\Microsoft\\Teams\\Cache\\a", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Spotify: cache phát nhạc (safe) tách khỏi bộ nhớ ngoại tuyến (review)",
+      "rules": ["media.spotify.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Spotify\\Data\\a1\\b2.file", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Spotify\\Browser\\Cache\\Cache_Data\\c", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Spotify\\Storage\\d.file", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Packages\\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\\LocalCache\\Spotify\\Data\\e.file", "size": 4096},
+        {"path": "%APPDATA%\\Spotify\\prefs", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Spotify\\Data",
+        "%LOCALAPPDATA%\\Spotify\\Browser\\Cache",
+        "%LOCALAPPDATA%\\Packages\\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\\LocalCache\\Spotify\\Data"
+      ]
+    },
+    {
+      "name": "Spotify Storage",
+      "rules": ["media.spotify.offline"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Spotify\\Storage\\d.file", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Spotify\\Data\\a.file", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Spotify\\Storage"
+      ]
+    },
+    {
+      "name": "Spotify đang chạy",
+      "rules": ["media.spotify.caches", "media.spotify.offline"],
+      "running": ["Spotify"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Spotify\\Data\\a.file", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Spotify\\Storage\\d.file", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Steam: htmlcache trong hồ sơ, httpcache trong thư mục cài đặt, shadercache theo game",
+      "rules": ["app.steam.web-cache", "app.steam.app-cache", "app.steam.shader-cache"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Steam\\htmlcache\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\appcache\\httpcache\\00\\b", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\htmlcache\\c", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\appcache\\appinfo.vdf", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\steamapps\\shadercache\\730\\fozpipelinesv6\\d.foz", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\steamapps\\shadercache\\570\\DXCache\\e.bin", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\steamapps\\common\\Game\\game.exe", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\userdata\\123\\config\\localconfig.vdf", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Steam\\htmlcache",
+        "%PROGRAMFILES(X86)%\\Steam\\appcache\\httpcache",
+        "%PROGRAMFILES(X86)%\\Steam\\htmlcache",
+        "%PROGRAMFILES(X86)%\\Steam\\steamapps\\shadercache\\730",
+        "%PROGRAMFILES(X86)%\\Steam\\steamapps\\shadercache\\570"
+      ]
+    },
+    {
+      "name": "Steam web helper đang chạy",
+      "rules": ["app.steam.web-cache", "app.steam.app-cache"],
+      "running": ["steamwebhelper"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Steam\\htmlcache\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\appcache\\httpcache\\00\\b", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Epic, Battle.net: cache web; không đụng cấu hình, tài khoản",
+      "rules": ["app.epic.web-cache", "app.battlenet.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\webcache_4430\\Cache\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\webcache\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Battle.net\\Cache\\c", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Battle.net\\BrowserCache\\Cache\\d", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Battle.net\\Account\\123\\account.db", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\webcache_4430",
+        "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\webcache",
+        "%LOCALAPPDATA%\\Battle.net\\Cache",
+        "%LOCALAPPDATA%\\Battle.net\\BrowserCache"
+      ]
+    },
+    {
+      "name": "Battle.net đang chạy",
+      "rules": ["app.battlenet.caches"],
+      "running": ["Battle.net"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Battle.net\\Cache\\c", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Adobe: media cache và Camera Raw",
+      "rules": ["app.adobe.media-cache", "app.adobe.camera-raw-cache"],
+      "files": [
+        {"path": "%APPDATA%\\Adobe\\Common\\Media Cache Files\\clip.cfa", "size": 4096},
+        {"path": "%APPDATA%\\Adobe\\Common\\Media Cache\\db.sqlite", "size": 4096},
+        {"path": "%APPDATA%\\Adobe\\Common\\Peak Files\\clip.pek", "size": 4096},
+        {"path": "%APPDATA%\\Adobe\\Common\\Team Projects Local Hub\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Adobe\\CameraRaw\\Cache\\Index.dat", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Adobe\\CameraRaw\\Settings\\preset.xmp", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Adobe\\Common\\Media Cache Files",
+        "%APPDATA%\\Adobe\\Common\\Media Cache",
+        "%APPDATA%\\Adobe\\Common\\Peak Files",
+        "%LOCALAPPDATA%\\Adobe\\CameraRaw\\Cache"
+      ]
+    },
+    {
+      "name": "After Effects đang chạy: không đề xuất media cache",
+      "rules": ["app.adobe.media-cache"],
+      "running": ["AfterFX"],
+      "files": [
+        {"path": "%APPDATA%\\Adobe\\Common\\Media Cache Files\\clip.cfa", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Telegram: cache và media_cache của mọi tài khoản; giữ khoá phiên",
+      "rules": ["app.telegram.caches"],
+      "files": [
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\user_data\\cache\\0\\a", "size": 4096},
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\user_data\\media_cache\\b", "size": 4096},
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\user_data#2\\cache\\c", "size": 4096},
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\key_datas", "size": 4096},
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\D877F783D5D3EF8C\\maps", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Telegram Desktop\\tdata\\user_data\\cache",
+        "%APPDATA%\\Telegram Desktop\\tdata\\user_data\\media_cache",
+        "%APPDATA%\\Telegram Desktop\\tdata\\user_data#2\\cache"
+      ]
+    },
+    {
+      "name": "NVIDIA app, Java, Thunderbird",
+      "rules": ["app.nvidia.web-cache", "user.caches.java", "app.thunderbird.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\CefCache\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience\\CefCache\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATALOW%\\Sun\\Java\\Deployment\\cache\\6.0\\x.idx", "size": 4096},
+        {"path": "%LOCALAPPDATALOW%\\Sun\\Java\\Deployment\\deployment.properties", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Thunderbird\\Profiles\\abc.default\\cache2\\entries\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Thunderbird\\Profiles\\abc.default\\startupCache\\y", "size": 4096},
+        {"path": "%APPDATA%\\Thunderbird\\Profiles\\abc.default\\Mail\\Local Folders\\Inbox", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\CefCache",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience\\CefCache",
+        "%LOCALAPPDATALOW%\\Sun\\Java\\Deployment\\cache",
+        "%LOCALAPPDATA%\\Thunderbird\\Profiles\\abc.default\\cache2",
+        "%LOCALAPPDATA%\\Thunderbird\\Profiles\\abc.default\\startupCache"
+      ]
+    }
+  ]
+}

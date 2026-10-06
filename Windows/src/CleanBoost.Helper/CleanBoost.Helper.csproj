@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Helper quản trị (SYSTEM_DESIGN mục 9): chỉ link CleanBoost.Core để bề mặt tấn công nhỏ.
+       Chạy qua UAC khi cần; không có cửa sổ. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CleanBoost.Helper</RootNamespace>
+    <AssemblyName>CleanBoost.Helper</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CleanBoost.Core\CleanBoost.Core.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Nền móng dùng chung cho app, helper và rulepack: model, PathPolicy, glob, xoá an toàn, Thùng rác, IPC.
+       Không phụ thuộc thư viện ngoài để helper chạy quyền quản trị giữ bề mặt tấn công nhỏ (SYSTEM_DESIGN mục 4.2). -->
+  <PropertyGroup>
+    <RootNamespace>CleanBoost.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CleanBoost.Tests" />
+  </ItemGroup>
+</Project>

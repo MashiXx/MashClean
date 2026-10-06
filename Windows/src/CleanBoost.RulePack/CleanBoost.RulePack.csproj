@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- rulepack: lint → test → build → sign → verify bộ rule Windows (SYSTEM_DESIGN mục 8.5, 23.8). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CleanBoost.RulePack</RootNamespace>
+    <AssemblyName>rulepack</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CleanBoost.Engine\CleanBoost.Engine.csproj" />
+  </ItemGroup>
+</Project>

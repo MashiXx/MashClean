@@ -1,0 +1,618 @@
+{
+  "cases": [
+    {
+      "name": "Google Chrome: cả thư mục Chrome; không đụng Google\\Update, Drive",
+      "rules": ["app.google-chrome.leftovers"],
+      "apps": [
+        {"appID": "Google Chrome", "appName": "Google Chrome", "publisher": "Google LLC"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Bookmarks", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Update\\Download\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\DriveFS\\x", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Google\\Chrome"
+      ]
+    },
+    {
+      "name": "Rule Chrome không áp cho Chrome Beta",
+      "rules": ["app.google-chrome.leftovers"],
+      "apps": [
+        {"appID": "Google Chrome Beta", "appName": "Google Chrome Beta", "publisher": "Google LLC"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Bookmarks", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Firefox: Roaming và Local; không đụng ProgramData\\Mozilla",
+      "rules": ["app.mozilla-firefox.leftovers"],
+      "apps": [
+        {"appID": "Mozilla Firefox 125.0 (x64 en-US)", "appName": "Mozilla Firefox (x64 en-US)", "publisher": "Mozilla"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\a.default-release\\places.sqlite", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\a.default-release\\cache2\\x", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Mozilla-1de4eec8-1241-4177-a864-e594e8d1fb38\\updates\\x", "size": 4096},
+        {"path": "%APPDATA%\\Mozilla\\Extensions\\x", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Mozilla\\Firefox",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox"
+      ]
+    },
+    {
+      "name": "Brave, Vivaldi; không lấy Brave Beta",
+      "rules": ["app.brave.leftovers", "app.vivaldi.leftovers"],
+      "apps": [
+        {"appID": "BraveSoftware Brave-Browser", "appName": "Brave", "publisher": "Brave Software Inc"},
+        {"appID": "Vivaldi", "appName": "Vivaldi", "publisher": "Vivaldi Technologies AS"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Local State", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-Beta\\User Data\\Local State", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Vivaldi\\User Data\\Local State", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser",
+        "%LOCALAPPDATA%\\Vivaldi"
+      ]
+    },
+    {
+      "name": "Opera không lấy thư mục Opera GX",
+      "rules": ["app.opera.leftovers", "app.opera-gx.leftovers"],
+      "apps": [
+        {"appID": "Opera 112.0.5197.53", "appName": "Opera Stable 112.0.5197.53", "publisher": "Opera Software"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\Local State", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Opera Software\\Opera Stable\\Cache\\x", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera GX Stable\\Local State", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Opera Software\\Opera Stable",
+        "%LOCALAPPDATA%\\Opera Software\\Opera Stable"
+      ]
+    },
+    {
+      "name": "Opera GX",
+      "rules": ["app.opera.leftovers", "app.opera-gx.leftovers"],
+      "apps": [
+        {"appID": "Opera GX 112.0.5197.53", "appName": "Opera GX Stable 112.0.5197.53", "publisher": "Opera Software"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\Local State", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera GX Stable\\Local State", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Opera Software\\Opera GX Stable\\Cache\\x", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Opera Software\\Opera GX Stable",
+        "%LOCALAPPDATA%\\Opera Software\\Opera GX Stable"
+      ]
+    },
+    {
+      "name": "Discord: Roaming và Local; không lấy Discord PTB",
+      "rules": ["app.discord.leftovers"],
+      "apps": [
+        {"appID": "Discord", "appName": "Discord", "publisher": "Discord Inc."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\discord\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Discord\\app-1.0.9035\\Discord.exe", "size": 4096},
+        {"path": "%APPDATA%\\discordptb\\settings.json", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\discord",
+        "%LOCALAPPDATA%\\Discord"
+      ]
+    },
+    {
+      "name": "Rule Discord không áp cho Discord PTB",
+      "rules": ["app.discord.leftovers"],
+      "apps": [
+        {"appID": "DiscordPTB", "appName": "Discord PTB", "publisher": "Discord Inc."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\discord\\settings.json", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Slack, Telegram",
+      "rules": ["app.slack.leftovers", "app.telegram-desktop.leftovers"],
+      "apps": [
+        {"appID": "slack", "appName": "Slack", "publisher": "Slack Technologies Inc."},
+        {"appID": "{53F49750-6209-4FBF-9CA8-7A333C87D1ED}_is1", "appName": "Telegram Desktop", "publisher": "Telegram FZ-LLC"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Slack\\storage\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\slack\\app-4.36.140\\slack.exe", "size": 4096},
+        {"path": "%APPDATA%\\Telegram Desktop\\tdata\\key_datas", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Slack",
+        "%LOCALAPPDATA%\\slack",
+        "%APPDATA%\\Telegram Desktop"
+      ]
+    },
+    {
+      "name": "Zoom Workplace theo nhà phát hành",
+      "rules": ["app.zoom.leftovers"],
+      "apps": [
+        {"appID": "ZoomUMX", "appName": "Zoom Workplace (64-bit)", "publisher": "Zoom Video Communications, Inc."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Zoom\\data\\zoomus.enc.db", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Zoom"
+      ]
+    },
+    {
+      "name": "Rule Zoom không áp cho plugin Outlook hay app khác tên Zoom",
+      "rules": ["app.zoom.leftovers"],
+      "apps": [
+        {"appID": "ZoomOutlookPlugin", "appName": "Zoom Outlook Plugin", "publisher": "Zoom Video Communications, Inc."},
+        {"appID": "Zoom", "appName": "Zoom", "publisher": "Someone Else"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Zoom\\data\\zoomus.enc.db", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Steam, Epic, EA, GOG: chỉ dữ liệu trong hồ sơ; không đụng game đã cài",
+      "rules": ["app.steam.leftovers", "app.epic-games-launcher.leftovers", "app.ea-app.leftovers", "app.gog-galaxy.leftovers"],
+      "apps": [
+        {"appID": "Steam", "appName": "Steam", "publisher": "Valve Corporation"},
+        {"appID": "{A2FB1E1A-55D9-4511-A0BF-DEAD0493FBBC}", "appName": "Epic Games Launcher", "publisher": "Epic Games, Inc."},
+        {"appID": "EA app", "appName": "EA app", "publisher": "Electronic Arts"},
+        {"appID": "1207658924_is1", "appName": "GOG GALAXY", "publisher": "GOG.com"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Steam\\htmlcache\\x", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\steamapps\\common\\Game\\game.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Config\\x.ini", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Epic\\EpicGamesLauncher\\Data\\Manifests\\x.item", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Electronic Arts\\EA Desktop\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\GOG.com\\Galaxy\\Configuration\\x", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Steam",
+        "%LOCALAPPDATA%\\EpicGamesLauncher",
+        "%LOCALAPPDATA%\\Electronic Arts\\EA Desktop",
+        "%LOCALAPPDATA%\\GOG.com\\Galaxy"
+      ]
+    },
+    {
+      "name": "Battle.net: dữ liệu người dùng (Thùng rác) và dữ liệu chung (cần quản trị)",
+      "rules": ["app.battle-net.leftovers", "app.battle-net.programdata.leftovers"],
+      "apps": [
+        {"appID": "Battle.net", "appName": "Battle.net", "publisher": "Blizzard Entertainment"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Battle.net\\Battle.net.config", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Battle.net\\Cache\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Blizzard Entertainment\\Battle.net\\x", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Battle.net\\Agent\\Agent.exe", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Blizzard Entertainment\\Battle.net\\x", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Battle.net",
+        "%LOCALAPPDATA%\\Battle.net",
+        "%LOCALAPPDATA%\\Blizzard Entertainment",
+        "%PROGRAMDATA%\\Battle.net",
+        "%PROGRAMDATA%\\Blizzard Entertainment"
+      ]
+    },
+    {
+      "name": "Docker Desktop: cấu hình, đĩa WSL, ProgramData",
+      "rules": ["app.docker-desktop.leftovers", "app.docker-desktop.programdata.leftovers"],
+      "apps": [
+        {"appID": "Docker Desktop", "appName": "Docker Desktop", "publisher": "Docker Inc."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Docker\\settings-store.json", "size": 4096},
+        {"path": "%APPDATA%\\Docker Desktop\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Docker\\wsl\\disk\\docker_data.vhdx", "size": 65536},
+        {"path": "~\\.docker\\config.json", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Docker\\x", "size": 4096},
+        {"path": "%PROGRAMDATA%\\DockerDesktop\\y", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Docker",
+        "%APPDATA%\\Docker Desktop",
+        "%LOCALAPPDATA%\\Docker",
+        "~\\.docker",
+        "%PROGRAMDATA%\\Docker",
+        "%PROGRAMDATA%\\DockerDesktop"
+      ]
+    },
+    {
+      "name": "VS Code (cài cho người dùng), Cursor",
+      "rules": ["app.vscode.leftovers", "app.cursor.leftovers"],
+      "apps": [
+        {"appID": "{771FD6B0-FA20-440A-A002-3B3BAC16DC50}_is1", "appName": "Microsoft Visual Studio Code (User)", "publisher": "Microsoft Corporation"},
+        {"appID": "62625861-8486-5be9-9e46-1da50df5f8ff", "appName": "Cursor (User)", "publisher": "Anysphere"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Code\\User\\settings.json", "size": 4096},
+        {"path": "~\\.vscode\\extensions\\ms-python.python-2024.1\\package.json", "size": 4096},
+        {"path": "%APPDATA%\\Cursor\\User\\settings.json", "size": 4096},
+        {"path": "~\\.cursor\\extensions\\x", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Code",
+        "~\\.vscode",
+        "%APPDATA%\\Cursor",
+        "~\\.cursor"
+      ]
+    },
+    {
+      "name": "Rule VS Code không áp cho bản Insiders",
+      "rules": ["app.vscode.leftovers"],
+      "apps": [
+        {"appID": "{217B4C08-948D-4276-BFBB-BEE930AE5A2C}_is1", "appName": "Microsoft Visual Studio Code Insiders (User)", "publisher": "Microsoft Corporation"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Code\\User\\settings.json", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Node.js, Git; không đụng .npmrc, .gitconfig",
+      "rules": ["app.nodejs.leftovers", "app.git.leftovers"],
+      "apps": [
+        {"appID": "{C1C8C9F6-0E60-4A41-8B4C-ED0E46E34E58}", "appName": "Node.js", "publisher": "Node.js Foundation"},
+        {"appID": "Git_is1", "appName": "Git", "publisher": "The Git Development Community"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\npm\\node_modules\\typescript\\package.json", "size": 4096},
+        {"path": "%APPDATA%\\npm-cache\\_cacache\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\npm-cache\\_cacache\\y", "size": 4096},
+        {"path": "~\\.npmrc", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Git\\cmd\\git.exe", "size": 4096},
+        {"path": "~\\.minttyrc", "size": 4096},
+        {"path": "~\\.bash_history", "size": 4096},
+        {"path": "~\\.gitconfig", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\npm",
+        "%APPDATA%\\npm-cache",
+        "%LOCALAPPDATA%\\npm-cache",
+        "%LOCALAPPDATA%\\Programs\\Git",
+        "~\\.minttyrc",
+        "~\\.bash_history"
+      ]
+    },
+    {
+      "name": "Postman, GitHub Desktop, Unity Hub",
+      "rules": ["app.postman.leftovers", "app.github-desktop.leftovers", "app.unity-hub.leftovers"],
+      "apps": [
+        {"appID": "Postman", "appName": "Postman x86_64 11.0.0", "publisher": "Postman"},
+        {"appID": "GitHubDesktop", "appName": "GitHub Desktop", "publisher": "GitHub, Inc."},
+        {"appID": "UnityHub", "appName": "Unity Hub 3.7.0", "publisher": "Unity Technologies Inc."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Postman\\Partitions\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Postman\\app-11.0.0\\Postman.exe", "size": 4096},
+        {"path": "%APPDATA%\\PostmanAgent\\x", "size": 4096},
+        {"path": "%APPDATA%\\GitHub Desktop\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\GitHubDesktop\\app-3.3.0\\GitHubDesktop.exe", "size": 4096},
+        {"path": "%APPDATA%\\UnityHub\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Unity\\cache\\x", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Postman",
+        "%LOCALAPPDATA%\\Postman",
+        "%APPDATA%\\GitHub Desktop",
+        "%LOCALAPPDATA%\\GitHubDesktop",
+        "%APPDATA%\\UnityHub"
+      ]
+    },
+    {
+      "name": "Rule Postman không áp cho Postman Agent",
+      "rules": ["app.postman.leftovers"],
+      "apps": [
+        {"appID": "PostmanAgent", "appName": "Postman Agent", "publisher": "Postman"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Postman\\Partitions\\x", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Python 3.12 64-bit: chỉ thư mục Python312, không đụng bản khác",
+      "rules": ["app.python-3-9.leftovers", "app.python-3-10.leftovers", "app.python-3-11.leftovers", "app.python-3-12.leftovers", "app.python-3-13.leftovers", "app.python-3-14.leftovers"],
+      "apps": [
+        {"appID": "{d6e3f2c8-1a2b-4c3d-9e8f-0a1b2c3d4e5f}", "appName": "Python 3.12.4 (64-bit)", "publisher": "Python Software Foundation"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python312\\Lib\\site-packages\\requests\\__init__.py", "size": 4096},
+        {"path": "%APPDATA%\\Python\\Python312\\site-packages\\x.py", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python311\\python.exe", "size": 4096},
+        {"path": "%APPDATA%\\Python\\Python311\\site-packages\\y.py", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python312-32\\python.exe", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python312",
+        "%APPDATA%\\Python\\Python312"
+      ]
+    },
+    {
+      "name": "Python 3.9, 3.10, 3.11, 3.13, 3.14 (tên hiển thị có bản vá 1 hoặc 2 chữ số)",
+      "rules": ["app.python-3-9.leftovers", "app.python-3-10.leftovers", "app.python-3-11.leftovers", "app.python-3-13.leftovers", "app.python-3-14.leftovers"],
+      "apps": [
+        {"appID": "py39", "appName": "Python 3.9.13 (64-bit)"},
+        {"appID": "py310", "appName": "Python 3.10.11 (64-bit)"},
+        {"appID": "py311", "appName": "Python 3.11.9 (64-bit)"},
+        {"appID": "py313", "appName": "Python 3.13.0 (64-bit)"},
+        {"appID": "py314", "appName": "Python 3.14.1 (64-bit)"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python39\\python.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python310\\python.exe", "size": 4096},
+        {"path": "%APPDATA%\\Python\\Python311\\site-packages\\x.py", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python313\\python.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python314\\python.exe", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python39",
+        "%LOCALAPPDATA%\\Programs\\Python\\Python310",
+        "%APPDATA%\\Python\\Python311",
+        "%LOCALAPPDATA%\\Programs\\Python\\Python313",
+        "%LOCALAPPDATA%\\Programs\\Python\\Python314"
+      ]
+    },
+    {
+      "name": "Rule Python không áp cho thành phần MSI và bản 32-bit",
+      "rules": ["app.python-3-12.leftovers"],
+      "apps": [
+        {"appID": "{core}", "appName": "Python 3.12.4 Core Interpreter (64-bit)"},
+        {"appID": "{x86}", "appName": "Python 3.12.4 (32-bit)"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Programs\\Python\\Python312\\python.exe", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "IntelliJ IDEA: chỉ thư mục phiên bản cũ không còn dùng, không đụng bản CE và bản mới đang dùng",
+      "rules": ["app.jetbrains-intellij-idea.leftovers", "app.jetbrains-intellij-idea-ce.leftovers"],
+      "apps": [
+        {"appID": "IntelliJ IDEA 2023.3.6", "appName": "IntelliJ IDEA 2023.3.6", "publisher": "JetBrains s.r.o."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\JetBrains\\IntelliJIdea2023.3\\options\\ide.general.xml", "size": 4096, "ageDays": 60},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\IntelliJIdea2023.3\\caches\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\IntelliJIdea2024.2\\options\\ide.general.xml", "size": 4096},
+        {"path": "%APPDATA%\\JetBrains\\IdeaIC2023.3\\options\\x", "size": 4096, "ageDays": 60}
+      ],
+      "expect": [
+        "%APPDATA%\\JetBrains\\IntelliJIdea2023.3",
+        "%LOCALAPPDATA%\\JetBrains\\IntelliJIdea2023.3"
+      ]
+    },
+    {
+      "name": "IDE JetBrains khác và Android Studio: thư mục cũ của đúng sản phẩm; PyCharm không lấy PyCharmCE",
+      "rules": ["app.jetbrains-intellij-idea-ce.leftovers", "app.jetbrains-pycharm.leftovers", "app.jetbrains-pycharm-ce.leftovers", "app.jetbrains-webstorm.leftovers", "app.jetbrains-phpstorm.leftovers", "app.jetbrains-clion.leftovers", "app.jetbrains-goland.leftovers", "app.jetbrains-rider.leftovers", "app.jetbrains-rubymine.leftovers", "app.jetbrains-datagrip.leftovers", "app.jetbrains-rustrover.leftovers", "app.android-studio.leftovers"],
+      "apps": [
+        {"appID": "ic", "appName": "IntelliJ IDEA Community Edition 2023.3.6", "publisher": "JetBrains s.r.o."},
+        {"appID": "pc", "appName": "PyCharm 2023.3.5", "publisher": "JetBrains s.r.o."},
+        {"appID": "pcc", "appName": "PyCharm Community Edition 2023.3.5", "publisher": "JetBrains s.r.o."},
+        {"appID": "ws", "appName": "WebStorm 2023.3.6", "publisher": "JetBrains s.r.o."},
+        {"appID": "ps", "appName": "PhpStorm 2023.3.6", "publisher": "JetBrains s.r.o."},
+        {"appID": "cl", "appName": "CLion 2023.3.4", "publisher": "JetBrains s.r.o."},
+        {"appID": "go", "appName": "GoLand 2023.3.6", "publisher": "JetBrains s.r.o."},
+        {"appID": "rd", "appName": "JetBrains Rider 2023.3.4", "publisher": "JetBrains s.r.o."},
+        {"appID": "rm", "appName": "RubyMine 2023.3.6", "publisher": "JetBrains s.r.o."},
+        {"appID": "dg", "appName": "DataGrip 2023.3.4", "publisher": "JetBrains s.r.o."},
+        {"appID": "rr", "appName": "RustRover 2023.3", "publisher": "JetBrains s.r.o."},
+        {"appID": "Android Studio", "appName": "Android Studio", "publisher": "Google LLC"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\JetBrains\\IdeaIC2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\PyCharm2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\PyCharmCE2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\WebStorm2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\PhpStorm2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\CLion2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\GoLand2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\RubyMine2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\DataGrip2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\RustRover2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\Google\\AndroidStudio2023.1\\x", "size": 4096, "ageDays": 60},
+        {"path": "%LOCALAPPDATA%\\Google\\AndroidStudio2023.1\\caches\\y", "size": 4096, "ageDays": 60}
+      ],
+      "expect": [
+        "%APPDATA%\\JetBrains\\IdeaIC2023.3",
+        "%APPDATA%\\JetBrains\\PyCharm2023.3",
+        "%APPDATA%\\JetBrains\\PyCharmCE2023.3",
+        "%APPDATA%\\JetBrains\\WebStorm2023.3",
+        "%APPDATA%\\JetBrains\\PhpStorm2023.3",
+        "%APPDATA%\\JetBrains\\CLion2023.3",
+        "%LOCALAPPDATA%\\JetBrains\\GoLand2023.3",
+        "%LOCALAPPDATA%\\JetBrains\\Rider2023.3",
+        "%APPDATA%\\JetBrains\\RubyMine2023.3",
+        "%APPDATA%\\JetBrains\\DataGrip2023.3",
+        "%APPDATA%\\JetBrains\\RustRover2023.3",
+        "%APPDATA%\\Google\\AndroidStudio2023.1",
+        "%LOCALAPPDATA%\\Google\\AndroidStudio2023.1"
+      ]
+    },
+    {
+      "name": "PyCharm Professional không lấy thư mục PyCharm CE",
+      "rules": ["app.jetbrains-pycharm.leftovers"],
+      "apps": [
+        {"appID": "pc", "appName": "PyCharm 2023.3.5", "publisher": "JetBrains s.r.o."}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\JetBrains\\PyCharm2023.3\\x", "size": 4096, "ageDays": 60},
+        {"path": "%APPDATA%\\JetBrains\\PyCharmCE2023.3\\x", "size": 4096, "ageDays": 60}
+      ],
+      "expect": [
+        "%APPDATA%\\JetBrains\\PyCharm2023.3"
+      ]
+    },
+    {
+      "name": "Rule JetBrains không áp khi nhà phát hành khác",
+      "rules": ["app.jetbrains-webstorm.leftovers"],
+      "apps": [
+        {"appID": "ws", "appName": "WebStorm 2023.3.6", "publisher": "Someone"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\JetBrains\\WebStorm2023.3\\x", "size": 4096, "ageDays": 60}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Office: chỉ dữ liệu ít rủi ro; không đụng OfficeFileCache, AutoRecover, Templates",
+      "rules": ["app.microsoft-office.leftovers"],
+      "apps": [
+        {"appID": "O365ProPlusRetail - en-us", "appName": "Microsoft 365 Apps for enterprise - en-us", "publisher": "Microsoft Corporation"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Office\\16.0\\Wef\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Office\\OTele\\y", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Office\\SolutionPackages\\z", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Office\\Licenses\\5\\w", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Office\\Recent\\doc.lnk", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Office\\16.0\\OfficeFileCache\\FSD-x.FSD", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Word\\AutoRecovery save of Doc1.asd", "size": 4096},
+        {"path": "%APPDATA%\\Microsoft\\Templates\\Normal.dotm", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\Office\\16.0\\Wef",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\OTele",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\SolutionPackages",
+        "%LOCALAPPDATA%\\Microsoft\\Office\\Licenses",
+        "%APPDATA%\\Microsoft\\Office\\Recent"
+      ]
+    },
+    {
+      "name": "Teams cổ điển theo appID",
+      "rules": ["app.microsoft-teams-classic.leftovers"],
+      "apps": [
+        {"appID": "Teams", "appName": "Microsoft Teams classic", "publisher": "Microsoft Corporation"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Microsoft\\Teams\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Teams\\Update.exe", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Microsoft\\Teams",
+        "%LOCALAPPDATA%\\Microsoft\\Teams"
+      ]
+    },
+    {
+      "name": "Rule Teams cổ điển không áp cho Teams mới",
+      "rules": ["app.microsoft-teams-classic.leftovers"],
+      "apps": [
+        {"appID": "MSTeams_8wekyb3d8bbwe", "appName": "Microsoft Teams", "publisher": "Microsoft Corporation"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Microsoft\\Teams\\settings.json", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Spotify, Notion, VLC, OBS, Notepad++",
+      "rules": ["app.spotify.leftovers", "app.notion.leftovers", "app.vlc.leftovers", "app.obs-studio.leftovers", "app.notepad-plus-plus.leftovers"],
+      "apps": [
+        {"appID": "Spotify", "appName": "Spotify", "publisher": "Spotify AB"},
+        {"appID": "Notion", "appName": "Notion 3.9.0", "publisher": "Notion Labs, Inc"},
+        {"appID": "VLC", "appName": "VLC media player", "publisher": "VideoLAN"},
+        {"appID": "OBS Studio", "appName": "OBS Studio", "publisher": "OBS Project"},
+        {"appID": "Notepad++", "appName": "Notepad++ (64-bit x64)", "publisher": "Notepad++ Team"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Spotify\\prefs", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Spotify\\Data\\x", "size": 4096},
+        {"path": "%APPDATA%\\Notion\\x", "size": 4096},
+        {"path": "%APPDATA%\\Notion Calendar\\x", "size": 4096},
+        {"path": "%APPDATA%\\vlc\\vlcrc", "size": 4096},
+        {"path": "%APPDATA%\\obs-studio\\basic\\scenes\\Untitled.json", "size": 4096},
+        {"path": "%APPDATA%\\Notepad++\\backup\\new 1@2024-01-01_101010", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Spotify",
+        "%LOCALAPPDATA%\\Spotify",
+        "%APPDATA%\\Notion",
+        "%APPDATA%\\vlc",
+        "%APPDATA%\\obs-studio",
+        "%APPDATA%\\Notepad++"
+      ]
+    },
+    {
+      "name": "Rule Notion không áp cho Notion Calendar",
+      "rules": ["app.notion.leftovers"],
+      "apps": [
+        {"appID": "NotionCalendar", "appName": "Notion Calendar", "publisher": "Notion Labs, Inc"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Notion\\x", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Figma, Dropbox, NVIDIA app, GeForce Experience",
+      "rules": ["app.figma.leftovers", "app.dropbox.leftovers", "app.nvidia-app.leftovers", "app.geforce-experience.leftovers"],
+      "apps": [
+        {"appID": "Figma", "appName": "Figma", "publisher": "Figma, Inc."},
+        {"appID": "Dropbox", "appName": "Dropbox", "publisher": "Dropbox, Inc."},
+        {"appID": "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp", "appName": "NVIDIA app 10.0.2.210", "publisher": "NVIDIA Corporation"},
+        {"appID": "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.GFExperience", "appName": "NVIDIA GeForce Experience 3.28.0.417", "publisher": "NVIDIA Corporation"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Figma\\settings.json", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Figma\\app-124.0.0\\Figma.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\FigmaAgent\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Dropbox\\instance1\\config.dbx", "size": 4096},
+        {"path": "%APPDATA%\\Dropbox\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience\\y", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Figma",
+        "%LOCALAPPDATA%\\Figma",
+        "%LOCALAPPDATA%\\Dropbox",
+        "%APPDATA%\\Dropbox",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\NVIDIA app",
+        "%LOCALAPPDATA%\\NVIDIA Corporation\\GeForce Experience"
+      ]
+    },
+    {
+      "name": "Adobe: thư mục mang tên app theo nhà phát hành Adobe; không đụng Common",
+      "rules": ["app.adobe.leftovers", "app.adobe-acrobat.leftovers"],
+      "apps": [
+        {"appID": "PHSP_25_0", "appName": "Adobe Photoshop 2024", "publisher": "Adobe Inc."},
+        {"appID": "{AC76BA86-1033-1033-7760-BC15014EA700}", "appName": "Adobe Acrobat (64-bit)", "publisher": "Adobe"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Adobe\\Adobe Photoshop 2024\\Adobe Photoshop 2024 Settings\\x.psp", "size": 4096},
+        {"path": "%APPDATA%\\Adobe\\Common\\Media Cache Files\\x", "size": 4096},
+        {"path": "%APPDATA%\\Adobe\\Acrobat\\DC\\Security\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Adobe\\Acrobat\\DC\\Cache\\y", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Adobe\\Adobe Photoshop 2024",
+        "%APPDATA%\\Adobe\\Acrobat",
+        "%LOCALAPPDATA%\\Adobe\\Acrobat"
+      ]
+    },
+    {
+      "name": "Rule Adobe không áp khi nhà phát hành khác",
+      "rules": ["app.adobe.leftovers"],
+      "apps": [
+        {"appID": "fake", "appName": "Adobe Photoshop 2024", "publisher": "Fake Vendor"}
+      ],
+      "files": [
+        {"path": "%APPDATA%\\Adobe\\Adobe Photoshop 2024\\x", "size": 4096}
+      ],
+      "expect": []
+    }
+  ]
+}

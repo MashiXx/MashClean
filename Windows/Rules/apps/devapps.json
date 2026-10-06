@@ -1,0 +1,403 @@
+[
+  {
+    "id": "app.docker-desktop.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Docker Desktop",
+      "en": "Docker Desktop leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, ổ đĩa ảo WSL (image, container, volume) và cấu hình Docker Desktop để lại sau khi gỡ.",
+      "en": "Settings, the WSL virtual disk (images, containers, volumes) and configuration Docker Desktop leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Docker Desktop"
+      ],
+      "paths": [
+        "%APPDATA%\\Docker",
+        "%APPDATA%\\Docker Desktop",
+        "%LOCALAPPDATA%\\Docker",
+        "~\\.docker"
+      ]
+    },
+    "notes": "%LOCALAPPDATA%\\Docker\\wsl chứa docker_data.vhdx có thể vài chục GB và lớn hơn hạn mức Thùng rác."
+  },
+  {
+    "id": "app.docker-desktop.programdata.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Docker Desktop (dữ liệu chung)",
+      "en": "Docker Desktop (dữ liệu chung) leftovers"
+    },
+    "reason": {
+      "vi": "Dữ liệu dùng chung cho mọi người dùng mà Docker Desktop để lại; cần quyền quản trị và bị xoá vĩnh viễn.",
+      "en": "Data shared by all users that Docker Desktop leaves behind; needs admin rights and is deleted permanently."
+    },
+    "safety": "review",
+    "removal": "delete",
+    "requiresRoot": true,
+    "match": {
+      "appNames": [
+        "Docker Desktop"
+      ],
+      "paths": [
+        "%PROGRAMDATA%\\Docker",
+        "%PROGRAMDATA%\\DockerDesktop"
+      ]
+    },
+    "notes": "%PROGRAMDATA%\\Docker cũng là thư mục của Docker Engine chạy riêng (Windows container); để review."
+  },
+  {
+    "id": "app.vscode.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Visual Studio Code",
+      "en": "Visual Studio Code leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Visual Studio Code để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Visual Studio Code leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Microsoft Visual Studio Code",
+        "Microsoft Visual Studio Code (User)"
+      ],
+      "paths": [
+        "%APPDATA%\\Code",
+        "~\\.vscode"
+      ]
+    },
+    "notes": "Tên hiển thị chính xác để không khớp bản Insiders. Nhà phát hành là Microsoft nên Uninstaller có thể bỏ qua nếu coi là app hệ thống."
+  },
+  {
+    "id": "app.cursor.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Cursor",
+      "en": "Cursor leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Cursor để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Cursor leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Cursor",
+        "Cursor *"
+      ],
+      "paths": [
+        "%APPDATA%\\Cursor",
+        "~\\.cursor"
+      ]
+    }
+  },
+  {
+    "id": "app.nodejs.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Node.js",
+      "en": "Node.js leftovers"
+    },
+    "reason": {
+      "vi": "Gói npm cài toàn cục và cache npm để lại sau khi gỡ Node.js.",
+      "en": "Globally installed npm packages and the npm cache left behind after Node.js is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Node.js"
+      ],
+      "paths": [
+        "%APPDATA%\\npm",
+        "%APPDATA%\\npm-cache",
+        "%LOCALAPPDATA%\\npm-cache"
+      ]
+    },
+    "notes": "Không đụng ~\\.npmrc (có thể chứa token, dùng chung với bản Node khác như nvm)."
+  },
+  {
+    "id": "app.git.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Git",
+      "en": "Git leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Git để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Git leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Git",
+        "Git version *"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Git",
+        "~\\.minttyrc",
+        "~\\.bash_history"
+      ]
+    },
+    "notes": "Không đụng ~\\.gitconfig và ~\\.git-credentials: ứng dụng Git khác (GitHub Desktop, IDE) vẫn dùng."
+  },
+  {
+    "id": "app.postman.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Postman",
+      "en": "Postman leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Postman để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Postman leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Postman",
+        "Postman x*"
+      ],
+      "paths": [
+        "%APPDATA%\\Postman",
+        "%LOCALAPPDATA%\\Postman"
+      ]
+    },
+    "notes": "Không khớp Postman Agent (app riêng)."
+  },
+  {
+    "id": "app.github-desktop.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của GitHub Desktop",
+      "en": "GitHub Desktop leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ GitHub Desktop để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files GitHub Desktop leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "GitHub Desktop"
+      ],
+      "paths": [
+        "%APPDATA%\\GitHub Desktop",
+        "%LOCALAPPDATA%\\GitHubDesktop"
+      ]
+    }
+  },
+  {
+    "id": "app.unity-hub.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Unity Hub",
+      "en": "Unity Hub leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Unity Hub để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Unity Hub leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Unity Hub*"
+      ],
+      "paths": [
+        "%APPDATA%\\UnityHub"
+      ]
+    },
+    "notes": "Không đụng %LOCALAPPDATA%\\Unity (dùng chung với Unity Editor)."
+  },
+  {
+    "id": "app.python-3-9.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.9",
+      "en": "Python 3.9 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.9 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.9 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.9.? (64-bit)",
+        "Python 3.9.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python39",
+        "%APPDATA%\\Python\\Python39"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python39); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  },
+  {
+    "id": "app.python-3-10.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.10",
+      "en": "Python 3.10 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.10 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.10 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.10.? (64-bit)",
+        "Python 3.10.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python310",
+        "%APPDATA%\\Python\\Python310"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python310); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  },
+  {
+    "id": "app.python-3-11.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.11",
+      "en": "Python 3.11 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.11 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.11 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.11.? (64-bit)",
+        "Python 3.11.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python311",
+        "%APPDATA%\\Python\\Python311"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python311); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  },
+  {
+    "id": "app.python-3-12.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.12",
+      "en": "Python 3.12 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.12 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.12 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.12.? (64-bit)",
+        "Python 3.12.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python312",
+        "%APPDATA%\\Python\\Python312"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python312); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  },
+  {
+    "id": "app.python-3-13.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.13",
+      "en": "Python 3.13 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.13 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.13 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.13.? (64-bit)",
+        "Python 3.13.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python313",
+        "%APPDATA%\\Python\\Python313"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python313); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  },
+  {
+    "id": "app.python-3-14.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Python 3.14",
+      "en": "Python 3.14 leftovers"
+    },
+    "reason": {
+      "vi": "Gói pip đã cài, script và thư mục site-packages người dùng mà Python 3.14 để lại sau khi gỡ.",
+      "en": "pip-installed packages, scripts and the user site-packages folder Python 3.14 leaves behind."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Python 3.14.? (64-bit)",
+        "Python 3.14.?? (64-bit)"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Programs\\Python\\Python314",
+        "%APPDATA%\\Python\\Python314"
+      ]
+    },
+    "notes": "Chỉ bản 64-bit cài cho riêng người dùng (thư mục Python314); tên hiển thị 'Python x.y.z (64-bit)' không khớp thành phần MSI như Core Interpreter."
+  }
+]

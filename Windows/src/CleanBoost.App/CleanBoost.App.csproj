@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- App chính (WPF): giao diện, khay hệ thống, tích hợp Explorer. Helper quản trị được copy cạnh exe. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>CleanBoost.App</RootNamespace>
+    <AssemblyName>CleanBoost</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+    <AssemblyTitle>Clean Boost</AssemblyTitle>
+    <Description>Clean Boost for Windows</Description>
+  </PropertyGroup>
+
+  <!-- Cấu hình lúc build (giống các khoá MashClean* trong Info.plist của bản Mac). Để trống thì tính năng tương ứng tắt. -->
+  <PropertyGroup>
+    <CleanBoostRulesManifestUrl Condition="'$(CleanBoostRulesManifestUrl)' == ''"></CleanBoostRulesManifestUrl>
+    <CleanBoostSupportEmail Condition="'$(CleanBoostSupportEmail)' == ''"></CleanBoostSupportEmail>
+    <CleanBoostAnalyticsUrl Condition="'$(CleanBoostAnalyticsUrl)' == ''"></CleanBoostAnalyticsUrl>
+    <CleanBoostUpdateFeedUrl Condition="'$(CleanBoostUpdateFeedUrl)' == ''"></CleanBoostUpdateFeedUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyMetadata Include="RulesManifestUrl" Value="$(CleanBoostRulesManifestUrl)" />
+    <AssemblyMetadata Include="SupportEmail" Value="$(CleanBoostSupportEmail)" />
+    <AssemblyMetadata Include="AnalyticsUrl" Value="$(CleanBoostAnalyticsUrl)" />
+    <AssemblyMetadata Include="UpdateFeedUrl" Value="$(CleanBoostUpdateFeedUrl)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Tránh trùng tên với WPF (Application, Button...) khi bật UseWindowsForms cho NotifyIcon. -->
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanBoost.Features\CleanBoost.Features.csproj" />
+    <ProjectReference Include="..\CleanBoost.Helper\CleanBoost.Helper.csproj">
+      <!-- Helper là exe riêng: chỉ để build trước app; target CopyHelper copy nó cạnh CleanBoost.exe,
+           Scripts\publish.ps1 publish nó riêng vào cùng thư mục. -->
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\*.json" LogicalName="CleanBoost.Localization.%(Filename)%(Extension)" />
+    <Resource Include="Assets\*.png" />
+    <Resource Include="Assets\AppIcon.ico" />
+    <None Include="Rules\rules.bundle" Condition="Exists('Rules\rules.bundle')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Copy CleanBoost.Helper.exe và các file đi kèm (dll, runtimeconfig) cạnh CleanBoost.exe. -->
+  <Target Name="CopyHelper" AfterTargets="Build">
+    <ItemGroup>
+      <HelperFiles Include="$(ArtifactsPath)\bin\CleanBoost.Helper\$(Configuration.ToLowerInvariant())\CleanBoost.Helper.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(HelperFiles)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

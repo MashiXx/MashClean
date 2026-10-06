@@ -1,0 +1,151 @@
+[
+  {
+    "id": "app.google-chrome.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Google Chrome",
+      "en": "Google Chrome leftovers"
+    },
+    "reason": {
+      "vi": "Hồ sơ, cache và cài đặt Google Chrome để lại sau khi gỡ, gồm cả dấu trang và mật khẩu chưa đồng bộ.",
+      "en": "Profiles, caches and settings Google Chrome leaves behind, including bookmarks and passwords that were not synced."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Google Chrome"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Google\\Chrome"
+      ]
+    },
+    "notes": "Thư mục Chrome chứa hồ sơ (User Data) nên để review. Không đụng %LOCALAPPDATA%\\Google\\Update và thư mục Google khác (dùng chung cho app Google khác)."
+  },
+  {
+    "id": "app.mozilla-firefox.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Firefox",
+      "en": "Firefox leftovers"
+    },
+    "reason": {
+      "vi": "Hồ sơ, cache và cài đặt Firefox để lại sau khi gỡ, gồm cả dấu trang và mật khẩu chưa đồng bộ.",
+      "en": "Profiles, caches and settings Firefox leaves behind, including bookmarks and passwords that were not synced."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Mozilla Firefox*"
+      ],
+      "paths": [
+        "%APPDATA%\\Mozilla\\Firefox",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox"
+      ]
+    },
+    "notes": "Firefox Developer Edition/Nightly có tên hiển thị khác nên không khớp. Không đụng %PROGRAMDATA%\\Mozilla (Maintenance Service dùng chung với Thunderbird)."
+  },
+  {
+    "id": "app.brave.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Brave",
+      "en": "Brave leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Brave để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Brave leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Brave"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser"
+      ]
+    }
+  },
+  {
+    "id": "app.vivaldi.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Vivaldi",
+      "en": "Vivaldi leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Vivaldi để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Vivaldi leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Vivaldi"
+      ],
+      "paths": [
+        "%LOCALAPPDATA%\\Vivaldi"
+      ]
+    }
+  },
+  {
+    "id": "app.opera.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Opera",
+      "en": "Opera leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Opera để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Opera leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Opera Stable*"
+      ],
+      "paths": [
+        "%APPDATA%\\Opera Software\\Opera Stable",
+        "%LOCALAPPDATA%\\Opera Software\\Opera Stable"
+      ]
+    }
+  },
+  {
+    "id": "app.opera-gx.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Opera GX",
+      "en": "Opera GX leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Opera GX để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Opera GX leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Opera GX Stable*"
+      ],
+      "paths": [
+        "%APPDATA%\\Opera Software\\Opera GX Stable",
+        "%LOCALAPPDATA%\\Opera Software\\Opera GX Stable"
+      ]
+    }
+  }
+]

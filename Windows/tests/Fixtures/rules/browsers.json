@@ -1,0 +1,175 @@
+{
+  "cases": [
+    {
+      "name": "Chrome: chỉ thư mục cache trong hồ sơ và cache shader; không đụng Bookmarks, Login Data, History, Local Storage, IndexedDB",
+      "rules": ["browser.chrome.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data\\f_000001", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Profile 1\\Code Cache\\js\\index", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\GPUCache\\data_1", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Profile 1\\Service Worker\\CacheStorage\\abc\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\DawnCache\\data_0", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\ShaderCache\\data_0", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\GrShaderCache\\data_0", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome SxS\\User Data\\Default\\Cache\\Cache_Data\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Bookmarks", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Login Data", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\History", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Network\\Cookies", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Local Storage\\leveldb\\000003.log", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\IndexedDB\\https_x_0.indexeddb.leveldb\\000003.log", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Service Worker\\Database\\000003.log", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Guest Profile\\Cache", "dir": true}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Profile 1\\Code Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\GPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Profile 1\\Service Worker\\CacheStorage",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\DawnCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome SxS\\User Data\\Default\\Cache"
+      ]
+    },
+    {
+      "name": "Chrome đang chạy: không đề xuất",
+      "rules": ["browser.chrome.caches"],
+      "running": ["chrome"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\GPUCache\\data_1", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Edge: hồ sơ và kênh Beta; không đụng EdgeUpdate, Login Data",
+      "rules": ["browser.edge.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Profile 2\\Code Cache\\js\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\GrShaderCache\\c", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge Beta\\User Data\\Default\\GPUCache\\d", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\EdgeUpdate\\Download\\x\\setup.exe", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\Login Data", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\History", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Profile 2\\Code Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\GrShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge Beta\\User Data\\Default\\GPUCache"
+      ]
+    },
+    {
+      "name": "Edge chạy nền: không đề xuất",
+      "rules": ["browser.edge.caches"],
+      "running": ["msedge"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\Cache\\Cache_Data\\a", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Brave, Vivaldi, Chromium",
+      "rules": ["browser.brave.caches", "browser.vivaldi.caches", "browser.chromium.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-Beta\\User Data\\Default\\Code Cache\\js\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Bookmarks", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Vivaldi\\User Data\\Default\\Cache\\Cache_Data\\c", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Vivaldi\\User Data\\Default\\Sessions\\Session_1", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Chromium\\User Data\\Default\\GPUCache\\d", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Chromium\\User Data\\ShaderCache\\e", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Chromium\\User Data\\Default\\History", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache",
+        "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser-Beta\\User Data\\Default\\Code Cache",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\Default\\Cache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\Default\\GPUCache",
+        "%LOCALAPPDATA%\\Chromium\\User Data\\ShaderCache"
+      ]
+    },
+    {
+      "name": "Opera và Opera GX: cache ở Local và Roaming, cả hai cấp; không đụng Cookies, Login Data",
+      "rules": ["browser.opera.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Opera Software\\Opera Stable\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Opera Software\\Opera GX Stable\\Default\\Cache\\Cache_Data\\b", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\GPUCache\\c", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\Default\\Code Cache\\js\\d", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\ShaderCache\\e", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\Cookies", "size": 4096},
+        {"path": "%APPDATA%\\Opera Software\\Opera Stable\\Default\\Login Data", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Opera Software\\Opera Stable\\Cache",
+        "%LOCALAPPDATA%\\Opera Software\\Opera GX Stable\\Default\\Cache",
+        "%APPDATA%\\Opera Software\\Opera Stable\\GPUCache",
+        "%APPDATA%\\Opera Software\\Opera Stable\\Default\\Code Cache",
+        "%APPDATA%\\Opera Software\\Opera Stable\\ShaderCache"
+      ]
+    },
+    {
+      "name": "Yandex Browser; tiến trình browser.exe chặn rule",
+      "rules": ["browser.yandex.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\Default\\Cache\\Cache_Data\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\Default\\Bookmarks", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\Default\\Cache"
+      ]
+    },
+    {
+      "name": "Yandex Browser đang chạy",
+      "rules": ["browser.yandex.caches"],
+      "running": ["browser"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Yandex\\YandexBrowser\\User Data\\Default\\Cache\\Cache_Data\\a", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Firefox: chỉ cache trong phần Local của hồ sơ",
+      "rules": ["browser.firefox.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\cache2\\entries\\x", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\startupCache\\scriptCache.bin", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\thumbnails\\t.png", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\safebrowsing\\google4\\x", "size": 4096},
+        {"path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\places.sqlite", "size": 4096},
+        {"path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\cache2\\x", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\cache2",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\startupCache",
+        "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\thumbnails"
+      ]
+    },
+    {
+      "name": "Firefox đang chạy",
+      "rules": ["browser.firefox.caches"],
+      "running": ["firefox"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Mozilla\\Firefox\\Profiles\\abcd.default-release\\cache2\\entries\\x", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "LibreWolf, Waterfox, Zen",
+      "rules": ["browser.firefox-forks.caches"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\librewolf\\Profiles\\x.default\\cache2\\a", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Waterfox\\Profiles\\y.default\\cache2\\b", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\zen\\Profiles\\z.default\\startupCache\\c", "size": 4096},
+        {"path": "%APPDATA%\\librewolf\\Profiles\\x.default\\places.sqlite", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\librewolf\\Profiles\\x.default\\cache2",
+        "%LOCALAPPDATA%\\Waterfox\\Profiles\\y.default\\cache2",
+        "%LOCALAPPDATA%\\zen\\Profiles\\z.default\\startupCache"
+      ]
+    }
+  ]
+}

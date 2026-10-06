@@ -1,0 +1,109 @@
+[
+  {
+    "id": "app.discord.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Discord",
+      "en": "Discord leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Discord để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Discord leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Discord"
+      ],
+      "paths": [
+        "%APPDATA%\\discord",
+        "%LOCALAPPDATA%\\Discord"
+      ]
+    },
+    "notes": "Tên hiển thị đúng 'Discord' để không khớp Discord PTB/Canary."
+  },
+  {
+    "id": "app.slack.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Slack",
+      "en": "Slack leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Slack để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Slack leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Slack"
+      ],
+      "paths": [
+        "%APPDATA%\\Slack",
+        "%LOCALAPPDATA%\\slack"
+      ]
+    }
+  },
+  {
+    "id": "app.zoom.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Zoom",
+      "en": "Zoom leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Zoom để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Zoom leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Zoom",
+        "Zoom (*",
+        "Zoom(*",
+        "Zoom Workplace*"
+      ],
+      "publishers": [
+        "Zoom Video Communications*"
+      ],
+      "paths": [
+        "%APPDATA%\\Zoom"
+      ]
+    },
+    "notes": "Lọc thêm theo nhà phát hành để không khớp plugin Zoom cho Outlook."
+  },
+  {
+    "id": "app.telegram-desktop.leftovers",
+    "version": 1,
+    "category": "appLeftovers",
+    "title": {
+      "vi": "File sót của Telegram Desktop",
+      "en": "Telegram Desktop leftovers"
+    },
+    "reason": {
+      "vi": "Cài đặt, cache và tệp hỗ trợ Telegram Desktop để lại sau khi gỡ ứng dụng.",
+      "en": "Settings, caches and support files Telegram Desktop leaves behind after the app is removed."
+    },
+    "safety": "review",
+    "removal": "moveToTrash",
+    "requiresRoot": false,
+    "match": {
+      "appNames": [
+        "Telegram Desktop*"
+      ],
+      "paths": [
+        "%APPDATA%\\Telegram Desktop"
+      ]
+    },
+    "notes": "tdata chứa phiên đăng nhập; tin nhắn vẫn nằm trên đám mây Telegram."
+  }
+]

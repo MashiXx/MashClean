@@ -1,0 +1,202 @@
+{
+  "cases": [
+    {
+      "name": "Windows\\Temp: mục cũ hơn 1 ngày, bỏ mục mới và thư mục tạm của Clean Boost",
+      "rules": ["system.temp.windows"],
+      "files": [
+        {"path": "%WINDIR%\\Temp\\old.tmp", "size": 4096, "ageDays": 3},
+        {"path": "%WINDIR%\\Temp\\olddir\\setup.log", "size": 4096, "ageDays": 5},
+        {"path": "%WINDIR%\\Temp\\fresh.tmp", "size": 4096},
+        {"path": "%WINDIR%\\Temp\\active\\a.log", "size": 4096, "ageDays": 5},
+        {"path": "%WINDIR%\\Temp\\active\\b.log", "size": 4096},
+        {"path": "%WINDIR%\\Temp\\CleanBoost-helper\\x.tmp", "size": 4096, "ageDays": 3}
+      ],
+      "expect": [
+        "%WINDIR%\\Temp\\old.tmp",
+        "%WINDIR%\\Temp\\olddir"
+      ]
+    },
+    {
+      "name": "Windows\\SystemTemp: chỉ mục cũ",
+      "rules": ["system.temp.system-temp"],
+      "files": [
+        {"path": "%WINDIR%\\SystemTemp\\msi1234\\a.tmp", "size": 4096, "ageDays": 2},
+        {"path": "%WINDIR%\\SystemTemp\\new.tmp", "size": 4096}
+      ],
+      "expect": [
+        "%WINDIR%\\SystemTemp\\msi1234"
+      ]
+    },
+    {
+      "name": "SoftwareDistribution\\Download: xoá nội dung, không đụng DataStore",
+      "rules": ["windows-update.download"],
+      "files": [
+        {"path": "%WINDIR%\\SoftwareDistribution\\Download\\4f1c2a\\windows10.0-kb5031356.cab", "size": 65536},
+        {"path": "%WINDIR%\\SoftwareDistribution\\DataStore\\DataStore.edb", "size": 4096},
+        {"path": "%WINDIR%\\SoftwareDistribution\\DataStore\\Logs\\edb.log", "size": 4096, "ageDays": 60}
+      ],
+      "expect": [
+        "%WINDIR%\\SoftwareDistribution\\Download"
+      ]
+    },
+    {
+      "name": "SoftwareDistribution\\Download rỗng: không đề xuất",
+      "rules": ["windows-update.download"],
+      "files": [
+        {"path": "%WINDIR%\\SoftwareDistribution\\Download", "dir": true}
+      ],
+      "expect": []
+    },
+    {
+      "name": "SoftwareDistribution\\Download chỉ còn thư mục con rỗng (0 byte): không đề xuất",
+      "rules": ["windows-update.download"],
+      "files": [
+        {"path": "%WINDIR%\\SoftwareDistribution\\Download\\4f1c2a", "dir": true},
+        {"path": "%WINDIR%\\SoftwareDistribution\\Download\\SharedFileCache", "dir": true}
+      ],
+      "expect": []
+    },
+    {
+      "name": "Delivery Optimization: cache theo nội dung, log theo tuổi",
+      "rules": ["windows-update.delivery-optimization", "system.logs.delivery-optimization"],
+      "files": [
+        {"path": "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Cache\\0a1b2c\\content.bin", "size": 65536},
+        {"path": "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Logs\\dosvc.20240101.etl", "size": 4096, "ageDays": 10},
+        {"path": "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Logs\\dosvc.new.etl", "size": 4096},
+        {"path": "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\State\\keyValueLKG.dat", "size": 4096}
+      ],
+      "expect": [
+        "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Cache",
+        "%WINDIR%\\ServiceProfiles\\NetworkService\\AppData\\Local\\Microsoft\\Windows\\DeliveryOptimization\\Logs\\dosvc.20240101.etl"
+      ]
+    },
+    {
+      "name": "CBS: .log và .cab cũ hơn 7 ngày",
+      "rules": ["system.logs.cbs"],
+      "files": [
+        {"path": "%WINDIR%\\Logs\\CBS\\CbsPersist_20240101.log", "size": 4096, "ageDays": 10},
+        {"path": "%WINDIR%\\Logs\\CBS\\CbsPersist_20231201.cab", "size": 4096, "ageDays": 40},
+        {"path": "%WINDIR%\\Logs\\CBS\\CBS.log", "size": 4096},
+        {"path": "%WINDIR%\\Logs\\CBS\\FilterList.txt", "size": 4096, "ageDays": 10}
+      ],
+      "expect": [
+        "%WINDIR%\\Logs\\CBS\\CbsPersist_20240101.log",
+        "%WINDIR%\\Logs\\CBS\\CbsPersist_20231201.cab"
+      ]
+    },
+    {
+      "name": "DISM, MoSetup, WindowsUpdate: chỉ file cũ đúng đuôi",
+      "rules": ["system.logs.dism", "system.logs.mosetup", "system.logs.windows-update"],
+      "files": [
+        {"path": "%WINDIR%\\Logs\\DISM\\dism.log", "size": 4096, "ageDays": 30},
+        {"path": "%WINDIR%\\Logs\\DISM\\new.log", "size": 4096},
+        {"path": "%WINDIR%\\Logs\\MoSetup\\BlueBox.log", "size": 4096, "ageDays": 10},
+        {"path": "%WINDIR%\\Logs\\MoSetup\\UpdateAgent.log", "size": 4096},
+        {"path": "%WINDIR%\\Logs\\WindowsUpdate\\WindowsUpdate.20240101.etl", "size": 4096, "ageDays": 10},
+        {"path": "%WINDIR%\\Logs\\WindowsUpdate\\WindowsUpdate.new.etl", "size": 4096},
+        {"path": "%WINDIR%\\Logs\\WindowsUpdate\\readme.txt", "size": 4096, "ageDays": 10}
+      ],
+      "expect": [
+        "%WINDIR%\\Logs\\DISM\\dism.log",
+        "%WINDIR%\\Logs\\MoSetup\\BlueBox.log",
+        "%WINDIR%\\Logs\\WindowsUpdate\\WindowsUpdate.20240101.etl"
+      ]
+    },
+    {
+      "name": "Log dịch vụ khác: SIH, NetSetup, waasmedic, DPX; không đụng MeasuredBoot",
+      "rules": ["system.logs.services"],
+      "files": [
+        {"path": "%WINDIR%\\Logs\\SIH\\SIH.20240101.etl", "size": 4096, "ageDays": 20},
+        {"path": "%WINDIR%\\Logs\\NetSetup\\service.0.etl", "size": 4096, "ageDays": 20},
+        {"path": "%WINDIR%\\Logs\\waasmedic\\waasmedic.etl", "size": 4096, "ageDays": 20},
+        {"path": "%WINDIR%\\Logs\\DPX\\setupact.log", "size": 4096, "ageDays": 20},
+        {"path": "%WINDIR%\\Logs\\DPX\\new.log", "size": 4096},
+        {"path": "%WINDIR%\\Logs\\MeasuredBoot\\0000000001-0000000000.log", "size": 4096, "ageDays": 20}
+      ],
+      "expect": [
+        "%WINDIR%\\Logs\\SIH\\SIH.20240101.etl",
+        "%WINDIR%\\Logs\\NetSetup\\service.0.etl",
+        "%WINDIR%\\Logs\\waasmedic\\waasmedic.etl",
+        "%WINDIR%\\Logs\\DPX\\setupact.log"
+      ]
+    },
+    {
+      "name": "USOShared: ETL cũ ở cấp 1 và 2",
+      "rules": ["system.logs.update-orchestrator"],
+      "files": [
+        {"path": "%PROGRAMDATA%\\USOShared\\Logs\\System\\MoUsoCoreWorker.1.etl", "size": 4096, "ageDays": 10},
+        {"path": "%PROGRAMDATA%\\USOShared\\Logs\\User\\UpdateUx.1.etl", "size": 4096, "ageDays": 10},
+        {"path": "%PROGRAMDATA%\\USOShared\\Logs\\top.etl", "size": 4096, "ageDays": 10},
+        {"path": "%PROGRAMDATA%\\USOShared\\Logs\\System\\fresh.etl", "size": 4096},
+        {"path": "%PROGRAMDATA%\\USOShared\\Data\\x.dat", "size": 4096, "ageDays": 10}
+      ],
+      "expect": [
+        "%PROGRAMDATA%\\USOShared\\Logs\\System\\MoUsoCoreWorker.1.etl",
+        "%PROGRAMDATA%\\USOShared\\Logs\\User\\UpdateUx.1.etl",
+        "%PROGRAMDATA%\\USOShared\\Logs\\top.etl"
+      ]
+    },
+    {
+      "name": "Panther: mục cũ hơn 30 ngày, giữ unattend",
+      "rules": ["system.logs.panther"],
+      "files": [
+        {"path": "%WINDIR%\\Panther\\setupact.log", "size": 4096, "ageDays": 60},
+        {"path": "%WINDIR%\\Panther\\UnattendGC\\setupact.log", "size": 4096, "ageDays": 60},
+        {"path": "%WINDIR%\\Panther\\unattend.xml", "size": 4096, "ageDays": 60},
+        {"path": "%WINDIR%\\Panther\\new.log", "size": 4096}
+      ],
+      "expect": [
+        "%WINDIR%\\Panther\\setupact.log",
+        "%WINDIR%\\Panther\\UnattendGC"
+      ]
+    },
+    {
+      "name": "Minidump, MEMORY.DMP, LiveKernelReports",
+      "rules": ["crash.system.minidump", "crash.system.memory-dump", "crash.system.live-kernel-reports"],
+      "files": [
+        {"path": "%WINDIR%\\Minidump\\100524-12345-01.dmp", "size": 4096},
+        {"path": "%WINDIR%\\Minidump\\notes.txt", "size": 4096},
+        {"path": "%WINDIR%\\MEMORY.DMP", "size": 65536},
+        {"path": "%WINDIR%\\LiveKernelReports\\WATCHDOG\\WATCHDOG-20240101-0101.dmp", "size": 4096},
+        {"path": "%WINDIR%\\LiveKernelReports\\USBHUB3-20240101.dmp", "size": 4096},
+        {"path": "%WINDIR%\\LiveKernelReports\\WATCHDOG\\info.txt", "size": 4096},
+        {"path": "%WINDIR%\\System32\\config\\SYSTEM", "size": 4096}
+      ],
+      "expect": [
+        "%WINDIR%\\Minidump\\100524-12345-01.dmp",
+        "%WINDIR%\\MEMORY.DMP",
+        "%WINDIR%\\LiveKernelReports\\WATCHDOG\\WATCHDOG-20240101-0101.dmp",
+        "%WINDIR%\\LiveKernelReports\\USBHUB3-20240101.dmp"
+      ]
+    },
+    {
+      "name": "WER của hệ thống: ReportArchive, ReportQueue, Temp",
+      "rules": ["crash.system.wer"],
+      "files": [
+        {"path": "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\AppCrash_app.exe_abc\\Report.wer", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\AppHang_app.exe_def\\Report.wer", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\Temp\\WER1234.tmp.xml", "size": 4096},
+        {"path": "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\other.txt", "size": 4096}
+      ],
+      "expect": [
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\AppCrash_app.exe_abc",
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\AppHang_app.exe_def",
+        "%PROGRAMDATA%\\Microsoft\\Windows\\WER\\Temp\\WER1234.tmp.xml"
+      ]
+    },
+    {
+      "name": "Bộ cài driver NVIDIA: chỉ .exe cũ hơn 7 ngày",
+      "rules": ["system.caches.nvidia-driver-downloads"],
+      "files": [
+        {"path": "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\a1b2\\552.22\\552.22-desktop-win10-win11-64bit.exe", "size": 65536, "ageDays": 20},
+        {"path": "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\latest\\560.94-desktop.exe", "size": 65536, "ageDays": 20},
+        {"path": "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\c3d4\\561.09\\561.09-desktop.exe", "size": 65536},
+        {"path": "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\status.json", "size": 4096, "ageDays": 20}
+      ],
+      "expect": [
+        "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\a1b2\\552.22\\552.22-desktop-win10-win11-64bit.exe",
+        "%PROGRAMDATA%\\NVIDIA Corporation\\Downloader\\latest\\560.94-desktop.exe"
+      ]
+    }
+  ]
+}

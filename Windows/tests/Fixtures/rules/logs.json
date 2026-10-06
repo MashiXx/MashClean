@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "app.generic.logs: thư mục logs của app đã cài",
+      "rules": ["app.generic.logs"],
+      "apps": [
+        {"appID": "Editor", "appName": "Editor", "publisher": "Example Corp"}
+      ],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Editor\\logs\\main.log", "size": 4096},
+        {"path": "%APPDATA%\\Editor\\Logs\\renderer.log", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Other\\logs\\x.log", "size": 4096},
+        {"path": "%APPDATA%\\Editor\\config.json", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Editor\\logs",
+        "%APPDATA%\\Editor\\Logs"
+      ]
+    },
+    {
+      "name": "app.generic.logs: app đang chạy",
+      "rules": ["app.generic.logs"],
+      "apps": [
+        {"appID": "Editor", "appName": "Editor", "publisher": "Example Corp"}
+      ],
+      "running": ["Editor"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Editor\\logs\\main.log", "size": 4096}
+      ],
+      "expect": []
+    },
+    {
+      "name": "File .log cũ ở cấp 2; bỏ Microsoft, Temp, LevelDB, ESE, file mới và file sâu hơn",
+      "rules": ["user.logs.old-log-files"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\SomeApp\\debug.log", "size": 4096, "ageDays": 30},
+        {"path": "%APPDATA%\\OtherApp\\app.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATALOW%\\Game Studio\\player.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATA%\\SomeApp\\fresh.log", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\x.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATA%\\Temp\\setup.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATA%\\SomeDb\\000003.log", "size": 4096, "ageDays": 30},
+        {"path": "%APPDATA%\\EseApp\\edb.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATA%\\SomeApp\\sub\\deep.log", "size": 4096, "ageDays": 30},
+        {"path": "%LOCALAPPDATA%\\SomeApp\\data.db", "size": 4096, "ageDays": 30}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\SomeApp\\debug.log",
+        "%APPDATA%\\OtherApp\\app.log",
+        "%LOCALAPPDATALOW%\\Game Studio\\player.log"
+      ]
+    },
+    {
+      "name": "OneDrive: log cũ hơn 7 ngày",
+      "rules": ["user.logs.onedrive"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Personal\\SyncDiagnostics.log", "size": 4096, "ageDays": 10},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Common\\a.odl", "size": 4096, "ageDays": 10},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Common\\b.odlgz", "size": 4096, "ageDays": 10},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Business1\\c.aodl", "size": 4096, "ageDays": 10},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Common\\new.odl", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Personal\\settings.dat", "size": 4096, "ageDays": 10}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Personal\\SyncDiagnostics.log",
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Common\\a.odl",
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Common\\b.odlgz",
+        "%LOCALAPPDATA%\\Microsoft\\OneDrive\\logs\\Business1\\c.aodl"
+      ]
+    },
+    {
+      "name": "Zoom, Steam, Epic: log cũ hơn 7 ngày",
+      "rules": ["app.zoom.logs", "app.steam.logs", "app.epic.logs"],
+      "files": [
+        {"path": "%APPDATA%\\Zoom\\logs\\zoom_stdout_stderr.log", "size": 4096, "ageDays": 10},
+        {"path": "%APPDATA%\\Zoom\\logs\\new.log", "size": 4096},
+        {"path": "%APPDATA%\\Zoom\\data\\zoomus.enc.db", "size": 4096, "ageDays": 10},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\logs\\content_log.txt", "size": 4096, "ageDays": 10},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\logs\\new.txt", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Logs\\EpicGamesLauncher-backup.log", "size": 4096, "ageDays": 10},
+        {"path": "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Logs\\new.log", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\Zoom\\logs\\zoom_stdout_stderr.log",
+        "%PROGRAMFILES(X86)%\\Steam\\logs\\content_log.txt",
+        "%LOCALAPPDATA%\\EpicGamesLauncher\\Saved\\Logs\\EpicGamesLauncher-backup.log"
+      ]
+    },
+    {
+      "name": "Log công cụ lập trình: phiên VS Code cũ, npm, JetBrains, Gradle; bỏ phiên đang chạy",
+      "rules": ["devtools.logs"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\npm-cache\\_logs\\2024-01-01T00_00_00_000Z-debug-0.log", "size": 4096, "ageDays": 5},
+        {"path": "%APPDATA%\\Code\\logs\\20241001T101010\\main.log", "size": 4096, "ageDays": 5},
+        {"path": "%APPDATA%\\Code\\logs\\20241005T090000\\main.log", "size": 4096},
+        {"path": "%APPDATA%\\Cursor\\logs\\20241001T101010\\main.log", "size": 4096, "ageDays": 5},
+        {"path": "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\log\\idea.log", "size": 4096, "ageDays": 5},
+        {"path": "~\\.gradle\\daemon\\8.5\\daemon-1234.out.log", "size": 4096, "ageDays": 5},
+        {"path": "~\\.gradle\\daemon\\8.5\\registry.bin", "size": 4096, "ageDays": 5}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\npm-cache\\_logs\\2024-01-01T00_00_00_000Z-debug-0.log",
+        "%APPDATA%\\Code\\logs\\20241001T101010",
+        "%APPDATA%\\Cursor\\logs\\20241001T101010",
+        "%LOCALAPPDATA%\\JetBrains\\Rider2024.1\\log\\idea.log",
+        "~\\.gradle\\daemon\\8.5\\daemon-1234.out.log"
+      ]
+    },
+    {
+      "name": "Crash dump, WER, Steam dumps của người dùng",
+      "rules": ["crash.user.dumps", "crash.user.wer", "app.steam.dumps"],
+      "files": [
+        {"path": "%LOCALAPPDATA%\\CrashDumps\\app.exe.1234.dmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\AppCrash_app.exe_abc\\Report.wer", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\AppHang_app.exe_def\\Report.wer", "size": 4096},
+        {"path": "%PROGRAMFILES(X86)%\\Steam\\dumps\\crash_20240101.dmp", "size": 4096}
+      ],
+      "expect": [
+        "%LOCALAPPDATA%\\CrashDumps\\app.exe.1234.dmp",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportArchive\\AppCrash_app.exe_abc",
+        "%LOCALAPPDATA%\\Microsoft\\Windows\\WER\\ReportQueue\\AppHang_app.exe_def",
+        "%PROGRAMFILES(X86)%\\Steam\\dumps\\crash_20240101.dmp"
+      ]
+    },
+    {
+      "name": "Crashpad: trình duyệt và Electron, chỉ thư mục reports; Firefox pending/submitted",
+      "rules": ["crash.user.crashpad"],
+      "files": [
+        {"path": "%APPDATA%\\discord\\Crashpad\\reports\\a.dmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Crashpad\\reports\\b.dmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Crashpad\\settings.dat", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\c.dmp", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\Vivaldi\\User Data\\Crashpad\\reports\\d.dmp", "size": 4096},
+        {"path": "%APPDATA%\\Mozilla\\Firefox\\Crash Reports\\pending\\e.dmp", "size": 4096},
+        {"path": "%APPDATA%\\Mozilla\\Firefox\\Crash Reports\\InstallTime20240101", "size": 4096},
+        {"path": "%LOCALAPPDATA%\\SomeApp\\Crashpad\\reports\\f.dmp", "size": 4096}
+      ],
+      "expect": [
+        "%APPDATA%\\discord\\Crashpad\\reports\\a.dmp",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Crashpad\\reports\\b.dmp",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\c.dmp",
+        "%LOCALAPPDATA%\\Vivaldi\\User Data\\Crashpad\\reports\\d.dmp",
+        "%APPDATA%\\Mozilla\\Firefox\\Crash Reports\\pending\\e.dmp",
+        "%LOCALAPPDATA%\\SomeApp\\Crashpad\\reports\\f.dmp"
+      ]
+    }
+  ]
+}

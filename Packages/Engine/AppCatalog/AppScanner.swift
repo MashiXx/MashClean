@@ -4,6 +4,9 @@ import Foundation
 import os
 import RuleEngine
 import ScanEngine
+// SDK macOS 27 thêm `Foundation.ProgressReporter` trùng tên với kiểu của ScanEngine; import có phạm vi để
+// tên trần trỏ đúng kiểu. Không viết được `ScanEngine.ProgressReporter` vì module trùng tên với class `ScanEngine`.
+import class ScanEngine.ProgressReporter
 import SweepCore
 import SweepLogging
 import SweepStorage

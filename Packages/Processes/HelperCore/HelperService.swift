@@ -15,6 +15,9 @@ private final class Reply<T>: @unchecked Sendable {
 
 /// Cài đặt `HelperProtocol` phía root (mục 9.2–9.4). Mỗi kết nối có một instance riêng.
 /// Mọi tham số đều được kiểm tra lại ở đây; mọi lệnh root đều ghi log kèm PID client.
+/// Helper là daemon root, không mang bảng chuỗi bản địa hoá, nên `message` trả về luôn viết tiếng Anh
+/// như thông báo lỗi của hệ thống. Chuỗi nào người dùng thấy ở đường đi thường (vd tác vụ bảo trì chạy xong)
+/// thì phía app thay bằng bản dịch — xem `MaintenanceRunner.perform`.
 public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable {
     public let peerPID: pid_t
     private let maintenanceBusy = Locked(false)
@@ -44,12 +47,12 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
     func performRemove(_ paths: [String], mode rawMode: Int) -> [RemoveResult] {
         guard let mode = RemoveMode(rawValue: rawMode) else {
             audit("removeItems từ chối: mode không hợp lệ \(rawMode)")
-            return paths.prefix(HelperValidation.maxPathsPerCall).map { .failed($0, errno: EINVAL, "Chế độ xoá không hợp lệ") }
+            return paths.prefix(HelperValidation.maxPathsPerCall).map { .failed($0, errno: EINVAL, "Invalid remove mode") }
         }
         guard paths.count <= HelperValidation.maxPathsPerCall else {
             audit("removeItems từ chối: \(paths.count) đường dẫn vượt giới hạn \(HelperValidation.maxPathsPerCall)")
             return paths.prefix(HelperValidation.maxPathsPerCall).map {
-                .failed($0, errno: E2BIG, "Quá \(HelperValidation.maxPathsPerCall) đường dẫn mỗi lần gọi")
+                .failed($0, errno: E2BIG, "More than \(HelperValidation.maxPathsPerCall) paths per call")
             }
         }
         audit("removeItems bắt đầu: \(paths.count) đường dẫn, mode=\(mode)")
@@ -74,7 +77,7 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         guard let name = MaintenanceTaskName(rawValue: task), name.requiresRoot, !name.commands.isEmpty else {
             audit("runMaintenance từ chối tác vụ không hợp lệ: \(task)")
             return reply(VersionedPayload<MaintenanceResult>.encode(
-                MaintenanceResult(task: task, success: false, message: "Tác vụ không được hỗ trợ", durationSeconds: 0)))
+                MaintenanceResult(task: task, success: false, message: "Unsupported task", durationSeconds: 0)))
         }
         // Mỗi kết nối tối đa 1 tác vụ bảo trì cùng lúc (mục 9.4.4).
         let acquired = maintenanceBusy.withLock { busy -> Bool in
@@ -85,7 +88,7 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         guard acquired else {
             audit("runMaintenance từ chối \(task): đang chạy tác vụ khác")
             return reply(VersionedPayload<MaintenanceResult>.encode(
-                MaintenanceResult(task: task, success: false, message: "Đang chạy một tác vụ bảo trì khác", durationSeconds: 0)))
+                MaintenanceResult(task: task, success: false, message: "Another maintenance task is already running", durationSeconds: 0)))
         }
         workQueue.async { [self] in
             defer { maintenanceBusy.withLock { $0 = false } }
@@ -108,7 +111,7 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         let duration = Date().timeIntervalSince(start)
         audit("runMaintenance \(name.rawValue) \(success ? "thành công" : "thất bại") sau \(String(format: "%.1f", duration)) giây")
         return MaintenanceResult(task: name.rawValue, success: success,
-                                 message: success ? "Đã hoàn tất" : messages.joined(separator: "\n"),
+                                 message: success ? "Done" : messages.joined(separator: "\n"),
                                  durationSeconds: duration)
     }
 
@@ -141,12 +144,12 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         guard result.isSuccess else {
             let message: String = switch result.outcome {
             case let .failed(_, m): m
-            case let .skipped(reason): "Bỏ qua: \(reason.rawValue)"
+            case let .skipped(reason): "Skipped: \(reason.rawValue)"
             case .ok: ""
             }
             return HelperCommandResult(success: false, message: (notes + [message]).joined(separator: "\n"))
         }
-        return HelperCommandResult(success: true, message: notes.isEmpty ? "Đã gỡ \(label)" : notes.joined(separator: "\n"))
+        return HelperCommandResult(success: true, message: notes.isEmpty ? "Removed \(label)" : notes.joined(separator: "\n"))
     }
 
     /// LaunchDaemon chạy trong domain `system`; LaunchAgent toàn máy chạy trong `gui/<uid>` của người đang đăng nhập.
@@ -168,7 +171,7 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         let reply = Reply(reply)
         guard HelperValidation.isMountPoint(volume) else {
             audit("thinLocalSnapshots từ chối volume không hợp lệ")
-            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Volume không hợp lệ")))
+            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Invalid volume")))
         }
         workQueue.async { [self] in
             let outcome = runCommand("/usr/bin/tmutil", ["thinlocalsnapshots", volume, "999999999999", "4"], timeout: 600)
@@ -181,12 +184,12 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         let reply = Reply(reply)
         guard HelperValidation.isValidSnapshotDate(date) else {
             audit("deleteLocalSnapshot từ chối ngày không hợp lệ: \(date)")
-            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Ngày snapshot không hợp lệ")))
+            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Invalid snapshot date")))
         }
         workQueue.async { [self] in
             let outcome = runCommand("/usr/bin/tmutil", ["deletelocalsnapshots", date], timeout: 600)
             reply(VersionedPayload<HelperCommandResult>.encode(
-                HelperCommandResult(success: outcome.success, message: outcome.success ? "Đã xoá snapshot \(date)" : outcome.message)))
+                HelperCommandResult(success: outcome.success, message: outcome.success ? "Deleted snapshot \(date)" : outcome.message)))
         }
     }
 
@@ -194,12 +197,12 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
         let reply = Reply(reply)
         guard HelperValidation.isValidPackageID(packageID) else {
             audit("forgetPackage từ chối id không hợp lệ: \(packageID)")
-            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Mã gói không hợp lệ")))
+            return reply(VersionedPayload<HelperCommandResult>.encode(HelperCommandResult(success: false, message: "Invalid package ID")))
         }
         workQueue.async { [self] in
             let outcome = runCommand("/usr/sbin/pkgutil", ["--forget", packageID], timeout: 60)
             reply(VersionedPayload<HelperCommandResult>.encode(
-                HelperCommandResult(success: outcome.success, message: outcome.success ? "Đã xoá receipt \(packageID)" : outcome.message)))
+                HelperCommandResult(success: outcome.success, message: outcome.success ? "Removed receipt \(packageID)" : outcome.message)))
         }
     }
 
@@ -246,7 +249,7 @@ public final class HelperService: NSObject, HelperProtocol, @unchecked Sendable 
             } else {
                 audit("exec lỗi: \(tool) status=\(out.status) timeout=\(out.timedOut) \(stderr.prefix(300))")
             }
-            let message = out.timedOut ? "Hết thời gian chờ \(tool)" : (stderr.isEmpty ? stdout : stderr)
+            let message = out.timedOut ? "Timed out waiting for \(tool)" : (stderr.isEmpty ? stdout : stderr)
             return CommandOutcome(success: out.succeeded, status: out.status, stdout: stdout, message: message)
         } catch {
             audit("exec không chạy được \(tool): \(error)")

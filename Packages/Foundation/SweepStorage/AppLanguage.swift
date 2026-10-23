@@ -11,10 +11,11 @@ public enum AppLanguage: String, CaseIterable, Sendable, Identifiable {
 
     public var id: String { rawValue }
 
-    /// Tên luôn hiển thị song ngữ để người dùng nhận ra dù đang ở ngôn ngữ nào.
+    /// Tên mỗi ngôn ngữ viết bằng chính ngôn ngữ đó (endonym) nên nhận ra được ở bất kỳ giao diện nào;
+    /// riêng "theo hệ thống" dịch theo giao diện đang chạy để không trộn hai ngôn ngữ trong một màn hình.
     public var displayName: String {
         switch self {
-        case .system: "Theo hệ thống · System"
+        case .system: String(localized: "Theo hệ thống")
         case .vietnamese: "Tiếng Việt"
         case .english: "English"
         }

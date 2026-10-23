@@ -149,17 +149,17 @@ struct Sidebar: View {
         }
         .menuStyle(.borderlessButton)
         .fixedSize()
-        .help("Ngôn ngữ · Language")
+        .help(String(localized: "Ngôn ngữ"))
         .confirmationDialog(
-            "Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?",
+            String(localized: "Khởi động lại Clean Boost để đổi ngôn ngữ?"),
             isPresented: Binding(get: { pendingLanguage != nil }, set: { if !$0 { pendingLanguage = nil } })
         ) {
-            Button("Khởi động lại · Restart") {
+            Button(String(localized: "Khởi động lại")) {
                 guard let language = pendingLanguage else { return }
                 AppLanguage.select(language)
                 AppRelauncher.restartForLanguageChange()
             }
-            Button("Huỷ · Cancel", role: .cancel) { pendingLanguage = nil }
+            Button(String(localized: "Huỷ"), role: .cancel) { pendingLanguage = nil }
         }
     }
 

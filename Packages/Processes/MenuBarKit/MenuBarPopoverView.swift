@@ -222,8 +222,8 @@ public struct MenuBarPopoverView: View {
             Spacer()
             Menu {
                 // Đổi ngôn ngữ ngay từ menu bar: khởi động lại cả menu bar và app chính (nếu đang mở).
-                Section("Ngôn ngữ · Language") {
-                    Picker("Ngôn ngữ · Language", selection: Binding(
+                Section(String(localized: "Ngôn ngữ")) {
+                    Picker(String(localized: "Ngôn ngữ"), selection: Binding(
                         get: { AppLanguage.current },
                         set: { newValue in
                             guard newValue != AppLanguage.current else { return }

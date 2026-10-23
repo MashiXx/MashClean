@@ -32,9 +32,9 @@ struct GeneralSettings: View {
 
     var body: some View {
         Form {
-            // Tên ngôn ngữ luôn hiện song ngữ để nhận ra ở bất kỳ ngôn ngữ nào.
-            Section("Ngôn ngữ · Language") {
-                Picker("Ngôn ngữ · Language", selection: $language) {
+            // Tên từng ngôn ngữ là endonym (Tiếng Việt / English) nên vẫn nhận ra được ở bất kỳ giao diện nào.
+            Section(String(localized: "Ngôn ngữ")) {
+                Picker(String(localized: "Ngôn ngữ"), selection: $language) {
                     ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
                 }
                 .onChange(of: language) { newValue in

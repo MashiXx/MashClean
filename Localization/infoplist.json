@@ -1,0 +1,26 @@
+{
+  "NSAppleEventsUsageDescription": {
+    "en": "Clean Boost asks apps to quit before uninstalling them.",
+    "vi": "Clean Boost cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt."
+  },
+  "NSDesktopFolderUsageDescription": {
+    "en": "Clean Boost scans your Desktop for large, old, and duplicate files.",
+    "vi": "Clean Boost quét Desktop để tìm file lớn, cũ và trùng lặp."
+  },
+  "NSDocumentsFolderUsageDescription": {
+    "en": "Clean Boost scans your Documents for large, old, and duplicate files.",
+    "vi": "Clean Boost quét Documents để tìm file lớn, cũ và trùng lặp."
+  },
+  "NSDownloadsFolderUsageDescription": {
+    "en": "Clean Boost scans your Downloads for old installers.",
+    "vi": "Clean Boost quét Downloads để tìm bản cài đặt cũ."
+  },
+  "NSRemovableVolumesUsageDescription": {
+    "en": "Clean Boost analyzes storage and empties the Trash on external drives.",
+    "vi": "Clean Boost phân tích dung lượng và dọn Thùng rác trên ổ ngoài."
+  },
+  "NSNetworkVolumesUsageDescription": {
+    "en": "Clean Boost analyzes storage on network volumes when you ask it to.",
+    "vi": "Clean Boost phân tích dung lượng trên ổ mạng khi bạn yêu cầu."
+  }
+}

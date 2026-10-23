@@ -45,17 +45,17 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 Clean Boost</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>Clean Boost cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt.</string>
+	<string>Clean Boost asks apps to quit before uninstalling them.</string>
 	<key>NSDesktopFolderUsageDescription</key>
-	<string>Clean Boost quét Desktop để tìm file lớn, cũ và trùng lặp.</string>
+	<string>Clean Boost scans your Desktop for large, old, and duplicate files.</string>
 	<key>NSDocumentsFolderUsageDescription</key>
-	<string>Clean Boost quét Documents để tìm file lớn, cũ và trùng lặp.</string>
+	<string>Clean Boost scans your Documents for large, old, and duplicate files.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string>Clean Boost quét Downloads để tìm bản cài đặt cũ.</string>
+	<string>Clean Boost scans your Downloads for old installers.</string>
 	<key>NSRemovableVolumesUsageDescription</key>
-	<string>Clean Boost phân tích dung lượng và dọn Thùng rác trên ổ ngoài.</string>
+	<string>Clean Boost analyzes storage and empties the Trash on external drives.</string>
 	<key>NSNetworkVolumesUsageDescription</key>
-	<string>Clean Boost phân tích dung lượng trên ổ mạng khi bạn yêu cầu.</string>
+	<string>Clean Boost analyzes storage on network volumes when you ask it to.</string>
 	<key>MashCleanTeamID</key>
 	<string>$(DEVELOPMENT_TEAM)</string>
 	<key>MashCleanRulesManifestURL</key>

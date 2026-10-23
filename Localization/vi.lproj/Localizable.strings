@@ -200,14 +200,12 @@
 "Dung lượng" = "Dung lượng";
 "Dung lượng Thùng rác" = "Dung lượng Thùng rác";
 "Dung lượng trống" = "Dung lượng trống";
-"Dung lượng trống trong ${applicationName}" = "Dung lượng trống trong ${applicationName}";
 "Dùng " = "Dùng ";
 "Dưới 100 MB" = "Dưới 100 MB";
 "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn." = "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn.";
 "Dọn dẹp" = "Dọn dẹp";
 "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác." = "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác.";
 "Dọn rác" = "Dọn rác";
-"Dọn rác bằng ${applicationName}" = "Dọn rác bằng ${applicationName}";
 "Dừng" = "Dừng";
 "Dừng quét thư mục ẩn sau %@ mục" = "Dừng quét thư mục ẩn sau %@ mục";
 "Dựng lại Launch Services" = "Dựng lại Launch Services";
@@ -253,7 +251,6 @@
 "Hiện trên thanh menu" = "Hiện trên thanh menu";
 "Hoàn tất" = "Hoàn tất";
 "Huỷ" = "Huỷ";
-"Huỷ · Cancel" = "Huỷ · Cancel";
 "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")." = "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\").";
 "Hãy thoát %@ để tiếp tục gỡ…" = "Hãy thoát %@ để tiếp tục gỡ…";
 "Hãy tắt Mail trước khi tối ưu" = "Hãy tắt Mail trước khi tối ưu";
@@ -297,6 +294,7 @@
 "Không kết nối được helper" = "Không kết nối được helper";
 "Không mở được Clean Boost" = "Không mở được Clean Boost";
 "Không nằm trong vùng helper được phép: %@" = "Không nằm trong vùng helper được phép: %@";
+"Không quét được %@: %@" = "Không quét được %@: %@";
 "Không rõ lỗi" = "Không rõ lỗi";
 "Không thuộc người dùng hiện tại (uid %u): %@" = "Không thuộc người dùng hiện tại (uid %u): %@";
 "Không tháo được %@: %@" = "Không tháo được %@: %@";
@@ -320,8 +318,7 @@
 "Khớp tên app trong thư mục chuẩn, hoặc LaunchAgent/Daemon chạy file của app" = "Khớp tên app trong thư mục chuẩn, hoặc LaunchAgent/Daemon chạy file của app";
 "Khởi động lại" = "Khởi động lại";
 "Khởi động lại Clean Boost để áp dụng ngôn ngữ mới." = "Khởi động lại Clean Boost để áp dụng ngôn ngữ mới.";
-"Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?" = "Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?";
-"Khởi động lại · Restart" = "Khởi động lại · Restart";
+"Khởi động lại Clean Boost để đổi ngôn ngữ?" = "Khởi động lại Clean Boost để đổi ngôn ngữ?";
 "Kiểm tra clone APFS" = "Kiểm tra clone APFS";
 "Kiểm tra cập nhật…" = "Kiểm tra cập nhật…";
 "Kiểm tra rule mới" = "Kiểm tra rule mới";
@@ -397,7 +394,7 @@
 "Nguồn" = "Nguồn";
 "Nguồn khác" = "Nguồn khác";
 "Ngày" = "Ngày";
-"Ngôn ngữ · Language" = "Ngôn ngữ · Language";
+"Ngôn ngữ" = "Ngôn ngữ";
 "Người dùng %@ · Hệ thống %@" = "Người dùng %@ · Hệ thống %@";
 "Nhà phát triển" = "Nhà phát triển";
 "Nhóm theo dung lượng" = "Nhóm theo dung lượng";
@@ -434,7 +431,6 @@
 "Sao chép label" = "Sao chép label";
 "Sao chép đường dẫn" = "Sao chép đường dẫn";
 "Smart Scan" = "Smart Scan";
-"Smart Scan trong ${applicationName}" = "Smart Scan trong ${applicationName}";
 "Snapshot Time Machine cục bộ" = "Snapshot Time Machine cục bộ";
 "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu." = "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu.";
 "Snapshot cục bộ" = "Snapshot cục bộ";
@@ -446,6 +442,7 @@
 "Sẽ xử lý %lld mục, khoảng %@." = "Sẽ xử lý %lld mục, khoảng %@.";
 "Task %@ phụ thuộc task không tồn tại %@" = "Task %@ phụ thuộc task không tồn tại %@";
 "Thanh menu" = "Thanh menu";
+"Theo hệ thống" = "Theo hệ thống";
 "Theo lịch" = "Theo lịch";
 "Thoát" = "Thoát";
 "Thuộc app đã gỡ" = "Thuộc app đã gỡ";
@@ -576,6 +573,7 @@
 "Đã giải phóng %@" = "Đã giải phóng %@";
 "Đã gỡ %@, giải phóng %@" = "Đã gỡ %@, giải phóng %@";
 "Đã gỡ helper" = "Đã gỡ helper";
+"Đã hoàn tất" = "Đã hoàn tất";
 "Đã khôi phục" = "Đã khôi phục";
 "Đã khôi phục %@" = "Đã khôi phục %@";
 "Đã lưu: %@" = "Đã lưu: %@";

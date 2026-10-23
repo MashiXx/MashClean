@@ -89,7 +89,7 @@ final class SpaceLensViewModel: ObservableObject {
             } catch is CancellationError {
                 self?.phase = .idle
             } catch {
-                self?.phase = .error("Không quét được \(path.abbreviatingHome): \(error.localizedDescription)")
+                self?.phase = .error(String(localized: "Không quét được \(path.abbreviatingHome): \(error.localizedDescription)"))
             }
         }
     }

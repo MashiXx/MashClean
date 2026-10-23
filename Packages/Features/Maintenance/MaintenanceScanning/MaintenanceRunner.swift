@@ -74,7 +74,12 @@ public struct MaintenanceRunner: Sendable {
             // Ping trước (timeout ngắn): helper đã đăng ký nhưng không khởi động được thì báo lỗi ngay,
             // thay vì treo tới hết timeout 300 giây của lệnh bảo trì.
             switch await helper.ensureCompatible() {
-            case .enabled: return try await helper.runMaintenance(task)
+            case .enabled:
+                let result = try await helper.runMaintenance(task)
+                // Helper không có bảng chuỗi: thông báo thành công dịch ở đây, chỉ giữ nguyên văn bản lỗi của hệ thống.
+                guard result.success else { return result }
+                return MaintenanceResult(task: result.task, success: true,
+                                         message: String(localized: "Đã hoàn tất"), durationSeconds: result.durationSeconds)
             case .requiresApproval: throw HelperError.requiresApproval
             default: throw MaintenanceError.helperUnreachable
             }

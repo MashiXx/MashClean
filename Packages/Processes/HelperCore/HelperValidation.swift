@@ -84,11 +84,11 @@ public enum HelperValidation {
 
         public var description: String {
             switch self {
-            case .invalidLabel: "Label không hợp lệ"
-            case .invalidPath: "Đường dẫn plist không nằm trong /Library/LaunchDaemons hoặc /Library/LaunchAgents"
-            case .notFound: "Không tìm thấy plist"
-            case .unreadablePlist: "Không đọc được plist"
-            case .labelMismatch: "Label trong plist không khớp"
+            case .invalidLabel: "Invalid label"
+            case .invalidPath: "The plist is not in /Library/LaunchDaemons or /Library/LaunchAgents"
+            case .notFound: "Plist not found"
+            case .unreadablePlist: "Plist could not be read"
+            case .labelMismatch: "The label in the plist does not match"
             }
         }
     }

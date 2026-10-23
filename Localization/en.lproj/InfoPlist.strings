@@ -1,0 +1,8 @@
+/* Sinh tự động bởi Scripts/l10n/gen_strings.py từ Localization/infoplist.json. Không sửa tay. */
+
+"NSAppleEventsUsageDescription" = "Clean Boost asks apps to quit before uninstalling them.";
+"NSDesktopFolderUsageDescription" = "Clean Boost scans your Desktop for large, old, and duplicate files.";
+"NSDocumentsFolderUsageDescription" = "Clean Boost scans your Documents for large, old, and duplicate files.";
+"NSDownloadsFolderUsageDescription" = "Clean Boost scans your Downloads for old installers.";
+"NSNetworkVolumesUsageDescription" = "Clean Boost analyzes storage on network volumes when you ask it to.";
+"NSRemovableVolumesUsageDescription" = "Clean Boost analyzes storage and empties the Trash on external drives.";

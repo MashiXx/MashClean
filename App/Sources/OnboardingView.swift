@@ -54,14 +54,14 @@ struct OnboardingView: View {
             VStack(spacing: 18) {
                 FeatureHeader(symbol: "sparkles", title: String(localized: "Chào mừng đến với Clean Boost"),
                               subtitle: String(localized: "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác."))
-                Picker("Ngôn ngữ · Language", selection: $language) {
+                Picker(String(localized: "Ngôn ngữ"), selection: $language) {
                     ForEach(AppLanguage.allCases) { Text(verbatim: $0.displayName).tag($0) }
                 }
                 .frame(width: 320)
                 .onChange(of: language) { AppLanguage.select($0) }
                 if language != initialLanguage {
                     // Đổi ngôn ngữ ngay ở bước đầu: mở lại app, onboarding tiếp tục bằng ngôn ngữ mới.
-                    Button("Khởi động lại · Restart") { GeneralSettings.restartForLanguage() }
+                    Button(String(localized: "Khởi động lại")) { GeneralSettings.restartForLanguage() }
                         .buttonStyle(PrimaryButtonStyle(accent: .smartScan))
                 } else {
                     Button(String(localized: "Bắt đầu")) {

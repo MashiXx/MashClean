@@ -200,14 +200,12 @@
 "Dung lượng" = "Size";
 "Dung lượng Thùng rác" = "Trash size";
 "Dung lượng trống" = "Free Space";
-"Dung lượng trống trong ${applicationName}" = "Free space in ${applicationName}";
 "Dùng " = "Used ";
 "Dưới 100 MB" = "Under 100 MB";
 "Dọn cache, log, rác Xcode và công cụ lập trình, bản sao lưu cũ. Mọi mục đều giải thích được: thuộc app nào, vì sao an toàn." = "Clean caches, logs, Xcode and developer tool junk, and old backups. Every item is explained: which app it belongs to and why it's safe.";
 "Dọn dẹp" = "Clean Up";
 "Dọn dẹp an toàn, minh bạch: mọi mục đề xuất xoá đều giải thích được, file của bạn mặc định đi qua Thùng rác." = "Safe, transparent cleaning: every item suggested for deletion is explained, and your files go through the Trash by default.";
 "Dọn rác" = "Clean Junk";
-"Dọn rác bằng ${applicationName}" = "Clean junk with ${applicationName}";
 "Dừng" = "Stop";
 "Dừng quét thư mục ẩn sau %@ mục" = "Stop scanning hidden folders after %@ items";
 "Dựng lại Launch Services" = "Rebuild Launch Services";
@@ -253,7 +251,6 @@
 "Hiện trên thanh menu" = "Show in Menu Bar";
 "Hoàn tất" = "Complete";
 "Huỷ" = "Cancel";
-"Huỷ · Cancel" = "Huỷ · Cancel";
 "Hãy bật Clean Boost trong System Settings > General > Login Items & Extensions (mục \"Allow in the Background\")." = "Enable Clean Boost in System Settings > General > Login Items & Extensions (\"Allow in the Background\").";
 "Hãy thoát %@ để tiếp tục gỡ…" = "Quit %@ to continue uninstalling…";
 "Hãy tắt Mail trước khi tối ưu" = "Quit Mail before optimizing";
@@ -297,6 +294,7 @@
 "Không kết nối được helper" = "Couldn't connect to helper";
 "Không mở được Clean Boost" = "Couldn't open Clean Boost";
 "Không nằm trong vùng helper được phép: %@" = "Not in a helper-allowed location: %@";
+"Không quét được %@: %@" = "Couldn't scan %@: %@";
 "Không rõ lỗi" = "Unknown error";
 "Không thuộc người dùng hiện tại (uid %u): %@" = "Not owned by the current user (uid %u): %@";
 "Không tháo được %@: %@" = "Couldn't eject %@: %@";
@@ -320,8 +318,7 @@
 "Khớp tên app trong thư mục chuẩn, hoặc LaunchAgent/Daemon chạy file của app" = "Matches the app name in a standard folder, or a LaunchAgent/Daemon runs the app's file";
 "Khởi động lại" = "Restart";
 "Khởi động lại Clean Boost để áp dụng ngôn ngữ mới." = "Restart Clean Boost to apply the new language.";
-"Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?" = "Khởi động lại Clean Boost để đổi ngôn ngữ? · Restart Clean Boost to change the language?";
-"Khởi động lại · Restart" = "Khởi động lại · Restart";
+"Khởi động lại Clean Boost để đổi ngôn ngữ?" = "Restart Clean Boost to change the language?";
 "Kiểm tra clone APFS" = "Check APFS clones";
 "Kiểm tra cập nhật…" = "Check for Updates…";
 "Kiểm tra rule mới" = "Check for new rules";
@@ -397,7 +394,7 @@
 "Nguồn" = "Source";
 "Nguồn khác" = "Other sources";
 "Ngày" = "Date";
-"Ngôn ngữ · Language" = "Ngôn ngữ · Language";
+"Ngôn ngữ" = "Language";
 "Người dùng %@ · Hệ thống %@" = "User %@ · System %@";
 "Nhà phát triển" = "Developer";
 "Nhóm theo dung lượng" = "Group by size";
@@ -434,7 +431,6 @@
 "Sao chép label" = "Copy Label";
 "Sao chép đường dẫn" = "Copy Path";
 "Smart Scan" = "Smart Scan";
-"Smart Scan trong ${applicationName}" = "Smart Scan in ${applicationName}";
 "Snapshot Time Machine cục bộ" = "Local Time Machine snapshots";
 "Snapshot Time Machine cục bộ; Time Machine vẫn giữ bản sao lưu trên ổ sao lưu." = "Local Time Machine snapshots; Time Machine still keeps backups on the backup disk.";
 "Snapshot cục bộ" = "Local snapshots";
@@ -446,6 +442,7 @@
 "Sẽ xử lý %lld mục, khoảng %@." = "Will process %lld items, about %@.";
 "Task %@ phụ thuộc task không tồn tại %@" = "Task %@ depends on nonexistent task %@";
 "Thanh menu" = "Menu bar";
+"Theo hệ thống" = "System";
 "Theo lịch" = "Scheduled";
 "Thoát" = "Quit";
 "Thuộc app đã gỡ" = "Belongs to an uninstalled app";
@@ -576,6 +573,7 @@
 "Đã giải phóng %@" = "Freed %@";
 "Đã gỡ %@, giải phóng %@" = "Uninstalled %@, freed %@";
 "Đã gỡ helper" = "Helper uninstalled";
+"Đã hoàn tất" = "Done";
 "Đã khôi phục" = "Restored";
 "Đã khôi phục %@" = "Restored %@";
 "Đã lưu: %@" = "Saved: %@";

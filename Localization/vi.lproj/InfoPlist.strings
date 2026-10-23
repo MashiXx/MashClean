@@ -1,0 +1,8 @@
+/* Sinh tự động bởi Scripts/l10n/gen_strings.py từ Localization/infoplist.json. Không sửa tay. */
+
+"NSAppleEventsUsageDescription" = "Clean Boost cần gửi yêu cầu thoát tới ứng dụng trước khi gỡ cài đặt.";
+"NSDesktopFolderUsageDescription" = "Clean Boost quét Desktop để tìm file lớn, cũ và trùng lặp.";
+"NSDocumentsFolderUsageDescription" = "Clean Boost quét Documents để tìm file lớn, cũ và trùng lặp.";
+"NSDownloadsFolderUsageDescription" = "Clean Boost quét Downloads để tìm bản cài đặt cũ.";
+"NSNetworkVolumesUsageDescription" = "Clean Boost phân tích dung lượng trên ổ mạng khi bạn yêu cầu.";
+"NSRemovableVolumesUsageDescription" = "Clean Boost phân tích dung lượng và dọn Thùng rác trên ổ ngoài.";
